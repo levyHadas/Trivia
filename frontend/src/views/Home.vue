@@ -38,8 +38,8 @@ export default {
   -o-background-size: cover;
   background-size: cover;
   h3 {
-    color:white;
-    background-color: green; 
+    color: white;
+    background-color: green;
     font-size: 50px;
     font-weight: bold;
   }

@@ -3,7 +3,8 @@ import Router from 'vue-router'
 import Home from './views/Home.vue'
 import Game from './views/GameScreen.vue'
 import SignUp from './views/SignUp.vue'
-import Login from './views/login.vue'
+import Login from './views/Login.vue'
+import QuestEdit from './views/QuestEdit.vue'
 
 Vue.use(Router)
 
@@ -11,12 +12,12 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'home',
+      name: 'Home',
       component: Home
     },
     {
       path: '/play',
-      name: 'game',
+      name: 'Game',
       component: Game
     },
     {
@@ -26,9 +27,13 @@ export default new Router({
     },
     {
       path: '/login',
-      name: 'login',
+      name: 'Login',
       component: Login
     },
-
+    {
+      path: '/quest/edit/:questId?',
+      name: 'QuestEdit',
+      component: QuestEdit 
+    },
   ]
 })
