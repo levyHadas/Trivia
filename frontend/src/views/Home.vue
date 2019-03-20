@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <section class="main">
-      <h3>Global. Knowlege. Play</h3>
+      <h3>Global. Knowlege. Play</h3><br/>
     </section>
   </div>
 </template>
@@ -27,12 +27,13 @@ export default {
 
 .main {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   align-content: center;
   padding: 50px;
   height: 60vh;
-  background: url("../assets/main.jpg") no-repeat center center fixed;
+  background: url("../assets/main.jpg") no-repeat center center;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -40,8 +41,10 @@ export default {
   h3 {
     color:white;
     background-color: green; 
+    border-radius: 20px;
     font-size: 50px;
     font-weight: bold;
+    padding:10px;
   }
 }
 
