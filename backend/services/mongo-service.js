@@ -6,7 +6,7 @@ function connectToMongo() {
     const MongoClient = require('mongodb').MongoClient;
     
     const url = (!process.env.PORT)? 
-                    'mongodb://localhost:27017/toyDB' : 'mongodb+srv://levyHadas:qweqwe00@levyHadas-t3mqo.mongodb.net/toyDB?retryWrites=true'
+                    'mongodb://localhost:27017/triviaDB' : 'mongodb+srv://levyHadas:qweqwe00@levyHadas-t3mqo.mongodb.net/triviaDB?retryWrites=true'
     
 // const url ='mongodb+srv://levyHadas:qweqwe00@levyHadas-t3mqo.mongodb.net/toyDB?retryWrites=true'
                     
