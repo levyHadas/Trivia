@@ -1,22 +1,35 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
+    <appHeader></appHeader>
     <router-view/>
+    <appFooter></appFooter>
   </div>
 </template>
 
+<script>
+import AppNav from "@/components/AppNav.vue";
+import AppHeader from "@/components/AppHeader.vue";
+import AppFooter from "@/components/AppFooter.vue";
+
+export default {
+  name: "App",
+  components: {
+    AppNav,
+    AppHeader,
+    AppFooter
+  }
+};
+</script>
+
 <style lang="scss">
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
 }
-#nav {
+nav {
   padding: 30px;
   a {
     font-weight: bold;
@@ -26,4 +39,5 @@
     }
   }
 }
+
 </style>
