@@ -5,13 +5,12 @@ function connectToMongo() {
     if (dbConn) return Promise.resolve(dbConn);
     const MongoClient = require('mongodb').MongoClient;
     
-    const url = (!process.env.PORT)? 
-                    'mongodb://localhost:27017/triviaDB' : 'mongodb+srv://levyHadas:qweqwe00@levyHadas-t3mqo.mongodb.net/triviaDB?retryWrites=true'
+    const url = 'mongodb+srv://levyHadas:qweqwe00@levyHadas-t3mqo.mongodb.net/triviaDB?retryWrites=true'
+    // const url = (!process.env.PORT)? 
+    //                 'mongodb://localhost:27017/triviaDB' : 'mongodb+srv://levyHadas:qweqwe00@levyHadas-t3mqo.mongodb.net/triviaDB?retryWrites=true'
     
-// const url ='mongodb+srv://levyHadas:qweqwe00@levyHadas-t3mqo.mongodb.net/toyDB?retryWrites=true'
-                    
     
-    return MongoClient.connect(url)
+    return MongoClient.connect(url, { useNewUrlParser: true })
         .then(client => {
             console.log('Connected to MongoDB');
             // If we get disconnected (e.g. db is down)

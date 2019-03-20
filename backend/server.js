@@ -4,9 +4,8 @@ const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 const session = require('express-session')
 
-const addToyRoutes = require('./routes/toy-route')
-const addReviewRoutes = require('./routes/review-route')
-const addUserRoutes = require('./routes/user-route')
+const AddQuestRoutes = require('./routes/quest-route')
+const AddUserRoutes = require('./routes/user-route')
 
 const app = express()
 app.use(cors({
@@ -28,9 +27,8 @@ app.use(session({
 app.get('/', (req, res) => {
   res.send('Hello World!')
 })
-addToyRoutes(app)
-addReviewRoutes(app)
-addUserRoutes(app)
+AddQuestRoutes(app)
+AddUserRoutes(app)
 
 const PORT = process.env.PORT || 3003;
 app.listen(PORT, () => console.log(`Example app listening on port ${PORT}`))
