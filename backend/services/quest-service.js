@@ -82,26 +82,24 @@ async function update(quest) {
 async function getFilter() {
     const db = await mongoService.connect()
     const filter = await db.collection('filter').findOne({})
+    console.log(filter.tags)
     return filter
 }
 
 
 async function addTagsToDB(tags) { //tags = Array
-    // const filterDbId = '5c937bed049290e19c5fa174'
-    const filterDbId = '5c939e7f049290e19c5fa17d'
-    //To do: get the Id from mongo and not hard coded
-    const objId = new ObjectId(filterDbId)
+    const db = await mongoService.connect()
+    const filter = await db.collection('filter').findOne({})
+    const strId = filter._id
+    
+    filter.tags = filter.tags.concat(tags)
+    filter._id = new ObjectId(strId)
+    
+    await db.collection('filter').updateOne({ _id: filter._id }, { $set: filter })
 
-    const queryToMongo = 
-        (   { _id: objId },
-            { $push: 
-                { tags: 
-                    { $each: tags } 
-                } 
-            }
-        )
-    await db.getCollection('filter').findOneAndUpdate(queryToMongo)
 }
+
+
 
 //this following works in Robo:
 //db.getCollection('filter').findOneAndUpdate(
