@@ -22,6 +22,10 @@ async function addQuestRoutes(app) {
             .then(quests => res.json(quests))  
     })
 
+    app.get(`${BASE_PATH}/filter`, (req, res) => {
+        QuestService.getFilter(req.query)
+            .then(quests => res.json(quests))  
+    })
     //Get Random
     // app.get(`${BASE_PATH}/random`, (req, res) => {
     //     QuestService.getRandom()
@@ -67,6 +71,8 @@ async function addQuestRoutes(app) {
         QuestService.update(quest)
             .then(quest => res.json(quest))
     })
+
+
 
 }
 

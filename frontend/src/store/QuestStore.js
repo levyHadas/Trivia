@@ -15,6 +15,10 @@ const QuestStore = ({
     setCurrQuest(state, { quest }) {
       state.currQuest = quest
     },
+    setFilterOptions(state, { filterOptions }) {
+      state.filterOptions = filterOptions
+    },
+    
     // removeQuest(state, { questId }) {
     //   state.currQuest = null
     //   const idx = state.quests.findIndex(quest => quest._id === questId)
@@ -37,7 +41,11 @@ const QuestStore = ({
     currQuest(state) {
       return state.currQuest
       // return JSON.parse(JSON.stringify(state.currQuest))
-    }
+    },
+    filterOptions(state) {
+      console.log('getter ', state.filterOptions)
+      return state.filterOptions
+    },
  
   },
 
@@ -60,6 +68,12 @@ const QuestStore = ({
       commit({ type: 'setCurrQuest', quest });
       return quest;
     },
+
+    async loadFilterOptions({ commit }) {
+      const filterOptions = await QuestService.getFilterOptions()
+      commit({ type: 'setFilterOptions', filterOptions });
+      // return filterOptions
+    }
 
     //   removeQuest({ commit }, { questId }) {
     //     return QuestService.remove(questId)
