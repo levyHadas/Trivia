@@ -4,7 +4,12 @@ const QuestStore = ({
 
   state: {
     quests: [],
-    currQuest: ''
+    currQuest: '',
+    currView: '',
+  //   currFilter: {
+  //     category: '',
+  //     tags: []
+  // },
   },
 
   mutations: {
@@ -18,6 +23,10 @@ const QuestStore = ({
     setFilterOptions(state, { filterOptions }) {
       state.filterOptions = filterOptions
     },
+    setCurrView(state, {view}) {
+      console.log(view)
+      state.currView = view
+    }
 
   },
 
@@ -31,9 +40,11 @@ const QuestStore = ({
       // return JSON.parse(JSON.stringify(state.currQuest))
     },
     filterOptions(state) {
-      console.log('getter ', state.filterOptions)
       return state.filterOptions
     },
+    currView(state) {
+      return state.currView
+    }
 
   },
 
@@ -59,7 +70,9 @@ const QuestStore = ({
       const filterOptions = await QuestService.loadFilterOptions()
       commit({ type: 'setFilterOptions', filterOptions })
       // return filterOptions
-    }
+    },
+
+  
 
   }
 })

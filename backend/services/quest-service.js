@@ -87,7 +87,8 @@ async function getFilter() {
 
 
 async function addTagsToDB(tags) { //tags = Array
-    const filterDbId = '5c937bed049290e19c5fa174'
+    // const filterDbId = '5c937bed049290e19c5fa174'
+    const filterDbId = '5c939e7f049290e19c5fa17d'
     //To do: get the Id from mongo and not hard coded
     const objId = new ObjectId(filterDbId)
 
