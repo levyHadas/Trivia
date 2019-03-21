@@ -34,11 +34,13 @@ export default new Router({
       name: 'Login',
       component: Login
     },
-    // {
-    //   path: '/play',
-    //   name: 'game',
-    //   component: Details,
-    // },
+    {
+      path: '/play', name: 'Play', component: Game,
+      children: [
+        // { path: '', component: Game },
+        { path: ':questId', name: 'Question', component: Details },
+      ]
+    },
     {
     path: '/QuestSelection',
     name: 'QuestSelection',
