@@ -4,13 +4,18 @@ const QuestStore = ({
 
   state: {
     quests: [],
-    currQuest: null
+    currQuest: ''
   },
 
   mutations: {
 
-    // setToys(state, { toys }) {
-    //   state.toys = toys
+    setQuests(state, { quests }) {
+      state.quests = quests
+    },
+    // removeQuest(state, { questId }) {
+    //   state.currQuest = null
+    //   const idx = state.quests.findIndex(quest => quest._id === questId)
+    //   state.quests.slice(idx, 1)
     // },
     setCurrQuest(state, { quest }) {
       state.currQuest = quest
@@ -26,6 +31,12 @@ const QuestStore = ({
     // },
     // addTodo(state, newToy) {
     //   state.toys.unshift(newToy)
+    // updateQuest(state, { updatedQuest }) {
+    //   const idx = state.quests.findIndex(quest => quest._id === updatedQuest._id)
+    //   state.quests.splice(idx, 1, updatedQuest)
+    // },
+    // addTodo(state, newQuest) {
+    //   state.quests.unshift(newQuest)
     // }
 
   },
@@ -34,22 +45,34 @@ const QuestStore = ({
     // toysForDisplay(state) {
     //   return state.toys
     // },
+    questsForDisplay(state) {
+      return state.quests
+    },
     currQuest(state) {
-      return state.currQuest
-      // return JSON.parse(JSON.stringify(state.currToy))
+      return state.currQuest;
+      // return JSON.parse(JSON.stringify(state.currQuest))
     }
+ 
   },
 
   actions: {
 
-  // loadToys({ commit }, {filterBy}) {
-  //   return ToyService.query(filterBy)
-  //     .then(toys => {
-  //       commit({ type: 'setToys', toys })
-  //       return toys
-  //     })
-  // },
+    async loadQuests({ commit }, { filterBy }) {
+      const quests = await QuestService.query(filterBy);
+      commit({ type: 'setQuests', quests });
+      return quests;
+    },
 
+    async loadQuest({ commit }, { questId }) {
+      if (!questId) {
+        const emptyQuest = await QuestService.createEmpty();
+        commit({ type: 'setCurrQuest', quest: emptyQuest });
+        return emptyQuest;
+      }
+      const quest = await QuestService.getById(questId);
+      commit({ type: 'setCurrQuest', quest });
+      return quest;
+    },
 
     loadQuest({ commit }, { questId }) {
       // if (!toyId) {
@@ -65,22 +88,20 @@ const QuestStore = ({
           return quest
         })
     }
+    //   removeQuest({ commit }, { questId }) {
+    //     return QuestService.remove(questId)
+    //       .then(() => commit({ type: 'removeQuest', questId }))
+    //   },
 
-  //   removeToy({ commit }, { toyId }) {
-  //     return ToyService.remove(toyId)
-  //       .then(() => commit({ type: 'removeToy', toyId }))
-  //   },
+    //   saveQuest({ commit }, { quest }) {
+    //     return QuestService.save(quest)
+    //       .then(quest => {
 
-  //   saveToy({ commit }, { toy }) {
-  //     return ToyService.save(toy)
-  //       .then(toy => {
-  //         //i don't really need to update the state toys since the will be
-  //         //updated anyway when user is pushed back to list
-  //         // if (toy._id) commit({ type: 'updateToy', updatedToy: toy })
-  //         // else commit({ type: 'addToy', newToy: toy })
-  //         return toy
-  //       })
-  //   },
+    //         // if (quest._id) commit({ type: 'updateQuest', updatedQuest: quest })
+    //         // else commit({ type: 'addQuest', newQuest: quest })
+    //         return quest
+    //       })
+    //   },
 
   }
 })

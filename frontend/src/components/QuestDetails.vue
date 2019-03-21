@@ -3,15 +3,12 @@
     <div class="quest">
       <transition name="fadeOne">
         <div v-show="show" class="container">
-          <p class="One">{{this.question.title}}</p>
+          <p class="One">{{thisQuestion.txt}}</p>
         </div>
       </transition>
       <transition name="fadeTwo">
         <div v-show="show" class="container">
-          <p class="Two answer">{{this.question.answers.a}}</p>
-          <p class="Two answer">{{this.question.answers.b}}</p>
-          <p class="Two answer">{{this.question.answers.c}}</p>
-          <p class="Two answer">{{this.question.answers.d}}</p>
+          <p v-for="answer in thisAnswers" class="Two answer">{{answer}}</p>
         </div>
       </transition>
     </div>
@@ -27,20 +24,13 @@ export default {
   data() {
     return {
       show: false,
-      question: {
-        title: "Who invented the telephone?",
-        answers: {
-          a: "Bell",
-          b: "Einshtien",
-          c: "Gahndi",
-          d: "Turing"
-        }
-      }
+      question: {}
     };
   },
   created() {
-    var questId=this.$route.params.questId;
-    this.$store.dispatch({ type: "loadQuest" })
+    var questId = this.$route.params.questId;
+    this.$store.dispatch({ type: "loadQuest", questId });
+    // this.question=this.$store.state.currQuest;
     var intervalShow = setInterval(() => {
       this.show = true;
     }, 300);
@@ -48,13 +38,21 @@ export default {
   },
   destroyed() {
     clearInterval(intervalShow);
+  },
+  computed: {
+    thisQuestion() {
+      return this.$store.getters.currQuest;
+    },
+    thisAnswers() {
+      return this.$store.getters.currQuest.answers;
+    }
   }
 };
 </script>
 
 <style scoped lang="scss">
 .main {
-  //   height: 100%;
+  // height: 100%;
   width: 100%;
   background: rgb(2, 0, 36);
   background: linear-gradient(
@@ -63,6 +61,10 @@ export default {
     rgba(148, 150, 37, 1) 0%,
     rgba(0, 212, 255, 1) 100%
   );
+}
+
+.quest {
+  max-height: 100%;
 }
 
 .container {
@@ -115,6 +117,7 @@ p {
 }
 
 .answer {
+  margin-top: 20px;
   display: inline-block;
   margin-right: 10px;
   background: #339dff;
@@ -125,8 +128,11 @@ p {
   border-radius: 50px;
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
-  width: 170px;
+  width: 300px;
+  height: 70px;
   text-align: center;
+  vertical-align: middle;
+  line-height: 70px;
 }
 
 .answer:hover {

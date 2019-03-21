@@ -8,6 +8,7 @@ import Details from './components/QuestDetails.vue'
 import QuestSelection from './views/QuestSelection.vue'
 
 
+import QuestEdit from './views/QuestEdit.vue'
 
 Vue.use(Router)
 
@@ -15,17 +16,22 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'home',
+      name: 'Home',
       component: Home
     },
     {
-      path: '/signup',
+      path: '/Play',
+      name: 'Game',
+      component: Game
+    },
+    {
+      path: '/Signup',
       name: 'SignUp',
       component: SignUp
     },
     {
       path: '/login',
-      name: 'login',
+      name: 'Login',
       component: Login
     },
     {
@@ -39,6 +45,11 @@ export default new Router({
         // { path: '', component: Game },
         { path: ':questId', name: 'Question', component: Details },
       ]
+    },
+    {
+      path: '/quest/edit/:questId?',
+      name: 'QuestEdit',
+      component: QuestEdit
     },
   ]
 })
