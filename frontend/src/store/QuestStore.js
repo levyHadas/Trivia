@@ -9,6 +9,13 @@ const QuestStore = ({
 
   mutations: {
 
+    nextQuest(state) {
+      var questsLength = state.quests.length;
+      console.log(questsLength)
+      if (questsLength === 1) return
+        state.quests.splice(0, 1);
+        state.currQuest = state.quests[0]
+    },
     setQuests(state, { quests }) {
       state.quests = quests
     },
@@ -38,7 +45,9 @@ const QuestStore = ({
   },
 
   actions: {
-
+    nextQuest({ commit }) {
+      commit({ type: 'nextQuest' })
+    },
     async loadQuests({ commit }, { filterBy }) {
       const quests = await QuestService.query(filterBy)
       commit({ type: 'setQuests', quests })
