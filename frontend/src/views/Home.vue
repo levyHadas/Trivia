@@ -3,7 +3,7 @@
     <section class="main">
       <h3>Global. Knowlege. Compete With Others</h3>
       <br>
-      <a href="" class="download2">Play</a>
+      <a href="#/QuestSelection" class="download2">Play</a>
     </section>
   </div>
 </template>
