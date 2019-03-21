@@ -9,7 +9,7 @@ module.exports = {
     add,
     remove,
     update,
-    getRandom
+    // getRandom
 }
 
 // function checkLogin({ nickname }) {

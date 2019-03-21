@@ -12,9 +12,9 @@ const QuestStore = ({
     // setToys(state, { toys }) {
     //   state.toys = toys
     // },
-    // setCurrToy(state, { toy }) {
-    //   state.currToy = toy
-    // },
+    setCurrQuest(state, { quest }) {
+      state.currQuest = quest
+    }
     // removeToy(state, { toyId }) {
     //   state.currToy = null
     //   const idx = state.toys.findIndex(toy => toy._id === toyId)
@@ -34,10 +34,10 @@ const QuestStore = ({
     // toysForDisplay(state) {
     //   return state.toys
     // },
-    // currToy(state) {
-    //   return state.currToy
-    //   // return JSON.parse(JSON.stringify(state.currToy))
-    // }
+    currQuest(state) {
+      return state.currQuest
+      // return JSON.parse(JSON.stringify(state.currToy))
+    }
   },
 
   actions: {
@@ -51,20 +51,20 @@ const QuestStore = ({
   // },
 
 
-  //   loadToy({ commit }, { toyId }) {
-  //     if (!toyId) {
-  //       return ToyService.createEmpty()
-  //         .then(emptyToy => {
-  //           commit({ type: 'setCurrToy', toy: emptyToy })
-  //           return emptyToy
-  //         })
-  //     }
-  //     return ToyService.getById(toyId)
-  //       .then(toy => {
-  //         commit({ type: 'setCurrToy', toy })
-  //         return toy
-  //       })
-  //   },
+    loadQuest({ commit }, { questId }) {
+      // if (!toyId) {
+      //   return ToyService.createEmpty()
+      //     .then(emptyToy => {
+      //       commit({ type: 'setCurrToy', toy: emptyToy })
+      //       return emptyToy
+      //     })
+      // }
+      return QuestService.getById(questId)
+        .then(quest => {
+          commit({ type: 'setCurrQuest', quest })
+          return quest
+        })
+    }
 
   //   removeToy({ commit }, { toyId }) {
   //     return ToyService.remove(toyId)

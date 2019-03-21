@@ -39,6 +39,8 @@ export default {
     };
   },
   created() {
+    var questId=this.$route.params.questId;
+    this.$store.dispatch({ type: "loadQuest" })
     var intervalShow = setInterval(() => {
       this.show = true;
     }, 300);
@@ -52,7 +54,8 @@ export default {
 
 <style scoped lang="scss">
 .main {
-  height: 50vh;
+  //   height: 100%;
+  width: 100%;
   background: rgb(2, 0, 36);
   background: linear-gradient(
     90deg,
@@ -80,7 +83,7 @@ button {
 p {
   text-align: center;
   font-size: 50px;
-  font-smoothing: antialiased;
+  //   font-smoothing: antialiased;
   overflow: hidden;
   color: black;
   margin: 1px;

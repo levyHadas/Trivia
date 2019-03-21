@@ -29,15 +29,16 @@ export default new Router({
       component: Login
     },
     {
-      path: '/play',
-      name: 'game',
-      component: Details,
+      path: '/QuestSelection',
+      name: 'QuestSelection',
+      component: QuestSelection
     },
     {
-    path: '/QuestSelection',
-    name: 'QuestSelection',
-    component: QuestSelection
+      path: '/play', name: 'Play', component: Game,
+      children: [
+        // { path: '', component: Game },
+        { path: ':questId', name: 'Question', component: Details },
+      ]
     },
-
   ]
 })
