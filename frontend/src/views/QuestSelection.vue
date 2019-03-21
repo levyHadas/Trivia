@@ -5,16 +5,16 @@
         <button @click="updateCurrView('tags')">By Tags</button>
         <!-- <tag-cloud @tagsSelected="startListView()"></tag-cloud>  -->
         <tags-cloud
-            v-if="this.currView === 'tags'"
+            v-if="viewToRender === 'tags'"
             :tags="allTags"
             @startListView="startListView"/>
         <category-view 
-            v-if="this.currView !== 'list'" 
+            v-if="viewToRender !== 'list'" 
             :categories="allCategories"
             @startListView="startListView"
             :filter="filterBy"/>
         <list-view 
-            v-if="this.currView === 'list'" 
+            v-if="viewToRender === 'list'" 
             :filter="filterBy"
             :quests="quests"/>
     </section>
@@ -37,14 +37,16 @@ export default {
     data() {
         return {
             quests: [],
-            currView: 'category',
+            currView: '',
             filterBy: {
                 category: '',
                 tags: []
             },
-            allTags: ['American history', 'pandas', 'JS', 'Anime', 'Funny', 'War', 'Space'], //should be loaded from DB
-            allCategories: ['Science & Nature', 'Science: Computers', 'Science: Mathematics',
-                'Mythology', 'Sports', 'Geography', 'History', 'Politics', 'Entertainment', 'Art']
+            allTags: [],
+            allCategories: [] 
+            // allTags: ['American history', 'pandas', 'JS', 'Anime', 'Funny', 'War', 'Space'], //should be loaded from DB
+            // allCategories: ['Science & Nature', 'Science: Computers', 'Science: Mathematics',
+            //     'Mythology', 'Sports', 'Geography', 'History', 'Politics', 'Entertainment', 'Art']
         }
     },
     components: {
@@ -54,8 +56,13 @@ export default {
     },
 
     async created() {
+        console.log('hi')
+        const currView = this.$store.getters.currView
+        if (!currView) this.currView = 'category'
+        else this.currView = currView
         await this.$store.dispatch('loadFilterOptions')
         this.allCategories = this.$store.getters.filterOptions.categories
+        console.log(this.allCategories)
         this.allTags = this.$store.getters.filterOptions.tags
     },
 
@@ -64,6 +71,7 @@ export default {
     methods: {
         updateCurrView(view) {
             this.currView = view
+            this.$store.commit({type:'setCurrView', view: this.currView})
         },
         async startListView(filter) {
             this.filterBy = filter
@@ -77,7 +85,10 @@ export default {
         categoryView () { 
             if (!this.currView) return true
             return this.currView === 'category'
-        },    
+        }, 
+        viewToRender() {
+            return this.currView
+        }   
     },
 
 }
