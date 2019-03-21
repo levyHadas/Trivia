@@ -28,6 +28,10 @@ async function addQuestRoutes(app) {
     //         .then(quests => res.json(quests))
     // })
 
+    app.get(`${BASE_PATH}/filter`, (req, res) => {
+        QuestService.getFilter(req.query)
+            .then(quests => res.json(quests))
+    })
     // SINGLE - GET Full details
     app.get(`${BASE_PATH}/:questId`, (req, res) => {
         const {questId} = req.params
@@ -35,6 +39,7 @@ async function addQuestRoutes(app) {
             .then(quest => res.json(quest))
  
     })
+
 
 
     // CREATE

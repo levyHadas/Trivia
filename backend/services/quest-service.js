@@ -9,6 +9,7 @@ module.exports = {
     add,
     remove,
     update,
+    getFilter
     // getRandom
 }
 
@@ -16,7 +17,6 @@ module.exports = {
 //     return mongoService.connect()
 //         .then(db => db.collection('toy').findOne({ nickname }))
 // }
-
 
 async function query(query) {
     // var query = {category:'The overall'} || {tags:'value}
@@ -36,8 +36,6 @@ async function query(query) {
     }
 }
 
-
-//working
 function getById(id) {
     const _id = new ObjectId(id)
     return mongoService.connect()
@@ -51,9 +49,6 @@ function getById(id) {
 //     return quests
 // }
 
-
-
-//working
 async function add(quest) {
     const db = await mongoService.connect()
     const res = await db.collection('quest').insertOne(quest)
@@ -61,17 +56,12 @@ async function add(quest) {
     return quest
 }
 
-
-
-//working
 async function remove(id) {
     const _id = new ObjectId(id)
     const db = await mongoService.connect()
     await db.collection('quest').deleteOne({_id})
 }
 
-
-//working
 async function update(quest) {
     const strQuestId = quest._id
     quest._id = new ObjectId(quest._id)
@@ -80,6 +70,12 @@ async function update(quest) {
     quest._id = strQuestId
     return quest
 }
+
+async function getFilter() {
+    const db = await mongoService.connect()
+    const filter = await db.collection('filter').findOne({})
+    return filter
+ }
 
 
 

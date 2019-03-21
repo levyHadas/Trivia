@@ -2,32 +2,70 @@
   <section v-if="questToEdit" class="quest-details">
     <h1>Edit Question</h1>
 
-    <form @submit.prevent="saveQuest">
-      <div class="edit-row">
-        <h3>Quest Category</h3>
-        <h3>Quest</h3>
-        <h3>Choose the correct answer</h3>
-        <h3>Created By:</h3>
-        <h3>Change Image</h3>
-        <h3>Tag</h3>
-        <h3>Hintgit </h3>
-        <h3>Tag</h3>
-        <el-input
-          class="el-input"
-          name="Name"
-          v-model="questToEdit.name"
-          placeholder="Quest Name"
-          clearable
-        ></el-input>
-        <!-- <span>{{ errors.first('Name') }}</span> -->
-      </div>
-      <div class="edit-row">
-        <p>Created At</p>
-        <el-date-picker type="date" class="el-input" v-model="questToEdit.createdAt"></el-date-picker>
-      </div>
-      <el-button class="edit-row save" type="primary" plain @click.prevent="saveQuest">Save</el-button>
-    </form>
-    <el-button type="danger" plain @click="removeQuest">X</el-button>
+    <el-form ref="form" :model="form" label-width="120px" @submit.prevent="saveQuest">
+      <el-form-item label="Question">
+        <el-input v-model="form.name"></el-input>
+      </el-form-item>
+      <el-form-item label="Category">
+        <el-dropdown>
+          <el-button type="primary">
+            Category
+            <i class="el-icon-arrow-down el-icon--right"></i>
+          </el-button>
+          <el-dropdown-menu slot="dropdown">
+            <el-dropdown-item>Action 1</el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>
+      </el-form-item>
+      <el-form-item label="Correct Answer">
+        <el-dropdown>
+          <el-button type="primary">
+            Correct Answer
+            <i class="el-icon-arrow-down el-icon--right"></i>
+          </el-button>
+          <el-dropdown-menu slot="dropdown">
+            <el-dropdown-item>Action 1</el-dropdown-item>
+            <el-dropdown-item>Action 2</el-dropdown-item>
+            <el-dropdown-item>Action 3</el-dropdown-item>
+            <el-dropdown-item>Action 4</el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>
+      </el-form-item>
+      <el-form-item label="Craeted At">
+        <el-col :span="11">
+          <el-date-picker
+            type="date"
+            placeholder="Pick a date"
+            v-model="form.date1"
+            style="width: 100%;"
+          ></el-date-picker>
+        </el-col>
+      </el-form-item>
+      <el-form-item label="Change Image">
+        <el-input v-model="form.name"></el-input>
+      </el-form-item>
+      <el-form-item label="Created By">
+        <el-input v-model="form.name"></el-input>
+      </el-form-item>
+      <el-form-item label="Tag">
+        <el-input v-model="form.name"></el-input>
+      </el-form-item>
+      <el-form-item label="Hint">
+        <el-input v-model="form.name"></el-input>
+      </el-form-item>
+      <!--   <el-form-item label="Instant delivery">
+    <el-switch v-model="form.delivery"></el-switch>
+      </el-form-item>-->
+      <!--  
+  <el-form-item label="Activity form">
+    <el-input type="textarea" v-model="form.desc"></el-input>
+      </el-form-item>-->
+      <el-form-item>
+        <el-button type="primary" @click="onSubmit">Create</el-button>
+        <el-button type="danger" plain @click="removeQuest">X</el-button>
+        <el-button>Cancel</el-button>
+      </el-form-item>
+    </el-form>
   </section>
 </template>
 
@@ -38,7 +76,17 @@ export default {
   name: "QuestEdit",
   data() {
     return {
-      questToEdit: null
+      questToEdit: null,
+      form: {
+        name: "",
+        region: "",
+        date1: "",
+        date2: "",
+        delivery: false,
+        type: [],
+        resource: "",
+        desc: ""
+      }
       //   options: ["Adult", "Educational"]
     };
   },
@@ -64,6 +112,9 @@ export default {
       this.$store
         .dispatch({ type: "saveQuest", quest: this.questToEdit })
         .then(() => this.$router.push("/quest"));
+    },
+    onSubmit() {
+      console.log("submit!");
     }
     // querySearch(queryString, cb) {
     //   // call callback function to return suggestions
@@ -85,7 +136,7 @@ export default {
 </script>
 
 <style scoped>
-/* .el-input {
+.el-input {
   width: 300px;
 }
 .edit-row {
@@ -105,5 +156,14 @@ export default {
 }
 .el-radio {
   margin-right: 10px;
-} */
+}
+.el-dropdown {
+  vertical-align: top;
+}
+.el-dropdown + .el-dropdown {
+  margin-left: 15px;
+}
+.el-icon-arrow-down {
+  font-size: 12px;
+}
 </style>
