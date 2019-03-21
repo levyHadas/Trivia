@@ -12,96 +12,54 @@ const QuestStore = ({
     setQuests(state, { quests }) {
       state.quests = quests
     },
-    // removeQuest(state, { questId }) {
-    //   state.currQuest = null
-    //   const idx = state.quests.findIndex(quest => quest._id === questId)
-    //   state.quests.slice(idx, 1)
-    // },
     setCurrQuest(state, { quest }) {
       state.currQuest = quest
-    }
-    // removeToy(state, { toyId }) {
-    //   state.currToy = null
-    //   const idx = state.toys.findIndex(toy => toy._id === toyId)
-    //   state.toys.slice(idx, 1)
-    // },
-    // updateToy(state, { updatedToy }) {
-    //   const idx = state.toys.findIndex(toy => toy._id === updatedToy._id)
-    //   state.toys.splice(idx, 1, updatedToy)
-    // },
-    // addTodo(state, newToy) {
-    //   state.toys.unshift(newToy)
-    // updateQuest(state, { updatedQuest }) {
-    //   const idx = state.quests.findIndex(quest => quest._id === updatedQuest._id)
-    //   state.quests.splice(idx, 1, updatedQuest)
-    // },
-    // addTodo(state, newQuest) {
-    //   state.quests.unshift(newQuest)
-    // }
+    },
+    setFilterOptions(state, { filterOptions }) {
+      state.filterOptions = filterOptions
+    },
 
   },
 
   getters: {
-    // toysForDisplay(state) {
-    //   return state.toys
-    // },
+
     questsForDisplay(state) {
       return state.quests
     },
     currQuest(state) {
       return state.currQuest;
       // return JSON.parse(JSON.stringify(state.currQuest))
-    }
- 
+    },
+    filterOptions(state) {
+      console.log('getter ', state.filterOptions)
+      return state.filterOptions
+    },
+
   },
 
   actions: {
 
     async loadQuests({ commit }, { filterBy }) {
-      const quests = await QuestService.query(filterBy);
-      commit({ type: 'setQuests', quests });
+      const quests = await QuestService.query(filterBy)
+      commit({ type: 'setQuests', quests })
       return quests;
     },
 
     async loadQuest({ commit }, { questId }) {
       if (!questId) {
-        const emptyQuest = await QuestService.createEmpty();
-        commit({ type: 'setCurrQuest', quest: emptyQuest });
+        const emptyQuest = await QuestService.createEmpty()
+        commit({ type: 'setCurrQuest', quest: emptyQuest })
         return emptyQuest;
       }
       const quest = await QuestService.getById(questId);
-      commit({ type: 'setCurrQuest', quest });
+      commit({ type: 'setCurrQuest', quest })
       return quest;
     },
-
-    loadQuest({ commit }, { questId }) {
-      // if (!toyId) {
-      //   return ToyService.createEmpty()
-      //     .then(emptyToy => {
-      //       commit({ type: 'setCurrToy', toy: emptyToy })
-      //       return emptyToy
-      //     })
-      // }
-      return QuestService.getById(questId)
-        .then(quest => {
-          commit({ type: 'setCurrQuest', quest })
-          return quest
-        })
+    async loadFilterOptions({ commit }) {
+      const filterOptions = await QuestService.loadFilterOptions()
+      commit({ type: 'setFilterOptions', filterOptions })
+      // return filterOptions
     }
-    //   removeQuest({ commit }, { questId }) {
-    //     return QuestService.remove(questId)
-    //       .then(() => commit({ type: 'removeQuest', questId }))
-    //   },
-
-    //   saveQuest({ commit }, { quest }) {
-    //     return QuestService.save(quest)
-    //       .then(quest => {
-
-    //         // if (quest._id) commit({ type: 'updateQuest', updatedQuest: quest })
-    //         // else commit({ type: 'addQuest', newQuest: quest })
-    //         return quest
-    //       })
-    //   },
 
   }
 })

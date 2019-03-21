@@ -22,12 +22,27 @@ async function addQuestRoutes(app) {
             .then(quests => res.json(quests))  
     })
 
+    app.get(`${BASE_PATH}/filter`, (req, res) => {
+        QuestService.getFilter()
+            .then(filter => res.json(filter))  
+    })
+
+    app.post(`${BASE_PATH}/filter`, (req, res) => {
+        const tags = req.body;
+        QuestService.addTagsToDB(tags)
+            .then(quests => res.json(quests))  
+    })
+
     //Get Random
     // app.get(`${BASE_PATH}/random`, (req, res) => {
     //     QuestService.getRandom()
     //         .then(quests => res.json(quests))
     // })
 
+    app.get(`${BASE_PATH}/filter`, (req, res) => {
+        QuestService.getFilter(req.query)
+            .then(quests => res.json(quests))
+    })
     // SINGLE - GET Full details
     app.get(`${BASE_PATH}/:questId`, (req, res) => {
         const {questId} = req.params
@@ -35,6 +50,7 @@ async function addQuestRoutes(app) {
             .then(quest => res.json(quest))
  
     })
+
 
 
     // CREATE
@@ -62,6 +78,8 @@ async function addQuestRoutes(app) {
         QuestService.update(quest)
             .then(quest => res.json(quest))
     })
+
+
 
 }
 
