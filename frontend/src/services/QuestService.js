@@ -16,9 +16,6 @@ export default {
 
 }
 
-
-
-
 async function query(filterBy) {
     if (filterBy) {
         var queryStr = '?'
