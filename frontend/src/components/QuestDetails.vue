@@ -8,7 +8,12 @@
       </transition>
       <transition name="fadeTwo">
         <div v-show="show" class="container">
-          <p v-for="answer in thisAnswers" class="Two answer">{{answer}}</p>
+          <p
+            v-for="answer in thisAnswers"
+            :key="answer"
+            class="Two answer"
+            @click="checkAnswer($event,answer)"
+          >{{answer}}</p>
         </div>
       </transition>
     </div>
@@ -24,17 +29,30 @@ export default {
   data() {
     return {
       show: false,
-      question: {}
+      question: {},
+      isCorrect: false
     };
+  },
+  methods: {
+    checkAnswer(event, answer) {
+      var answers = this.$store.getters.currQuest.answers;
+      var answerIdx = +answers.indexOf(answer);
+      var correctAnswerIdx = +this.$store.getters.currQuest.correctAnswerIdx;
+
+      if (correctAnswerIdx === answerIdx) {
+        console.log("CORRECT");
+        event.target.classList.toggle("answerCorrect");
+      } else {
+        event.target.classList.toggle("answerWrong");
+      }
+    }
   },
   created() {
     var questId = this.$route.params.questId;
     this.$store.dispatch({ type: "loadQuest", questId });
-    // this.question=this.$store.state.currQuest;
     var intervalShow = setInterval(() => {
       this.show = true;
     }, 300);
-    //   this.show = true;
   },
   destroyed() {
     clearInterval(intervalShow);
@@ -133,6 +151,14 @@ p {
   text-align: center;
   vertical-align: middle;
   line-height: 70px;
+}
+
+.answerCorrect {
+  background: rgb(0, 193, 75);
+}
+
+.answerWrong {
+    background: red;
 }
 
 .answer:hover {
