@@ -28,6 +28,8 @@
 import CategoryView from '@/components/CategoryView.vue'
 import ListView from '@/components/ListView.vue'
 import TagsCloud from '@/components/TagsCloud.vue'
+import QuestService from '../services/QuestService.js'
+
 
 
 export default {
@@ -51,6 +53,14 @@ export default {
         TagsCloud,
     },
 
+    async created() {
+        await this.$store.dispatch('loadFilterOptions')
+        this.allCategories = this.$store.getters.filterOptions.categories
+        this.allTags = this.$store.getters.filterOptions.tags
+    },
+
+ 
+
     methods: {
         updateCurrView(view) {
             this.currView = view
@@ -67,8 +77,7 @@ export default {
         categoryView () { 
             if (!this.currView) return true
             return this.currView === 'category'
-        },
-      
+        },    
     },
 
 }

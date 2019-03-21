@@ -11,7 +11,8 @@ export default {
     getById,
     remove,
     createEmpty,
-    save
+    save,
+    loadFilterOptions
 
 }
 
@@ -51,4 +52,12 @@ function createEmpty() {
 
     }
     return Promise.resolve(emptyQuest)
+}
+
+
+async function loadFilterOptions() {
+    const filterOptions = await Axios.get(`${BASE_PATH}/filter`)
+    return filterOptions.data
+
+    
 }

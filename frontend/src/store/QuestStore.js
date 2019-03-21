@@ -15,6 +15,10 @@ const QuestStore = ({
     setCurrQuest(state, { quest }) {
       state.currQuest = quest
     },
+    setFilterOptions(state, { filterOptions }) {
+      state.filterOptions = filterOptions
+    },
+    
     // removeQuest(state, { questId }) {
     //   state.currQuest = null
     //   const idx = state.quests.findIndex(quest => quest._id === questId)
@@ -37,29 +41,39 @@ const QuestStore = ({
     currQuest(state) {
       return state.currQuest
       // return JSON.parse(JSON.stringify(state.currQuest))
-    }
+    },
+    filterOptions(state) {
+      console.log('getter ', state.filterOptions)
+      return state.filterOptions
+    },
  
   },
 
   actions: {
 
     async loadQuests({ commit }, { filterBy }) {
-      const quests = await QuestService.query(filterBy);
-      commit({ type: 'setQuests', quests });
+      const quests = await QuestService.query(filterBy)
+      commit({ type: 'setQuests', quests })
       return quests;
     },
 
 
     async loadQuest({ commit }, { questId }) {
       if (!questId) {
-        const emptyQuest = await QuestService.createEmpty();
-        commit({ type: 'setCurrQuest', quest: emptyQuest });
+        const emptyQuest = await QuestService.createEmpty()
+        commit({ type: 'setCurrQuest', quest: emptyQuest })
         return emptyQuest;
       }
       const quest = await QuestService.getById(questId);
-      commit({ type: 'setCurrQuest', quest });
+      commit({ type: 'setCurrQuest', quest })
       return quest;
     },
+
+    async loadFilterOptions({ commit }) {
+      const filterOptions = await QuestService.loadFilterOptions()
+      commit({ type: 'setFilterOptions', filterOptions })
+      // return filterOptions
+    }
 
     //   removeQuest({ commit }, { questId }) {
     //     return QuestService.remove(questId)
