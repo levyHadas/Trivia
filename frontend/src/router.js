@@ -4,6 +4,7 @@ import Home from './views/Home.vue'
 import Game from './views/GameScreen.vue'
 import SignUp from './views/SignUp.vue'
 import Login from './views/Login.vue'
+import Details from './components/QuestDetails.vue'
 
 Vue.use(Router)
 
@@ -15,11 +16,6 @@ export default new Router({
       component: Home
     },
     {
-      path: '/play',
-      name: 'game',
-      component: Game
-    },
-    {
       path: '/signup',
       name: 'SignUp',
       component: SignUp
@@ -29,6 +25,10 @@ export default new Router({
       name: 'login',
       component: Login
     },
-
+    {
+      path: '/play',
+      name: 'game',
+      component: Details,
+    }
   ]
 })

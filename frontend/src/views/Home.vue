@@ -1,7 +1,9 @@
 <template>
   <div class="home">
     <section class="main">
-      <h3>Global. Knowlege. Play</h3><br/>
+      <h3>Global. Knowlege. Compete With Others</h3>
+      <br>
+      <a href="" class="download2">Play</a>
     </section>
   </div>
 </template>
@@ -39,12 +41,14 @@ export default {
   -o-background-size: cover;
   background-size: cover;
   h3 {
-    color:white;
-    background-color: green; 
+    color: white;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: black;
+    // background-color: green;
     border-radius: 20px;
-    font-size: 50px;
+    font-size: 30px;
     font-weight: bold;
-    padding:10px;
+    padding: 10px;
   }
 }
 
@@ -60,6 +64,27 @@ header {
   h1 {
     font-size: 60px;
   }
+}
+
+.download2 {
+  display: inline-block;
+  margin-right: 10px;
+  background: rgb(253,47,83);
+  color: #fff;
+  text-decoration: none;
+  font-size: 20px;
+  line-height: 38px;
+  border-radius: 50px;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  width: 170px;
+  text-align: center;
+}
+
+.download2:hover {
+  background: #fff;
+  color: #339dff;
+  box-shadow: 0 4px 4px rgba(83, 100, 255, 0.32);
 }
 
 footer {
