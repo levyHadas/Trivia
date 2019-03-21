@@ -55,11 +55,11 @@ export default {
         updateCurrView(view) {
             this.currView = view
         },
-        startListView(filter) {
+        async startListView(filter) {
             this.filterBy = filter
+            this.quests = await this.$store.dispatch({ type: 'loadQuests', filterBy: this.filterBy })
             this.updateCurrView('list')
-            this.$store.dispatch({ type: 'loadQuests', filterBy: this.filterBy })
-            this.quests = this.$store.getters.questsForDisplay
+            
         }
     },
 
@@ -67,7 +67,8 @@ export default {
         categoryView () { 
             if (!this.currView) return true
             return this.currView === 'category'
-        }
+        },
+      
     },
 
 }

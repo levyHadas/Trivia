@@ -4,14 +4,14 @@ const QuestStore = ({
 
   state: {
     quests: [],
-    currQuest: null
+    currQuest: ''
   },
 
   mutations: {
 
-    // setToys(state, { toys }) {
-    //   state.toys = toys
-    // },
+    setQuests(state, { quests }) {
+      state.quests = quests
+    },
     // setCurrToy(state, { toy }) {
     //   state.currToy = toy
     // },
@@ -41,10 +41,9 @@ const QuestStore = ({
   },
 
   actions: {
-
   async loadQuests({ commit }, {filterBy}) {
     const quests = await QuestService.query(filterBy)
-    commit({ type: 'setQuest', quests })
+    commit({ type: 'setQuests', quests })
     return quests
   },
 

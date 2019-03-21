@@ -9,7 +9,7 @@ const AddUserRoutes = require('./routes/user-route')
 
 const app = express()
 app.use(cors({
-  origin: ['http://localhost:8082', 'http://localhost:8080'],
+  origin: ['http://localhost:8080', 'http://localhost:8081'],
     credentials: true
   // enable set cookie
 }));
