@@ -5,6 +5,9 @@ import Game from './views/GameScreen.vue'
 import SignUp from './views/SignUp.vue'
 import Login from './views/Login.vue'
 import Details from './components/QuestDetails.vue'
+import QuestSelection from './views/QuestSelection.vue'
+
+
 
 Vue.use(Router)
 
@@ -29,6 +32,12 @@ export default new Router({
       path: '/play',
       name: 'game',
       component: Details,
-    }
+    },
+    {
+    path: '/QuestSelection',
+    name: 'QuestSelection',
+    component: QuestSelection
+    },
+
   ]
 })

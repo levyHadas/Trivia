@@ -23,14 +23,20 @@ async function addQuestRoutes(app) {
             .then(quests => res.json(quests))  
     })
 
+    //Get Random
+    // app.get(`${BASE_PATH}/random`, (req, res) => {
+    //     QuestService.getRandom()
+    //         .then(quests => res.json(quests))
+    // })
 
-    // SINGLE - GET Full details including reviews
+    // SINGLE - GET Full details
     app.get(`${BASE_PATH}/:questId`, (req, res) => {
         const {questId} = req.params
         QuestService.getById(questId)
             .then(quest => res.json(quest))
  
     })
+
 
     // CREATE
     app.post(`${BASE_PATH}`, (req, res) => {
