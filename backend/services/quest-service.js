@@ -9,7 +9,8 @@ module.exports = {
     add,
     remove,
     update,
-    getFilter
+    getFilter,
+    addTagsToDB
     // getRandom
 }
 
@@ -21,16 +22,17 @@ module.exports = {
 async function query(query) {
     // var query = {category:'The overall'} || {tags:'value}
     queryToMongo = {}
-    if (query.category) queryToMongo.category = {'$regex': query.category, '$options' : 'i'}
+    if (query.category) queryToMongo.category = { '$regex': query.category, '$options': 'i' }
     if (query.tags && query.tags.length > 0) {
-        queryToMongo.tags = {'$regex': query.tags, '$options' : 'i'}
+        //Todo - for multiple tags: user or - need to build an expretion for each
+        queryToMongo.tags = { '$regex': query.tags, '$options': 'i' }
     }
     try {
         const db = await mongoService.connect()
         const data = await db.collection('quest').find(queryToMongo).toArray()
         return data
     }
-    catch(error) {
+    catch (error) {
         console.log(error.message)
         throw (error.message + '. could not load database')
     }
@@ -39,7 +41,7 @@ async function query(query) {
 function getById(id) {
     const _id = new ObjectId(id)
     return mongoService.connect()
-        .then(db => db.collection('quest').findOne({_id}))
+        .then(db => db.collection('quest').findOne({ _id }))
 }
 
 //not working yet
@@ -63,7 +65,7 @@ async function add(quest) {
 async function remove(id) {
     const _id = new ObjectId(id)
     const db = await mongoService.connect()
-    await db.collection('quest').deleteOne({_id})
+    await db.collection('quest').deleteOne({ _id })
 }
 
 
@@ -72,7 +74,7 @@ async function update(quest) {
     const strQuestId = quest._id
     quest._id = new ObjectId(quest._id)
     const db = await mongoService.connect()
-    await db.collection('quest').updateOne({_id:quest._id},{$set:quest})
+    await db.collection('quest').updateOne({ _id: quest._id }, { $set: quest })
     quest._id = strQuestId
     return quest
 }
@@ -82,6 +84,28 @@ async function getFilter() {
     const filter = await db.collection('filter').findOne({})
     return filter
 }
+
+
+async function addTagsToDB(tags) { //tags = Array
+    const filterDbId = '5c937bed049290e19c5fa174'
+    //To do: get the Id from mongo and not hard coded
+    const objId = new ObjectId(filterDbId)
+
+    const queryToMongo = 
+        (   { _id: objId },
+            { $push: 
+                { tags: 
+                    { $each: tags } 
+                } 
+            }
+        )
+    await db.getCollection('filter').findOneAndUpdate(queryToMongo)
+}
+
+//this following works in Robo:
+//db.getCollection('filter').findOneAndUpdate(
+//{_id : ObjectId("5c937bed049290e19c5fa174")}, 
+//{$push: { tags: {$each:["Fantasy", "Python"]} } })}
 
 
 

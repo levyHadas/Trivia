@@ -52,26 +52,26 @@ const QuestStore = ({
   actions: {
 
     async loadQuests({ commit }, { filterBy }) {
-      const quests = await QuestService.query(filterBy);
-      commit({ type: 'setQuests', quests });
+      const quests = await QuestService.query(filterBy)
+      commit({ type: 'setQuests', quests })
       return quests;
     },
 
 
     async loadQuest({ commit }, { questId }) {
       if (!questId) {
-        const emptyQuest = await QuestService.createEmpty();
-        commit({ type: 'setCurrQuest', quest: emptyQuest });
+        const emptyQuest = await QuestService.createEmpty()
+        commit({ type: 'setCurrQuest', quest: emptyQuest })
         return emptyQuest;
       }
       const quest = await QuestService.getById(questId);
-      commit({ type: 'setCurrQuest', quest });
+      commit({ type: 'setCurrQuest', quest })
       return quest;
     },
 
     async loadFilterOptions({ commit }) {
-      const filterOptions = await QuestService.getFilterOptions()
-      commit({ type: 'setFilterOptions', filterOptions });
+      const filterOptions = await QuestService.loadFilterOptions()
+      commit({ type: 'setFilterOptions', filterOptions })
       // return filterOptions
     }
 

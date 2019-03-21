@@ -23,9 +23,16 @@ async function addQuestRoutes(app) {
     })
 
     app.get(`${BASE_PATH}/filter`, (req, res) => {
-        QuestService.getFilter(req.query)
+        QuestService.getFilter()
+            .then(filter => res.json(filter))  
+    })
+
+    app.post(`${BASE_PATH}/filter`, (req, res) => {
+        const tags = req.body;
+        QuestService.addTagsToDB(tags)
             .then(quests => res.json(quests))  
     })
+
     //Get Random
     // app.get(`${BASE_PATH}/random`, (req, res) => {
     //     QuestService.getRandom()

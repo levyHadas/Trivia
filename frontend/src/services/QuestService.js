@@ -12,7 +12,7 @@ export default {
     remove,
     createEmpty,
     save,
-    getFilterOptions
+    loadFilterOptions
 
 }
 
@@ -55,7 +55,7 @@ function createEmpty() {
 }
 
 
-async function getFilterOptions() {
+async function loadFilterOptions() {
     const filterOptions = await Axios.get(`${BASE_PATH}/filter`)
     return filterOptions.data
 
