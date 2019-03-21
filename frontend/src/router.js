@@ -3,7 +3,10 @@ import Router from 'vue-router'
 import Home from './views/Home.vue'
 import Game from './views/GameScreen.vue'
 import SignUp from './views/SignUp.vue'
-import Login from './views/login.vue'
+import Login from './views/Login.vue'
+import QuestSelection from './views/QuestSelection.vue'
+
+
 
 Vue.use(Router)
 
@@ -28,6 +31,11 @@ export default new Router({
       path: '/login',
       name: 'login',
       component: Login
+    },
+    {
+      path: '/QuestSelection',
+      name: 'QuestSelection',
+      component: QuestSelection
     },
 
   ]
