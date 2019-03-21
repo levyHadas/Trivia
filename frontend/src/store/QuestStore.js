@@ -12,7 +12,7 @@ const QuestStore = ({
     nextQuest(state) {
       var questsLength = state.quests.length;
       console.log(questsLength)
-      if (questsLength === 0) return
+      if (questsLength === 1) return
         state.quests.splice(0, 1);
         state.currQuest = state.quests[0]
     },

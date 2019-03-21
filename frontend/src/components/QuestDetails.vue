@@ -9,9 +9,9 @@
       <transition name="fadeTwo">
         <div v-show="show" class="container">
           <p
-            v-for="answer in thisAnswers"
+            v-for="(answer) in thisAnswers"
             :key="answer"
-            class="Two answer"
+            :class="classList"
             @click="checkAnswer($event,answer)"
           >{{answer}}</p>
         </div>
@@ -36,15 +36,15 @@ export default {
       var answers = this.$store.getters.currQuest.answers;
       var answerIdx = +answers.indexOf(answer);
       var correctAnswerIdx = +this.$store.getters.currQuest.correctAnswerIdx;
-
       if (correctAnswerIdx === answerIdx) {
         event.target.classList.toggle("answerCorrect");
       } else {
         event.target.classList.toggle("answerWrong");
+        
       }
       this.intervalNextQuestion = setTimeout(() => {
         this.nextQuestion();
-      }, 600);
+      }, 800);
     },
     nextQuestion() {
       this.$store.dispatch({ type: "nextQuest" });
@@ -65,6 +65,9 @@ export default {
     },
     thisAnswers() {
       return this.$store.getters.currQuest.answers;
+    },
+    classList() {
+      return 'Two answer'
     }
   }
 };
@@ -108,12 +111,15 @@ p {
   //   font-smoothing: antialiased;
   overflow: hidden;
   color: black;
-  margin: 1px;
 }
 
 .Two {
   font-size: 18px;
   font-family: Georgia, serif;
+}
+
+.One {
+  padding: 5px;
 }
 
 .fadeOne-enter-active,
