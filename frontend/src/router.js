@@ -30,16 +30,9 @@ export default new Router({
       component: Login
     },
     {
-      path: '/play', name: 'Play', component: Game,
-      children: [
-        // { path: '', component: Game },
-        { path: ':questId', name: 'Question', component: Details },
-      ]
-    },
-    {
-    path: '/questSelection',
-    name: 'QuestSelection',
-    component: QuestSelection
+      path: '/QuestSelection',
+      name: 'QuestSelection',
+      component: QuestSelection
     },
     {
       path: '/play', name: 'Play', component: Game,
@@ -51,7 +44,7 @@ export default new Router({
     {
       path: '/quest/edit/:questId?',
       name: 'QuestEdit',
-      component: QuestEdit 
+      component: QuestEdit
     },
   ]
 })

@@ -18,35 +18,23 @@ const QuestStore = ({
     setFilterOptions(state, { filterOptions }) {
       state.filterOptions = filterOptions
     },
-    
-    // removeQuest(state, { questId }) {
-    //   state.currQuest = null
-    //   const idx = state.quests.findIndex(quest => quest._id === questId)
-    //   state.quests.slice(idx, 1)
-    // },
-    // updateQuest(state, { updatedQuest }) {
-    //   const idx = state.quests.findIndex(quest => quest._id === updatedQuest._id)
-    //   state.quests.splice(idx, 1, updatedQuest)
-    // },
-    // addTodo(state, newQuest) {
-    //   state.quests.unshift(newQuest)
-    // }
 
   },
 
   getters: {
+
     questsForDisplay(state) {
       return state.quests
     },
     currQuest(state) {
-      return state.currQuest
+      return state.currQuest;
       // return JSON.parse(JSON.stringify(state.currQuest))
     },
     filterOptions(state) {
       console.log('getter ', state.filterOptions)
       return state.filterOptions
     },
- 
+
   },
 
   actions: {
@@ -56,7 +44,6 @@ const QuestStore = ({
       commit({ type: 'setQuests', quests })
       return quests;
     },
-
 
     async loadQuest({ commit }, { questId }) {
       if (!questId) {
@@ -68,27 +55,11 @@ const QuestStore = ({
       commit({ type: 'setCurrQuest', quest })
       return quest;
     },
-
     async loadFilterOptions({ commit }) {
       const filterOptions = await QuestService.loadFilterOptions()
       commit({ type: 'setFilterOptions', filterOptions })
       // return filterOptions
     }
-
-    //   removeQuest({ commit }, { questId }) {
-    //     return QuestService.remove(questId)
-    //       .then(() => commit({ type: 'removeQuest', questId }))
-    //   },
-
-    //   saveQuest({ commit }, { quest }) {
-    //     return QuestService.save(quest)
-    //       .then(quest => {
-
-    //         // if (quest._id) commit({ type: 'updateQuest', updatedQuest: quest })
-    //         // else commit({ type: 'addQuest', newQuest: quest })
-    //         return quest
-    //       })
-    //   },
 
   }
 })

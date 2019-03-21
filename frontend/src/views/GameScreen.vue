@@ -1,6 +1,6 @@
 <template>
   <section class="main">
-
+      <router-view></router-view>
   </section>
 </template>
 
@@ -8,7 +8,10 @@
 export default {
   name: "Question",
   props: {
-    question: Array
+    question2: Array
+  },
+  created() {
+      console.log('game was created')
   },
   data() {
     return {
@@ -28,7 +31,7 @@ export default {
 
 <style scoped lang="scss">
 .main {
-height: 100vh;
+// height: 100vh;
   background: rgb(2, 0, 36);
   background: linear-gradient(
     90deg,
