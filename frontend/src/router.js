@@ -34,7 +34,6 @@ export default new Router({
     name: 'QuestSelection',
     component: QuestSelection
     },
-
     {
       path: '/play', name: 'Play', component: Game,
       children: [

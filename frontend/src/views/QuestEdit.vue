@@ -1,9 +1,17 @@
 <template>
   <section v-if="questToEdit" class="quest-details">
-    <h1>Quest Edit</h1>
+    <h1>Edit Question</h1>
+
     <form @submit.prevent="saveQuest">
       <div class="edit-row">
-        <p>Quest Name</p>
+        <h3>Quest Category</h3>
+        <h3>Quest</h3>
+        <h3>Choose the correct answer</h3>
+        <h3>Created By:</h3>
+        <h3>Change Image</h3>
+        <h3>Tag</h3>
+        <h3>Hintgit </h3>
+        <h3>Tag</h3>
         <el-input
           class="el-input"
           name="Name"
@@ -30,15 +38,15 @@ export default {
   name: "QuestEdit",
   data() {
     return {
-      questToEdit: null,
-    //   options: ["Adult", "Educational"]
+      questToEdit: null
+      //   options: ["Adult", "Educational"]
     };
   },
 
   created() {
     console.log("edit");
     var { questId } = this.$route.params;
-    console.log('Quest Id', questId);
+    console.log("Quest Id", questId);
     this.$store.dispatch({ type: "loadQuest", questId }).then(() => {
       this.questToEdit = this.$store.getters.currQuest;
     });
@@ -56,7 +64,7 @@ export default {
       this.$store
         .dispatch({ type: "saveQuest", quest: this.questToEdit })
         .then(() => this.$router.push("/quest"));
-    },
+    }
     // querySearch(queryString, cb) {
     //   // call callback function to return suggestions
     //   console.log(queryString);
