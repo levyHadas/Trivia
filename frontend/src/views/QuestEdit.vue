@@ -121,7 +121,9 @@ export default {
       this.$message("click on item " + command);
     }
   },
-  computed
+  computed: {
+
+  },
   watch: {
 
   }
