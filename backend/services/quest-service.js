@@ -9,7 +9,7 @@ module.exports = {
     add,
     remove,
     update,
-    getFilter,
+    getFilterOptions,
     addTagsToDB
     // getRandom
 }
@@ -52,7 +52,6 @@ function getById(id) {
 // }
 
 
-
 async function add(quest) {
     const db = await mongoService.connect()
     const res = await db.collection('quest').insertOne(quest)
@@ -79,9 +78,9 @@ async function update(quest) {
     return quest
 }
 
-async function getFilter() {
+async function getFilterOptions() {
     const db = await mongoService.connect()
-    const filter = await db.collection('filter').findOne({})
+    const filter = await db.collection('filterOptions').findOne({})
     console.log(filter.tags)
     return filter
 }
@@ -89,22 +88,16 @@ async function getFilter() {
 
 async function addTagsToDB(tags) { //tags = Array
     const db = await mongoService.connect()
-    const filter = await db.collection('filter').findOne({})
+    const filter = await db.collection('filterOptions').findOne({})
     const strId = filter._id
     
     filter.tags = filter.tags.concat(tags)
     filter._id = new ObjectId(strId)
     
-    await db.collection('filter').updateOne({ _id: filter._id }, { $set: filter })
+    await db.collection('filterOptions').updateOne({ _id: filter._id }, { $set: filter })
 
 }
 
-
-
-//this following works in Robo:
-//db.getCollection('filter').findOneAndUpdate(
-//{_id : ObjectId("5c937bed049290e19c5fa174")}, 
-//{$push: { tags: {$each:["Fantasy", "Python"]} } })}
 
 
 

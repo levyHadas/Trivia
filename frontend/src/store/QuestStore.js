@@ -44,7 +44,6 @@ const QuestStore = ({
       // return JSON.parse(JSON.stringify(state.currQuest))
     },
     filterOptions(state) {
-      console.log('this might be undefined', state.filterOptions)
       return state.filterOptions
     },
 
