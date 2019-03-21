@@ -20,12 +20,7 @@ export default new Router({
       component: Home
     },
     {
-      path: '/Play',
-      name: 'Game',
-      component: Game
-    },
-    {
-      path: '/Signup',
+      path: '/signup',
       name: 'SignUp',
       component: SignUp
     },
@@ -42,16 +37,17 @@ export default new Router({
       ]
     },
     {
-    path: '/QuestSelection',
+    path: '/questSelection',
     name: 'QuestSelection',
     component: QuestSelection
     },
-
-    // {
-    //   path: '/quest/edit',
-    //   name: 'QuestEdit',
-    //   component: QuestEdit 
-    // },
+    {
+      path: '/play', name: 'Play', component: Game,
+      children: [
+        // { path: '', component: Game },
+        { path: ':questId', name: 'Question', component: Details },
+      ]
+    },
     {
       path: '/quest/edit/:questId?',
       name: 'QuestEdit',

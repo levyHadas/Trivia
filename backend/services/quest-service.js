@@ -19,7 +19,6 @@ module.exports = {
 //         .then(db => db.collection('toy').findOne({ nickname }))
 // }
 
-
 async function query(query) {
     // var query = {category:'The overall'} || {tags:'value}
     queryToMongo = {}
@@ -38,7 +37,6 @@ async function query(query) {
         throw (error.message + '. could not load database')
     }
 }
-
 
 function getById(id) {
     const _id = new ObjectId(id)
