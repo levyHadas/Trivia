@@ -1,21 +1,17 @@
 <template>
-    
+    <section>
+        {{quests}}
+    </section>
 </template>
 
 <script>
 export default {
     props: {
-        filter: Object
+        quests: Array
     },
-    data() {
-        return {
-            quests: []
-        }
 
-    },
-    created() {
-        // this.quests = loadQuests(this.filter)
-    }
+  
+
 
 }
 </script>

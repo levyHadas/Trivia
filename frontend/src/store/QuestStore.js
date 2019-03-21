@@ -4,7 +4,7 @@ const QuestStore = ({
 
   state: {
     quests: [],
-    currQuest: null
+    currQuest: ''
   },
 
   mutations: {
@@ -31,13 +31,14 @@ const QuestStore = ({
   },
 
   getters: {
-    // questsForDisplay(state) {
-    //   return state.quests
-    // },
+    questsForDisplay(state) {
+      return state.quests
+    },
     currQuest(state) {
       return state.currQuest
       // return JSON.parse(JSON.stringify(state.currQuest))
     }
+ 
   },
 
   actions: {

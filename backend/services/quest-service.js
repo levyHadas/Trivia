@@ -22,8 +22,9 @@ async function query(query) {
     // var query = {category:'The overall'} || {tags:'value}
     queryToMongo = {}
     if (query.category) queryToMongo.category = {'$regex': query.category, '$options' : 'i'}
-    if (query.tags) queryToMongo.tags = {'$regex': query.tags, '$options' : 'i'}
-    
+    if (query.tags && query.tags.length > 0) {
+        queryToMongo.tags = {'$regex': query.tags, '$options' : 'i'}
+    }
     try {
         const db = await mongoService.connect()
         const data = await db.collection('quest').find(queryToMongo).toArray()

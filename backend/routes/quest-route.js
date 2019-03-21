@@ -18,8 +18,7 @@ async function addQuestRoutes(app) {
 
     // LIST
     app.get(`${BASE_PATH}`, (req, res) => {
-        const query = req.query
-        QuestService.query(query)
+        QuestService.query(req.query)
             .then(quests => res.json(quests))  
     })
 

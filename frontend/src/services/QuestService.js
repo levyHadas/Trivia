@@ -1,7 +1,5 @@
-
 import Axios from 'axios'
 
-// const BASE_PATH = 'http://localhost:3003/quest'
 
 const BASE_PATH = (process.env.NODE_ENV !== 'development')
     ? '/api/quest'
@@ -20,15 +18,15 @@ export default {
 
 
 
-function query(filterBy) {
+async function query(filterBy) {
     if (filterBy) {
         var queryStr = '?'
         for (var key in filterBy) {
             queryStr += `${key}=${filterBy[key]}&`
         }
     } else queryStr = ''
-    return Axios.get(`${BASE_PATH}/${queryStr}`)
-        .then(quests => quests.data)
+    const quests = await Axios.get(`${BASE_PATH}/${queryStr}`)
+    return quests.data
 }
 
 function getById(questId) {
