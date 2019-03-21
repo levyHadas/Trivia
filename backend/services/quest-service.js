@@ -9,6 +9,7 @@ module.exports = {
     add,
     remove,
     update,
+    getFilter
     // getRandom
 }
 
@@ -37,7 +38,6 @@ async function query(query) {
 }
 
 
-//working
 function getById(id) {
     const _id = new ObjectId(id)
     return mongoService.connect()
@@ -53,7 +53,6 @@ function getById(id) {
 
 
 
-//working
 async function add(quest) {
     const db = await mongoService.connect()
     const res = await db.collection('quest').insertOne(quest)
@@ -63,7 +62,6 @@ async function add(quest) {
 
 
 
-//working
 async function remove(id) {
     const _id = new ObjectId(id)
     const db = await mongoService.connect()
@@ -71,7 +69,7 @@ async function remove(id) {
 }
 
 
-//working
+
 async function update(quest) {
     const strQuestId = quest._id
     quest._id = new ObjectId(quest._id)
@@ -79,6 +77,12 @@ async function update(quest) {
     await db.collection('quest').updateOne({_id:quest._id},{$set:quest})
     quest._id = strQuestId
     return quest
+}
+
+async function getFilter() {
+    const db = await mongoService.connect()
+    const filter = await db.collection('filter').findOne({})
+    return filter
 }
 
 
