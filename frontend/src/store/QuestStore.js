@@ -9,78 +9,71 @@ const QuestStore = ({
 
   mutations: {
 
-    // setToys(state, { toys }) {
-    //   state.toys = toys
+    setQuests(state, { quests }) {
+      state.quests = quests
+    },
+    setCurrQuest(state, { quest }) {
+      state.currQuest = quest
+    },
+    // removeQuest(state, { questId }) {
+    //   state.currQuest = null
+    //   const idx = state.quests.findIndex(quest => quest._id === questId)
+    //   state.quests.slice(idx, 1)
     // },
-    // setCurrToy(state, { toy }) {
-    //   state.currToy = toy
+    // updateQuest(state, { updatedQuest }) {
+    //   const idx = state.quests.findIndex(quest => quest._id === updatedQuest._id)
+    //   state.quests.splice(idx, 1, updatedQuest)
     // },
-    // removeToy(state, { toyId }) {
-    //   state.currToy = null
-    //   const idx = state.toys.findIndex(toy => toy._id === toyId)
-    //   state.toys.slice(idx, 1)
-    // },
-    // updateToy(state, { updatedToy }) {
-    //   const idx = state.toys.findIndex(toy => toy._id === updatedToy._id)
-    //   state.toys.splice(idx, 1, updatedToy)
-    // },
-    // addTodo(state, newToy) {
-    //   state.toys.unshift(newToy)
+    // addTodo(state, newQuest) {
+    //   state.quests.unshift(newQuest)
     // }
 
   },
 
   getters: {
-    // toysForDisplay(state) {
-    //   return state.toys
+    // questsForDisplay(state) {
+    //   return state.quests
     // },
-    // currToy(state) {
-    //   return state.currToy
-    //   // return JSON.parse(JSON.stringify(state.currToy))
-    // }
+    currQuest(state) {
+      return state.currQuest
+      // return JSON.parse(JSON.stringify(state.currQuest))
+    }
   },
 
   actions: {
 
-  // loadToys({ commit }, {filterBy}) {
-  //   return ToyService.query(filterBy)
-  //     .then(toys => {
-  //       commit({ type: 'setToys', toys })
-  //       return toys
-  //     })
-  // },
+    async loadQuests({ commit }, { filterBy }) {
+      const quests = await QuestService.query(filterBy);
+      commit({ type: 'setQuests', quests });
+      return quests;
+    },
 
 
-  //   loadToy({ commit }, { toyId }) {
-  //     if (!toyId) {
-  //       return ToyService.createEmpty()
-  //         .then(emptyToy => {
-  //           commit({ type: 'setCurrToy', toy: emptyToy })
-  //           return emptyToy
-  //         })
-  //     }
-  //     return ToyService.getById(toyId)
-  //       .then(toy => {
-  //         commit({ type: 'setCurrToy', toy })
-  //         return toy
-  //       })
-  //   },
+    async loadQuest({ commit }, { questId }) {
+      if (!questId) {
+        const emptyQuest = await QuestService.createEmpty();
+        commit({ type: 'setCurrQuest', quest: emptyQuest });
+        return emptyQuest;
+      }
+      const quest = await QuestService.getById(questId);
+      commit({ type: 'setCurrQuest', quest });
+      return quest;
+    },
 
-  //   removeToy({ commit }, { toyId }) {
-  //     return ToyService.remove(toyId)
-  //       .then(() => commit({ type: 'removeToy', toyId }))
-  //   },
+    //   removeQuest({ commit }, { questId }) {
+    //     return QuestService.remove(questId)
+    //       .then(() => commit({ type: 'removeQuest', questId }))
+    //   },
 
-  //   saveToy({ commit }, { toy }) {
-  //     return ToyService.save(toy)
-  //       .then(toy => {
-  //         //i don't really need to update the state toys since the will be
-  //         //updated anyway when user is pushed back to list
-  //         // if (toy._id) commit({ type: 'updateToy', updatedToy: toy })
-  //         // else commit({ type: 'addToy', newToy: toy })
-  //         return toy
-  //       })
-  //   },
+    //   saveQuest({ commit }, { quest }) {
+    //     return QuestService.save(quest)
+    //       .then(quest => {
+
+    //         // if (quest._id) commit({ type: 'updateQuest', updatedQuest: quest })
+    //         // else commit({ type: 'addQuest', newQuest: quest })
+    //         return quest
+    //       })
+    //   },
 
   }
 })
