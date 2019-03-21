@@ -1,5 +1,7 @@
 <template>
-    
+    <section>
+        {{quests}}
+    </section>
 </template>
 
 <script>

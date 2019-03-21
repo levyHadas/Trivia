@@ -15,7 +15,8 @@
             :filter="filterBy"/>
         <list-view 
             v-if="this.currView === 'list'" 
-            :filter="filterBy"/>
+            :filter="filterBy"
+            :quests="quests"/>
     </section>
 </template>
 
@@ -33,11 +34,11 @@ export default {
 
     data() {
         return {
-            quest: [],
+            quests: [],
             currView: 'category',
             filterBy: {
                 category: '',
-                tags: null
+                tags: []
             },
             allTags: ['American history', 'pandas', 'JS', 'Anime', 'Funny', 'War', 'Space'], //should be loaded from DB
             allCategories: ['Science & Nature', 'Science: Computers', 'Science: Mathematics',
@@ -47,7 +48,7 @@ export default {
     components: {
         CategoryView,
         ListView,
-        TagsCloud
+        TagsCloud,
     },
 
     methods: {
@@ -57,7 +58,8 @@ export default {
         startListView(filter) {
             this.filterBy = filter
             this.updateCurrView('list')
-            // this.quest = loadQuest()
+            this.$store.dispatch({ type: 'loadQuests', filterBy: this.filterBy })
+            this.quests = this.$store.getters.questsForDisplay
         }
     },
 

@@ -31,9 +31,9 @@ const QuestStore = ({
   },
 
   getters: {
-    // toysForDisplay(state) {
-    //   return state.toys
-    // },
+    questsForDisplay(state) {
+      return state.quests
+    },
     // currToy(state) {
     //   return state.currToy
     //   // return JSON.parse(JSON.stringify(state.currToy))
@@ -42,13 +42,11 @@ const QuestStore = ({
 
   actions: {
 
-  // loadToys({ commit }, {filterBy}) {
-  //   return ToyService.query(filterBy)
-  //     .then(toys => {
-  //       commit({ type: 'setToys', toys })
-  //       return toys
-  //     })
-  // },
+  async loadQuests({ commit }, {filterBy}) {
+    const quests = await QuestService.query(filterBy)
+    commit({ type: 'setQuest', quests })
+    return quests
+  },
 
 
   //   loadToy({ commit }, { toyId }) {

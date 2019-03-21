@@ -34,7 +34,7 @@ export default {
         emitListView(categoryName) {
             const filter = {
                 category: categoryName,
-                tags: null
+                tags: []
             }
             this.$emit('startListView', filter)
         }
