@@ -75,12 +75,12 @@ export default {
   txt: "QuestEdit",
   data() {
     return {
+      correctAns: "",
       questToEdit: null,
       form: {
         txt: "",
-        correctAns: ""
+        correctAnsIdx: null
       }
-      //   options: ["Adult", "Educational"]
     };
   },
 
@@ -112,21 +112,35 @@ export default {
       console.log("submit!");
     },
     handleChooseCorrectAnsCommand(command) {
-      console.log('clicked item: ',command);
+      console.log("clicked item: ", command);
+      this.form.correctAns = command;
       this.$message("click on item " + command);
     },
     handleChooseCatogryCommand(command) {
-      console.log('clicked item: ',command);
-      
+      console.log("clicked item: ", command);
+
       this.$message("click on item " + command);
     }
   },
   computed: {
-
+    chosenAns() {
+      switch (correctAns) {
+        case "a":
+          form.correctAnsIdx = 0;
+          break;
+        case "b":
+          form.correctAnsIdx = 1;
+          break;
+        case "c":
+          form.correctAnsIdx = 2;
+          break;
+        case "d":
+          form.correctAnsIdx = 3;
+          break;
+      }
+    }
   },
-  watch: {
-
-  }
+  watch: {}
 };
 </script>
 
