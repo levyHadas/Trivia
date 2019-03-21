@@ -9,7 +9,6 @@
           name="Name"
           v-model="questToEdit.name"
           placeholder="Quest Name"
-          v-validate="'required'"
           clearable
         ></el-input>
         <!-- <span>{{ errors.first('Name') }}</span> -->
@@ -78,7 +77,7 @@ export default {
 </script>
 
 <style scoped>
-.el-input {
+/* .el-input {
   width: 300px;
 }
 .edit-row {
@@ -98,5 +97,5 @@ export default {
 }
 .el-radio {
   margin-right: 10px;
-}
+} */
 </style>

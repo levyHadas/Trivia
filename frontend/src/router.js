@@ -16,12 +16,12 @@ export default new Router({
       component: Home
     },
     {
-      path: '/play',
+      path: '/Play',
       name: 'Game',
       component: Game
     },
     {
-      path: '/signup',
+      path: '/Signup',
       name: 'SignUp',
       component: SignUp
     },
@@ -30,6 +30,11 @@ export default new Router({
       name: 'Login',
       component: Login
     },
+    // {
+    //   path: '/quest/edit',
+    //   name: 'QuestEdit',
+    //   component: QuestEdit 
+    // },
     {
       path: '/quest/edit/:questId?',
       name: 'QuestEdit',
