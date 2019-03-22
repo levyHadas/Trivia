@@ -27,7 +27,6 @@ async function query(filterBy) {
             queryStr += `${key}=${filterBy[key]}&`
         }
     } else queryStr = ''
-    console.log(queryStr)
     const quests = await Axios.get(`${BASE_PATH}/${queryStr}`)
     return quests.data
 }

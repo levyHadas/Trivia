@@ -4,6 +4,7 @@ import Home from './views/Home.vue'
 import Game from './views/GameScreen.vue'
 import SignUp from './views/SignUp.vue'
 import Login from './views/Login.vue'
+import Logout from './views/Logout.vue'
 import Details from './components/QuestDetails.vue'
 import CategorySelection from './views/CategorySelection.vue'
 
@@ -28,6 +29,11 @@ export default new Router({
       path: '/login',
       name: 'Login',
       component: Login
+    },
+    {
+      path: '/logout',
+      name: 'Logout',
+      component: Logout
     },
     {
       path: '/CategorySelection',
