@@ -6,10 +6,6 @@ const QuestStore = ({
     quests: [],
     currQuest: '',
     filterOptions: {},
-  //   currFilter: {
-  //     category: '',
-  //     tags: []
-  // },
   },
 
   mutations: {
@@ -54,10 +50,11 @@ const QuestStore = ({
     nextQuest({ commit }) {
       commit({ type: 'nextQuest' })
     },
+
     async loadQuests({ commit }, { filterBy }) {
       const quests = await QuestService.query(filterBy)
       commit({ type: 'setQuests', quests })
-      return quests;
+      console.log(quests)
     },
 
     async loadQuest({ commit }, { questId }) {
@@ -70,11 +67,18 @@ const QuestStore = ({
       commit({ type: 'setCurrQuest', quest })
       return quest;
     },
+
     async loadFilterOptions({ commit }) {
       const filterOptions = await QuestService.loadFilterOptions()
       commit({ type: 'setFilterOptions', filterOptions })
       return filterOptions
     },
+
+    getRandomQuest({ commit, state }) {
+      // randomIdx = utilService.getRandomInt(0, tate.quests.length-1) //to do - util service
+      const randomIdx = QuestService.getRandomIntInclusive(0, state.quests.length-1)
+      return state.quests[randomIdx]._id
+    }
 
   
 

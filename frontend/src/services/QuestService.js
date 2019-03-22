@@ -12,7 +12,8 @@ export default {
     remove,
     createEmpty,
     save,
-    loadFilterOptions
+    loadFilterOptions,
+    getRandomIntInclusive
 
 }
 
@@ -26,6 +27,7 @@ async function query(filterBy) {
             queryStr += `${key}=${filterBy[key]}&`
         }
     } else queryStr = ''
+    console.log(queryStr)
     const quests = await Axios.get(`${BASE_PATH}/${queryStr}`)
     return quests.data
 }
@@ -58,6 +60,10 @@ function createEmpty() {
 async function loadFilterOptions() {
     const filterOptions = await Axios.get(`${BASE_PATH}/filter`)
     return filterOptions.data
-
-    
 }
+
+function getRandomIntInclusive(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive 
+  }

@@ -11,7 +11,6 @@ module.exports = {
     update,
     getFilterOptions,
     addTagsToDB
-    // getRandom
 }
 
 // function checkLogin({ nickname }) {
@@ -20,16 +19,21 @@ module.exports = {
 // }
 
 async function query(query) {
-    // var query = {category:'The overall'} || {tags:'value}
     queryToMongo = {}
-    if (query.category) queryToMongo.category = { '$regex': query.category, '$options': 'i' }
+    if (query.category) queryToMongo.category = { '$regex': query.category, '$options': 'i' } 
     if (query.tags && query.tags.length > 0) {
-        //Todo - for multiple tags: user or - need to build an expretion for each
-        queryToMongo.tags = { '$regex': query.tags, '$options': 'i' }
+        tags = query.tags.split(',').map(tag => new RegExp(tag,'i'))
+        queryToMongo.tags = { $in: tags } 
+        //{ '$regex': query.tags, '$options': 'i' }
+        // queryToMongo.tags = { '$regex': tags, '$options': 'i' }
     }
     try {
         const db = await mongoService.connect()
-        const data = await db.collection('quest').find(queryToMongo).toArray()
+        const data = await db.collection('quest').aggregate(
+            [ { $match : queryToMongo },
+              { $sample: { size: 20 } }
+            ]).toArray()
+        // const data = await db.collection('quest').find(queryToMongo).limit(200).toArray()
         return data
     }
     catch (error) {
@@ -43,13 +47,6 @@ function getById(id) {
     return mongoService.connect()
         .then(db => db.collection('quest').findOne({ _id }))
 }
-
-//not working yet
-// async function getRandom(num = 5) {
-//     const db = await mongoService.connect()
-//     const quests = await db.quest.aggregate([ { $sample: { size: num } } ])
-//     return quests
-// }
 
 
 async function add(quest) {

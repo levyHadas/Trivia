@@ -1,13 +1,12 @@
 <template>
-    <section >
-        <!-- should be modal!!! -->
+    <section class="tags-section">
         <div class="tags-container"> 
             <div class="tags"
                 v-for="(tag, idx) in tags" :key="idx"
                 @click="toggleSelected(tag, $event.target)">
                     <div class="tag">{{tag}}</div>
             </div>
-            <button class="save-tags" @click="emitListView()">Done</button>
+        <button class="save-tags" @click="emitListView()">PLAY</button>
         </div>
 
     </section>
@@ -31,14 +30,13 @@ export default {
                 category: '',
                 tags: this.selectedTags
             }
-            this.$emit('startListView', filter)
+            this.$emit('tagsSelected', filter)
         },
         toggleSelected(selectedTag, elTag) {
             if (elTag.classList.contains('selected')) {
                 this.selectedTags = this.selectedTags.filter(tag => tag !== selectedTag)
             }
-            else this.selectedTags.push(selectedTag)
-
+            else this.selectedTags.push(selectedTag.toLowerCase())
             elTag.classList.toggle('selected')
         }
     },
@@ -46,27 +44,59 @@ export default {
 }
 </script>
 
-<style scopped>
+<style scopped lang="scss">
+
+
  
 .selected {
     color: red;
 }
-.tags-container {
+.tags-section {
     position: absolute;
     z-index: 1;
-    background-color: rgba(0, 0, 0, 0.747);
-    width: 100%;
-    height: 100%;
-    display: flex;
+    background-color: rgba(0, 0, 0, 0.447);
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+}
+.tags-container {
+    width: 70%;
+    height: 70%;
+    margin: 100px 12vw;
     align-items: center;
+    flex-wrap: wrap; 
     justify-content: space-evenly;
-    flex-wrap: wrap;
-    padding: 50px;
+    position: absolute;
+    background-color: rgba(72, 182, 149, 0.8);
+    z-index: 2;
+    display: flex;
+    border-radius: 10%;
+    
+    button {
+        border-radius: 7%;
+        position: block;
+        background-color: aqua;
+        width: 120px;
+        height: 80px;
+        border: none;
+        font-size: 30px;
+        padding: 15px;
+        color: teal;
+        cursor: pointer;
+    }
+
 }
 .tags {
     color: white;
     padding: 10px 70px 10px 10px;
+    display: block;
 
+}
+.tag {
+    padding: 20px;
+    font-size: 30px;
+    cursor: pointer;
 }
 
 </style>

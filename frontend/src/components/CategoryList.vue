@@ -4,7 +4,7 @@
             <category-preview v-for="(category,idx) in categories" 
                 :key="idx"
                 :category="category"
-                @categorySelected="emitSelection(category)"/>
+                @categorySelected="emitSelection(category.name)"/>
         </ul>
 
     </section>
@@ -36,7 +36,7 @@ export default {
                 category: categoryName,
                 tags: []
             }
-            // this.$emit('go to Question route with random id', filter)
+            this.$emit('categorySelected', filter)
         }
     },
 

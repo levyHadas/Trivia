@@ -7,13 +7,11 @@
         <tags-cloud
             v-if="tagsCloudShown"
             :tags="allTags"
-            @startListView="startListView"/>
-        <category-view 
-             
+            @tagsSelected="startGame"/>
+        <category-list 
             :categories="allCategories"
-            @startListView="startListView"
+            @categorySelected="startGame"
             :filter="filterBy"/>
-
     </section>
 </template>
 
@@ -22,7 +20,7 @@
 
 <script>
 //when category s clicked it emites event updateCurrView('list')
-import CategoryView from '@/components/CategoryView.vue'
+import CategoryList from '@/components/CategoryList.vue'
 import TagsCloud from '@/components/TagsCloud.vue'
 import QuestService from '../services/QuestService.js'
 
@@ -38,22 +36,16 @@ export default {
                 category: '',
                 tags: []
             },
-            // allTags: [],
-            // allCategories: [] 
-            // allTags: ['American history', 'pandas', 'JS', 'Anime', 'Funny', 'War', 'Space'], //should be loaded from DB
-            // allCategories: ['Science & Nature', 'Science: Computers', 'Science: Mathematics',
-            //     'Mythology', 'Sports', 'Geography', 'History', 'Politics', 'Entertainment', 'Art']
+          
         }
     },
     components: {
-        CategoryView,
+        CategoryList,
         TagsCloud,
     },
 
     async created() {
-        const filterOptions = await this.$store.dispatch('loadFilterOptions')
-        
-
+        await this.$store.dispatch('loadFilterOptions')
     },
 
  
@@ -64,10 +56,11 @@ export default {
             this.tagsCloudShown = cloudState
         },
 
-        async startListView(filter) {
+        async startGame(filter) {
             this.filterBy = filter
-            this.quests = await this.$store.dispatch({ type: 'loadQuests', filterBy: this.filterBy })
-            this.updateCurrView('list')  
+            await this.$store.dispatch({ type: 'loadQuests', filterBy: this.filterBy })
+            this.randomQuestId = await  this.$store.dispatch({ type: 'getRandomQuest' })
+            this.$router.push('/play/'+this.randomQuestId)
         }
     },
 
