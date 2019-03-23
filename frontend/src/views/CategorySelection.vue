@@ -1,13 +1,11 @@
 <template>
     <section>
-        <h1>Find a Question:</h1>
-        <button @click="toggleTagsCloud(false)">By Category</button>
-        <button @click="toggleTagsCloud(true)">By Tags</button>
-        <!-- <tag-cloud @tagsSelected="startListView()"></tag-cloud>  -->
+        <button @click="toggleTagsCloud(true)">Tags Filter</button>
         <tags-cloud
             v-if="tagsCloudShown"
             :tags="allTags"
-            @tagsSelected="startGame"/>
+            @tagsSelected="startGame"
+            @closeTags="toggleTagsCloud(false)"/>
         <category-list 
             :categories="allCategories"
             @categorySelected="startGame"

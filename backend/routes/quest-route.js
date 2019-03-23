@@ -57,6 +57,26 @@ async function addQuestRoutes(app) {
             .then(quest => res.json(quest))
     })
 
+    // app.post(`${BASE_PATH}`, (req, res) => {
+    //     const quest = req.body;
+    //     console.log(quest)
+    //     if (!quest.imgSrc) {
+    //         return ImgService.suggestImgs(quest.tags[0])
+    //             .then(url => {
+    //                 console.log(url)
+    //                 quest.imgSrc = url
+    //                 console.log(quest)
+    //                 QuestService.add(quest)
+    //                     .then(quest => res.json(quest))
+                    
+    //             })
+    //     }
+    //     else {
+    //         QuestService.add(quest)
+    //             .then(quest => res.json(quest))
+    //     }
+    // })
+
 
     // DELETE
     app.delete(`${BASE_PATH}/:questId`, (req, res) => {

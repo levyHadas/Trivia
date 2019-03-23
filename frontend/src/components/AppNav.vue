@@ -5,7 +5,8 @@
       <router-link to="/signup">Sign Up</router-link> |
       <router-link to="/login" v-if="!isUser">Login |</router-link> 
       <router-link to="/logout" v-if="isUser">Logout</router-link>
-      <p v-if="isUser">Hello: {{loggedUser}}</p>
+      <p v-if="isUser">Hello: {{loggedUser.username}}</p>
+      <img :src="loggedUser.img" width="50px">
   </nav>
 </template>
 
@@ -18,7 +19,7 @@ export default {
 
   computed: {
     loggedUser(){
-      return this.$store.getters.currUser.username
+      return this.$store.getters.currUser
     },
     isUser() {
       if (this.$store.getters.currUser.username) return true

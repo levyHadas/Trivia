@@ -19,3 +19,27 @@
         "space",
         "fantasy",
         "python"]}
+
+
+question structure:
+
+{
+    
+    "category" : "Science & Nature",
+    "txt" : "The biggest distinction between a eukaryotic cell and a prokaryotic cell is:",
+    "correctAnswerIdx" : "0",
+    "answers" : [ 
+        "The presence or absence of a nucleus", 
+        "The overall size", 
+        "The presence or absence of certain organelles", 
+        "The mode of reproduction"
+    ],
+    "createdBy" : "Hadas",
+    "imgSrc" : "",
+    "tags" : [ 
+        "pandas"
+    ],
+    "hint" : "",
+    "createdAt" : "",
+    "rating" : ""
+}

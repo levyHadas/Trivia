@@ -12,6 +12,7 @@ function addUserRoutes(app) {
         if (req.body.username && req.body.password) {
             const username = req.body.username
             const password = req.body.password
+            if (!req.body.img) 
             userService.addUser({ username, password })
                 .then(user => res.json(user))
                 .catch(err => {
