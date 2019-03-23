@@ -8,7 +8,7 @@ const BASE_PATH = (process.env.NODE_ENV !== 'development')
 export default {
     login,
     logout,
-    // signup
+    signup
 }
 
   
@@ -23,6 +23,18 @@ async function login(credentials) {
     }
 }
 
+function signup(user) {
+    try {
+        const res = Axios.post(`${BASE_PATH}/signup`, user)
+        return res.data
+    }
+    catch {
+        throw(err)
+    }
+        
+        
+}
+
 function logout() {
     try {
         Axios.get(`${BASE_PATH}/logout`)
@@ -32,14 +44,7 @@ function logout() {
         throw('could not log out')
     }
 }
-function signup(user) {
 
-    return Axios.post(`${BASE_PATH}/logout`, user)
-        .then(res => res.data)
-        .catch(err => err)
-        
-        
-}
 function getUser(userId) {
 
     return axios.get(`${BASE_PATH}/${userId}`)

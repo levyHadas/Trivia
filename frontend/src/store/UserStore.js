@@ -4,13 +4,14 @@ const UserStore = ({
 
   state: {
     users: [],
-    currUser: null
+    currUser: {}
   },
 
   mutations: {
 
-    setCurrUser(state, user) {
+    setCurrUser(state, {user}) {
       state.currUser = user
+      console.log('user: ', state.currUser)
     },
 
     // setUsers(state, { users }) {
@@ -34,15 +35,21 @@ const UserStore = ({
     //   return state.users
     // },
     currUser(state) {
-      return JSON.parse(JSON.stringify(state.currUser))
+      return state.currUser
     }
   },
 
   actions: {
 
     async login({ commit }, {user}) {
-        const loggedUser = await UserService.login(user)
-        commit({ type: 'setCurrUser', loggedUser })
+      const loggedUser = await UserService.login(user)
+      console.log('loggedin')
+      commit({ type: 'setCurrUser', user:loggedUser })
+    },
+
+    async signup({ commit }, {user}) {
+      await UserService.signup(user)
+      return user
     },
 
     async logout({ commit }) {
@@ -51,10 +58,7 @@ const UserStore = ({
       commit({ type: 'setCurrUser', user })
     },
 
-    saveUser({ commit }, { user }) {
-      return UserService.save(user)
-        .then(user => user)
-    },
+    
 
 
 
