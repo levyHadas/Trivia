@@ -81,7 +81,7 @@ async function update(quest) {
 
 async function getFilter() {
     const db = await mongoService.connect()
-    const filter = await db.collection('filter').findOne({})
+    const filter = await db.collection('filterOptions').findOne({})
     return filter
 }
 
@@ -99,7 +99,7 @@ async function addTagsToDB(tags) { //tags = Array
                 } 
             }
         )
-    await db.getCollection('filter').findOneAndUpdate(queryToMongo)
+    await db.getCollection('filterOptions').findOneAndUpdate(queryToMongo)
 }
 
 //this following works in Robo:

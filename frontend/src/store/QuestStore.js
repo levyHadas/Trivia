@@ -52,9 +52,7 @@ const QuestStore = ({
         return emptyQuest;
       }
       const quest = await QuestService.getById(questId);
-      commit({ type: 'setCurrQuest', quest })
-      console.log('quest in backend - in quest store', quest);
-      
+      commit({ type: 'setCurrQuest', quest })      
       return quest;
     },
     async loadFilterOptions({ commit }) {

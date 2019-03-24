@@ -2,63 +2,65 @@
   <section v-if="questToEdit" class="quest-details">
     <el-form ref="form" :model="form" label-width="120px" @submit.prevent="saveQuest">
       <el-form-item label="Question">
-        <el-input v-model="form.txt" :placeholder="questToEdit.txt"></el-input>
+        <el-input v-model="questToEdit.txt" type=textarea></el-input>
+        question text: {{questToEdit.txt}}
       </el-form-item>
       <el-form-item label="Category">
-        <el-dropdown @command="handleChooseCatogryCommand">
+        category {{questToEdit.category}}
+        <el-dropdown @command="handleChooseCatogryletter">
           <el-button type="primary">
             Category
             <i class="el-icon-arrow-down el-icon--right"></i>
           </el-button>
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item command="a">Action 1</el-dropdown-item>
+            <template v-for="(category, idx) in categories">
+              <el-dropdown-item :key="idx" :command="category">{{category}}</el-dropdown-item>
+            </template>
           </el-dropdown-menu>
         </el-dropdown>
       </el-form-item>
+      correct ans: {{questToEdit.answers[questToEdit.correctAnswerIdx]}}
       <el-form-item label="Correct Answer">
-        <el-dropdown @command="handleChooseCorrectAnsCommand">
+        <el-dropdown @command="getClickedAnsLetter">
           <el-button type="primary">
             Correct Answer
             <i class="el-icon-arrow-down el-icon--right"></i>
           </el-button>
-          <el-dropdown-menu slot="dropdown" :selected="form.correctAns">
-            <el-dropdown-item command="a">{{questToEdit.answers[0]}}</el-dropdown-item>
-            <el-dropdown-item command="b">{{questToEdit.answers[1]}}</el-dropdown-item>
-            <el-dropdown-item command="c">{{questToEdit.answers[2]}}</el-dropdown-item>
-            <el-dropdown-item command="d">{{questToEdit.answers[3]}}</el-dropdown-item>
+          <el-dropdown-menu slot="dropdown">
+            <el-dropdown-item command="0">{{questToEdit.answers[0]}}</el-dropdown-item>
+            <el-dropdown-item command="1">{{questToEdit.answers[1]}}</el-dropdown-item>
+            <el-dropdown-item command="2">{{questToEdit.answers[2]}}</el-dropdown-item>
+            <el-dropdown-item command="3">{{questToEdit.answers[3]}}</el-dropdown-item>
           </el-dropdown-menu>
-          correct ans: {{form.correctAns}}
         </el-dropdown>
+        <br>
+        <br>
       </el-form-item>
       <el-form-item label="Created At" hidden>
         <el-col :span="11">
           <el-date-picker
             type="date"
             placeholder="Pick a date"
-            v-model="form.date1"
+            v-model="questToEdit.createdAt"
             style="width: 100%;"
           ></el-date-picker>
         </el-col>
       </el-form-item>
-      <el-form-item label="Change Image">
-        <el-input v-model="form.txt"></el-input>
-      </el-form-item>
+
+      <el-form-item label="Change Image"></el-form-item>
       <el-form-item label="Created By">
-        <el-input :placeholder="questToEdit.createdBy" v-model="form.txt"></el-input>
+        <el-input :placeholder="questToEdit.createdBy" v-model="questToEdit.createdBy"></el-input>
+        created by: {{questToEdit.createdBy}}
       </el-form-item>
       <el-form-item label="Tags">
-        <el-input :placeholder="questToEdit.tags" v-model="form.txt"></el-input>
+        <el-input v-model="tags"></el-input>
+        {{tags}}
       </el-form-item>
+
       <el-form-item label="Hint">
-        <el-input :placeholder="questToEdit.hint" v-model="form.txt"></el-input>
+        <el-input v-model="questToEdit.hint"></el-input>
       </el-form-item>
-      <!--   <el-form-item label="Instant delivery">
-    <el-switch v-model="form.delivery"></el-switch>
-      </el-form-item>-->
-      <!--  
-  <el-form-item label="Activity form">
-    <el-input type="textarea" v-model="form.desc"></el-input>
-      </el-form-item>-->
+       hint {{questToEdit.hint}}
       <el-form-item>
         <el-button type="primary" @click="onSubmit">Create</el-button>
         <el-button type="danger" plain @click="removeQuest">X</el-button>
@@ -72,26 +74,41 @@
 // import QuestList from '@/components/QuestList.vue'
 
 export default {
-  txt: "QuestEdit",
+  // txt: "QuestEdit",
   data() {
     return {
-      correctAns: "",
+      clickedAnsLetter: "",
       questToEdit: null,
       form: {
         txt: "",
-        correctAnsIdx: null
-      }
+        correctAnswerIdx: null
+      },
+      categories: [
+        "Science & Nature",
+        "Science: Computers",
+        "Science: Mathematics",
+        "Mythology",
+        "Sports",
+        "Geography",
+        "History",
+        "Politics",
+        "Entertainment",
+        "Art"
+      ],
+      tags: ''
     };
   },
 
-  created() {
-    console.log("edit");
+  async created() {
     var { questId } = this.$route.params;
-    console.log("Quest Id", questId);
-    this.$store
-      .dispatch({ type: "loadQuest", questId })
-      .then(() => (this.questToEdit = this.$store.getters.currQuest))
-      .then(() => console.log("Question: ", this.questToEdit));
+    await this.$store.dispatch({ type: "loadQuest", questId });
+    let question = await this.$store.getters.currQuest;
+    this.questToEdit = JSON.parse(JSON.stringify(question));
+    console.log("Question: ", this.questToEdit);
+    
+    this.tags = (this.questToEdit.tags.length>0)? this.questToEdit.tags.toString() : ''
+    console.log('tags: ',this.tags);
+    
   },
 
   methods: {
@@ -111,34 +128,19 @@ export default {
     onSubmit() {
       console.log("submit!");
     },
-    handleChooseCorrectAnsCommand(command) {
-      console.log("clicked item: ", command);
-      this.form.correctAns = command;
-      this.$message("click on item " + command);
+    getClickedAnsLetter(command) {
+      this.questToEdit.correctAnswerIdx = command;
+      console.log("chose: ", this.questToEdit.correctAnswerIdx);
     },
-    handleChooseCatogryCommand(command) {
+    handleChooseCatogryletter(command) {
       console.log("clicked item: ", command);
 
-      this.$message("click on item " + command);
     }
   },
   computed: {
-    chosenAns() {
-      switch (correctAns) {
-        case "a":
-          form.correctAnsIdx = 0;
-          break;
-        case "b":
-          form.correctAnsIdx = 1;
-          break;
-        case "c":
-          form.correctAnsIdx = 2;
-          break;
-        case "d":
-          form.correctAnsIdx = 3;
-          break;
-      }
-    }
+    // chosenAnsIdx () {
+    //   return
+    // }
   },
   watch: {}
 };
