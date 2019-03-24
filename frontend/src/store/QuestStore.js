@@ -14,8 +14,8 @@ const QuestStore = ({
     nextQuest(state) {
       var questsLength = state.quests.length;
       if (questsLength === 1) return
-        state.quests.splice(0, 1);
-        state.currQuest = state.quests[0]
+      state.quests.splice(0, 1);
+      state.currQuest = state.quests[0]
     },
     setQuests(state, { quests }) {
       state.quests = quests
@@ -27,9 +27,9 @@ const QuestStore = ({
       state.filterOptions = filterOptions
     },
 
-    
+
   },
-  
+
   getters: {
 
     questsForDisplay(state) {
@@ -64,7 +64,7 @@ const QuestStore = ({
         return emptyQuest;
       }
       const quest = await QuestService.getById(questId);
-      commit({ type: 'setCurrQuest', quest })      
+      commit({ type: 'setCurrQuest', quest })
       return quest;
     },
 
@@ -74,12 +74,16 @@ const QuestStore = ({
       return filterOptions
     },
 
-    getRandomQuest({ commit, state }) {
-      const randomIdx = UtilService.getRandomIntInclusive(0, state.quests.length-1)
+    getRandomQuest({ state }) {
+      const randomIdx = UtilService.getRandomIntInclusive(0, state.quests.length - 1)
       return state.quests[randomIdx]._id
+    },
+
+    async saveQuest({ }, { quest }) {
+      await QuestService.save(quest)
     }
 
-  
+
 
   }
 })

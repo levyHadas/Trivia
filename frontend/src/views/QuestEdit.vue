@@ -1,8 +1,8 @@
 <template>
   <section v-if="questToEdit" class="quest-details">
-    <el-form ref="form" :model="form" label-width="120px" @submit.prevent="saveQuest">
+    <el-form ref="form" label-width="120px" @submit.prevent="saveQuest">
       <el-form-item label="Question">
-        <el-input v-model="questToEdit.txt" type=textarea></el-input>
+        <el-input v-model="questToEdit.txt" type="textarea"></el-input>
         question text: {{questToEdit.txt}}
       </el-form-item>
       <el-form-item label="Category">
@@ -20,7 +20,9 @@
         </el-dropdown>
       </el-form-item>
       correct ans: {{questToEdit.answers[questToEdit.correctAnswerIdx]}}
-      <el-form-item label="Correct Answer">
+      <el-form-item 
+        v-if="questToEdit.answers.length>0"
+        label="Correct Answer">
         <el-dropdown @command="getClickedAnsLetter">
           <el-button type="primary">
             Correct Answer
@@ -33,9 +35,11 @@
             <el-dropdown-item command="3">{{questToEdit.answers[3]}}</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
-        <br>
-        <br>
       </el-form-item>
+    <el-form-item v-else label="Optional Answers">
+      <el-input v-model="ansOptions"></el-input>
+    </el-form-item>
+
       <el-form-item label="Created At" hidden>
         <el-col :span="11">
           <el-date-picker
@@ -52,7 +56,7 @@
         <el-input :placeholder="questToEdit.createdBy" v-model="questToEdit.createdBy"></el-input>
         created by: {{questToEdit.createdBy}}
       </el-form-item>
-      <el-form-item label="Tags">
+      <el-form-item label="Tags (Comma seperated)">
         <el-input v-model="tags"></el-input>
         {{tags}}
       </el-form-item>
@@ -60,9 +64,9 @@
       <el-form-item label="Hint">
         <el-input v-model="questToEdit.hint"></el-input>
       </el-form-item>
-       hint {{questToEdit.hint}}
+      hint {{questToEdit.hint}}
       <el-form-item>
-        <el-button type="primary" @click="onSubmit">Create</el-button>
+        <el-button type="primary" @click="saveQuest">Create</el-button>
         <el-button type="danger" plain @click="removeQuest">X</el-button>
         <el-button>Cancel</el-button>
       </el-form-item>
@@ -77,8 +81,19 @@ export default {
   // txt: "QuestEdit",
   data() {
     return {
-      clickedAnsLetter: "",
-      questToEdit: null,
+      clickedAnsLetter: '',
+      questToEdit: {
+        category: '',
+        txt: '',
+        correctAnswerIdx: null,
+        answers: [],
+        createdBy: '',
+        imgSrc: '',
+        tags: [],
+        hint: '',
+        createdAt: null,
+        rating: ''
+      },
       form: {
         txt: "",
         correctAnswerIdx: null
@@ -95,20 +110,22 @@ export default {
         "Entertainment",
         "Art"
       ],
-      tags: ''
+      tags: "",
+      ansOptions: '',
     };
   },
 
   async created() {
     var { questId } = this.$route.params;
-    await this.$store.dispatch({ type: "loadQuest", questId });
-    let question = await this.$store.getters.currQuest;
-    this.questToEdit = JSON.parse(JSON.stringify(question));
-    console.log("Question: ", this.questToEdit);
-    
-    this.tags = (this.questToEdit.tags.length>0)? this.questToEdit.tags.toString() : ''
-    console.log('tags: ',this.tags);
-    
+    if (questId) {
+      await this.$store.dispatch({ type: "loadQuest", questId });
+      let question = await this.$store.getters.currQuest;
+      this.questToEdit = JSON.parse(JSON.stringify(question));
+      this.tags =
+        this.questToEdit.tags.length > 0
+          ? this.questToEdit.tags.toString()
+          : "";
+    }
   },
 
   methods: {
@@ -120,21 +137,20 @@ export default {
     },
     saveQuest() {
       console.log("save quest: Form saved");
+      if (this.tags.length > 0) this.questToEdit.tags = this.tags.split(",");
       var { questId } = this.$route.params;
-      this.$store
-        .dispatch({ type: "saveQuest", quest: this.questToEdit })
-        .then(() => this.$router.push("/quest"));
-    },
-    onSubmit() {
-      console.log("submit!");
+      console.log("quest id: ", questId);
+
+      this.$store.dispatch({ type: "saveQuest", quest: this.questToEdit });
+      // .then(() => this.$router.push("/quest"));
     },
     getClickedAnsLetter(command) {
       this.questToEdit.correctAnswerIdx = command;
       console.log("chose: ", this.questToEdit.correctAnswerIdx);
     },
     handleChooseCatogryletter(command) {
-      console.log("clicked item: ", command);
-
+      console.log("clicked Category: ", command);
+      this.questToEdit.category = command;
     }
   },
   computed: {
