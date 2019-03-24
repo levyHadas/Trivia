@@ -3,16 +3,22 @@
     <div class="quest">
       <transition name="fadeOne">
         <div v-show="show" class="container">
-          <p class="One">{{thisQuestion.txt}}</p>
+          <p class="One">
+            <span class="timer" :class="{redTimer: isTimerLessThen10}">{{timer}}</span>
+            <br>
+            {{thisQuestion.txt}}
+          </p>
         </div>
       </transition>
       <transition name="fadeTwo">
         <div v-show="show" class="container">
           <p
-            v-for="(answer) in thisAnswers"
+            class="Two answer"
+            v-for="(answer, idx) in thisAnswers"
             :key="answer"
-            :class="classList"
+            :class="classList(idx)"
             @click="checkAnswer($event,answer)"
+            @click.prevent="playSound('../assets/wrong.avi')"
           >{{answer}}</p>
         </div>
       </transition>
@@ -32,32 +38,69 @@ export default {
     return {
       show: false,
       question: {},
-      isCorrect: false,
+      isOver: false,
       quests: [],
-      // scores: [{quest: {txt:'dfdff'}, isCurrect:true, time: 5000}, {quest: {txt:'hadas'}, isCurrect:false, time: 5000}]
-      //just for tesing
-    }
-  },
-  components: {
-    // ScoreSummary
+      timerInterval: "",
+      timer: 15,
+      isTimerLessThen10: false,
+      scores: []
+    };
   },
   methods: {
     checkAnswer(event, answer) {
       var answers = this.$store.getters.currQuest.answers;
       var answerIdx = +answers.indexOf(answer);
       var correctAnswerIdx = +this.$store.getters.currQuest.correctAnswerIdx;
+      var isCorrect = false;
       if (correctAnswerIdx === answerIdx) {
-        event.target.classList.toggle("answerCorrect");
+        this.playSound("../assets/right.mp3");
+        // event.target.classList.toggle("answerCorrect");
+        isCorrect = true;
       } else {
-        event.target.classList.toggle("answerWrong");
-        
+        this.playSound("../assets/wrong.avi");
+        // event.target.classList.toggle("answerWrong");
+        // event.target.classList.toggle("nudge");
       }
-      this.intervalNextQuestion = setTimeout(() => {
-        this.nextQuestion();
-      }, 800);
+      this.isOver = true;
+      this.scores.push(
+        this.saveScore(this.question, isCorrect, 15 - this.timer)
+      );
+      console.log(this.scores);
+      this.nextQuestion();
+    },
+    saveScore(quest, isCorrect, time) {
+      return {
+        quest,
+        isCorrect,
+        time
+      };
     },
     nextQuestion() {
-      this.$store.dispatch({ type: "nextQuest" });
+      if (this.quests.length === 1) {
+        clearInterval(this.timerInterval);
+      } else {
+        this.timeoutNextQuestion = setTimeout(() => {
+          this.$store.dispatch({ type: "nextQuest" });
+          this.question = this.$store.getters.currQuest;
+          this.isOver = false;
+          this.isTimerLessThen10 = false;
+          this.timer = 15;
+        }, 800);
+      }
+    },
+    playSound(sound) {
+      if (sound) {
+        var audio = new Audio(sound);
+        audio.play();
+      }
+    },
+    classList(idx) {
+      var correctAnswerIdx = +this.$store.getters.currQuest.correctAnswerIdx;
+      if (correctAnswerIdx === idx) {
+        return { answerCorrect: this.isOver };
+      } else {
+        return { answerWrong: this.isOver };
+      }
     }
   },
   created() {
@@ -67,7 +110,20 @@ export default {
       this.show = true;
     }, 300);
     this.quests = this.$store.getters.questsForDisplay;
-    console.log(this.quests);
+    this.question = this.$store.getters.currQuest;
+    this.timerInterval = setInterval(() => {
+      if (this.timer === 0) {
+        this.scores.push(this.saveScore(this.question, false, 15));
+        this.isOver = true;
+        this.nextQuestion();
+        return;
+      }
+      this.timer -= 1;
+      if (this.timer < 10) this.isTimerLessThen10 = true;
+    }, 1000);
+  },
+  destroyed() {
+    clearInterval(this.timerInterval);
   },
   computed: {
     thisQuestion() {
@@ -76,8 +132,8 @@ export default {
     thisAnswers() {
       return this.$store.getters.currQuest.answers;
     },
-    classList() {
-      return 'Two answer'
+    timer() {
+      return this.timer;
     }
   }
 };
@@ -118,9 +174,16 @@ button {
 p {
   text-align: center;
   font-size: 50px;
-  //   font-smoothing: antialiased;
   overflow: hidden;
   color: black;
+}
+
+.timer {
+  font-size: 15px;
+}
+
+.redTimer {
+  color: red;
 }
 
 .Two {
@@ -177,6 +240,24 @@ p {
 
 .answerWrong {
   background: red;
+}
+
+.answer:active {
+  animation: nudge 0.4s linear;
+}
+
+@keyframes nudge {
+  0% {
+    transform: rotate(-7deg);
+  }
+
+  33% {
+    transform: rotate(7deg);
+  }
+
+  66% {
+    transform: rotate(-7deg);
+  }
 }
 
 .answer:hover {
