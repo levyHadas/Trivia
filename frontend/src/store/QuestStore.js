@@ -1,5 +1,6 @@
 import QuestService from '../services/QuestService.js'
 import UtilService from '../services/UtilService.js'
+import { stat } from 'fs';
 
 const QuestStore = ({
 
@@ -21,11 +22,13 @@ const QuestStore = ({
       state.quests = quests
     },
     setCurrQuest(state, { quest }) {
+      console.log(quest)
       state.currQuest = quest
     },
     setFilterOptions(state, { filterOptions }) {
       state.filterOptions = filterOptions
     },
+
 
 
   },
@@ -37,11 +40,11 @@ const QuestStore = ({
     },
     currQuest(state) {
       return state.currQuest;
-      // return JSON.parse(JSON.stringify(state.currQuest))
     },
     filterOptions(state) {
       return state.filterOptions
     },
+
 
 
   },
@@ -54,19 +57,24 @@ const QuestStore = ({
     async loadQuests({ commit }, { filterBy }) {
       const quests = await QuestService.query(filterBy)
       commit({ type: 'setQuests', quests })
-      console.log(quests)
+      return quests
     },
 
-    async loadQuest({ commit }, { questId }) {
-      if (!questId) {
-        const emptyQuest = await QuestService.createEmpty()
-        commit({ type: 'setCurrQuest', quest: emptyQuest })
-        return emptyQuest;
-      }
-      const quest = await QuestService.getById(questId);
-      commit({ type: 'setCurrQuest', quest })
-      return quest;
+    setFirstQuestion({commit, state}) {
+      commit({ type: 'setCurrQuest', quest:state.quests[0] })
+
     },
+
+    // async loadQuest({ commit }, { questId }) {
+    //   if (!questId) {
+    //     const emptyQuest = await QuestService.createEmpty()
+    //     commit({ type: 'setCurrQuest', quest: emptyQuest })
+    //     return emptyQuest;
+    //   }
+    //   const quest = await QuestService.getById(questId);
+    //   commit({ type: 'setCurrQuest', quest })
+    //   return quest;
+    // },
 
     async loadFilterOptions({ commit }) {
       const filterOptions = await QuestService.loadFilterOptions()
@@ -74,10 +82,10 @@ const QuestStore = ({
       return filterOptions
     },
 
-    getRandomQuest({ state }) {
-      const randomIdx = UtilService.getRandomIntInclusive(0, state.quests.length - 1)
-      return state.quests[randomIdx]._id
-    },
+    // getRandomQuestId({ state }) {
+    //   const randomIdx = UtilService.getRandomIntInclusive(0, state.quests.length - 1)
+    //   return state.quests[randomIdx]._id
+    // },
 
     async saveQuest({ }, { quest }) {
       await QuestService.save(quest)

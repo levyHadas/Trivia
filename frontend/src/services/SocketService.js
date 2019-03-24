@@ -1,16 +1,51 @@
 
 import ioClient from 'socket.io-client'
-import Vue from 'vue'
 
 var socket = ioClient('//localhost:3003');
 
 const msgs = []
 
 export default {
-    getSocketConnection,
     emit,
-    on
+    on,
+    socket
 }
+
+connectionTest()
+
+
+
+function connectionTest() {
+    socket.emit('connectionTest', 'Hi from Front')
+    socket.on('connectionTest', msgFromServer => {
+            console.log(msgFromServer)
+    })
+}
+
+
+function emit(eventName, data) {
+	socket.emit(eventName, data)
+}
+
+
+function on(eventName, cb) {
+	socket.on(eventName, cb)
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // connectSocket()
@@ -27,17 +62,11 @@ export default {
 
 // }
 
-function getSocketConnection() {
-    return socket
-}
+// function getSocketConnection() {
+//     return socket
+// }
 
-function emit(eventName, data) {
-	socket.emit(eventName, data)
-}
 
-function on(eventName, cb) {
-	socket.on(eventName, cb)
-}
 
 
 

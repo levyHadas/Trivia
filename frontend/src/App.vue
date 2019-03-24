@@ -11,7 +11,8 @@ import AppNav from "@/components/AppNav.vue";
 import AppHeader from "@/components/AppHeader.vue";
 import AppFooter from "@/components/AppFooter.vue";
 
-import socketService from '@/services/SocketService.js'
+import SocketService from '@/services/SocketService.js'
+import UserService from '@/services/UserService.js'
 
 export default {
   name: "App",
@@ -21,15 +22,25 @@ export default {
     AppFooter
   },
 
-  created() {
-    var vueSocket = socketService.getSocketConnection()
-    vueSocket.emit('testingAgain', '123123')
-    socketService.on('pingUser', pingMsg => {
-        console.log(pingMsg)
-    })
+  async created() {
+    // var vueSocket = socketService.getSocketConnection()
+    // vueSocket.emit('testingAgain', '123123')
     // vueSocket.on('pingUser', pingMsg => {
     //     console.log(pingMsg)
     // })
+
+    //if currUser -> take from store, if not, make id)
+    // SocketService.emit('connectionTest', 'Hi from Component')
+    // SocketService.on('connectionTest', msgFromServer => {
+    //     console.log(msgFromServer)
+    // })
+    const loggedUser = await UserService.getLoggedUser()
+    if (loggedUser)  {
+      // SocketService.emit("userConnected", loggedUser)
+      this.$store.commit({type: 'setCurrUser', user:loggedUser})
+    }
+    // else SocketService.emit("userConnected", 'annonymouse')
+    
   }
 }
 

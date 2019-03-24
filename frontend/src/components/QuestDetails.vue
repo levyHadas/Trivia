@@ -103,14 +103,20 @@ export default {
       }
     }
   },
-  created() {
-    var questId = this.$route.params.questId;
-    this.$store.dispatch({ type: "loadQuest", questId });
+  async created() {
+    try {
+      this.quests = await this.$store.dispatch({ type: 'loadQuests', filterBy:{} })
+      this.$store.dispatch({ type: "setFirstQuestion" })
+      this.question = this.$store.getters.currQuest;
+    }
+    catch {
+      console.log('Unable to load questions. Please try again later')
+    }
+    
     setTimeout(() => {
       this.show = true;
-    }, 300);
-    this.quests = this.$store.getters.questsForDisplay;
-    this.question = this.$store.getters.currQuest;
+    }, 300)
+
     this.timerInterval = setInterval(() => {
       if (this.timer === 0) {
         this.scores.push(this.saveScore(this.question, false, 15));
