@@ -28,7 +28,7 @@ app.use(session({
   secret: 'puki muki',
   resave: false,
   saveUninitialized: true,
-  cookie: { secure: false }
+  cookie: { secure: false}
 }))
 
 app.get('/', (req, res) => {
@@ -38,14 +38,40 @@ AddQuestRoutes(app)
 AddUserRoutes(app)
 
 
+var connectedSockets = [];
 
 io.on('connection', socket => {
   console.log('socket connected! ')
-  //USER CONNECTING
-  socket.on('testingAgain', msg => {
-    console.log('msg is', msg)
+  
+  
+  socket.on('disconnect', () => {
+    console.log('user disconnected');
+    connectedSockets = connectedSockets.filter(s => s.userId !== socket.userId)
   })
-  io.emit('pingUser', 'ping123!')
+
+  socket.on('connectionTest', msgFromFront => {
+    console.log(msgFromFront)
+  })
+  
+  io.emit('connectionTest', 'Hi from server')
+  
+  socket.on('joinedParty', user =>{
+    // socket.emit('chat historyMsgs', historyMsgs);
+    // socket.broadcast.emit('chat newUser',nickName);
+    socket.user = user
+    connectedSockets.push(socket)
+    console.log('connectedSockets', connectedSockets.length)
+    if (connectedSockets.length = 2) {
+      io.emit('startParty')
+    }
+    else if (connectedSockets.length > 2) {
+      io.emit('addUserToParty', socket.user)
+    }
+    else socket.emit('noPartyYet')
+  })
+  
+ 
+  
   // socket.on('userConnected', userId => {
   //     socket.join(userId)
   //     io.emit('userIsConnected', userId);

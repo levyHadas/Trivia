@@ -30,8 +30,9 @@ function addUserRoutes(app) {
             const password = req.body.password
             userService.checkLogin({ username, password })
                 .then(user => {
+                    delete user.password
                     req.session.user = user
-                    user.password = '*******' 
+                    // req.session.cookie.maxAge = 24 * 60 * 60 * 1000
                     return res.json(user)
                 })
                 .catch(err => {
@@ -40,6 +41,19 @@ function addUserRoutes(app) {
                 })
         }
     })
+    
+    app.get(`${BASE_PATH}/loggedUser`, (req, res) => {
+        const loggedUser = req.session.user
+        return res.json(loggedUser)
+    })
+    
+    app.get(`${BASE_PATH}/logout`, (req, res) => {
+        req.session.destroy()
+        res.clearCookie('connect.sid')
+        res.end()
+    })
+
+
 
     app.get(`${BASE_PATH}/:userId`, (req, res) => {
         const {userId} = req.params
@@ -47,9 +61,8 @@ function addUserRoutes(app) {
             .then(user => res.json(user))
     })
 
-    app.get(`${BASE_PATH}/logout`, (req, res) => {
-        return Promise.resolve(res.json({}))
-    })
+
+    
 
 
 

@@ -55,10 +55,7 @@ export default {
         },
 
         async startGame(filter) {
-            this.filterBy = filter
-            await this.$store.dispatch({ type: 'loadQuests', filterBy: this.filterBy })
-            this.randomQuestId = await  this.$store.dispatch({ type: 'getRandomQuest' })
-            this.$router.push('/play/'+this.randomQuestId)
+            this.$router.push('/play/single')
         }
     },
 
