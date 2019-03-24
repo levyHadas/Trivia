@@ -54,7 +54,6 @@ const QuestStore = ({
     async loadQuests({ commit }, { filterBy }) {
       const quests = await QuestService.query(filterBy)
       commit({ type: 'setQuests', quests })
-      console.log(quests)
     },
 
     async loadQuest({ commit }, { questId }) {
