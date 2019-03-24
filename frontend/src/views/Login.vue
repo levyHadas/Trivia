@@ -45,7 +45,7 @@ export default {
             this.$router.push('/CategorySelection')
         }
         catch {
-            console.log('Something went wrong, please try again')
+            console.log('Opss... Something went wrong, please try again')
         }
 
     }
