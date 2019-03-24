@@ -85,7 +85,6 @@ async function update(quest) {
 async function getFilterOptions() {
     const db = await mongoService.connect()
     const filter = await db.collection('filterOptions').findOne({})
-    console.log(filter.tags)
     return filter
 }
 
