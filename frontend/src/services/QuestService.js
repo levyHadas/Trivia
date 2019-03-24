@@ -1,6 +1,5 @@
 import Axios from 'axios'
 
-
 const BASE_PATH = (process.env.NODE_ENV !== 'development')
     ? '/api/quest'
     : 'http://localhost:3003/api/quest'
@@ -14,9 +13,6 @@ export default {
     save,
     loadFilterOptions,
 }
-
-
-
 
 async function query(filterBy) {
     if (filterBy) {
@@ -39,7 +35,7 @@ function remove(questId) {
         .then(quest => quest.data)
 }
 
-function save(quest) {
+function save(quest) {   
     if (quest._id) return Axios.put(`${BASE_PATH}/${quest._id}`, quest)
         .then(quest => quest.data)
     return Axios.post(`${BASE_PATH}`, quest)

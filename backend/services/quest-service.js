@@ -73,6 +73,8 @@ async function remove(id) {
 
 
 async function update(quest) {
+    console.log('Updating Object');
+    
     const strQuestId = quest._id
     quest._id = new ObjectId(quest._id)
     const db = await mongoService.connect()
