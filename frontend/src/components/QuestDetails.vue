@@ -4,7 +4,7 @@
       <transition name="fadeOne">
         <div v-show="show" class="container">
           <p class="One">
-            <span class="timer" :class="{redTimer: isTimerLessThen10}">{{timer}}</span>
+            <span class="timer" :class="{redTimer: isTimerLessThen10}">{{currentTimer}}</span>
             <br>
             {{thisQuestion.txt}}
           </p>
@@ -54,9 +54,10 @@ export default {
   },
   methods: {
     newGame() {
-       this.$router.push('/CategorySelection')
+      this.$router.push("/CategorySelection");
     },
     startGameInterval() {
+      this.show=true
       if (this.quests.length === 1) {
         console.log("end");
       }
@@ -148,17 +149,18 @@ export default {
     thisAnswers() {
       return this.$store.getters.currQuest.answers;
     },
-    timer() {
+    currentTimer() {
       return this.timer;
     },
     showSummary() {
       if (this.counter === 5) {
+        this.show=false
         clearInterval(this.timerInterval);
         this.counter = 0;
         return true;
-      } else {
-        return false;
       }
+
+      return false;
     }
   },
   components: {
@@ -169,14 +171,15 @@ export default {
 
 <style scoped lang="scss">
 .main {
-  // height: 100%;
+  height: 100%;
   width: 100%;
+
   background: rgb(2, 0, 36);
   background: linear-gradient(
     90deg,
     rgba(2, 0, 36, 1) 0%,
-    rgba(148, 150, 37, 1) 0%,
-    rgba(0, 212, 255, 1) 100%
+    rgba(255, 255, 255, 1) 0%,
+    rgba(249, 240, 218, 1) 100%
   );
 }
 
@@ -207,7 +210,7 @@ p {
 }
 
 .timer {
-  font-size: 15px;
+  font-size: 25px;
 }
 
 .redTimer {
@@ -247,7 +250,7 @@ p {
   margin-top: 20px;
   display: inline-block;
   margin-right: 10px;
-  background: #339dff;
+  background: #00a6ed;
   color: #fff;
   text-decoration: none;
   font-size: 20px;
@@ -263,11 +266,11 @@ p {
 }
 
 .answerCorrect {
-  background: rgb(0, 193, 75);
+  background: #7fb800;
 }
 
 .answerWrong {
-  background: red;
+  background: #f6511d;
 }
 
 .answer:active {

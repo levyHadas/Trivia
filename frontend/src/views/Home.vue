@@ -56,7 +56,7 @@ header {
   display: flex;
   justify-content: space-around;
   padding: 30px;
-  background-color: rgb(101, 33, 43);
+  background-color: #FFB400;
   color: white;
   a {
     color: white;
@@ -88,7 +88,7 @@ header {
 }
 
 footer {
-  background-color: rgb(0, 0, 0);
+  background-color: #0D2C54;
   color: white;
   a {
     color: white;

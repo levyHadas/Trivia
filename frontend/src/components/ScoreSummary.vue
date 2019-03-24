@@ -1,6 +1,7 @@
 <template>
   <section class="summary-section">
     <div class="summary-container">
+      <h1>Game Summary</h1>
       <ul>
         <score-preview v-for="(score, idx) in scores" :key="idx" :score="score"/>
       </ul>
