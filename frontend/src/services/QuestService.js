@@ -12,8 +12,7 @@ export default {
     remove,
     createEmpty,
     save,
-    loadFilterOptions
-
+    loadFilterOptions,
 }
 
 async function query(filterBy) {
@@ -55,6 +54,5 @@ function createEmpty() {
 async function loadFilterOptions() {
     const filterOptions = await Axios.get(`${BASE_PATH}/filter`)
     return filterOptions.data
-
-    
 }
+

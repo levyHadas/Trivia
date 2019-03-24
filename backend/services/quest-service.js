@@ -1,6 +1,9 @@
 const mongoService = require('./mongo-service')
+const ObjectId = require('mongodb').ObjectId
 
-const ObjectId = require('mongodb').ObjectId;
+const ImgService = require('./img-service.js')
+
+
 
 
 module.exports = {
@@ -9,9 +12,8 @@ module.exports = {
     add,
     remove,
     update,
-    getFilter,
+    getFilterOptions,
     addTagsToDB
-    // getRandom
 }
 
 // function checkLogin({ nickname }) {
@@ -20,16 +22,21 @@ module.exports = {
 // }
 
 async function query(query) {
-    // var query = {category:'The overall'} || {tags:'value}
     queryToMongo = {}
-    if (query.category) queryToMongo.category = { '$regex': query.category, '$options': 'i' }
+    if (query.category) queryToMongo.category = { '$regex': query.category, '$options': 'i' } 
     if (query.tags && query.tags.length > 0) {
-        //Todo - for multiple tags: user or - need to build an expretion for each
-        queryToMongo.tags = { '$regex': query.tags, '$options': 'i' }
+        tags = query.tags.split(',').map(tag => new RegExp(tag,'i'))
+        queryToMongo.tags = { $in: tags } 
+        //{ '$regex': query.tags, '$options': 'i' }
+        // queryToMongo.tags = { '$regex': tags, '$options': 'i' }
     }
     try {
         const db = await mongoService.connect()
-        const data = await db.collection('quest').find(queryToMongo).toArray()
+        const data = await db.collection('quest').aggregate(
+            [ { $match : queryToMongo },
+              { $sample: { size: 20 } }
+            ]).toArray()
+        // const data = await db.collection('quest').find(queryToMongo).limit(200).toArray()
         return data
     }
     catch (error) {
@@ -44,16 +51,12 @@ function getById(id) {
         .then(db => db.collection('quest').findOne({ _id }))
 }
 
-//not working yet
-// async function getRandom(num = 5) {
-//     const db = await mongoService.connect()
-//     const quests = await db.quest.aggregate([ { $sample: { size: num } } ])
-//     return quests
-// }
-
-
 
 async function add(quest) {
+    if (!quest.imgSrc) {
+        const url = await ImgService.suggestImgs(quest.tags[0])
+        quest.imgSrc = url
+    }
     const db = await mongoService.connect()
     const res = await db.collection('quest').insertOne(quest)
     quest._id = res.insertedId
@@ -79,7 +82,7 @@ async function update(quest) {
     return quest
 }
 
-async function getFilter() {
+async function getFilterOptions() {
     const db = await mongoService.connect()
     const filter = await db.collection('filterOptions').findOne({})
     return filter
@@ -87,25 +90,17 @@ async function getFilter() {
 
 
 async function addTagsToDB(tags) { //tags = Array
-    const filterDbId = '5c937bed049290e19c5fa174'
-    //To do: get the Id from mongo and not hard coded
-    const objId = new ObjectId(filterDbId)
+    const db = await mongoService.connect()
+    const filter = await db.collection('filterOptions').findOne({})
+    const strId = filter._id
+    
+    filter.tags = filter.tags.concat(tags)
+    filter._id = new ObjectId(strId)
+    
+    await db.collection('filterOptions').updateOne({ _id: filter._id }, { $set: filter })
 
-    const queryToMongo = 
-        (   { _id: objId },
-            { $push: 
-                { tags: 
-                    { $each: tags } 
-                } 
-            }
-        )
-    await db.getCollection('filterOptions').findOneAndUpdate(queryToMongo)
 }
 
-//this following works in Robo:
-//db.getCollection('filter').findOneAndUpdate(
-//{_id : ObjectId("5c937bed049290e19c5fa174")}, 
-//{$push: { tags: {$each:["Fantasy", "Python"]} } })}
 
 
 

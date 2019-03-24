@@ -4,8 +4,9 @@ import Home from './views/Home.vue'
 import Game from './views/GameScreen.vue'
 import SignUp from './views/SignUp.vue'
 import Login from './views/Login.vue'
+import Logout from './views/Logout.vue'
 import Details from './components/QuestDetails.vue'
-import QuestSelection from './views/QuestSelection.vue'
+import CategorySelection from './views/CategorySelection.vue'
 
 
 import QuestEdit from './views/QuestEdit.vue'
@@ -30,9 +31,14 @@ export default new Router({
       component: Login
     },
     {
-      path: '/QuestSelection',
-      name: 'QuestSelection',
-      component: QuestSelection
+      path: '/logout',
+      name: 'Logout',
+      component: Logout
+    },
+    {
+      path: '/CategorySelection',
+      name: 'CategorySelection',
+      component: CategorySelection
     },
     {
       path: '/play', name: 'Play', component: Game,

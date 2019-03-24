@@ -4,7 +4,7 @@
             <category-preview v-for="(category,idx) in categories" 
                 :key="idx"
                 :category="category"
-                @categorySelected="emitListView(category)"/>
+                @categorySelected="emitSelection(category.name)"/>
         </ul>
 
     </section>
@@ -31,12 +31,12 @@ export default {
     },
 
     methods: {
-        emitListView(categoryName) {
+        emitSelection(categoryName) {
             const filter = {
                 category: categoryName,
                 tags: []
             }
-            this.$emit('startListView', filter)
+            this.$emit('categorySelected', filter)
         }
     },
 

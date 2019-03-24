@@ -23,7 +23,7 @@ async function addQuestRoutes(app) {
     })
 
     app.get(`${BASE_PATH}/filter`, (req, res) => {
-        QuestService.getFilter()
+        QuestService.getFilterOptions()
             .then(filter => res.json(filter))  
     })
 
@@ -39,10 +39,7 @@ async function addQuestRoutes(app) {
     //         .then(quests => res.json(quests))
     // })
 
-    app.get(`${BASE_PATH}/filter`, (req, res) => {
-        QuestService.getFilter(req.query)
-            .then(quests => res.json(quests))
-    })
+ 
     // SINGLE - GET Full details
     app.get(`${BASE_PATH}/:questId`, (req, res) => {
         const {questId} = req.params
@@ -59,6 +56,26 @@ async function addQuestRoutes(app) {
         QuestService.add(quest)
             .then(quest => res.json(quest))
     })
+
+    // app.post(`${BASE_PATH}`, (req, res) => {
+    //     const quest = req.body;
+    //     console.log(quest)
+    //     if (!quest.imgSrc) {
+    //         return ImgService.suggestImgs(quest.tags[0])
+    //             .then(url => {
+    //                 console.log(url)
+    //                 quest.imgSrc = url
+    //                 console.log(quest)
+    //                 QuestService.add(quest)
+    //                     .then(quest => res.json(quest))
+                    
+    //             })
+    //     }
+    //     else {
+    //         QuestService.add(quest)
+    //             .then(quest => res.json(quest))
+    //     }
+    // })
 
 
     // DELETE

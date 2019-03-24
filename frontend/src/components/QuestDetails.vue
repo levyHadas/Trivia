@@ -9,53 +9,65 @@
       <transition name="fadeTwo">
         <div v-show="show" class="container">
           <p
-            v-for="answer in thisAnswers"
+            v-for="(answer) in thisAnswers"
             :key="answer"
-            class="Two answer"
+            :class="classList"
             @click="checkAnswer($event,answer)"
           >{{answer}}</p>
         </div>
       </transition>
     </div>
+    <!-- <score-summary :scores="scores"/> -->
+    <!-- added to check the component. needs to be implemented in -->
+    <!-- should be active after 5 questions. shoule pause the game and resume at emitted event @resumeGame -->
   </section>
 </template>
 
 <script>
+// import ScoreSummary from '@/components/ScoreSummary';
+
 export default {
   name: "Question",
-  props: {
-    question2: Array
-  },
   data() {
     return {
       show: false,
       question: {},
-      isCorrect: false
-    };
+      isCorrect: false,
+      quests: [],
+      // scores: [{quest: {txt:'dfdff'}, isCurrect:true, time: 5000}, {quest: {txt:'hadas'}, isCurrect:false, time: 5000}]
+      //just for tesing
+    }
+  },
+  components: {
+    // ScoreSummary
   },
   methods: {
     checkAnswer(event, answer) {
       var answers = this.$store.getters.currQuest.answers;
       var answerIdx = +answers.indexOf(answer);
       var correctAnswerIdx = +this.$store.getters.currQuest.correctAnswerIdx;
-
       if (correctAnswerIdx === answerIdx) {
-        console.log("CORRECT");
         event.target.classList.toggle("answerCorrect");
       } else {
         event.target.classList.toggle("answerWrong");
+        
       }
+      this.intervalNextQuestion = setTimeout(() => {
+        this.nextQuestion();
+      }, 800);
+    },
+    nextQuestion() {
+      this.$store.dispatch({ type: "nextQuest" });
     }
   },
   created() {
     var questId = this.$route.params.questId;
     this.$store.dispatch({ type: "loadQuest", questId });
-    var intervalShow = setInterval(() => {
+    setTimeout(() => {
       this.show = true;
     }, 300);
-  },
-  destroyed() {
-    clearInterval(intervalShow);
+    this.quests = this.$store.getters.questsForDisplay;
+    console.log(this.quests);
   },
   computed: {
     thisQuestion() {
@@ -63,6 +75,9 @@ export default {
     },
     thisAnswers() {
       return this.$store.getters.currQuest.answers;
+    },
+    classList() {
+      return 'Two answer'
     }
   }
 };
@@ -106,12 +121,15 @@ p {
   //   font-smoothing: antialiased;
   overflow: hidden;
   color: black;
-  margin: 1px;
 }
 
 .Two {
   font-size: 18px;
   font-family: Georgia, serif;
+}
+
+.One {
+  padding: 5px;
 }
 
 .fadeOne-enter-active,
@@ -158,13 +176,13 @@ p {
 }
 
 .answerWrong {
-    background: red;
+  background: red;
 }
 
 .answer:hover {
   cursor: pointer;
-  background: #fff;
-  color: #339dff;
+  // background: #fff;
+  // color: #339dff;
   box-shadow: 0 4px 4px rgba(83, 100, 255, 0.32);
 }
 </style>
