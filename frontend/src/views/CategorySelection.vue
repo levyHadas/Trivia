@@ -59,15 +59,21 @@ export default {
     allCategories() {
       return this.$store.getters.filterOptions.categories;
     },
-    viewToRender() {
-      return this.currView;
-    },
 
     allTags() {
       return this.$store.getters.filterOptions.tags;
     }
+  },
+  methods: {
+    toggleTagsCloud(cloudState) {
+        this.tagsCloudShown = cloudState
+    },
+
+    async startGame(filter) {
+        this.$router.push('/play/single')
+    }
   }
-};
+}
 </script>
 
 <style>
