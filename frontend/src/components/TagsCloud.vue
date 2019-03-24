@@ -14,7 +14,6 @@
 </template>
 
 <script>
-
 export default {
     props: {
         tags: Array
@@ -72,7 +71,7 @@ export default {
     background-color: rgba(72, 182, 149, 0.8);
     z-index: 2;
     display: flex;
-    border-radius: 10%;
+    border-radius: 5%;
     
     button {
         border-radius: 7%;

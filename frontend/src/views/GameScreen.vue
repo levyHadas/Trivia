@@ -1,6 +1,6 @@
 <template>
   <section class="main">
-      <router-view></router-view>
+    <router-view></router-view>
   </section>
 </template>
 
@@ -11,7 +11,7 @@ export default {
     question2: Array
   },
   created() {
-      console.log('game was created')
+    console.log("game was created");
   },
   data() {
     return {
@@ -31,13 +31,13 @@ export default {
 
 <style scoped lang="scss">
 .main {
-// height: 100vh;
-  background: rgb(2, 0, 36);
+  // height: 100vh;
+background: rgb(2, 0, 36);
   background: linear-gradient(
     90deg,
     rgba(2, 0, 36, 1) 0%,
-    rgba(148, 150, 37, 1) 0%,
-    rgba(0, 212, 255, 1) 100%
+    rgba(255, 255, 255, 1) 0%,
+    rgba(249, 240, 218, 1) 100%
   );
 }
 </style>
