@@ -11,14 +11,33 @@ import AppNav from "@/components/AppNav.vue";
 import AppHeader from "@/components/AppHeader.vue";
 import AppFooter from "@/components/AppFooter.vue";
 
+import socketService from '@/services/SocketService.js'
+
 export default {
   name: "App",
   components: {
     AppNav,
     AppHeader,
     AppFooter
+  },
+
+  created() {
+    var vueSocket = socketService.getSocketConnection()
+    vueSocket.emit('testingAgain', '123123')
+    socketService.on('pingUser', pingMsg => {
+        console.log(pingMsg)
+    })
+    // vueSocket.on('pingUser', pingMsg => {
+    //     console.log(pingMsg)
+    // })
   }
-};
+}
+
+
+
+
+
+
 </script>
 
 <style lang="scss">
