@@ -1,19 +1,21 @@
 <template>
   <section class="login">
-    <form>
-      <el-input class="el-input" required 
-          v-model="user.username" 
-          placeholder="Username" clearable>
-      </el-input>
-
-      <el-input type="password" class="el-input" required 
-          v-model="user.password" 
-          placeholder="Password" clearable>
-      </el-input>
-      <el-button type="primary" plain @click.prevent="login">login</el-button>
-      <el-button type="primary" plain @click.prevent="logout">logout</el-button>
-
-    </form>
+    <el-form @submit="login" class="form-container">
+        <el-input class="el-input" required 
+            v-model="user.username" 
+            placeholder="Username" clearable>
+        </el-input>
+        <el-input type="password" class="el-input" required
+            v-model="user.password"
+            clearable show-password
+            placeholder="Password">
+        </el-input>
+        <el-button type="primary" plain 
+            native-type="submit" 
+            @click.prevent="login">
+            login
+        </el-button>
+    </el-form>
 
   </section>
 </template>
@@ -25,7 +27,7 @@
 <script>
 
 export default {
-  name: 'login',
+  name: 'Login',
 
  
 
@@ -33,13 +35,11 @@ export default {
     return {
       user: {
         username: '',
-        password: ''
+        password: '',
       }
     }
   },
-  created() {
-      console.log('hi')
-  },
+
 
   methods: {
     async login() { 
@@ -58,3 +58,20 @@ export default {
  
 }
 </script>
+
+<style lang="scss" scoped>
+    .form-container {
+        width: 80%;
+        padding: 50px;
+        height: 66vh;
+
+        .el-input {
+            margin: 20px 0;
+        }
+        .el-button {
+            margin: 20px 0;
+
+        }
+    }
+</style>
+

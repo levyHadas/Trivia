@@ -17,10 +17,15 @@
         </div>
       </transition>
     </div>
+    <!-- <score-summary :scores="scores"/> -->
+    <!-- added to check the component. needs to be implemented in -->
+    <!-- should be active after 5 questions. shoule pause the game and resume at emitted event @resumeGame -->
   </section>
 </template>
 
 <script>
+// import ScoreSummary from '@/components/ScoreSummary';
+
 export default {
   name: "Question",
   data() {
@@ -28,8 +33,13 @@ export default {
       show: false,
       question: {},
       isCorrect: false,
-      quests: []
-    };
+      quests: [],
+      // scores: [{quest: {txt:'dfdff'}, isCurrect:true, time: 5000}, {quest: {txt:'hadas'}, isCurrect:false, time: 5000}]
+      //just for tesing
+    }
+  },
+  components: {
+    // ScoreSummary
   },
   methods: {
     checkAnswer(event, answer) {

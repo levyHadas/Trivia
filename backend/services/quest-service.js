@@ -1,6 +1,9 @@
 const mongoService = require('./mongo-service')
+const ObjectId = require('mongodb').ObjectId
 
-const ObjectId = require('mongodb').ObjectId;
+const ImgService = require('./img-service.js')
+
+
 
 
 module.exports = {
@@ -50,6 +53,10 @@ function getById(id) {
 
 
 async function add(quest) {
+    if (!quest.imgSrc) {
+        const url = await ImgService.suggestImgs(quest.tags[0])
+        quest.imgSrc = url
+    }
     const db = await mongoService.connect()
     const res = await db.collection('quest').insertOne(quest)
     quest._id = res.insertedId

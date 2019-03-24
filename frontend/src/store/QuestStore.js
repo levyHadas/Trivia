@@ -1,4 +1,5 @@
 import QuestService from '../services/QuestService.js'
+import UtilService from '../services/UtilService.js'
 
 const QuestStore = ({
 
@@ -75,8 +76,7 @@ const QuestStore = ({
     },
 
     getRandomQuest({ commit, state }) {
-      // randomIdx = utilService.getRandomInt(0, tate.quests.length-1) //to do - util service
-      const randomIdx = QuestService.getRandomIntInclusive(0, state.quests.length-1)
+      const randomIdx = UtilService.getRandomIntInclusive(0, state.quests.length-1)
       return state.quests[randomIdx]._id
     }
 

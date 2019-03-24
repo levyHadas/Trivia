@@ -8,6 +8,7 @@
                 <p>{{category.name}}</p>
             </div>
         </li>
+
     </section>
 </template>
 

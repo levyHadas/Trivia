@@ -1,12 +1,13 @@
 <template>
     <section class="tags-section">
         <div class="tags-container"> 
+            <button class="close-tags" @click="$emit('closeTags')">X</button>
             <div class="tags"
                 v-for="(tag, idx) in tags" :key="idx"
                 @click="toggleSelected(tag, $event.target)">
                     <div class="tag">{{tag}}</div>
             </div>
-        <button class="save-tags" @click="emitListView()">PLAY</button>
+        <button class="save-tags" @click="emitTagsSelection">PLAY</button>
         </div>
 
     </section>
@@ -25,7 +26,7 @@ export default {
     },
  
     methods: {
-        emitListView(categoryName) {
+        emitTagsSelection(categoryName) {
             const filter = {
                 category: '',
                 tags: this.selectedTags
@@ -77,13 +78,23 @@ export default {
         border-radius: 7%;
         position: block;
         background-color: aqua;
+        border: none;
+        padding: 15px;
+        color: teal;
+        cursor: pointer;
+    }
+    .save-tags {
         width: 120px;
         height: 80px;
         border: none;
         font-size: 30px;
-        padding: 15px;
-        color: teal;
-        cursor: pointer;
+    }
+    .close-tags { 
+        width: 40px;
+        height: 40px;
+        border: none;
+        font-size: 16px;
+        
     }
 
 }
