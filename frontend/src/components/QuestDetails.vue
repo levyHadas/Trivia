@@ -4,7 +4,7 @@
       <transition name="fadeOne">
         <div v-show="show" class="container">
           <p class="One">
-            <span class="timer" :class="{redTimer: isTimerLessThen10}">{{timer}}</span>
+            <span class="timer" :class="{redTimer: isTimerLessThen10}">{{currentTimer}}</span>
             <br>
             {{thisQuestion.txt}}
           </p>
@@ -18,66 +18,98 @@
             :key="answer"
             :class="classList(idx)"
             @click="checkAnswer($event,answer)"
-            @click.prevent="playSound('../assets/wrong.avi')"
           >{{answer}}</p>
         </div>
       </transition>
     </div>
-    <!-- <score-summary :scores="scores"/> -->
-    <!-- added to check the component. needs to be implemented in -->
-    <!-- should be active after 5 questions. shoule pause the game and resume at emitted event @resumeGame -->
+    <score-summary
+      v-if="showSummary"
+      :scores="scores"
+      @resumeGame="startGameInterval"
+      @newGame="newGame"
+    />
   </section>
 </template>
 
 <script>
-// import ScoreSummary from '@/components/ScoreSummary';
-
+import ScoreSummary from "@/components/ScoreSummary";
 export default {
   name: "Question",
   data() {
     return {
+      wrong:
+        "https://res.cloudinary.com/sarel/video/upload/v1553422191/wrong.wav",
+      right:
+        "https://res.cloudinary.com/sarel/video/upload/v1553422191/right.mp3",
       show: false,
       question: {},
       isOver: false,
       quests: [],
       timerInterval: "",
       timer: 15,
+      counter: 0,
       isTimerLessThen10: false,
-      scores: []
+      scores: ""
     };
   },
   methods: {
+    newGame() {
+      this.$router.push("/CategorySelection");
+    },
+    startGameInterval() {
+      this.show=true
+      if (this.quests.length === 1) {
+        console.log("end");
+      }
+      this.scores = [];
+      this.timerInterval = setInterval(() => {
+        if (this.timer === 0) {
+          this.scores.push(this.saveScore(this.question, false, 15));
+          this.isOver = true;
+          this.counter += 1;
+          this.nextQuestion();
+          return;
+        }
+        this.timer -= 1;
+        if (this.timer < 10) this.isTimerLessThen10 = true;
+      }, 1000);
+    },
+    playSound(sound) {
+      if (sound) {
+        var audio = new Audio(sound);
+        audio.play();
+      }
+    },
     checkAnswer(event, answer) {
       var answers = this.$store.getters.currQuest.answers;
+      this.question = this.$store.getters.currQuest;
       var answerIdx = +answers.indexOf(answer);
       var correctAnswerIdx = +this.$store.getters.currQuest.correctAnswerIdx;
       var isCorrect = false;
       if (correctAnswerIdx === answerIdx) {
-        this.playSound("../assets/right.mp3");
-        // event.target.classList.toggle("answerCorrect");
+        this.playSound(this.right);
         isCorrect = true;
       } else {
-        this.playSound("../assets/wrong.avi");
-        // event.target.classList.toggle("answerWrong");
-        // event.target.classList.toggle("nudge");
+        this.playSound(this.wrong);
       }
       this.isOver = true;
       this.scores.push(
         this.saveScore(this.question, isCorrect, 15 - this.timer)
       );
-      console.log(this.scores);
+      this.counter += 1;
       this.nextQuestion();
     },
     saveScore(quest, isCorrect, time) {
       return {
         quest,
-        isCorrect,
-        time
+        time,
+        isCorrect
       };
     },
     nextQuestion() {
       if (this.quests.length === 1) {
         clearInterval(this.timerInterval);
+        this.counter = 5;
       } else {
         this.timeoutNextQuestion = setTimeout(() => {
           this.$store.dispatch({ type: "nextQuest" });
@@ -86,12 +118,6 @@ export default {
           this.isTimerLessThen10 = false;
           this.timer = 15;
         }, 800);
-      }
-    },
-    playSound(sound) {
-      if (sound) {
-        var audio = new Audio(sound);
-        audio.play();
       }
     },
     classList(idx) {
@@ -115,18 +141,10 @@ export default {
     
     setTimeout(() => {
       this.show = true;
-    }, 300)
-
-    this.timerInterval = setInterval(() => {
-      if (this.timer === 0) {
-        this.scores.push(this.saveScore(this.question, false, 15));
-        this.isOver = true;
-        this.nextQuestion();
-        return;
-      }
-      this.timer -= 1;
-      if (this.timer < 10) this.isTimerLessThen10 = true;
-    }, 1000);
+    }, 300);
+    // this.quests = this.$store.getters.questsForDisplay;
+    // this.question = this.$store.getters.currQuest;
+    this.startGameInterval();
   },
   destroyed() {
     clearInterval(this.timerInterval);
@@ -138,23 +156,37 @@ export default {
     thisAnswers() {
       return this.$store.getters.currQuest.answers;
     },
-    timer() {
+    currentTimer() {
       return this.timer;
+    },
+    showSummary() {
+      if (this.counter === 5) {
+        this.show=false
+        clearInterval(this.timerInterval);
+        this.counter = 0;
+        return true;
+      }
+
+      return false;
     }
+  },
+  components: {
+    ScoreSummary
   }
 };
 </script>
 
 <style scoped lang="scss">
 .main {
-  // height: 100%;
+  height: 100%;
   width: 100%;
+
   background: rgb(2, 0, 36);
   background: linear-gradient(
     90deg,
     rgba(2, 0, 36, 1) 0%,
-    rgba(148, 150, 37, 1) 0%,
-    rgba(0, 212, 255, 1) 100%
+    rgba(255, 255, 255, 1) 0%,
+    rgba(249, 240, 218, 1) 100%
   );
 }
 
@@ -185,7 +217,7 @@ p {
 }
 
 .timer {
-  font-size: 15px;
+  font-size: 25px;
 }
 
 .redTimer {
@@ -225,7 +257,7 @@ p {
   margin-top: 20px;
   display: inline-block;
   margin-right: 10px;
-  background: #339dff;
+  background: #00a6ed;
   color: #fff;
   text-decoration: none;
   font-size: 20px;
@@ -241,11 +273,11 @@ p {
 }
 
 .answerCorrect {
-  background: rgb(0, 193, 75);
+  background: #7fb800;
 }
 
 .answerWrong {
-  background: red;
+  background: #f6511d;
 }
 
 .answer:active {
