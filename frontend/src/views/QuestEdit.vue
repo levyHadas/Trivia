@@ -1,67 +1,72 @@
 <template>
   <section v-if="questToEdit" class="quest-details">
-    <h1>Edit Question</h1>
-
-    <el-form ref="form" :model="form" label-width="120px" @submit.prevent="saveQuest">
+    <el-form ref="form" label-width="120px" @submit.prevent="saveQuest">
       <el-form-item label="Question">
-        <el-input v-model="form.name"></el-input>
+        <el-input v-model="questToEdit.txt" type="textarea"></el-input>
+        question text: {{questToEdit.txt}}
       </el-form-item>
       <el-form-item label="Category">
-        <el-dropdown>
+        category {{questToEdit.category}}
+        <el-dropdown @command="handleChooseCatogryletter">
           <el-button type="primary">
             Category
             <i class="el-icon-arrow-down el-icon--right"></i>
           </el-button>
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item>Action 1</el-dropdown-item>
+            <template v-for="(category, idx) in categories">
+              <el-dropdown-item :key="idx" :command="category">{{category}}</el-dropdown-item>
+            </template>
           </el-dropdown-menu>
         </el-dropdown>
       </el-form-item>
-      <el-form-item label="Correct Answer">
-        <el-dropdown>
+      correct ans: {{questToEdit.answers[questToEdit.correctAnswerIdx]}}
+      <el-form-item 
+        v-if="questToEdit.answers.length>0"
+        label="Correct Answer">
+        <el-dropdown @command="getClickedAnsLetter">
           <el-button type="primary">
             Correct Answer
             <i class="el-icon-arrow-down el-icon--right"></i>
           </el-button>
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item>Action 1</el-dropdown-item>
-            <el-dropdown-item>Action 2</el-dropdown-item>
-            <el-dropdown-item>Action 3</el-dropdown-item>
-            <el-dropdown-item>Action 4</el-dropdown-item>
+            <el-dropdown-item command="0">{{questToEdit.answers[0]}}</el-dropdown-item>
+            <el-dropdown-item command="1">{{questToEdit.answers[1]}}</el-dropdown-item>
+            <el-dropdown-item command="2">{{questToEdit.answers[2]}}</el-dropdown-item>
+            <el-dropdown-item command="3">{{questToEdit.answers[3]}}</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
       </el-form-item>
-      <el-form-item label="Craeted At">
+    <el-form-item v-else label="Optional Answers">
+      <el-input v-model="ansOptions"></el-input>
+    </el-form-item>
+
+      <el-form-item label="Created At" hidden>
         <el-col :span="11">
           <el-date-picker
             type="date"
             placeholder="Pick a date"
-            v-model="form.date1"
+            v-model="questToEdit.createdAt"
             style="width: 100%;"
           ></el-date-picker>
         </el-col>
       </el-form-item>
-      <el-form-item label="Change Image">
-        <el-input v-model="form.name"></el-input>
-      </el-form-item>
+
+      <el-form-item label="Change Image"></el-form-item>
       <el-form-item label="Created By">
-        <el-input v-model="form.name"></el-input>
+        <el-input :placeholder="questToEdit.createdBy" v-model="questToEdit.createdBy"></el-input>
+        created by: {{questToEdit.createdBy}}
       </el-form-item>
-      <el-form-item label="Tag">
-        <el-input v-model="form.name"></el-input>
+      <el-form-item label="Tags (Comma seperated)">
+        <el-input v-model="tags"></el-input>
+        {{tags}}
       </el-form-item>
+
       <el-form-item label="Hint">
-        <el-input v-model="form.name"></el-input>
+        <el-input v-model="questToEdit.hint"></el-input>
       </el-form-item>
-      <!--   <el-form-item label="Instant delivery">
-    <el-switch v-model="form.delivery"></el-switch>
-      </el-form-item>-->
-      <!--  
-  <el-form-item label="Activity form">
-    <el-input type="textarea" v-model="form.desc"></el-input>
-      </el-form-item>-->
+      hint {{questToEdit.hint}}
       <el-form-item>
-        <el-button type="primary" @click="onSubmit">Create</el-button>
+        <el-button type="primary" @click="saveQuest">Create</el-button>
         <el-button type="danger" plain @click="removeQuest">X</el-button>
         <el-button>Cancel</el-button>
       </el-form-item>
@@ -73,31 +78,54 @@
 // import QuestList from '@/components/QuestList.vue'
 
 export default {
-  name: "QuestEdit",
+  // txt: "QuestEdit",
   data() {
     return {
-      questToEdit: null,
+      clickedAnsLetter: '',
+      questToEdit: {
+        category: '',
+        txt: '',
+        correctAnswerIdx: null,
+        answers: [],
+        createdBy: '',
+        imgSrc: '',
+        tags: [],
+        hint: '',
+        createdAt: null,
+        rating: ''
+      },
       form: {
-        name: "",
-        region: "",
-        date1: "",
-        date2: "",
-        delivery: false,
-        type: [],
-        resource: "",
-        desc: ""
-      }
-      //   options: ["Adult", "Educational"]
+        txt: "",
+        correctAnswerIdx: null
+      },
+      categories: [
+        "Science & Nature",
+        "Science: Computers",
+        "Science: Mathematics",
+        "Mythology",
+        "Sports",
+        "Geography",
+        "History",
+        "Politics",
+        "Entertainment",
+        "Art"
+      ],
+      tags: "",
+      ansOptions: '',
     };
   },
 
-  created() {
-    console.log("edit");
+  async created() {
     var { questId } = this.$route.params;
-    console.log("Quest Id", questId);
-    this.$store.dispatch({ type: "loadQuest", questId }).then(() => {
-      this.questToEdit = this.$store.getters.currQuest;
-    });
+    if (questId) {
+      await this.$store.dispatch({ type: "loadQuest", questId });
+      let question = await this.$store.getters.currQuest;
+      this.questToEdit = JSON.parse(JSON.stringify(question));
+      this.tags =
+        this.questToEdit.tags.length > 0
+          ? this.questToEdit.tags.toString()
+          : "";
+    }
   },
 
   methods: {
@@ -108,41 +136,42 @@ export default {
         .then(() => this.$router.push("/quest"));
     },
     saveQuest() {
+      console.log("save quest: Form saved");
+      if (this.tags.length > 0) this.questToEdit.tags = this.tags.split(",");
       var { questId } = this.$route.params;
-      this.$store
-        .dispatch({ type: "saveQuest", quest: this.questToEdit })
-        .then(() => this.$router.push("/quest"));
+      console.log("quest id: ", questId);
+
+      this.$store.dispatch({ type: "saveQuest", quest: this.questToEdit });
+      // .then(() => this.$router.push("/quest"));
     },
-    onSubmit() {
-      console.log("submit!");
+    getClickedAnsLetter(command) {
+      this.questToEdit.correctAnswerIdx = command;
+      console.log("chose: ", this.questToEdit.correctAnswerIdx);
+    },
+    handleChooseCatogryletter(command) {
+      console.log("clicked Category: ", command);
+      this.questToEdit.category = command;
     }
-    // querySearch(queryString, cb) {
-    //   // call callback function to return suggestions
-    //   console.log(queryString);
-    //   cb(["kjhkj", "jhkj"]);
-    // },
-    // handleSelect(item) {
-    //   console.log(item);
+  },
+  computed: {
+    // chosenAnsIdx () {
+    //   return
     // }
   },
-
-  watch: {
-    // "$route.params": function() {
-    //   var { questId } = this.$route.params;
-    //   this.$store.dispatch({ type: "loadQuest", questId });
-    // }
-  }
+  watch: {}
 };
 </script>
 
 <style scoped>
+.el-form {
+  margin-top: 20px;
+}
 .el-input {
   width: 300px;
 }
 .edit-row {
   display: flex;
-  align-items: center;
-  justify-content: start;
+  align-items: flex-start;
 }
 .edit-row p {
   width: 150px;
