@@ -8,12 +8,18 @@ const msgs = []
 export default {
     emit,
     on,
-    socket
+    socket,
+    connectionTest
 }
 
-connectionTest()
 
+// socket.on('ShowUpdatedScores', playersWithScores => {
+//     console.log('playersWithScores  socket.on -updateGameState' , playersWithScores)
+// })
 
+// SocketService.on('ShowUpdatedScores', playersWithScores => {
+//     console.log('this is in the computed: ',playersWithScores)
+// })
 
 function connectionTest() {
     socket.emit('connectionTest', 'Hi from Front')
@@ -21,6 +27,8 @@ function connectionTest() {
             console.log(msgFromServer)
     })
 }
+
+
 
 
 function emit(eventName, data) {
@@ -38,14 +46,9 @@ function on(eventName, cb) {
 
 
 
-
-
-
-
-
-
-
-
+// function send(msg) {
+// 	socket.emit('post-msg', msg)
+// }
 
 
 // connectSocket()

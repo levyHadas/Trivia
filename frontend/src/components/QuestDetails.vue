@@ -3,7 +3,7 @@
     <div class="quest">
       <transition name="fadeOne">
         <div v-show="show" class="container">
-          <p class="One">
+          <p class="One"> 
             <span class="timer" :class="{redTimer: isTimerLessThen10}">{{currentTimer}}</span>
             <br>
             {{thisQuestion.txt}}
@@ -32,7 +32,10 @@
 </template>
 
 <script>
-import ScoreSummary from "@/components/ScoreSummary";
+
+import ScoreSummary from "@/components/ScoreSummary"
+import SocketService from '@/services/SocketService.js'
+
 export default {
   name: "Question",
   data() {
@@ -50,21 +53,25 @@ export default {
       counter: 0,
       isTimerLessThen10: false,
       scores: ""
-    };
+    }
   },
   methods: {
     newGame() {
       this.$router.push("/CategorySelection");
     },
     startGameInterval() {
-      this.show=true
+      this.show = true;
       if (this.quests.length === 1) {
         console.log("end");
       }
       this.scores = [];
       this.timerInterval = setInterval(() => {
         if (this.timer === 0) {
-          this.scores.push(this.saveScore(this.question, false, 15));
+          this.scores.push(this.saveScore(this.question, false, 15))
+          
+          //Todo: do only if route is group
+          this.$store.dispatch({type: 'updateGameScores', scores: this.scores})
+
           this.isOver = true;
           this.counter += 1;
           this.nextQuestion();
@@ -95,7 +102,10 @@ export default {
       this.isOver = true;
       this.scores.push(
         this.saveScore(this.question, isCorrect, 15 - this.timer)
-      );
+      )
+      //Todo: do only if route is group
+      this.$store.dispatch({type: 'updateGameScores', scores:this.scores})
+
       this.counter += 1;
       this.nextQuestion();
     },
@@ -130,15 +140,21 @@ export default {
     }
   },
   async created() {
+    if (this.$route.name === 'partyMode') { //player is set ince pressing "play party". But if we start from this page, so we should set a user
+      const loggedUser = this.$store.getters.currUser
+      this.$store.dispatch({type:'addPlayer', player:loggedUser})
+    }
     try {
-      this.quests = await this.$store.dispatch({ type: 'loadQuests', filterBy:{} })
-      this.$store.dispatch({ type: "setFirstQuestion" })
+      this.quests = await this.$store.dispatch({
+        type: "loadQuests",
+        filterBy: {}
+      });
+      this.$store.dispatch({ type: "setFirstQuestion" });
       this.question = this.$store.getters.currQuest;
+    } catch {
+      console.log("Unable to load questions. Please try again later");
     }
-    catch {
-      console.log('Unable to load questions. Please try again later')
-    }
-    
+
     setTimeout(() => {
       this.show = true;
     }, 300);
@@ -161,7 +177,7 @@ export default {
     },
     showSummary() {
       if (this.counter === 5) {
-        this.show=false
+        this.show = false;
         clearInterval(this.timerInterval);
         this.counter = 0;
         return true;

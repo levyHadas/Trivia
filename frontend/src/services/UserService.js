@@ -1,4 +1,5 @@
 import axios from 'axios'
+import UtilService from './UtilService'
 
 const BASE_PATH = (process.env.NODE_ENV !== 'development')
     ? '/user'
@@ -9,7 +10,8 @@ export default {
     login,
     logout,
     signup,
-    getLoggedUser
+    getLoggedUser,
+    // getDefaultUser
 }
 
 const Axios = axios.create({
@@ -51,20 +53,27 @@ function logout() {
 async function getLoggedUser() {
     try {
         const res = await Axios.get(`${BASE_PATH}/loggedUser`)
-        const loggedUser = res.data
-        return loggedUser
-    } 
+        if (res.data) return res.data
+        else return _getDefaultUser()
+    }
     catch {
-        throw('Could not get current user')
+        throw('Could not find user')
     }
 }
 
-function getUser(userId) {
-
-    return axios.get(`${BASE_PATH}/${userId}`)
-        .then(res => res.data)
-        .catch(err => err)
-        
-        
+function _getDefaultUser() {
+    return {_id: UtilService.makeId(),
+        username: 'Puki',
+        img: 'https://api.adorable.io/avatars/puki'
+        }
 }
+
+// function getUser(userId) {
+
+//     return axios.get(`${BASE_PATH}/${userId}`)
+//         .then(res => res.data)
+//         .catch(err => err)
+        
+        
+// }
 

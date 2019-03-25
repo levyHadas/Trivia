@@ -49,19 +49,19 @@ io.on('connection', socket => {
     connectedSockets = connectedSockets.filter(s => s.userId !== socket.userId)
   })
 
+
   socket.on('connectionTest', msgFromFront => {
     console.log(msgFromFront)
+    io.emit('connectionTest', 'Hi from server')
   })
   
-  io.emit('connectionTest', 'Hi from server')
   
-  socket.on('joinedParty', user =>{
-    // socket.emit('chat historyMsgs', historyMsgs);
-    // socket.broadcast.emit('chat newUser',nickName);
+  socket.on('joinedParty', user => {
+
     socket.user = user
     connectedSockets.push(socket)
-    console.log('connectedSockets', connectedSockets.length)
     if (connectedSockets.length = 2) {
+      // console.log('connectedSockets', connectedSockets.length)
       io.emit('startParty')
     }
     else if (connectedSockets.length > 2) {
@@ -69,6 +69,13 @@ io.on('connection', socket => {
     }
     else socket.emit('noPartyYet')
   })
+
+  socket.on('updateGameScores', playersWithScores => {
+    io.emit('ShowUpdatedScores', playersWithScores)  
+  })
+
+  
+
   
  
   

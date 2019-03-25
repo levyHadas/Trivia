@@ -23,23 +23,8 @@ export default {
   },
 
   async created() {
-    // var vueSocket = socketService.getSocketConnection()
-    // vueSocket.emit('testingAgain', '123123')
-    // vueSocket.on('pingUser', pingMsg => {
-    //     console.log(pingMsg)
-    // })
-
-    //if currUser -> take from store, if not, make id)
-    // SocketService.emit('connectionTest', 'Hi from Component')
-    // SocketService.on('connectionTest', msgFromServer => {
-    //     console.log(msgFromServer)
-    // })
-    const loggedUser = await UserService.getLoggedUser()
-    if (loggedUser)  {
-      // SocketService.emit("userConnected", loggedUser)
-      this.$store.commit({type: 'setCurrUser', user:loggedUser})
-    }
-    // else SocketService.emit("userConnected", 'annonymouse')
+   
+    this.$store.dispatch({type:'setLoggedUser'})
     
   }
 }

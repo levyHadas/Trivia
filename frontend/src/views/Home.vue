@@ -4,7 +4,7 @@
       <h3>Global. Knowlege. Compete With Others</h3>
       <br>
       <a href="#/CategorySelection" class="download2">Play</a>
-      <button  class="download2" @click="connectUser">Party</button>
+      <button  class="download2" @click="requestPartyGame">Party</button>
     </section>
   </div>
 </template>
@@ -23,21 +23,21 @@ export default {
 
   methods: {
 
-    connectUser(){
+    requestPartyGame(){
 
-      SocketService.emit('connectionTest', 'Hi from Component')
-      SocketService.on('connectionTest', msgFromServer => console.log(msgFromServer))
+      SocketService.connectionTest()
       
       const loggedUser = this.$store.getters.currUser
-      if (!loggedUser) loggedUser = 'annonymouse'
       SocketService.emit('joinedParty', loggedUser)
+      
       SocketService.on('noPartyYet', () => {
         console.log('no party yet. You can wait or play single mode. Once a user connected we will inform you.')
         this.$router.push('/categorySelection')
-        })
+      })
       SocketService.on('startParty', () => {
-        this.$router.push('/questionDetails')
-        })
+        this.$router.push('/play/party')
+        this.$store.dispatch({type:'addPlayer', player:loggedUser})
+      })
     },
 
 

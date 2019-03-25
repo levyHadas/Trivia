@@ -13,9 +13,9 @@
 
 <script>
 //when category s clicked it emites event updateCurrView('list')
-import CategoryList from "@/components/CategoryList.vue";
-import TagsCloud from "@/components/TagsCloud.vue";
-import QuestService from "../services/QuestService.js";
+import CategoryList from "@/components/CategoryList.vue"
+import TagsCloud from "@/components/TagsCloud.vue"
+import QuestService from "../services/QuestService.js"
 
 export default {
   data() {
@@ -34,7 +34,7 @@ export default {
   },
 
   async created() {
-    await this.$store.dispatch("loadFilterOptions");
+    await this.$store.dispatch("loadFilterOptions")
   },
 
   methods: {
@@ -57,11 +57,11 @@ export default {
 
   computed: {
     allCategories() {
-      return this.$store.getters.filterOptions.categories;
+      return this.$store.getters.filterOptions.categories
     },
 
     allTags() {
-      return this.$store.getters.filterOptions.tags;
+      return this.$store.getters.filterOptions.tags
     }
   },
   methods: {

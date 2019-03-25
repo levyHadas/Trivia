@@ -1,6 +1,7 @@
 import QuestService from '../services/QuestService.js'
-import UtilService from '../services/UtilService.js'
-import { stat } from 'fs';
+// import { stat } from 'fs';
+
+
 
 const QuestStore = ({
 
@@ -65,16 +66,16 @@ const QuestStore = ({
 
     },
 
-    // async loadQuest({ commit }, { questId }) {
-    //   if (!questId) {
-    //     const emptyQuest = await QuestService.createEmpty()
-    //     commit({ type: 'setCurrQuest', quest: emptyQuest })
-    //     return emptyQuest;
-    //   }
-    //   const quest = await QuestService.getById(questId);
-    //   commit({ type: 'setCurrQuest', quest })
-    //   return quest;
-    // },
+    async loadQuest({ commit }, { questId }) {
+      if (!questId) {
+        const emptyQuest = await QuestService.createEmpty()
+        commit({ type: 'setCurrQuest', quest: emptyQuest })
+        return emptyQuest;
+      }
+      const quest = await QuestService.getById(questId);
+      commit({ type: 'setCurrQuest', quest })
+      return quest;
+    },
 
     async loadFilterOptions({ commit }) {
       const filterOptions = await QuestService.loadFilterOptions()

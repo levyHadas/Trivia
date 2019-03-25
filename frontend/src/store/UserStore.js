@@ -10,9 +10,8 @@ const UserStore = ({
   mutations: {
 
     setCurrUser(state, {user}) {
-      console.log('here')
+      console.log('user: ', user)
       state.currUser = user
-      console.log('user: ', state.currUser)
     },
 
     // setUsers(state, { users }) {
@@ -44,7 +43,6 @@ const UserStore = ({
 
     async login({ commit }, {user}) {
       const loggedUser = await UserService.login(user)
-      console.log('loggedin')
       commit({ type: 'setCurrUser', user:loggedUser })
     },
 
@@ -58,6 +56,11 @@ const UserStore = ({
       const user = {}
       commit({ type: 'setCurrUser', user })
     },
+
+    async setLoggedUser({ commit }) {
+      var loggedUser = await UserService.getLoggedUser()
+      commit({type: 'setCurrUser', user:loggedUser})
+    }
 
     
 
