@@ -4,17 +4,44 @@
       <h3>Global. Knowlege. Compete With Others</h3>
       <br>
       <a href="#/CategorySelection" class="download2">Play</a>
+      <button  class="download2" @click="connectUser">Party</button>
     </section>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-// import HelloWorld from '@/components/HelloWorld.vue'
+
+
+import SocketService from '@/services/SocketService.js'
+import UserService from '@/services/UserService.js'
 
 export default {
+
   name: "home",
-  components: {}
+  
+  components: {},
+
+  methods: {
+
+    connectUser(){
+
+      SocketService.emit('connectionTest', 'Hi from Component')
+      SocketService.on('connectionTest', msgFromServer => console.log(msgFromServer))
+      
+      const loggedUser = this.$store.getters.currUser
+      if (!loggedUser) loggedUser = 'annonymouse'
+      SocketService.emit('joinedParty', loggedUser)
+      SocketService.on('noPartyYet', () => {
+        console.log('no party yet. You can wait or play single mode. Once a user connected we will inform you.')
+        this.$router.push('/categorySelection')
+        })
+      SocketService.on('startParty', () => {
+        this.$router.push('/questionDetails')
+        })
+    },
+
+
+  },
 };
 </script>
 
@@ -56,7 +83,7 @@ header {
   display: flex;
   justify-content: space-around;
   padding: 30px;
-  background-color: rgb(101, 33, 43);
+  background-color: #FFB400;
   color: white;
   a {
     color: white;
@@ -88,7 +115,7 @@ header {
 }
 
 footer {
-  background-color: rgb(0, 0, 0);
+  background-color: #0D2C54;
   color: white;
   a {
     color: white;

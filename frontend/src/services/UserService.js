@@ -1,4 +1,4 @@
-import Axios from 'axios'
+import axios from 'axios'
 
 const BASE_PATH = (process.env.NODE_ENV !== 'development')
     ? '/user'
@@ -8,9 +8,13 @@ const BASE_PATH = (process.env.NODE_ENV !== 'development')
 export default {
     login,
     logout,
-    signup
+    signup,
+    getLoggedUser
 }
 
+const Axios = axios.create({
+    withCredentials: true,
+})
   
 async function login(credentials) {
     try {
@@ -42,6 +46,16 @@ function logout() {
     } 
     catch {
         throw('could not log out')
+    }
+}
+async function getLoggedUser() {
+    try {
+        const res = await Axios.get(`${BASE_PATH}/loggedUser`)
+        const loggedUser = res.data
+        return loggedUser
+    } 
+    catch {
+        throw('Could not get current user')
     }
 }
 

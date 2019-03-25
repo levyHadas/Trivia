@@ -5,7 +5,6 @@ const ImgService = require('./img-service.js')
 
 
 
-
 module.exports = {
     query,
     getById,
@@ -34,7 +33,7 @@ async function query(query) {
         const db = await mongoService.connect()
         const data = await db.collection('quest').aggregate(
             [ { $match : queryToMongo },
-              { $sample: { size: 50 } }
+              { $sample: { size: 70 } }
             ]).toArray()
         // const data = await db.collection('quest').find(queryToMongo).limit(200).toArray()
         return data
