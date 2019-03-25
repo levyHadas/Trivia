@@ -1,7 +1,7 @@
 <template>
   <div class="quest">
     <transition name="fadeOne">
-      <div v-show="show" class="container">
+      <div v-show="show" class="container" v-if="thisQuestion">
         <p class="One">
           <span class="timer" :class="{redTimer: isTimerLessThen10}">{{currentTimer}}</span>
           <br>
@@ -10,7 +10,7 @@
       </div>
     </transition>
     <transition name="fadeTwo">
-      <div v-show="show" class="container">
+      <div v-show="show" class="container" v-if="thisQuestion">
         <p
           class="Two answer"
           v-for="(answer, idx) in thisAnswers"
@@ -67,8 +67,9 @@ export default {
         if (this.timer === 0) {
           this.scores.push(this.saveScore(this.question, false, 15))
           
-          //Todo: do only if route is group
+          if (this.$route.name === 'partyMode') {
           this.$store.dispatch({type: 'updateGameScores', scores: this.scores})
+          }
 
           this.isOver = true;
           this.counter += 1;
@@ -101,8 +102,9 @@ export default {
       this.scores.push(
         this.saveScore(this.question, isCorrect, 15 - this.timer)
       )
-      //Todo: do only if route is group
-      this.$store.dispatch({type: 'updateGameScores', scores:this.scores})
+      if (this.$route.name === 'partyMode') {
+        this.$store.dispatch({type: 'updateGameScores', scores:this.scores})
+      }
 
       this.counter += 1;
       this.nextQuestion();
@@ -138,27 +140,61 @@ export default {
     }
   },
   async created() {
-    if (this.$route.name === 'partyMode') { //player is set ince pressing "play party". But if we start from this page, so we should set a user
-      const loggedUser = this.$store.getters.currUser
-      this.$store.dispatch({type:'addPlayer', player:loggedUser})
-    }
+
+
+    // SocketService.on('startParty', () => {
+    //     console.log('starting party')
+    //     const loggedUser = this.$store.getters.currUser
+    //     this.$store.dispatch({type:'addPlayer', player:loggedUser})
+    // })
+    // SocketService.on('noPartyYet', () => {
+    //   console.log('no party yet. You can wait or play single mode. Once a user connected we will inform you.')
+    //   this.$router.push('/categorySelection')
+    // })
+
+
     try {
-      this.quests = await this.$store.dispatch({
+      var quests = await this.$store.dispatch({
         type: "loadQuests",
         filterBy: {}
-      });
-      this.$store.dispatch({ type: "setFirstQuestion" });
-      this.question = this.$store.getters.currQuest;
+      })
+      // this.quests = await this.$store.dispatch({
+      //   type: "loadQuests",
+      //   filterBy: {}
+      // })
+      // this.$store.dispatch({ type: "setFirstQuestion" });
+      // this.question = this.$store.getters.currQuest;
     } catch {
       console.log("Unable to load questions. Please try again later");
     }
 
+
+    if (this.$route.name !== 'partyMode') { 
+      this.$store.dispatch({ type: 'setGameQuests', quests })
+      this.quests = quests
+      this.$store.commit({ type: 'setCurrQuest', quest: this.quests[0]})
+    }
+
+
+    else { //show counter for 3 seconds
+      setTimeout(() => {
+        SocketService.emit('readyToStart')
+      }, 3000)
+    }
+    SocketService.on('startParty', partyQuests => {
+      this.$store.dispatch({ type:'setGameQuests', quests:partyQuests })
+      this.quests = partyQuests
+      console.log('partyQuests in details', this.quests)
+      this.$store.commit({ type: 'setCurrQuest', quest: this.quests[0]})
+    })
+    
+    this.question = this.$store.getters.currQuest;
+
     setTimeout(() => {
       this.show = true;
     }, 300);
-    // this.quests = this.$store.getters.questsForDisplay;
-    // this.question = this.$store.getters.currQuest;
-    this.startGameInterval();
+    this.startGameInterval()
+
   },
   destroyed() {
     clearInterval(this.timerInterval);

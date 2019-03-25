@@ -1,5 +1,8 @@
 
 import ioClient from 'socket.io-client'
+import Router from '../router.js'
+import Store from '../store/store.js'
+
 
 var socket = ioClient('//localhost:3003');
 
@@ -13,13 +16,12 @@ export default {
 }
 
 
-// socket.on('ShowUpdatedScores', playersWithScores => {
-//     console.log('playersWithScores  socket.on -updateGameState' , playersWithScores)
-// })
+socket.on('getReadyToParty', () => {
+  Router.push('/play/party')
 
-// SocketService.on('ShowUpdatedScores', playersWithScores => {
-//     console.log('this is in the computed: ',playersWithScores)
-// })
+})
+
+
 
 function connectionTest() {
     socket.emit('connectionTest', 'Hi from Front')

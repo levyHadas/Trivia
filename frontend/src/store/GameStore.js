@@ -18,6 +18,11 @@ const UserStore = ({
       else console.log('No user joined')
     },
 
+    updateGamePlayers(state, {playersWithScores}) {
+      state.gamePlayers = playersWithScores
+
+    },
+
     addPlayer(state, {player}) {
       state.gamePlayers.push(player)
     },
@@ -33,17 +38,15 @@ const UserStore = ({
 
   actions: {
 
-    addPlayer({ commit }, {player}) {
+    addPlayer({ commit }, {player}) { 
       commit({ type: 'addPlayer', player })
+      SocketService.emit('joinedParty', player)   
     },
 
     connectionTest({commit}) {
       SocketService.connectionTest()
     },
-    
-    joinedParty({commit}) {
-      SocketService.emit('joinedParty', loggedUser)      
-    },
+ 
 
     updateGameScores({commit, getters} ,{scores}) {
       const currUser = getters.currUser
@@ -51,6 +54,11 @@ const UserStore = ({
       commit({type: 'updateScores', currUser, scores})
       const playersWithScores = getters.playersWithScores
       SocketService.emit('updateGameScores', playersWithScores)
+    },
+
+    updateGamePlayers({commit, state} ,{playersWithScores}) {
+      commit({type: 'updateGamePlayers', playersWithScores})
+      return state.gamePlayers
     }
 
   

@@ -4,7 +4,7 @@
       <h3>Global. Knowlege. Compete With Others</h3>
       <br>
       <a href="#/CategorySelection" class="button">Play</a>
-      <a class="button" @click="connectUser">Party</a>
+      <a class="button" @click="requestPartyGame">Party</a>
       <!-- <button class="download2" @click="connectUser">Party</button> -->
     </section>
   </div>
@@ -17,30 +17,58 @@ import UserService from "@/services/UserService.js";
 export default {
   name: "home",
 
+  data() {
+    return {
+      temp: []
+    }
+  },
+
   components: {},
 
   methods: {
 
     requestPartyGame(){
-
+      
       SocketService.connectionTest()
       
       const loggedUser = this.$store.getters.currUser
-      SocketService.emit('joinedParty', loggedUser)
+      SocketService.emit('partyRequest', loggedUser)
       
-      SocketService.on('noPartyYet', () => {
-        console.log('no party yet. You can wait or play single mode. Once a user connected we will inform you.')
-        this.$router.push('/categorySelection')
+      // SocketService.emit('getPlayersWithScores')
+ 
+
+      SocketService.on('updateConnectedUsers', playersWithScores => {
+        console.log('you need to update all players *now*', playersWithScores)
       })
-      SocketService.on('startParty', () => {
-        this.$router.push('/play/party')
-        this.$store.dispatch({type:'addPlayer', player:loggedUser})
+      SocketService.on('tellUserToWait', numOfUsers => {
+        console.log(numOfUsers , ' are connected. game only start at 5')
       })
+      
+      //this is in the main app, so if user went to a different page, it will show:
+      // SocketService.on('startPary', () => {
+      //   console.log(numOfUsers , ' starting game')
+      //   this.$router.push('/play/party')
+      // })
+   
+
+      
+      // console.log(this.temp, ' this is the players in the store')
+
+      // SocketService.on('startParty', () => {
+      //   console.log('starting party')
+      //   const loggedUser = this.$store.getters.currUser
+      //   this.$store.dispatch({type:'addPlayer', player:loggedUser})
+      //   this.$router.push('/play/party')
+      // })
+      // SocketService.on('noPartyYet', () => {
+      //   console.log('no party yet. You can wait or play single mode. Once a user connected we will inform you.')
+      //   this.$router.push('/categorySelection')
+      // })
+
+    
     },
-
-
-  },
-};
+  },  
+}
 </script>
 
 <style lang="scss">

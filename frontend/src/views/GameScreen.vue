@@ -27,7 +27,8 @@ export default {
   created() {
     console.log("game was created");
     var params = this.$route;
-    this.params = params;
+    this.params = params;    
+    
   },
   data() {
     return {

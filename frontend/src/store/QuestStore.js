@@ -23,9 +23,14 @@ const QuestStore = ({
       state.quests = quests
     },
     setCurrQuest(state, { quest }) {
-      console.log(quest)
+      console.log('????', quest)
       state.currQuest = quest
     },
+    // setFirstQuest(state) {
+    //   console.log(state.quests)
+    //   console.log(state.currQuest)
+    //   state.currQuest = state.quests[0]
+    // },
     setFilterOptions(state, { filterOptions }) {
       state.filterOptions = filterOptions
     },
@@ -57,12 +62,13 @@ const QuestStore = ({
 
     async loadQuests({ commit }, { filterBy }) {
       const quests = await QuestService.query(filterBy)
-      commit({ type: 'setQuests', quests })
       return quests
     },
 
-    setFirstQuestion({commit, state}) {
-      commit({ type: 'setCurrQuest', quest:state.quests[0] })
+    setFirstQuestion(context) {
+      console.log('state.quests', context.state.quests)
+
+      context.commit({ type: 'setCurrQuest', quest:null })
 
     },
 
@@ -83,10 +89,10 @@ const QuestStore = ({
       return filterOptions
     },
 
-    // getRandomQuestId({ state }) {
-    //   const randomIdx = UtilService.getRandomIntInclusive(0, state.quests.length - 1)
-    //   return state.quests[randomIdx]._id
-    // },
+    setGameQuests({commit}, {quests}) {
+      // console.log('here in store set quests' ,quests)
+      commit({ type: 'setQuests', quests })
+    },
 
     async saveQuest({ }, { quest }) {
       await QuestService.save(quest)
