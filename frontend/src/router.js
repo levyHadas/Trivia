@@ -43,7 +43,6 @@ export default new Router({
     {
       path: '/play', name: 'Play', component: Game,
       children: [
-        // { path: '', component: Game },
         { path: 'single', name: 'singleMode', component: Details },
         { path: 'party', name: 'partyMode', component: Details },
       ]

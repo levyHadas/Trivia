@@ -1,34 +1,32 @@
 <template>
-  <section class="main">
-    <div class="quest">
-      <transition name="fadeOne">
-        <div v-show="show" class="container">
-          <p class="One"> 
-            <span class="timer" :class="{redTimer: isTimerLessThen10}">{{currentTimer}}</span>
-            <br>
-            {{thisQuestion.txt}}
-          </p>
-        </div>
-      </transition>
-      <transition name="fadeTwo">
-        <div v-show="show" class="container">
-          <p
-            class="Two answer"
-            v-for="(answer, idx) in thisAnswers"
-            :key="answer"
-            :class="classList(idx)"
-            @click="checkAnswer($event,answer)"
-          >{{answer}}</p>
-        </div>
-      </transition>
-    </div>
+  <div class="quest">
+    <transition name="fadeOne">
+      <div v-show="show" class="container">
+        <p class="One">
+          <span class="timer" :class="{redTimer: isTimerLessThen10}">{{currentTimer}}</span>
+          <br>
+          {{thisQuestion.txt}}
+        </p>
+      </div>
+    </transition>
+    <transition name="fadeTwo">
+      <div v-show="show" class="container">
+        <p
+          class="Two answer"
+          v-for="(answer, idx) in thisAnswers"
+          :key="answer"
+          :class="classList(idx)"
+          @click="checkAnswer($event,answer)"
+        >{{answer}}</p>
+      </div>
+    </transition>
     <score-summary
       v-if="showSummary"
       :scores="scores"
       @resumeGame="startGameInterval"
       @newGame="newGame"
     />
-  </section>
+  </div>
 </template>
 
 <script>
@@ -193,24 +191,17 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.main {
-  height: 100%;
-  width: 100%;
-
-  background: rgb(2, 0, 36);
-  background: linear-gradient(
-    90deg,
-    rgba(2, 0, 36, 1) 0%,
-    rgba(255, 255, 255, 1) 0%,
-    rgba(249, 240, 218, 1) 100%
-  );
-}
-
 .quest {
   max-height: 100%;
+  height: 510px;
+  padding:20px;
 }
 
 .container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
 }
 
@@ -288,16 +279,24 @@ p {
   line-height: 70px;
 }
 
+.answer:hover {
+  cursor: pointer;
+  text-shadow: 0px 0px 6px rgba(255, 255, 255, 1);
+  -webkit-box-shadow: 0px 5px 40px -10px rgba(0, 0, 0, 0.57);
+  -moz-box-shadow: 0px 5px 40px -10px rgba(0, 0, 0, 0.57);
+  transition: all 0.4s ease 0s;
+  box-shadow: 0 4px 4px rgba(83, 100, 255, 0.32);
+}
+.answer:active {
+  animation: nudge 0.4s linear;
+}
+
 .answerCorrect {
   background: #7fb800;
 }
 
 .answerWrong {
   background: #f6511d;
-}
-
-.answer:active {
-  animation: nudge 0.4s linear;
 }
 
 @keyframes nudge {
@@ -312,12 +311,5 @@ p {
   66% {
     transform: rotate(-7deg);
   }
-}
-
-.answer:hover {
-  cursor: pointer;
-  // background: #fff;
-  // color: #339dff;
-  box-shadow: 0 4px 4px rgba(83, 100, 255, 0.32);
 }
 </style>
