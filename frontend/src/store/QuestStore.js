@@ -29,6 +29,10 @@ const QuestStore = ({
       state.filterOptions = filterOptions
     },
 
+    // removeQuest (state, {questId}) {
+
+    // }
+
 
 
   },
@@ -65,22 +69,28 @@ const QuestStore = ({
 
     },
 
-    // async loadQuest({ commit }, { questId }) {
-    //   if (!questId) {
-    //     const emptyQuest = await QuestService.createEmpty()
-    //     commit({ type: 'setCurrQuest', quest: emptyQuest })
-    //     return emptyQuest;
-    //   }
-    //   const quest = await QuestService.getById(questId);
-    //   commit({ type: 'setCurrQuest', quest })
-    //   return quest;
-    // },
+    async loadQuest({ commit }, { questId }) {
+      if (!questId) {
+        const emptyQuest = await QuestService.createEmpty()
+        commit({ type: 'setCurrQuest', quest: emptyQuest })
+        return emptyQuest;
+      }
+      const quest = await QuestService.getById(questId);
+      commit({ type: 'setCurrQuest', quest })
+      return quest;
+    },
+
+    async removeQuest({}, {questId}) {
+      QuestService.remove(questId)
+    },
 
     async loadFilterOptions({ commit }) {
       const filterOptions = await QuestService.loadFilterOptions()
       commit({ type: 'setFilterOptions', filterOptions })
       return filterOptions
     },
+
+    
 
     // getRandomQuestId({ state }) {
     //   const randomIdx = UtilService.getRandomIntInclusive(0, state.quests.length - 1)
