@@ -1,6 +1,7 @@
 import QuestService from '../services/QuestService.js'
-import UtilService from '../services/UtilService.js'
-import { stat } from 'fs';
+// import { stat } from 'fs';
+
+
 
 const QuestStore = ({
 
@@ -22,9 +23,9 @@ const QuestStore = ({
       state.quests = quests
     },
     setCurrQuest(state, { quest }) {
-      console.log(quest)
       state.currQuest = quest
     },
+
     setFilterOptions(state, { filterOptions }) {
       state.filterOptions = filterOptions
     },
@@ -41,9 +42,6 @@ const QuestStore = ({
     filterOptions(state) {
       return state.filterOptions
     },
-
-
-
   },
 
   actions: {
@@ -53,12 +51,11 @@ const QuestStore = ({
 
     async loadQuests({ commit }, { filterBy }) {
       const quests = await QuestService.query(filterBy)
-      commit({ type: 'setQuests', quests })
       return quests
     },
 
-    setFirstQuestion({ commit, state }) {
-      commit({ type: 'setCurrQuest', quest: state.quests[0] })
+    setFirstQuestion(context) {
+      context.commit({ type: 'setCurrQuest', quest:null })
 
     },
 
@@ -93,13 +90,13 @@ const QuestStore = ({
     //   const randomIdx = UtilService.getRandomIntInclusive(0, state.quests.length - 1)
     //   return state.quests[randomIdx]._id
     // },
+    setGameQuests({commit}, {quests}) {
+      commit({ type: 'setQuests', quests })
+    },
 
     async saveQuest({ }, { quest }) {
       await QuestService.save(quest)
     }
-
-
-
   }
 })
 

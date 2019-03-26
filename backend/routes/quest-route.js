@@ -33,11 +33,6 @@ async function addQuestRoutes(app) {
             .then(quests => res.json(quests))  
     })
 
-    //Get Random
-    // app.get(`${BASE_PATH}/random`, (req, res) => {
-    //     QuestService.getRandom()
-    //         .then(quests => res.json(quests))
-    // })
 
  
     // SINGLE - GET Full details
@@ -56,26 +51,6 @@ async function addQuestRoutes(app) {
         QuestService.add(quest)
             .then(quest => res.json(quest))
     })
-
-    // app.post(`${BASE_PATH}`, (req, res) => {
-    //     const quest = req.body;
-    //     console.log(quest)
-    //     if (!quest.imgSrc) {
-    //         return ImgService.suggestImgs(quest.tags[0])
-    //             .then(url => {
-    //                 console.log(url)
-    //                 quest.imgSrc = url
-    //                 console.log(quest)
-    //                 QuestService.add(quest)
-    //                     .then(quest => res.json(quest))
-                    
-    //             })
-    //     }
-    //     else {
-    //         QuestService.add(quest)
-    //             .then(quest => res.json(quest))
-    //     }
-    // })
 
 
     // DELETE

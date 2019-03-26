@@ -1,5 +1,8 @@
 
 import ioClient from 'socket.io-client'
+import Router from '../router.js'
+import Store from '../store/store.js'
+
 
 var socket = ioClient('//localhost:3003');
 
@@ -8,10 +11,15 @@ const msgs = []
 export default {
     emit,
     on,
-    socket
+    socket,
+    connectionTest
 }
 
-connectionTest()
+
+socket.on('getReadyToParty', () => {
+  Router.push('/play/party')
+
+})
 
 
 
@@ -21,6 +29,8 @@ function connectionTest() {
             console.log(msgFromServer)
     })
 }
+
+
 
 
 function emit(eventName, data) {
@@ -38,14 +48,9 @@ function on(eventName, cb) {
 
 
 
-
-
-
-
-
-
-
-
+// function send(msg) {
+// 	socket.emit('post-msg', msg)
+// }
 
 
 // connectSocket()

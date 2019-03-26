@@ -12,7 +12,8 @@ const io = require('socket.io')(server)
 const AddQuestRoutes = require('./routes/quest-route')
 const AddUserRoutes = require('./routes/user-route')
 
-var connectedSockets = [];
+const QuestService = require ('./services/quest-service.js')
+
 
 
 app.use(cors({
@@ -36,39 +37,86 @@ app.get('/', (req, res) => {
 })
 AddQuestRoutes(app)
 AddUserRoutes(app)
+// QuestService(app)
 
 
-var connectedSockets = [];
+var connectedSockets = []
+var playersWithScores = []
 
 io.on('connection', socket => {
   console.log('socket connected! ')
-  
-  
+ 
   socket.on('disconnect', () => {
-    console.log('user disconnected');
-    connectedSockets = connectedSockets.filter(s => s.userId !== socket.userId)
+    console.log('user disconnected')
+    if (!socket.user) return
+    connectedSockets = connectedSockets.filter(s => s.user._id !== socket.user._id)
+    playersWithScores = playersWithScores.filter(user => user._id !== socket.user._id)
+    // io.emit('updateConnectedUsers', playersWithScores)
+
   })
+
 
   socket.on('connectionTest', msgFromFront => {
     console.log(msgFromFront)
+    socket.emit('connectionTest', 'Hi from server')
   })
   
-  io.emit('connectionTest', 'Hi from server')
   
-  socket.on('joinedParty', user =>{
-    // socket.emit('chat historyMsgs', historyMsgs);
-    // socket.broadcast.emit('chat newUser',nickName);
-    socket.user = user
+  socket.on('partyRequest', async(user) => {
+    if (!user) return
+    if (playersWithScores.some(player => player._id === user._id)) return
     connectedSockets.push(socket)
-    console.log('connectedSockets', connectedSockets.length)
-    if (connectedSockets.length = 2) {
-      io.emit('startParty')
+    user.scores = []
+    playersWithScores.push(user)
+    console.log('user:', user.username, 'joined')
+    var quests = await QuestService.query({})
+
+
+    if (playersWithScores.length < 2) {
+      socket.emit('tellUserToWait', playersWithScores.length)
     }
-    else if (connectedSockets.length > 2) {
-      io.emit('addUserToParty', socket.user)
-    }
-    else socket.emit('noPartyYet')
+    else io.emit('getReadyToParty') 
+      //'getReadyToParty' is listened to in all the app therefore the listener is in socketService
+    
+
+    socket.on('readyToStart', () => {
+      io.emit('startParty', quests)
+    })
+  
+
+
   })
+
+  socket.on('updateGameScores', playerScores => {
+    const idx = playersWithScores.findIndex(player => player._id === playerScores._id)
+    if (idx === -1) return
+    var player = playersWithScores[idx]
+    player.scores = playerScores.scores
+    io.emit('ShowUpdatedScores', playersWithScores)  
+  })
+
+  // socket.on('getPlayersWithScores', playersWithScores => {
+  //   io.emit('updateConnectedUsers', playersWithScores)
+  // })
+  
+
+  io.emit('updateConnectedUsers', playersWithScores)
+
+
+})
+  
+  
+  
+    //   if (connectedSockets.length >= 1) {
+  //     io.emit('startParty')
+  //   }
+  //   else socket.emit('noPartyYet')
+  // })
+
+
+
+  
+
   
  
   
@@ -81,7 +129,7 @@ io.on('connection', socket => {
 
 
 
-})
+
 
 
 

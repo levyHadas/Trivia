@@ -14,6 +14,12 @@ import AppFooter from "@/components/AppFooter.vue";
 import SocketService from '@/services/SocketService.js'
 import UserService from '@/services/UserService.js'
 
+// SocketService.on('startParty', () => {
+//   console.log(numOfUsers , ' starting game')
+//   Router.push('/play/party')
+// })
+
+
 export default {
   name: "App",
   components: {
@@ -23,23 +29,11 @@ export default {
   },
 
   async created() {
-    // var vueSocket = socketService.getSocketConnection()
-    // vueSocket.emit('testingAgain', '123123')
-    // vueSocket.on('pingUser', pingMsg => {
-    //     console.log(pingMsg)
-    // })
+   
+    this.$store.dispatch({type:'setLoggedUser'})
 
-    //if currUser -> take from store, if not, make id)
-    // SocketService.emit('connectionTest', 'Hi from Component')
-    // SocketService.on('connectionTest', msgFromServer => {
-    //     console.log(msgFromServer)
-    // })
-    const loggedUser = await UserService.getLoggedUser()
-    if (loggedUser)  {
-      // SocketService.emit("userConnected", loggedUser)
-      this.$store.commit({type: 'setCurrUser', user:loggedUser})
-    }
-    // else SocketService.emit("userConnected", 'annonymouse')
+
+
     
   }
 }

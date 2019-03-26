@@ -4,7 +4,7 @@ const UserStore = ({
 
   state: {
     users: [],
-    currUser: {}
+    currUser: {},
   },
 
   mutations: {
@@ -13,28 +13,15 @@ const UserStore = ({
       state.currUser = user
     },
 
-    // setUsers(state, { users }) {
-    //   state.users = users
-    // },
-  
-    // removeUser(state, { userId }) {
-    //   state.currUser = null
-    //   const idx = state.users.findIndex(user => user._id === userId)
-    //   state.users.slice(idx, 1)
-    // },
-    // updateUser(state, { updatedUser }) {
-    //   const idx = state.users.findIndex(user => user._id === updatedUser._id)
-    //   state.users.splice(idx, 1, updatedUser)
-    // },
-   
   },
 
   getters: {
-    // usersForDisplay(state) {
-    //   return state.users
-    // },
+
     currUser(state) {
       return state.currUser
+    },
+    isUserInParty(state) {
+      return state.isUserInParty
     }
   },
 
@@ -42,7 +29,6 @@ const UserStore = ({
 
     async login({ commit }, {user}) {
       const loggedUser = await UserService.login(user)
-      console.log('loggedin')
       commit({ type: 'setCurrUser', user:loggedUser })
     },
 
@@ -53,9 +39,15 @@ const UserStore = ({
 
     async logout({ commit }) {
       await UserService.logout()
-      const user = {}
+      const user = await UserService.getLoggedUser() //in logout assign a guest user
       commit({ type: 'setCurrUser', user })
     },
+
+    async setLoggedUser({ commit }) {
+      var loggedUser = await UserService.getLoggedUser()
+      commit({type: 'setCurrUser', user:loggedUser})
+    },
+
 
     
 

@@ -1,4 +1,5 @@
 import axios from 'axios'
+import UtilService from './UtilService'
 
 const BASE_PATH = (process.env.NODE_ENV !== 'development')
     ? '/user'
@@ -9,13 +10,13 @@ export default {
     login,
     logout,
     signup,
-    getLoggedUser
+    getLoggedUser,
 }
 
 const Axios = axios.create({
     withCredentials: true,
 })
-  
+
 async function login(credentials) {
     try {
         const res = await Axios.post(`${BASE_PATH}/login`, credentials) //tell the server to try to log in 
@@ -23,7 +24,7 @@ async function login(credentials) {
         return loggedUser
     }
     catch {
-       throw(err)
+        throw (err)
     }
 }
 
@@ -33,38 +34,47 @@ function signup(user) {
         return res.data
     }
     catch {
-        throw(err)
+        throw (err)
     }
-        
-        
+
+
 }
 
 function logout() {
     try {
         Axios.get(`${BASE_PATH}/logout`)
         return Promise.resolve()
-    } 
+    }
     catch {
-        throw('could not log out')
+        throw ('could not log out')
     }
 }
 async function getLoggedUser() {
     try {
         const res = await Axios.get(`${BASE_PATH}/loggedUser`)
-        const loggedUser = res.data
-        return loggedUser
-    } 
+        if (res.data) return res.data
+        else return _getDefaultUser()
+    }
     catch {
-        throw('Could not get current user')
+        throw ('Could not find user')
     }
 }
 
-function getUser(userId) {
-
-    return axios.get(`${BASE_PATH}/${userId}`)
-        .then(res => res.data)
-        .catch(err => err)
-        
-        
+function _getDefaultUser() {
+    const randId = UtilService.makeId()
+    return {
+        _id: 'guest' + randId,
+        username: 'Guest_' + randId,
+        img: 'https://api.adorable.io/avatars/puki'
+    }
 }
+
+// function getUser(userId) {
+
+//     return axios.get(`${BASE_PATH}/${userId}`)
+//         .then(res => res.data)
+//         .catch(err => err)
+
+
+// }
 

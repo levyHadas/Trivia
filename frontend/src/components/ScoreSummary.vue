@@ -33,6 +33,7 @@ export default {
   height: 100vh;
   top: 0;
   left: 0;
+  z-index: 20;
 }
 .summary-container {
   width: 70%;
