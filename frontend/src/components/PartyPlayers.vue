@@ -1,7 +1,7 @@
 <template>
   <section class="players">
-    <h2>Players</h2>
-    <player-progress v-for="player in players"></player-progress>
+    <h2>Players Online</h2>
+    <player-progress v-for="player in players" :player="player"></player-progress>
   </section>
 </template>
 
@@ -23,6 +23,18 @@ export default {
           name: 'puki',
           img: 'src',
           scores: []
+        },
+        {
+          _id: '222',
+          name: 'puki1',
+          img: 'src',
+          scores: []
+        },
+        {
+          _id: '212',
+          name: 'puki2',
+          img: 'src',
+          scores: []
         }
       ]
     };
@@ -36,5 +48,6 @@ export default {
 <style scoped lang="scss">
 .players {
   padding: 10px;
+  margin-top:25px;
 }
 </style>
