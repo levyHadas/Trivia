@@ -48,7 +48,7 @@ export default {
       question: {},
       isOver: false,
       quests: [],
-      timerInterval: "",
+      timerInterval: '',
       timer: 15,
       counter: 0,
       isTimerLessThen10: false,
@@ -119,6 +119,7 @@ export default {
       }
     },
     nextQuestion() {
+      this.$emit('updateProgress',this.scores)
       if (this.quests.length === 1) {
         clearInterval(this.timerInterval);
         this.counter = 5;
@@ -233,7 +234,7 @@ export default {
 
 <style scoped lang="scss">
 .quest {
-  max-height: 100%;
+  max-height: 90%;
   height: 510px;
   padding:20px;
 }
@@ -245,6 +246,11 @@ export default {
   align-items: center;
   clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
 }
+
+// .container p {
+//   flex-wrap: wrap;
+//   max-width: 700px;
+// }
 
 button {
   color: #435466;

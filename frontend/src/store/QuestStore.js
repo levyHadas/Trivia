@@ -30,6 +30,10 @@ const QuestStore = ({
       state.filterOptions = filterOptions
     },
 
+    // removeQuest (state, {questId}) {
+
+    // }
+
 
 
   },
@@ -74,6 +78,10 @@ const QuestStore = ({
       const quest = await QuestService.getById(questId);
       commit({ type: 'setCurrQuest', quest })
       return quest;
+    },
+
+    async removeQuest({}, {questId}) {
+      QuestService.remove(questId)
     },
 
     async loadFilterOptions({ commit }) {

@@ -1,15 +1,17 @@
 <template>
   <section class="players">
     <h2>Players</h2>
-    <player-progress
-      v-if="playersProgress.length"
-      v-for="(player,idx) in playersProgress"
-      :key="idx"
-      :player="player"/>
+    <div v-if="playersProgress.length">
+      <player-progress
+        v-for="(player,idx) in playersProgress"
+        :key="idx"
+        :player="player"/>
+    </div>
    
-    <!-- </div> -->
-    <!-- <player-progress v-for="player in players"></player-progress> -->
-  </section>
+</section>
+    <!-- <h2>Players Online</h2>
+    <player-progress v-for="player in players" :player="player"></player-progress>
+   -->
 </template>
 
 <script>
@@ -61,5 +63,6 @@ export default {
 <style scoped lang="scss">
 .players {
   padding: 10px;
+  margin-top:25px;
 }
 </style>

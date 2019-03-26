@@ -1,8 +1,10 @@
 <template>
   <div class="home">
     <section class="main">
+      <div>
       <h3>Global. Knowlege. Compete With Others</h3>
-      <br>
+      </div>
+      <div>
       <a href="#/CategorySelection" class="button">Play</a>
       <a class="button" @click="requestPartyGame">Party</a>
     </section>
@@ -82,14 +84,14 @@ export default {
   justify-content: center;
   align-items: center;
   align-content: center;
-  justify-content: space-between;
   padding: 50px;
-  height: 60vh;
+  height: 90vh;
   background: url("../assets/main.jpg") no-repeat center center;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+  justify-content: space-between;
   h3 {
     color: white;
     -webkit-text-stroke-width: 1px;
@@ -103,6 +105,8 @@ export default {
 }
 
 header {
+  height: 30px;
+  overflow: hidden;
   display: flex;
   justify-content: space-around;
   padding: 30px;
