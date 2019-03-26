@@ -6,7 +6,7 @@
         <score-preview v-for="(score, idx) in scores" :key="idx" :score="score"/>
       </ul>
       <button v-if="this.scores.length<2" class="continue" @click="$emit('newGame')">Start New Game</button>
-      <button v-else class="continue" @click="$emit('resumeGame')">Continue</button>
+      <button v-else class="continue" @click="$emit('resumeGame')">Continue Playing</button>
     </div>
   </section>
 </template>
@@ -55,5 +55,10 @@ export default {
     color: white;
     cursor: pointer;
   }
+}
+
+h1 {
+  color:white;
+  font-weight: bold;
 }
 </style>
