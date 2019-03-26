@@ -1,0 +1,6 @@
+{
+    "search.smartCase": true,
+    "search.collapseResults": "alwaysCollapse",
+    "search.showLineNumbers": true,
+    "search.quickOpen.includeSymbols": true
+}
