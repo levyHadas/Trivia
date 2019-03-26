@@ -12,11 +12,11 @@ const UserStore = ({
 
   mutations: {
 
-    updateScores(state, {currUser, scores}) {
-      const idx = state.gamePlayers.findIndex(user => user._id === currUser._id)
-      if (idx !== -1) state.gamePlayers[idx].scores = scores 
-      else console.log('No user joined')
-    },
+    // updateScores(state, {currUser, scores}) {
+    //   const idx = state.gamePlayers.findIndex(user => user._id === currUser._id)
+    //   if (idx !== -1) state.gamePlayers[idx].scores = scores 
+    //   else console.log('No user joined')
+    // },
 
     updateGamePlayers(state, {playersWithScores}) {
       state.gamePlayers = playersWithScores

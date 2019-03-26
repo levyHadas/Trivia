@@ -25,16 +25,12 @@ export default {
     question2: Array
   },
   created() {
-    console.log("game was created");
+    console.log("group game was created");
     var params = this.$route;
     this.params = params;    
     
   },
-  data() {
-    return {
-      params: ""
-    };
-  },
+
   computed: {
     isPartyOn() {
       if (this.params.name === "partyMode") return true;

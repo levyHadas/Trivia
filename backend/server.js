@@ -45,12 +45,13 @@ var playersWithScores = []
 
 io.on('connection', socket => {
   console.log('socket connected! ')
-  
+ 
   socket.on('disconnect', () => {
-    console.log('user disconnected');
+    console.log('user disconnected')
+    if (!socket.user) return
     connectedSockets = connectedSockets.filter(s => s.user._id !== socket.user._id)
     playersWithScores = playersWithScores.filter(user => user._id !== socket.user._id)
-    io.emit('updateConnectedUsers', playersWithScores)
+    // io.emit('updateConnectedUsers', playersWithScores)
 
   })
 
@@ -62,15 +63,17 @@ io.on('connection', socket => {
   
   
   socket.on('partyRequest', async(user) => {
-
-    socket.user = user
+    if (!user) return
+    if (playersWithScores.some(player => player._id === user._id)) return
     connectedSockets.push(socket)
+    user.scores = []
     playersWithScores.push(user)
+    console.log('user:', user.username, 'joined')
     var quests = await QuestService.query({})
 
 
-    if (connectedSockets.length < 5) {
-      socket.emit('tellUserToWait', connectedSockets.length)
+    if (playersWithScores.length < 2) {
+      socket.emit('tellUserToWait', playersWithScores.length)
     }
     else io.emit('getReadyToParty') 
       //'getReadyToParty' is listened to in all the app therefore the listener is in socketService
@@ -80,19 +83,25 @@ io.on('connection', socket => {
       io.emit('startParty', quests)
     })
   
-    socket.on('getPlayersWithScores', playersWithScores => {
-      io.emit('updateConnectedUsers', playersWithScores)
-    })
+
 
   })
+
+  socket.on('updateGameScores', playerScores => {
+    const idx = playersWithScores.findIndex(player => player._id === playerScores._id)
+    if (idx === -1) return
+    var player = playersWithScores[idx]
+    player.scores = playerScores.scores
+    io.emit('ShowUpdatedScores', playersWithScores)  
+  })
+
+  // socket.on('getPlayersWithScores', playersWithScores => {
+  //   io.emit('updateConnectedUsers', playersWithScores)
+  // })
   
 
   io.emit('updateConnectedUsers', playersWithScores)
 
-
-  // socket.on('updateHistory', playersWithScores => {
-  //   io.emit('showAllUsers', playersWithScores)
-  // })
 
 })
   
@@ -104,9 +113,7 @@ io.on('connection', socket => {
   //   else socket.emit('noPartyYet')
   // })
 
-  // socket.on('updateGameScores', playersWithScores => {
-  //   io.emit('ShowUpdatedScores', playersWithScores)  
-  // })
+
 
   
 

@@ -5,7 +5,6 @@
       <br>
       <a href="#/CategorySelection" class="button">Play</a>
       <a class="button" @click="requestPartyGame">Party</a>
-      <!-- <button class="download2" @click="connectUser">Party</button> -->
     </section>
   </div>
 </template>
@@ -34,12 +33,9 @@ export default {
       const loggedUser = this.$store.getters.currUser
       SocketService.emit('partyRequest', loggedUser)
       
-      // SocketService.emit('getPlayersWithScores')
- 
-
-      SocketService.on('updateConnectedUsers', playersWithScores => {
-        console.log('you need to update all players *now*', playersWithScores)
-      })
+      // SocketService.on('updateConnectedUsers', playersWithScores => {
+      //   console.log('you need to update all players *now*', playersWithScores)
+      // })
       SocketService.on('tellUserToWait', numOfUsers => {
         console.log(numOfUsers , ' are connected. game only start at 5')
       })

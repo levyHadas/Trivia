@@ -23,14 +23,9 @@ const QuestStore = ({
       state.quests = quests
     },
     setCurrQuest(state, { quest }) {
-      console.log('????', quest)
       state.currQuest = quest
     },
-    // setFirstQuest(state) {
-    //   console.log(state.quests)
-    //   console.log(state.currQuest)
-    //   state.currQuest = state.quests[0]
-    // },
+
     setFilterOptions(state, { filterOptions }) {
       state.filterOptions = filterOptions
     },
@@ -66,8 +61,6 @@ const QuestStore = ({
     },
 
     setFirstQuestion(context) {
-      console.log('state.quests', context.state.quests)
-
       context.commit({ type: 'setCurrQuest', quest:null })
 
     },
@@ -90,7 +83,6 @@ const QuestStore = ({
     },
 
     setGameQuests({commit}, {quests}) {
-      // console.log('here in store set quests' ,quests)
       commit({ type: 'setQuests', quests })
     },
 

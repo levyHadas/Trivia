@@ -3,9 +3,9 @@
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link> |
       <router-link to="/signup">Sign Up</router-link> |
-      <router-link to="/login" v-if="!isUser">Login |</router-link> 
-      <router-link to="/logout" v-if="isUser">Logout</router-link>
-      <p v-if="isUser">Hello: {{loggedUser.username}}</p>
+      <router-link to="/login" v-if="!realUser">Login |</router-link> 
+      <router-link to="/logout" v-if="realUser">Logout</router-link>
+      <p v-if="realUser">Hello: {{loggedUser.username}}</p>
       <img :src="loggedUser.img" width="50px">
   </nav>
 </template>
@@ -21,9 +21,16 @@ export default {
     loggedUser(){
       return this.$store.getters.currUser
     },
-    isUser() {
+    realUser() {
+      const user = this.$store.getters.currUser.username
       if (this.$store.getters.currUser.username) return true
       return false
+    //   if (!user) return false
+    //   if (user._id.includes('guest')) {
+    //     console.log(user._id.includes('guest'), 'real user?')
+    //     return false
+    //   }
+    //   return true
 
     }
 

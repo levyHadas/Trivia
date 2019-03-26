@@ -1,5 +1,7 @@
 <template>
-  <section class="playerProgress">
+  <section class="playerProgress" v-if="this.player">
+    {{playerName}}
+    {{numOfAnswered}}
     <ol class="ProgressBar">
       <li class="ProgressBar-step">
         <svg class="ProgressBar-icon">
@@ -40,10 +42,17 @@ export default {
   props: {
     player: Object
   },
-  created() {},
-  data() {
-    return {};
-  }
+
+  computed: {
+    playerName() {
+      return this.player.username
+    },
+    numOfAnswered() {
+      return this.player.scores.length
+    },
+
+  },
+  
 };
 </script>
 

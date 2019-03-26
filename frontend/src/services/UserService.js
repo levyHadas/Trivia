@@ -11,7 +11,6 @@ export default {
     logout,
     signup,
     getLoggedUser,
-    // getDefaultUser
 }
 
 const Axios = axios.create({

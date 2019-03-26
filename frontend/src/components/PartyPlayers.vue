@@ -1,11 +1,14 @@
 <template>
   <section class="players">
     <h2>Players</h2>
-    <div v-if="playersWithScores" v-for="player in playersWithScores">
-      {{player.username}}
-      {{player.scores}}
-    </div>
-    <player-progress v-for="player in players"></player-progress>
+    <player-progress
+      v-if="playersProgress.length"
+      v-for="(player,idx) in playersProgress"
+      :key="idx"
+      :player="player"/>
+   
+    <!-- </div> -->
+    <!-- <player-progress v-for="player in players"></player-progress> -->
   </section>
 </template>
 
@@ -15,15 +18,14 @@ import SocketService from '@/services/SocketService.js'
 
 
 export default {
-  name: "Party",
+  name: 'Party',
   props: {
-    question2: Array
+    question2: Array,
   },
-  created() {
-  },
+  
   data() {
     return {
-      players: [],
+      playersWithScores: [],
       // players: [
       //   {
       //     _id: '22',
@@ -34,21 +36,26 @@ export default {
       // ]
     }
   },
+
+  created() {
+
+    SocketService.on('ShowUpdatedScores', playersWithScores => {
+      this.playersWithScores = playersWithScores
+    })
+  },
+
   components: {
     PlayerProgress
   },
 
   computed: {
-    playersWithScores() {
-      SocketService.on('ShowUpdatedScores', playersWithScores => {
-        this.playersAndScores = playersWithScores
-      })
-      // console.log(this.players, 'outside')
-      return this.players
+    playersProgress() {
+        return this.playersWithScores
     }
   }
+  
 
-};
+}
 </script>
 
 <style scoped lang="scss">
