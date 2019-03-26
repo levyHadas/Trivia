@@ -6,13 +6,13 @@
         <party-players></party-players>
       </div>
       <div class="game">
-        <quest-details></quest-details>
+        <game-core></game-core>
         <!-- <router-view></router-view> -->
       </div>
     </section>
     <section v-else class="singleMode">
       <player-progress :player="player" :scores="playerScore"></player-progress>
-      <quest-details @updateProgress="sendProgress"></quest-details>
+      <game-core @updateProgress="sendProgress"></game-core>
       <!-- <router-view></router-view> -->
     </section>
   </section>
@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import QuestDetails from "@/components/QuestDetails";
+import GameCore from "@/views/GameCore";
 import PartyPlayers from "@/components/PartyPlayers";
 import PlayerProgress from "@/components/PlayerProgress";
 
@@ -64,7 +64,7 @@ export default {
   components: {
     PartyPlayers,
     PlayerProgress,
-    QuestDetails
+    GameCore
   }
 };
 </script>

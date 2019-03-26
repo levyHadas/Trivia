@@ -15,7 +15,7 @@
         <p
           class="Two answer"
           v-for="(answer, idx) in thisAnswers"
-          :key="answer"
+          :key="idx"
           :class="classList(idx)"
           @click="checkAnswer($event,answer)"
         >{{answer}}</p>
