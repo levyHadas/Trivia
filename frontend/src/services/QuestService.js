@@ -14,6 +14,7 @@ export default {
     createEmpty,
     save,
     loadFilterOptions,
+    addTagsToDB
 }
 
 async function query(filterBy) {
@@ -68,3 +69,7 @@ async function loadFilterOptions() {
     return filterOptions.data
 }
 
+async function addTagsToDB(tags) { // tags: array
+    await Axios.post(`${BASE_PATH}/filter`, tags)
+    console.log('Tags added to DB ? ');
+}

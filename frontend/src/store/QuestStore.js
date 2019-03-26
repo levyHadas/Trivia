@@ -29,13 +29,6 @@ const QuestStore = ({
     setFilterOptions(state, { filterOptions }) {
       state.filterOptions = filterOptions
     },
-
-    // removeQuest (state, {questId}) {
-
-    // }
-
-
-
   },
 
   getters: {
@@ -49,9 +42,6 @@ const QuestStore = ({
     filterOptions(state) {
       return state.filterOptions
     },
-
-
-
   },
 
   actions: {
@@ -80,7 +70,7 @@ const QuestStore = ({
       return quest;
     },
 
-    async removeQuest({}, {questId}) {
+    async removeQuest({ }, { questId }) {
       QuestService.remove(questId)
     },
 
@@ -90,6 +80,16 @@ const QuestStore = ({
       return filterOptions
     },
 
+    async addTagsToDB({ }, { tags }) {
+      QuestService.addTagsToDB(tags)
+      console.log('Adds tags to DB: in question store, tags: ',tags );
+      
+    },
+
+    // getRandomQuestId({ state }) {
+    //   const randomIdx = UtilService.getRandomIntInclusive(0, state.quests.length - 1)
+    //   return state.quests[randomIdx]._id
+    // },
     setGameQuests({commit}, {quests}) {
       commit({ type: 'setQuests', quests })
     },
@@ -97,9 +97,6 @@ const QuestStore = ({
     async saveQuest({ }, { quest }) {
       await QuestService.save(quest)
     }
-
-
-
   }
 })
 
