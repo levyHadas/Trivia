@@ -1,5 +1,5 @@
 <template>
-  <section v-if="questToEdit" class="quest-details">
+  <section v-if="isQuest" class="quest-details">
     <el-form ref="form" label-width="120px" @submit.prevent="saveQuest">
       <el-form-item label="Question">
         <el-input v-model="questToEdit.txt" type="textarea"></el-input>
@@ -7,7 +7,8 @@
       <el-form-item>
         <el-dropdown @command="handleChooseCatogryletter">
           <el-button type="primary">
-            Category<i class="el-icon-arrow-down el-icon--right"></i>
+            Category
+            <i class="el-icon-arrow-down el-icon--right"></i>
           </el-button>
           <el-dropdown-menu slot="dropdown">
             <template v-for="(category, idx) in categories">
@@ -16,7 +17,9 @@
           </el-dropdown-menu>
         </el-dropdown>
       </el-form-item>
-      The Chosen Category is: {{questToEdit.category}}<br><br>  
+      The Chosen Category is: {{questToEdit.category}}
+      <br>
+      <br>
       <el-form-item label="Options">Option 1
         <el-input v-model="questToEdit.answers[0]"></el-input>
         <br>Option 2
@@ -30,7 +33,8 @@
       <el-form-item label="Answer">
         <el-dropdown @command="getClickedAnsLetter">
           <el-button type="primary">
-            Choose The Correct Answer<i class="el-icon-arrow-down el-icon--right"></i>
+            Choose The Correct Answer
+            <i class="el-icon-arrow-down el-icon--right"></i>
           </el-button>
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item command="0">{{questToEdit.answers[0]}}</el-dropdown-item>
@@ -41,55 +45,29 @@
         </el-dropdown>
       </el-form-item>
       The Correct Answer is: {{questToEdit.answers[questToEdit.correctAnswerIdx]}}
-      <el-form-item label="Created At">
-        <el-col :span="11">
-          <el-date-picker
-            type="date"
-            placeholder="Pick a date"
-            v-model="questToEdit.createdAt"
-            style="width: 100%;"
-          ></el-date-picker>
-        </el-col>
-      </el-form-item>
-      <el-form-item label="Change Image"></el-form-item>
       <el-form-item label="Created By">
         <el-input :placeholder="questToEdit.createdBy" v-model="questToEdit.createdBy"></el-input>
       </el-form-item>
       <el-form-item label="Tags (Comma seperated)">
         <el-input v-model="tags"></el-input>
-        {{tags}}
       </el-form-item>
       <el-form-item label="Hint">
         <el-input v-model="questToEdit.hint"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="saveQuest">Create/Save</el-button>
-        <el-button type="danger" plain @click="removeQuest">X</el-button>
-        <el-button>Cancel</el-button>
+        <el-button type="danger" @click="removeQuest" v-if="questToEdit._id">X</el-button>
+        <el-button @click="cancelEdit">Cancel</el-button>
       </el-form-item>
     </el-form>
   </section>
 </template>
 <script>
-// import QuestList from '@/components/QuestList.vue'
-
 export default {
-  // txt: "QuestEdit",
   data() {
     return {
       clickedAnsLetter: "",
-      questToEdit: {
-        category: "",
-        txt: "",
-        correctAnswerIdx: null,
-        answers: ["", "", "", ""],
-        createdBy: "",
-        imgSrc: "",
-        tags: [],
-        hint: "",
-        createdAt: null,
-        rating: ""
-      },
+      questToEdit: {},
       form: {
         txt: "",
         correctAnswerIdx: null
@@ -112,38 +90,51 @@ export default {
 
   async created() {
     var { questId } = this.$route.params;
-    if (questId) {
-      await this.$store.dispatch({ type: "loadQuest", questId });
-      let question = await this.$store.getters.currQuest;
-      this.questToEdit = JSON.parse(JSON.stringify(question));
-      this.tags =
-        this.questToEdit.tags.length > 0
-          ? this.questToEdit.tags.toString()
-          : "";
-    }
+    await this.$store.dispatch({ type: "loadQuest", questId });
+    let question = await this.$store.getters.currQuest;
+    this.questToEdit = JSON.parse(JSON.stringify(question));
+    this.tags =
+      this.questToEdit.tags.length > 0 ? this.questToEdit.tags.toString() : "";
+  },
+  destroyed () {
+    console.log('Componenent destroyed');
   },
 
   methods: {
-    removeQuest() {
+    async removeQuest() {
       var { questId } = this.$route.params;
-      this.$store
-        .dispatch({ type: "removeQuest", questId })
-        .then(() => this.$router.push("/quest"));
+      await this.$store.dispatch({ type: "removeQuest", questId })
+      // TODO - let the user know if deletion succeeded or failed
+      this.$router.push("/");
     },
     async saveQuest() {
       if (this.tags.length > 0) this.questToEdit.tags = this.tags.split(",");
+      this.questToEdit.wasUpdatedOn = Date.now();
+      console.log('Update time: ', this.questToEdit.wasUpdatedOn, 'quest ID to check on DB', this.questToEdit._id );
+      if (!this.questToEdit._id) {this.questToEdit.createdAt = Date.now()}
+      
       var { questId } = this.$route.params;
-      await this.$store.dispatch({ type: "saveQuest", quest: this.questToEdit });
-      // this.$router.push("/quest");
+      await this.$store.dispatch({
+        type: "saveQuest",
+        quest: this.questToEdit
+      });
+      this.$router.push("/");
     },
     getClickedAnsLetter(command) {
       this.questToEdit.correctAnswerIdx = command;
     },
     handleChooseCatogryletter(command) {
       this.questToEdit.category = command;
+    },
+    cancelEdit() {
+      this.$router.push("/");
     }
   },
-  computed: {},
+  computed: {
+    isQuest() {
+      return this.questToEdit.txt ? true : false;
+    }
+  },
   watch: {}
 };
 </script>

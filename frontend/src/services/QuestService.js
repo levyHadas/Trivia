@@ -1,5 +1,7 @@
 import Axios from 'axios'
 
+// Front Service
+
 const BASE_PATH = (process.env.NODE_ENV !== 'development')
     ? '/api/quest'
     : 'http://localhost:3003/api/quest'
@@ -30,9 +32,11 @@ function getById(questId) {
         .then(quest => quest.data)
 }
 
-function remove(questId) {
-    return Axios.delete(`${BASE_PATH}/${questId}`)
-        .then(quest => quest.data)
+async function remove(questId) {
+    await Axios.delete(`${BASE_PATH}/${questId}`)
+    // Todo - Catch errors in deletion
+    console.log('Deletion succeeded');
+    return questId 
 }
 
 function save(quest) {   
@@ -44,7 +48,16 @@ function save(quest) {
 
 function createEmpty() {
     const emptyQuest = {
-
+            category: "",
+            txt: "Write you own question",
+            correctAnswerIdx: 1,
+            answers: ["", "", "", ""],
+            createdBy: "",
+            imgSrc: "",
+            tags: [],
+            hint: "",
+            createdAt: null,
+            rating: ""
     }
     return Promise.resolve(emptyQuest)
 }
