@@ -4,7 +4,8 @@
       <router-link to="/about">About</router-link> |
       <router-link to="/signup">Sign Up</router-link> |
       <router-link to="/login" v-if="!realUser">Login |</router-link> 
-      <router-link to="/logout" v-if="realUser">Logout</router-link>
+      <router-link to="/logout" v-if="realUser">Logout |</router-link>
+      <router-link to="/quest/edit">Create Question</router-link>
       <p v-if="realUser">Hello: {{loggedUser.username}}</p>
       <img :src="loggedUser.img" width="50px">
   </nav>
@@ -43,6 +44,9 @@ export default {
 <style scoped lang="scss">
   p {
     text-transform: uppercase;
+  }
+  nav a {
+    padding: 5px;
   }
 
 </style>
