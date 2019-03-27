@@ -23,19 +23,10 @@ export default {
     AppFooter
   },
 
-<<<<<<< HEAD
   async created() {
     this.$store.dispatch({ type: "setLoggedUser" });
   }
 };
-=======
-
-}
-
-
-
-
->>>>>>> 39078c939149513fbad9f5af4a1ed208a92d00e9
 </script>
 
 <style lang="scss">

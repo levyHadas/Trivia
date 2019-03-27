@@ -58,12 +58,8 @@ export default {
       isTimerLessThen10: false,
       scores: [], //only this user scores
       playersWithScores: [], //all scores
-<<<<<<< HEAD
-      partyCountDown: false
-=======
       partyCountDown: false,
       partyMode: null
->>>>>>> 39078c939149513fbad9f5af4a1ed208a92d00e9
     };
   },
   methods: {
@@ -197,13 +193,8 @@ export default {
     }
 
     else {
-<<<<<<< HEAD
-      //show counter for 3 seconds
-      this.$store.dispatch({ type: "setPartyRequest" });
-=======
      
       this.$store.dispatch({type:'setPartyRequest'})
->>>>>>> 39078c939149513fbad9f5af4a1ed208a92d00e9
 
       this.partyCountDown = true;
       setTimeout(() => {
@@ -272,7 +263,7 @@ export default {
 
 .containerAnswers {
   flex-wrap: wrap;
-  max-width: 900px;
+  max-width: 600px;
   margin: 0 auto;
 }
 
@@ -289,11 +280,7 @@ button {
 
 p {
   text-align: center;
-<<<<<<< HEAD
-  font-size: 30px;
-=======
   font-size: 2rem;
->>>>>>> 39078c939149513fbad9f5af4a1ed208a92d00e9
   overflow: hidden;
   color: black;
 }
