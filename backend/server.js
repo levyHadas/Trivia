@@ -15,7 +15,6 @@ const AddUserRoutes = require('./routes/user-route')
 const QuestService = require ('./services/quest-service.js')
 
 
-
 app.use(cors({
   origin: ['http://localhost:8080', 'http://localhost:8081'],
   credentials: true

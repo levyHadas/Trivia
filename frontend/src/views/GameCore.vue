@@ -11,7 +11,7 @@
       </div>
     </transition>
     <transition name="fadeTwo">
-      <div v-show="show" class="container" v-if="thisQuestion">
+      <div v-show="show" class="containerAnswers" v-if="thisQuestion">
         <p
           class="Two answer"
           v-for="(answer, idx) in thisAnswers"
@@ -53,7 +53,7 @@ export default {
       isTimerLessThen10: false,
       scores: [], //only this user scores
       playersWithScores: [], //all scores
-      partyCountDown: false,
+      partyCountDown: false
     };
   },
   methods: {
@@ -170,19 +170,19 @@ export default {
     //need to make sure timer doesn't show for joined
     else {
       //show counter for 3 seconds
-      this.$store.dispatch({type:'setPartyRequest'})
+      this.$store.dispatch({ type: "setPartyRequest" });
 
       this.partyCountDown = true;
       setTimeout(() => {
-        this.quests = this.$store.getters.questsForDisplay
+        this.quests = this.$store.getters.questsForDisplay;
         this.updateGameScores();
-        this.playersWithScores = this.$store.getters.playersWithScores
+        this.playersWithScores = this.$store.getters.playersWithScores;
         this.show = true;
         this.startGameInterval();
-        this.partyCountDown = false
+        this.partyCountDown = false;
       }, 4000);
     }
- },
+  },
 
   destroyed() {
     clearInterval(this.timerInterval);
@@ -223,22 +223,23 @@ export default {
 <style scoped lang="scss">
 .quest {
   max-height: 90%;
-  height: 510px;
+  max-height: 520px;
   padding: 20px;
 }
 
 .container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  // justify-content: center;
+  // align-items: center;
   clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
 }
 
-// .container p {
-//   flex-wrap: wrap;
-//   max-width: 700px;
-// }
+.containerAnswers {
+  flex-wrap: wrap;
+  max-width: 900px;
+  margin: 0 auto;
+}
 
 button {
   color: #435466;
@@ -253,7 +254,7 @@ button {
 
 p {
   text-align: center;
-  font-size: 50px;
+  font-size: 30px;
   overflow: hidden;
   color: black;
 }

@@ -1,9 +1,9 @@
 <template>
   <div id="app">
-    <appHeader></appHeader>
-    <router-view/>
-    <appFooter></appFooter>
-  </div>
+      <appHeader></appHeader>
+      <router-view/>
+      <appFooter></appFooter>
+    </div>
 </template>
 
 <script>
@@ -11,14 +11,13 @@ import AppNav from "@/components/AppNav.vue";
 import AppHeader from "@/components/AppHeader.vue";
 import AppFooter from "@/components/AppFooter.vue";
 
-import SocketService from '@/services/SocketService.js'
-import UserService from '@/services/UserService.js'
+import SocketService from "@/services/SocketService.js";
+import UserService from "@/services/UserService.js";
 
 // SocketService.on('startParty', () => {
 //   console.log(numOfUsers , ' starting game')
 //   Router.push('/play/party')
 // })
-
 
 export default {
   name: "App",
@@ -29,20 +28,9 @@ export default {
   },
 
   async created() {
-   
-    this.$store.dispatch({type:'setLoggedUser'})
-
-
-
-    
+    this.$store.dispatch({ type: "setLoggedUser" });
   }
-}
-
-
-
-
-
-
+};
 </script>
 
 <style lang="scss">
@@ -63,5 +51,4 @@ nav {
     }
   }
 }
-
 </style>
