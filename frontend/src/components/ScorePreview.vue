@@ -53,4 +53,12 @@ export default {
   color: white;
   font-size: 1rem;
 }
+
+.correct {
+  color:green;
+}
+
+.incorrect {
+  color:red;
+}
 </style>

@@ -6,8 +6,7 @@ import SignUp from './views/SignUp.vue'
 import Login from './views/Login.vue'
 import Logout from './views/Logout.vue'
 import CategorySelection from './views/CategorySelection.vue'
-
-
+import WaitRoom from './views/WaitRoom.vue'
 import QuestEdit from './views/QuestEdit.vue'
 
 Vue.use(Router)
@@ -50,6 +49,11 @@ export default new Router({
       path: '/quest/edit/:questId?',
       name: 'QuestEdit',
       component: QuestEdit
+    },
+    {
+      path: '/waitroom',
+      name: 'WaitRoom',
+      component: WaitRoom
     },
   ]
 })

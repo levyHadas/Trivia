@@ -30,7 +30,7 @@
         </svg>
         <span class="ProgressBar-stepLabel">Q4</span>
       </li>
-      <li class="ProgressBar-step" :class="{'is-current': playerScores.length===4, 'is-complete': playerScores.length===4}">
+      <li class="ProgressBar-step" :class="{'is-current': playerScores.length===4, 'is-complete': playerScores.length>4}">
         <svg class="ProgressBar-icon">
           <!-- <use v-if="playerScores[4].isCorrect" xlink:href="#checkmark-bold"></use> -->
           <!-- <use v-if="playerScores[4].isCorrect===false" xlink:href="#wrong-bold"></use> -->

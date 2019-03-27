@@ -198,16 +198,15 @@ header {
 }
 
 footer {
-  // position: fixed;
   // left: 0;
   // bottom: 0;
-  // width: 100%;
+  height:70px;
   background-color: #0d2c54;
   color: white;
   a {
     color: white;
   }
-  padding: 30px;
+
 }
 
 .btn {
@@ -434,5 +433,6 @@ pre {
   justify-content: center;
   align-items: center;
   letter-spacing: 3px;
+  margin-top:30px;
 }
 </style>
