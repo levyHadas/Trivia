@@ -46,6 +46,7 @@ const UserStore = ({
     async setLoggedUser({ commit }) {
       var loggedUser = await UserService.getLoggedUser()
       commit({type: 'setCurrUser', user:loggedUser})
+      return loggedUser
     },
 
 

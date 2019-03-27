@@ -21,17 +21,22 @@
         >{{answer}}</p>
       </div>
     </transition>
-    <!-- <score-summary
-      v-if="showSummary"
+    <score-summary
+      v-if="showSummary && !partyMode"
       :scores="scores"
-      @resumeGame="startGameInterval"
-      @newGame="newGame"
-    />-->
+      @resumeGame="resumeGame"
+      @selecteNewTopic="selecteNewTopic"/>
+    <party-summary
+      v-if="showSummary && partyMode"
+      :scores="scores"
+      @resumeParty="resumeParty"
+      @goHome="goHome"/>
   </div>
 </template>
 
 <script>
 import ScoreSummary from "@/components/ScoreSummary";
+import PartySummary from "@/components/PartySummary";
 import SocketService from "@/services/SocketService.js";
 import CountDown from "@/components/CountDown";
 
@@ -53,12 +58,33 @@ export default {
       isTimerLessThen10: false,
       scores: [], //only this user scores
       playersWithScores: [], //all scores
+<<<<<<< HEAD
       partyCountDown: false
+=======
+      partyCountDown: false,
+      partyMode: null
+>>>>>>> 39078c939149513fbad9f5af4a1ed208a92d00e9
     };
   },
   methods: {
-    newGame() {
+    resumeGame() {
+      this.scores = []
+      this.$emit("updateProgress", this.scores);
+      this.startGameInterval()
+    },
+    selecteNewTopic() {
       this.$router.push("/CategorySelection");
+    },
+    resumeParty() {
+      //not sure if it's working yet
+      if (this.playersWithScores.length >= 2) {
+        this.scores = []
+        this.$emit("updateProgress", this.scores);
+        this.startGameInterval()
+      } else console.log('not enghou')
+    },
+    goHome() {
+      this.$router.push("/")
     },
     startGameInterval() {
       this.show = true;
@@ -145,8 +171,11 @@ export default {
     }
   },
 
-  async created() {
-    if (this.$route.name !== "partyMode") {
+  async mounted() {
+
+    this.partyMode = (this.$route.name === "partyMode") ? true : false 
+    console.log(this.partyMode)
+    if (!this.partyMode) {
       try {
         var quests = await this.$store.dispatch({
           type: "loadQuests",
@@ -167,10 +196,14 @@ export default {
       this.startGameInterval();
     }
 
-    //need to make sure timer doesn't show for joined
     else {
+<<<<<<< HEAD
       //show counter for 3 seconds
       this.$store.dispatch({ type: "setPartyRequest" });
+=======
+     
+      this.$store.dispatch({type:'setPartyRequest'})
+>>>>>>> 39078c939149513fbad9f5af4a1ed208a92d00e9
 
       this.partyCountDown = true;
       setTimeout(() => {
@@ -204,6 +237,7 @@ export default {
         this.show = false;
         clearInterval(this.timerInterval);
         this.counter = 0;
+        console.log(this.partyMode)
         return true;
       }
       return false;
@@ -215,7 +249,8 @@ export default {
 
   components: {
     ScoreSummary,
-    CountDown
+    CountDown,
+    PartySummary
   }
 };
 </script>
@@ -254,7 +289,11 @@ button {
 
 p {
   text-align: center;
+<<<<<<< HEAD
   font-size: 30px;
+=======
+  font-size: 2rem;
+>>>>>>> 39078c939149513fbad9f5af4a1ed208a92d00e9
   overflow: hidden;
   color: black;
 }
@@ -303,16 +342,15 @@ p {
   background: #00a6ed;
   color: #fff;
   text-decoration: none;
-  font-size: 20px;
-  line-height: 38px;
-  border-radius: 50px;
+  font-size: 1.1rem;
+  border-radius: 30px;
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
-  width: 300px;
-  height: 70px;
+  width: 250px;
+  height: 60px;
   text-align: center;
   vertical-align: middle;
-  line-height: 70px;
+  line-height: 60px;
 }
 
 .answer:hover {

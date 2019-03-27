@@ -14,10 +14,6 @@ import AppFooter from "@/components/AppFooter.vue";
 import SocketService from "@/services/SocketService.js";
 import UserService from "@/services/UserService.js";
 
-// SocketService.on('startParty', () => {
-//   console.log(numOfUsers , ' starting game')
-//   Router.push('/play/party')
-// })
 
 export default {
   name: "App",
@@ -27,10 +23,19 @@ export default {
     AppFooter
   },
 
+<<<<<<< HEAD
   async created() {
     this.$store.dispatch({ type: "setLoggedUser" });
   }
 };
+=======
+
+}
+
+
+
+
+>>>>>>> 39078c939149513fbad9f5af4a1ed208a92d00e9
 </script>
 
 <style lang="scss">
