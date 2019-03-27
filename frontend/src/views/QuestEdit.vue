@@ -90,14 +90,14 @@ export default {
     await this.$store.dispatch({ type: "loadQuest", questId });
     let question = await this.$store.getters.currQuest;
     this.questToEdit = JSON.parse(JSON.stringify(question));
-    console.log('currUser ', this.questToEdit.createdBy );
-    this.tags = this.questToEdit.tags.length > 0 ? this.questToEdit.tags.toString() : "";
+    this.tags =
+      this.questToEdit.tags.length > 0 ? this.questToEdit.tags.toString() : "";
   },
-  
+
   methods: {
     async removeQuest() {
       var { questId } = this.$route.params;
-      await this.$store.dispatch({ type: "removeQuest", questId })
+      await this.$store.dispatch({ type: "removeQuest", questId });
       // TODO - let the user know if deletion succeeded or failed
       this.$router.push("/");
     },
@@ -105,13 +105,14 @@ export default {
       if (this.tags.length > 0) this.questToEdit.tags = this.tags.split(",");
       this.questToEdit.wasUpdatedOn = Date.now();
       if (!this.questToEdit._id) {
-          this.questToEdit.createdAt = Date.now()
-          this.questToEdit.tags.push(this.questToEdit.category)
-          this.questToEdit.createdBy = this.currUser
-          this.$store.dispatch({type: "addTagsToDB", tags: this.questToEdit.tags})
-          // Todo: add tags also on existing question
-        }
-      // let { questId } = this.$route.params;
+        this.questToEdit.createdAt = Date.now();
+        this.questToEdit.tags.push(this.questToEdit.category);
+        this.questToEdit.createdBy = this.currUser;
+        this.$store.dispatch({
+          type: "addTagsToDB",
+          tags: this.questToEdit.tags
+        });
+      }
       await this.$store.dispatch({
         type: "saveQuest",
         quest: this.questToEdit
@@ -133,7 +134,13 @@ export default {
       return this.questToEdit.txt ? true : false;
     },
     currUser() {
-      return this.$store.getters.currUser
+      return this.$store.getters.currUser;
+    },
+    realUser() {
+      const user = this.$store.getters.currUser;
+      if (!user._id) return false;
+      if (user._id.includes("guest")) return false;
+      return true;
     }
   },
   watch: {}
