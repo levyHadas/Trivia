@@ -1,6 +1,7 @@
 <template>
   <section>
-    <h1>Welcome to our lounge, we'll do our best to fullfill your time while you wait</h1>
+    <h1>Waiting for friends to join the party... </h1>
+    <h6>Welcome to our lounge, we'll do our best to fullfill your time while you wait</h6>
     <div class="msg-box"><p>{{joke}}</p></div>
     <button @click="killInterval">Temp Button to kill interval</button>
   </section>
@@ -23,7 +24,7 @@ export default {
 
   created() {
     console.log("Created");
-    this.jokeInterval = setInterval(this.getRandomJoke, 5000);
+    this.jokeInterval = setInterval(this.getRandomJoke, 10000);
   },
 
   destroyed() {
@@ -54,6 +55,11 @@ export default {
 h1 {
   font-size: 2em;
   padding: 40px;
+  color: black
+}
+h6 {
+  padding: 40px;
+  color: black
 }
 div.msg-box {
   width: 60vw;

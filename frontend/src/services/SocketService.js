@@ -19,6 +19,8 @@ export default {
 
 
 socket.on('tellUserToWait', numOfUsers => {
+  Router.push('/waitroom')
+
   console.log(numOfUsers , ' are connected. game only start at 5')
 })
 
