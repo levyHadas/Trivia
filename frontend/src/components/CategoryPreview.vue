@@ -25,7 +25,7 @@ export default {
 .category-item {
   background-color: white;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  margin: 20px;
+  margin: 10px;
   cursor: pointer;
   border-radius: 40px;
 }
@@ -36,9 +36,10 @@ export default {
 .category-img {
   width: 200px;
   height: 160px;
-  /* margin: 10px 10px 0 10px; */
+  margin: 10px 10px 0 10px;
   object-fit: cover;
-  border-radius: 40px;
+  border-top-left-radius: 40px;
+  border-top-right-radius: 40px;
 }
 .card-container {
   text-align: center;
