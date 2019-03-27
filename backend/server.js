@@ -61,8 +61,16 @@ io.on('connection', socket => {
 
   socket.on('partyRequest', async (user) => {
     
+    // if (!user) {
+    //   user = {
+    //     _id: socket.id,
+    //     username: 'Guest_' + socket.id,
+    //     img: 'https://api.adorable.io/avatars/puki'
+    //   }
+    // }
+    
     const isPanding = playersWithScores.some(player => player._id === user._id)
-    if (!user || isPanding) return
+    if (isPanding) return
     socket.user = user
     
     //add user to waiting/playing list

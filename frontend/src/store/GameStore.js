@@ -56,13 +56,12 @@ const UserStore = ({
 
     updateGamePlayers({ commit, state }, { playersWithScores }) {
       commit({ type: 'updateGamePlayers', playersWithScores })
-      // return state.gamePlayers
     },
 
-    setPartyRequest({ commit, getters }) {
+    async setPartyRequest({dispatch}) {
+      const user = await dispatch({type:'setLoggedUser'})
       SocketService.connectionTest()
-      SocketService.emit('partyRequest', getters.currUser)
-      // commit({ type: 'setRequestSent' })
+      SocketService.emit('partyRequest', user)
     }
 
 
