@@ -23,9 +23,10 @@ socket.on('tellUserToWait', numOfUsers => {
 })
 
 
-socket.on('getReadyToParty', () => {
+socket.on('startParty', partyQuests => {
+  Store.dispatch({ type: "setGameQuests", quests: partyQuests })
+  Store.commit({ type: "setCurrQuest", quest: partyQuests[0] })
   Router.push('/play/party')
-
 })
 
 

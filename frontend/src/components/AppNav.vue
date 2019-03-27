@@ -30,8 +30,6 @@ export default {
       if (!user._id) return false
       if(user._id.includes('guest')) return false
       return true
-
-
     }
 
   }

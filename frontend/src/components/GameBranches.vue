@@ -23,20 +23,24 @@
 import GameCore from "@/views/GameCore";
 import PartyPlayers from "@/components/PartyPlayers";
 import PlayerProgress from "@/components/PlayerProgress";
+import SocketService from "@/services/SocketService.js";
+
 
 export default {
   name: "Game",
   props: {
     question2: Array
   },
-  created() {
+
+  async created() {
     console.log("group game was created");
-    var params = this.$route;
-    this.params = params;
+    this.params = this.$route
+
   },
+
   data() {
     return {
-      params: "",
+      params: '',
       player: {
         _id: "22",
         name: "puki",
@@ -59,7 +63,8 @@ export default {
     },
     playerScore() {
       return this.player.scores;
-    }
+    },
+
   },
   components: {
     PartyPlayers,

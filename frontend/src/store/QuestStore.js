@@ -86,10 +86,7 @@ const QuestStore = ({
       
     },
 
-    // getRandomQuestId({ state }) {
-    //   const randomIdx = UtilService.getRandomIntInclusive(0, state.quests.length - 1)
-    //   return state.quests[randomIdx]._id
-    // },
+
     setGameQuests({commit}, {quests}) {
       commit({ type: 'setQuests', quests })
     },

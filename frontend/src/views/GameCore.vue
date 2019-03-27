@@ -26,15 +26,14 @@
       :scores="scores"
       @resumeGame="startGameInterval"
       @newGame="newGame"
-    /> -->
+    />-->
   </div>
 </template>
 
 <script>
-
-import ScoreSummary from '@/components/ScoreSummary'
-import SocketService from '@/services/SocketService.js'
-import CountDown from '@/components/CountDown' 
+import ScoreSummary from "@/components/ScoreSummary";
+import SocketService from "@/services/SocketService.js";
+import CountDown from "@/components/CountDown";
 
 export default {
   name: "Question",
@@ -48,18 +47,18 @@ export default {
       question: {},
       isOver: false,
       quests: [],
-      timerInterval: '',
+      timerInterval: "",
       timer: 15,
       counter: 0,
       isTimerLessThen10: false,
       scores: [], //only this user scores
       playersWithScores: [], //all scores
-      partyCountDown: false
-    }
+      partyCountDown: false,
+    };
   },
   methods: {
     newGame() {
-      this.$router.push("/CategorySelection")
+      this.$router.push("/CategorySelection");
     },
     startGameInterval() {
       this.show = true;
@@ -69,11 +68,9 @@ export default {
       this.scores = [];
       this.timerInterval = setInterval(() => {
         if (this.timer === 0) {
-          this.scores.push(this.saveScore(this.question, false, 15))
-          
-          if (this.$route.name === 'partyMode') this.updateGameScores()
- 
-          
+          this.scores.push(this.saveScore(this.question, false, 15));
+
+          if (this.$route.name === "partyMode") this.updateGameScores();
 
           this.isOver = true;
           this.counter += 1;
@@ -105,9 +102,9 @@ export default {
       this.isOver = true;
       this.scores.push(
         this.saveScore(this.question, isCorrect, 15 - this.timer)
-      )
-      if (this.$route.name === 'partyMode') this.updateGameScores()
- 
+      );
+      if (this.$route.name === "partyMode") this.updateGameScores();
+
       this.counter += 1;
       this.nextQuestion();
     },
@@ -116,10 +113,10 @@ export default {
         quest,
         time,
         isCorrect
-      }
+      };
     },
     nextQuestion() {
-      this.$emit('updateProgress',this.scores)
+      this.$emit("updateProgress", this.scores);
       if (this.quests.length === 1) {
         clearInterval(this.timerInterval);
         this.counter = 5;
@@ -142,63 +139,55 @@ export default {
       }
     },
     updateGameScores() {
-      const playerScores = this.$store.getters.currUser
-      playerScores.scores = this.scores
-      SocketService.emit('updateGameScores', playerScores)
-    },
-
+      const playerScores = this.$store.getters.currUser;
+      playerScores.scores = this.scores;
+      SocketService.emit("updateGameScores", playerScores);
+    }
   },
 
   async created() {
-    if (this.$route.name !== 'partyMode') { 
+    if (this.$route.name !== "partyMode") {
       try {
         var quests = await this.$store.dispatch({
           type: "loadQuests",
           filterBy: {}
-        })
+        });
       } catch {
-        console.log("Unable to load questions. Please try again later")
+        console.log("Unable to load questions. Please try again later");
       }
-      this.$store.dispatch({ type: 'setGameQuests', quests })
-      this.quests = quests
-      this.$store.commit({ type: 'setCurrQuest', quest: this.quests[0]})
-    }
+      this.$store.dispatch({ type: "setGameQuests", quests });
+      this.quests = quests;
+      this.$store.commit({ type: "setCurrQuest", quest: this.quests[0] });
 
+      this.question = this.$store.getters.currQuest;
 
-    else { //show counter for 3 seconds
-      this.partyCountDown = true
-      
       setTimeout(() => {
-        SocketService.emit('readyToStart')
-        this.partyCountDown = false
-      }, 4000)
+        this.show = true;
+      }, 300);
+      this.startGameInterval();
     }
 
-    SocketService.on('startParty', partyQuests => {
-      this.$store.dispatch({ type:'setGameQuests', quests:partyQuests })
-      this.quests = partyQuests
-      this.$store.commit({ type: 'setCurrQuest', quest: this.quests[0]})
-      this.updateGameScores()
+    //need to make sure timer doesn't show for joined
+    else {
+      //show counter for 3 seconds
+      this.$store.dispatch({type:'setPartyRequest'})
 
-    })
-    
-    this.question = this.$store.getters.currQuest;
-
-    setTimeout(() => {
-      this.show = true;
-    }, 300);
-    this.startGameInterval()
-
-    // SocketService.on('ShowUpdatedScores', playersWithScores => {
-    //   this.playersWithScores = playersWithScores
-    // })
-  },
-
+      this.partyCountDown = true;
+      setTimeout(() => {
+        this.quests = this.$store.getters.questsForDisplay
+        this.updateGameScores();
+        this.playersWithScores = this.$store.getters.playersWithScores
+        this.show = true;
+        this.startGameInterval();
+        this.partyCountDown = false
+      }, 4000);
+    }
+ },
 
   destroyed() {
     clearInterval(this.timerInterval);
+    const loggedUser = this.$store.getters.currUser;
   },
-
 
   computed: {
     thisQuestion() {
@@ -220,23 +209,22 @@ export default {
       return false;
     },
     ShowPartyCountDown() {
-      return this.partyCountDown
+      return this.partyCountDown;
     }
   },
-
 
   components: {
     ScoreSummary,
     CountDown
   }
-}
+};
 </script>
 
 <style scoped lang="scss">
 .quest {
   max-height: 90%;
   height: 510px;
-  padding:20px;
+  padding: 20px;
 }
 
 .container {
