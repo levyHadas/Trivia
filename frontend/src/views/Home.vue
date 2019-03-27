@@ -28,19 +28,11 @@ export default {
   methods: {
 
     requestPartyGame(){
+      this.$store.dispatch({type:'setPartyRequest'})
       
-      SocketService.connectionTest()
-      
-      const loggedUser = this.$store.getters.currUser
-      SocketService.emit('partyRequest', loggedUser)
-      
- 
-      SocketService.on('tellUserToWait', numOfUsers => {
-        console.log(numOfUsers , ' are connected. game only start at 5')
-      })
-      
-    
-
+      // SocketService.connectionTest()
+      // const loggedUser = this.$store.getters.currUser
+      // SocketService.emit('partyRequest', loggedUser)
     
     },
   },  

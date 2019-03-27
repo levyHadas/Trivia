@@ -42,7 +42,7 @@ export default {
         if (!this.user.username || !this.user.password) return //client side validation. there is also validation in the server
         try {
             await this.$store.dispatch({ type: 'login', user: this.user})
-            this.$router.push('/CategorySelection')
+            this.$router.go(-1)
         }
         catch {
             console.log('Opss... Something went wrong, please try again')
