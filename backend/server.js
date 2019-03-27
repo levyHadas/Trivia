@@ -44,14 +44,22 @@ var connectedSockets = []
 var playersWithScores = []
 
 io.on('connection', socket => {
-  console.log('socket connected! ')
+  console.log('socket connected! ', socket.id)
+  connectedSockets.push(socket)
+
+
  
   socket.on('disconnect', () => {
-    console.log('user disconnected')
-    if (!socket.user) return
-    connectedSockets = connectedSockets.filter(s => s.user._id !== socket.user._id)
-    playersWithScores = playersWithScores.filter(user => user._id !== socket.user._id)
-    // io.emit('updateConnectedUsers', playersWithScores)
+    
+    //remove from general sockets
+    connectedSockets = connectedSockets.filter(s => s.id !== socket.id)
+    //if this is a socket that was playing, also remove from player as well
+    if (socket.user) { 
+      console.log(socket.user.username, ' left the party')
+      playersWithScores = playersWithScores.filter(user => user._id !== socket.user._id)
+      io.emit('ShowUpdatedScores', playersWithScores)  
+      // io.emit('updateConnectedUsers', playersWithScores)
+    }
 
   })
 
@@ -62,29 +70,29 @@ io.on('connection', socket => {
   })
   
   
-  socket.on('partyRequest', async(user) => {
+  socket.on('partyRequest', (user) => {
+    socket.user = user
     if (!user) return
     if (playersWithScores.some(player => player._id === user._id)) return
-    connectedSockets.push(socket)
+    
+    //add user to waiting/playing list
     user.scores = []
     playersWithScores.push(user)
-    console.log('user:', user.username, 'joined')
-    var quests = await QuestService.query({})
-
-
+    console.log('user:', user.username, 'requested a party')
+    
+    //if waiting for 5:
     if (playersWithScores.length < 2) {
       socket.emit('tellUserToWait', playersWithScores.length)
     }
     else io.emit('getReadyToParty') 
-      //'getReadyToParty' is listened to in all the app therefore the listener is in socketService
+    //'getReadyToParty' is listened to in all the app therefore the listener is in socketService
     
-
-    socket.on('readyToStart', () => {
+    
+    socket.on('readyToStart', async() => {
+      var quests = await QuestService.query({})
       io.emit('startParty', quests)
     })
   
-
-
   })
 
   socket.on('updateGameScores', playerScores => {
@@ -100,7 +108,7 @@ io.on('connection', socket => {
   // })
   
 
-  io.emit('updateConnectedUsers', playersWithScores)
+  // io.emit('updateConnectedUsers', playersWithScores)
 
 
 })

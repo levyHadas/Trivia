@@ -16,6 +16,13 @@ export default {
 }
 
 
+
+
+socket.on('tellUserToWait', numOfUsers => {
+  console.log(numOfUsers , ' are connected. game only start at 5')
+})
+
+
 socket.on('getReadyToParty', () => {
   Router.push('/play/party')
 
@@ -41,6 +48,7 @@ function emit(eventName, data) {
 function on(eventName, cb) {
 	socket.on(eventName, cb)
 }
+
 
 
 
