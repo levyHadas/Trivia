@@ -10,7 +10,6 @@ const UserStore = ({
   mutations: {
 
     setCurrUser(state, {user}) {
-      console.log('user: ', user)
       state.currUser = user
     },
 
