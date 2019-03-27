@@ -167,7 +167,7 @@ export default {
     }
   },
 
-  async mounted() {
+  async created() {
 
     this.partyMode = (this.$route.name === "partyMode") ? true : false 
     console.log(this.partyMode)
@@ -210,7 +210,7 @@ export default {
 
   destroyed() {
     clearInterval(this.timerInterval);
-    const loggedUser = this.$store.getters.currUser;
+    SocketService.emit('userLeftPartyPage')
   },
 
   computed: {

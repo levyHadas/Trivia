@@ -58,10 +58,15 @@ const UserStore = ({
       commit({ type: 'updateGamePlayers', playersWithScores })
     },
 
-    async setPartyRequest({dispatch}) {
-      const user = await dispatch({type:'setLoggedUser'})
+    async setPartyRequest({dispatch, getters}) {
       SocketService.connectionTest()
-      SocketService.emit('partyRequest', user)
+      const currUser = getters.currUser
+      if (currUser._id) SocketService.emit('partyRequest', currUser)
+      else {
+        const newUser = await dispatch({type:'setLoggedUser'})
+        SocketService.emit('partyRequest', newUser)
+      }
+    
     }
 
 
