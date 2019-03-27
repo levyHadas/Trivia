@@ -110,10 +110,7 @@ io.on('connection', socket => {
 
   // io.emit('updateConnectedUsers', playersWithScores)
 
-
 })
-  
-  
   
     //   if (connectedSockets.length >= 1) {
   //     io.emit('startParty')
@@ -121,30 +118,11 @@ io.on('connection', socket => {
   //   else socket.emit('noPartyYet')
   // })
 
-
-
-  
-
-  
- 
-  
   // socket.on('userConnected', userId => {
   //     socket.join(userId)
   //     io.emit('userIsConnected', userId);
   //     console.log('new user connected. id: ', userId)
   // })
 
-
-
-
-
-
-
-
-
-
-
-
-
 const PORT = process.env.PORT || 3003
-server.listen(PORT, () => console.log(`Example app IS listening on port ${PORT}`))
+server.listen(PORT, () => console.log(`Trivia app is listening on port ${PORT}`))
