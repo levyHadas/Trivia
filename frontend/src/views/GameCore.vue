@@ -4,7 +4,9 @@
     <transition name="fadeOne">
       <div v-show="show" class="container" v-if="thisQuestion">
         <p class="One">
-          <span class="timer" :class="{redTimer: isTimerLessThen10}">{{currentTimer}}</span>
+          <span class="timer" :class="{redTimer: isTimerLessThen10}"> 
+              
+            {{currentTimer}}</span>
           <br>
           {{thisQuestion.txt}}
         </p>
@@ -168,7 +170,6 @@ export default {
   },
 
   async created() {
-
     this.partyMode = (this.$route.name === "partyMode") ? true : false 
     console.log(this.partyMode)
     if (!this.partyMode) {
@@ -210,7 +211,7 @@ export default {
 
   destroyed() {
     clearInterval(this.timerInterval);
-    SocketService.emit('userLeftPartyPage')
+    if (this.partyMode) SocketService.emit('userLeftPartyPage')
   },
 
   computed: {
@@ -373,4 +374,7 @@ p {
     transform: rotate(-7deg);
   }
 }
+
+//
+
 </style>

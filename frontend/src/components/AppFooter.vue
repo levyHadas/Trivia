@@ -1,6 +1,6 @@
 <template>
   <footer>
-    <AppNav></AppNav><br/>
+   <br/>
     2019 All rights reserved.
   </footer>
 </template>
