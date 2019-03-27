@@ -1,13 +1,18 @@
 <template>
   <section class="summary-section">
     <div class="summary-container">
-      <h1>Game Summary</h1>
-      <ul>
-        <score-preview v-for="(score, idx) in scores" :key="idx" :score="score"/>
-      </ul>
+      <!-- <img class="podium" src="../assets/podium.png" alt=""> -->
+      <div class="pudium-container">
+        <div class="winners-container">
+          <div class="second">Sarel</div>
+          <div class="first">Ido</div>
+          <div class="third">Hadads</div>
+
+        </div>
+      </div>
       <div class="bts-container">
         <button class="continue" @click="$emit('resumeParty')" focus>Continue</button>
-        <button class="new-topic" @click="$emit('goHome')">Home</button>
+        <button class="goHome" @click="$emit('goHome')">Home</button>
       </div>
     </div>
   </section>
@@ -38,12 +43,15 @@ export default {
   z-index: 20;
 }
 .summary-container {
-  width: 70%;
-  height: 70%;
+  width: 70vw;
+  height: 80vw;
+  max-height: 550px;
+  max-width: 600px;
+  min-width: 300px;
   margin: 100px 12vw;
   align-items: center;
   justify-content: space-evenly;
-  background-color: rgba(0, 0, 0, 0.747);
+  background-color: rgba(245, 245, 245, 0.9);
   z-index: 2;
   display: flex;
   flex-direction: column;
@@ -52,7 +60,7 @@ export default {
   button {
     border-radius: 7%;
     position: block;
-    background-color: #339dff;
+    background-color: #0d2c54;
     border: none;
     padding: 15px;
     color: white;
@@ -61,23 +69,46 @@ export default {
   .bts-container {
     display: flex;
     align-items: center;
+    margin: 10px;
   }
   .continue {
     margin-right: 10px;
   }
   
-  .new-topi {
+  .goHome {
     margin-left: 10px;
   }
 
-  ul {
+  .pudium-container {
+    // background: url("../assets/");
+    background: url("../assets/podium.png") no-repeat center center;
+    width: 70vw;
+    height: 80vw;
+    max-height: 550px;
+    max-width: 485px;
+    min-width: 300px;
+    background-size: contain;
+  }
+  .winners-container {
+    height: 60%;
     display: grid;
-    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
-    grid-gap: 20px;
-    width: 100%;
-    text-align: left;
-    width: 85%;
-    margin: 0 auto;
+    margin-top: 18%;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 2fr 1fr 2.5fr;
+    font-size: 1.2rem;
+  }
+  .second {
+    grid-row-start: 3;
+    margin-left: 20px;
+  }
+  .first {
+    grid-row-start: 1;
+    grid-column-start: 2;
+  }
+  .third {
+    margin-right: 20px;
+    grid-row-start: 3;
+    grid-column-start: 3;
   }
 }
 
