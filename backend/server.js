@@ -37,8 +37,6 @@ app.get('/', (req, res) => {
 })
 AddQuestRoutes(app)
 AddUserRoutes(app)
-// QuestService(app)
-
 
 var connectedSockets = []
 var playersWithScores = []
@@ -48,7 +46,6 @@ io.on('connection', socket => {
   connectedSockets.push(socket)
 
 
- 
   socket.on('disconnect', () => {
     
     //remove from general sockets
@@ -60,20 +57,13 @@ io.on('connection', socket => {
       io.emit('ShowUpdatedScores', playersWithScores)  
       // io.emit('updateConnectedUsers', playersWithScores)
     }
-
   })
 
-
-  socket.on('connectionTest', msgFromFront => {
-    console.log(msgFromFront)
-    socket.emit('connectionTest', 'Hi from server')
-  })
-  
-  
-  socket.on('partyRequest', (user) => {
+  socket.on('partyRequest', async (user) => {
+    
+    const isPanding = playersWithScores.some(player => player._id === user._id)
+    if (!user || isPanding) return
     socket.user = user
-    if (!user) return
-    if (playersWithScores.some(player => player._id === user._id)) return
     
     //add user to waiting/playing list
     user.scores = []
@@ -84,16 +74,12 @@ io.on('connection', socket => {
     if (playersWithScores.length < 2) {
       socket.emit('tellUserToWait', playersWithScores.length)
     }
-    else io.emit('getReadyToParty') 
-    //'getReadyToParty' is listened to in all the app therefore the listener is in socketService
-    
-    
-    socket.on('readyToStart', async() => {
+    else { //start!
       var quests = await QuestService.query({})
-      io.emit('startParty', quests)
-    })
-  
+      io.emit('startParty', quests) 
+    }  
   })
+
 
   socket.on('updateGameScores', playerScores => {
     const idx = playersWithScores.findIndex(player => player._id === playerScores._id)
@@ -103,26 +89,22 @@ io.on('connection', socket => {
     io.emit('ShowUpdatedScores', playersWithScores)  
   })
 
-  // socket.on('getPlayersWithScores', playersWithScores => {
-  //   io.emit('updateConnectedUsers', playersWithScores)
-  // })
-  
 
-  // io.emit('updateConnectedUsers', playersWithScores)
+  socket.on('connectionTest', msgFromFront => {
+    console.log(msgFromFront)
+    socket.emit('connectionTest', 'Hi from server')
+  })
 
 })
   
-    //   if (connectedSockets.length >= 1) {
-  //     io.emit('startParty')
-  //   }
-  //   else socket.emit('noPartyYet')
-  // })
 
-  // socket.on('userConnected', userId => {
-  //     socket.join(userId)
-  //     io.emit('userIsConnected', userId);
-  //     console.log('new user connected. id: ', userId)
-  // })
+
+
+
+
+
+
+
 
 const PORT = process.env.PORT || 3003
 server.listen(PORT, () => console.log(`Trivia app is listening on port ${PORT}`))

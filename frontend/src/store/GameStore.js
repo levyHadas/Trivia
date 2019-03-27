@@ -6,7 +6,7 @@ const UserStore = ({
 
   state: {
     gamePlayers: [],
-    isRequestSent: false
+    // isRequestSent: false
   },
 
   mutations: {
@@ -21,9 +21,9 @@ const UserStore = ({
       state.gamePlayers.push(player)
     },
 
-    setRequestSent(state) {
-      state.isRequestSent = true
-    }
+    // setRequestSent(state) {
+    //   state.isRequestSent = true
+    // }
 
   },
 
@@ -62,7 +62,7 @@ const UserStore = ({
     setPartyRequest({ commit, getters }) {
       SocketService.connectionTest()
       SocketService.emit('partyRequest', getters.currUser)
-      commit({ type: 'setRequestSent' })
+      // commit({ type: 'setRequestSent' })
     }
 
 
