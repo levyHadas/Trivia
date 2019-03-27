@@ -6,8 +6,8 @@
         <score-preview v-for="(score, idx) in scores" :key="idx" :score="score"/>
       </ul>
       <div class="bts-container">
-        <button class="continue" @click="$emit('resumeGame')" focus>Continue</button>
-        <button class="new-topic" @click="$emit('selecteNewTopic')">New Topic</button>
+        <button class="continue" @click="$emit('resumeParty')" focus>Continue</button>
+        <button class="new-topic" @click="$emit('goHome')">Home</button>
       </div>
     </div>
   </section>

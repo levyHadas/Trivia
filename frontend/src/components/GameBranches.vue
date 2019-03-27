@@ -1,22 +1,22 @@
 <template>
   <!-- <section class="main"> -->
   <section class="gameScreen">
+
     <section v-if="isPartyOn" class="partyMode">
       <div class="players">
         <party-players></party-players>
       </div>
       <div class="game">
         <game-core></game-core>
-        <!-- <router-view></router-view> -->
       </div>
     </section>
+
     <section v-else class="singleMode">
       <player-progress :player="player" :scores="playerScore"></player-progress>
       <game-core @updateProgress="sendProgress"></game-core>
-      <!-- <router-view></router-view> -->
     </section>
+    
   </section>
-  <!-- </section> -->
 </template>
 
 <script>
@@ -33,6 +33,7 @@ export default {
   },
 
   async created() {
+
     console.log("group game was created");
     this.params = this.$route
 

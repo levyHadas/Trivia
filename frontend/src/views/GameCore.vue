@@ -11,7 +11,7 @@
       </div>
     </transition>
     <transition name="fadeTwo">
-      <div v-show="show" class="container" v-if="thisQuestion">
+      <div v-show="show" class="containerAnswers" v-if="thisQuestion">
         <p
           class="Two answer"
           v-for="(answer, idx) in thisAnswers"
@@ -21,17 +21,22 @@
         >{{answer}}</p>
       </div>
     </transition>
-    <!-- <score-summary
-      v-if="showSummary"
+    <score-summary
+      v-if="showSummary && !partyMode"
       :scores="scores"
-      @resumeGame="startGameInterval"
-      @newGame="newGame"
-    />-->
+      @resumeGame="resumeGame"
+      @selecteNewTopic="selecteNewTopic"/>
+    <party-summary
+      v-if="showSummary && partyMode"
+      :scores="scores"
+      @resumeParty="resumeParty"
+      @goHome="goHome"/>
   </div>
 </template>
 
 <script>
 import ScoreSummary from "@/components/ScoreSummary";
+import PartySummary from "@/components/PartySummary";
 import SocketService from "@/services/SocketService.js";
 import CountDown from "@/components/CountDown";
 
@@ -54,11 +59,28 @@ export default {
       scores: [], //only this user scores
       playersWithScores: [], //all scores
       partyCountDown: false,
+      partyMode: null
     };
   },
   methods: {
-    newGame() {
+    resumeGame() {
+      this.scores = []
+      this.$emit("updateProgress", this.scores);
+      this.startGameInterval()
+    },
+    selecteNewTopic() {
       this.$router.push("/CategorySelection");
+    },
+    resumeParty() {
+      //not sure if it's working yet
+      if (this.playersWithScores.length >= 2) {
+        this.scores = []
+        this.$emit("updateProgress", this.scores);
+        this.startGameInterval()
+      } else console.log('not enghou')
+    },
+    goHome() {
+      this.$router.push("/")
     },
     startGameInterval() {
       this.show = true;
@@ -146,7 +168,10 @@ export default {
   },
 
   async created() {
-    if (this.$route.name !== "partyMode") {
+
+    this.partyMode = (this.$route.name === "partyMode") ? true : false 
+    console.log(this.partyMode)
+    if (!this.partyMode) {
       try {
         var quests = await this.$store.dispatch({
           type: "loadQuests",
@@ -167,26 +192,25 @@ export default {
       this.startGameInterval();
     }
 
-    //need to make sure timer doesn't show for joined
     else {
-      //show counter for 3 seconds
+     
       this.$store.dispatch({type:'setPartyRequest'})
 
       this.partyCountDown = true;
       setTimeout(() => {
-        this.quests = this.$store.getters.questsForDisplay
+        this.quests = this.$store.getters.questsForDisplay;
         this.updateGameScores();
-        this.playersWithScores = this.$store.getters.playersWithScores
+        this.playersWithScores = this.$store.getters.playersWithScores;
         this.show = true;
         this.startGameInterval();
-        this.partyCountDown = false
+        this.partyCountDown = false;
       }, 4000);
     }
- },
+  },
 
   destroyed() {
     clearInterval(this.timerInterval);
-    const loggedUser = this.$store.getters.currUser;
+    SocketService.emit('userLeftPartyPage')
   },
 
   computed: {
@@ -204,6 +228,7 @@ export default {
         this.show = false;
         clearInterval(this.timerInterval);
         this.counter = 0;
+        console.log(this.partyMode)
         return true;
       }
       return false;
@@ -215,7 +240,8 @@ export default {
 
   components: {
     ScoreSummary,
-    CountDown
+    CountDown,
+    PartySummary
   }
 };
 </script>
@@ -223,22 +249,23 @@ export default {
 <style scoped lang="scss">
 .quest {
   max-height: 90%;
-  height: 510px;
+  max-height: 520px;
   padding: 20px;
 }
 
 .container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  // justify-content: center;
+  // align-items: center;
   clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
 }
 
-// .container p {
-//   flex-wrap: wrap;
-//   max-width: 700px;
-// }
+.containerAnswers {
+  flex-wrap: wrap;
+  max-width: 600px;
+  margin: 0 auto;
+}
 
 button {
   color: #435466;
@@ -253,7 +280,7 @@ button {
 
 p {
   text-align: center;
-  font-size: 50px;
+  font-size: 2rem;
   overflow: hidden;
   color: black;
 }
@@ -302,16 +329,15 @@ p {
   background: #00a6ed;
   color: #fff;
   text-decoration: none;
-  font-size: 20px;
-  line-height: 38px;
-  border-radius: 50px;
+  font-size: 1.1rem;
+  border-radius: 30px;
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
-  width: 300px;
-  height: 70px;
+  width: 250px;
+  height: 60px;
   text-align: center;
   vertical-align: middle;
-  line-height: 70px;
+  line-height: 60px;
 }
 
 .answer:hover {

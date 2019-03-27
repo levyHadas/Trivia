@@ -25,7 +25,7 @@ export default {
       return "X";
     },
     questPreview() {
-      return this.score.quest.txt.substring(0, 15) + "...";
+      return this.score.quest.txt.substring(0, 70) + "...";
     },
     isCorrect() {
       if (this.score.isCorrect === true) return "correct";
@@ -45,11 +45,12 @@ export default {
 <style scopped>
 .quest-score-container {
   display: grid;
-  grid-template-columns: 4fr 1fr 1fr 4fr;
+  grid-template-columns: 7fr 1fr 2fr 4fr;
+  grid-gap: 20px;
   width: 100%;
 }
 .quest-score-item {
   color: white;
-  font-size: 30px;
+  font-size: 1rem;
 }
 </style>

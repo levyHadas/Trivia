@@ -9,8 +9,7 @@
       <div class="switch-btn">
         <div class="toggle" :class="[this.state_class]" @click.self="onClick">
           <div class="draggable" @mousedown.prevent="dragStart" :style="style"></div>
-        </div>
-        Party Mode
+        </div>Party Mode
       </div>
     </section>
   </div>
@@ -40,7 +39,7 @@ export default {
       if (this.state) {
         this.requestPartyGame();
       } else {
-        this.$router.push('CategorySelection')
+        this.$router.push("CategorySelection");
       }
     },
     // requestPartyGame() {
@@ -49,13 +48,12 @@ export default {
     //   const loggedUser = this.$store.getters.currUser;
     //   SocketService.emit("partyRequest", loggedUser);
 
-    requestPartyGame(){
-      this.$store.dispatch({type:'setPartyRequest'})
-      
+    requestPartyGame() {
+      this.$store.dispatch({ type: "setPartyRequest" });
+
       // SocketService.connectionTest()
       // const loggedUser = this.$store.getters.currUser
       // SocketService.emit('partyRequest', loggedUser)
-    
     },
     onClick() {
       this.toggle(!this.state);
@@ -126,10 +124,6 @@ export default {
 
 <style lang="scss">
 @import url("../assets/reset.css");
-body {
-  background-color: #ffb400;
-}
-
 .home {
   img {
     width: 100%;
@@ -143,7 +137,8 @@ body {
   align-items: center;
   align-content: center;
   padding: 50px;
-  height: 90vh;
+  height: 60vh;
+  background-color: #ffb400;
   // background: url("../assets/main.jpg") no-repeat center center;
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -158,7 +153,7 @@ body {
     border-radius: 20px;
     font-size: 30px;
     font-weight: bold;
-    padding: 10px;
+    padding: 30px;
   }
 }
 
@@ -203,6 +198,10 @@ header {
 }
 
 footer {
+  // position: fixed;
+  // left: 0;
+  // bottom: 0;
+  // width: 100%;
   background-color: #0d2c54;
   color: white;
   a {
@@ -212,8 +211,8 @@ footer {
 }
 
 .btn {
-  padding:10px;
-  margin-top:25px;
+  padding: 10px;
+  margin-top: 25px;
   width: 330px;
   height: 60px;
   line-height: 60px;

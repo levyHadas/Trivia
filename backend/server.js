@@ -12,7 +12,6 @@ const AddGameRoutes = require('./routes/game-route')
 const QuestService = require ('./services/quest-service.js')
 
 
-
 app.use(cors({
   origin: ['http://localhost:8080', 'http://localhost:8081'],
   credentials: true
@@ -39,28 +38,31 @@ AddGameRoutes(app)
 var connectedSockets = []
 var playersWithScores = []
 
+function _removeUserFromPlayers(socket) {
+  console.log(socket.user.username, ' left the party')
+  playersWithScores = playersWithScores.filter(user => user._id !== socket.user._id)
+  io.emit('ShowUpdatedScores', playersWithScores) 
+}
+
 io.on('connection', socket => {
-  console.log('socket connected! ', socket.id)
+  // console.log('socket connected! ', socket.id)
   connectedSockets.push(socket)
 
 
   socket.on('disconnect', () => {
-    
     //remove from general sockets
     connectedSockets = connectedSockets.filter(s => s.id !== socket.id)
     //if this is a socket that was playing, also remove from player as well
-    if (socket.user) { 
-      console.log(socket.user.username, ' left the party')
-      playersWithScores = playersWithScores.filter(user => user._id !== socket.user._id)
-      io.emit('ShowUpdatedScores', playersWithScores)  
-      // io.emit('updateConnectedUsers', playersWithScores)
-    }
+    if (socket.user) _removeUserFromPlayers(socket)
+  })
+
+  socket.on('userLeftPartyPage', () => {
+      _removeUserFromPlayers(socket)
   })
 
   socket.on('partyRequest', async (user) => {
-    
     const isPanding = playersWithScores.some(player => player._id === user._id)
-    if (!user || isPanding) return
+    if (isPanding) return
     socket.user = user
     
     //add user to waiting/playing list
@@ -76,6 +78,7 @@ io.on('connection', socket => {
       var quests = await QuestService.query({})
       io.emit('startParty', quests) 
     }  
+    console.log(playersWithScores.length)   
   })
 
 
