@@ -8,6 +8,8 @@
       <span> | </span> 
       <router-link to="/login" v-if="!realUser">Login</router-link>
       <span v-if="!realUser"> | </span>
+      <router-link to="/quest/edit">Create Question</router-link>
+      <span v-if="realUser"> | </span>
       <router-link to="/logout" v-if="realUser">Logout</router-link>
       <span v-if="realUser"> | </span>
       <img :src="loggedUser.img" width="50px" v-if="realUser">

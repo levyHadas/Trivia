@@ -95,11 +95,6 @@ io.on('connection', socket => {
     socket.emit('connectionTest', 'Hi from server')
   })
 
-  socket.on('CheckIfUserPanding', () => {
-    
-    socket.emit('isPandingResponse',isPanding)
-  })
-
 })
   
 
@@ -112,4 +107,4 @@ io.on('connection', socket => {
 
 
 const PORT = process.env.PORT || 3003
-server.listen(PORT, () => console.log(`Example app IS listening on port ${PORT}`))
+server.listen(PORT, () => console.log(`Trivia app is listening on port ${PORT}`))
