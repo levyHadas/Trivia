@@ -6,12 +6,9 @@ const session = require('express-session')
 const app = express()
 var server = require('http').Server(app)
 const io = require('socket.io')(server)
-
-// const PORT = process.env.PORT || 3003
-
 const AddQuestRoutes = require('./routes/quest-route')
 const AddUserRoutes = require('./routes/user-route')
-
+const AddGameRoutes = require('./routes/game-route')
 const QuestService = require ('./services/quest-service.js')
 
 
@@ -36,6 +33,7 @@ app.get('/', (req, res) => {
 })
 AddQuestRoutes(app)
 AddUserRoutes(app)
+AddGameRoutes(app)
 
 var connectedSockets = []
 var playersWithScores = []
@@ -100,13 +98,6 @@ io.on('connection', socket => {
 
 })
   
-
-
-
-
-
-
-
 
 
 const PORT = process.env.PORT || 3003
