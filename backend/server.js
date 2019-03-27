@@ -37,55 +37,49 @@ app.get('/', (req, res) => {
 })
 AddQuestRoutes(app)
 AddUserRoutes(app)
-// QuestService(app)
-
 
 var connectedSockets = []
 var playersWithScores = []
 
 io.on('connection', socket => {
-  console.log('socket connected! ')
- 
+  console.log('socket connected! ', socket.id)
+  connectedSockets.push(socket)
+
+
   socket.on('disconnect', () => {
-    console.log('user disconnected')
-    if (!socket.user) return
-    connectedSockets = connectedSockets.filter(s => s.user._id !== socket.user._id)
-    playersWithScores = playersWithScores.filter(user => user._id !== socket.user._id)
-    // io.emit('updateConnectedUsers', playersWithScores)
-
+    
+    //remove from general sockets
+    connectedSockets = connectedSockets.filter(s => s.id !== socket.id)
+    //if this is a socket that was playing, also remove from player as well
+    if (socket.user) { 
+      console.log(socket.user.username, ' left the party')
+      playersWithScores = playersWithScores.filter(user => user._id !== socket.user._id)
+      io.emit('ShowUpdatedScores', playersWithScores)  
+      // io.emit('updateConnectedUsers', playersWithScores)
+    }
   })
 
-
-  socket.on('connectionTest', msgFromFront => {
-    console.log(msgFromFront)
-    socket.emit('connectionTest', 'Hi from server')
-  })
-  
-  
-  socket.on('partyRequest', async(user) => {
-    if (!user) return
-    if (playersWithScores.some(player => player._id === user._id)) return
-    connectedSockets.push(socket)
+  socket.on('partyRequest', async (user) => {
+    
+    const isPanding = playersWithScores.some(player => player._id === user._id)
+    if (!user || isPanding) return
+    socket.user = user
+    
+    //add user to waiting/playing list
     user.scores = []
     playersWithScores.push(user)
-    console.log('user:', user.username, 'joined')
-    var quests = await QuestService.query({})
-
-
+    console.log('user:', user.username, 'requested a party')
+    
+    //if waiting for 5:
     if (playersWithScores.length < 2) {
       socket.emit('tellUserToWait', playersWithScores.length)
     }
-    else io.emit('getReadyToParty') 
-      //'getReadyToParty' is listened to in all the app therefore the listener is in socketService
-    
-
-    socket.on('readyToStart', () => {
-      io.emit('startParty', quests)
-    })
-  
-
-
+    else { //start!
+      var quests = await QuestService.query({})
+      io.emit('startParty', quests) 
+    }  
   })
+
 
   socket.on('updateGameScores', playerScores => {
     const idx = playersWithScores.findIndex(player => player._id === playerScores._id)
@@ -95,40 +89,14 @@ io.on('connection', socket => {
     io.emit('ShowUpdatedScores', playersWithScores)  
   })
 
-  // socket.on('getPlayersWithScores', playersWithScores => {
-  //   io.emit('updateConnectedUsers', playersWithScores)
-  // })
-  
 
-  io.emit('updateConnectedUsers', playersWithScores)
-
+  socket.on('connectionTest', msgFromFront => {
+    console.log(msgFromFront)
+    socket.emit('connectionTest', 'Hi from server')
+  })
 
 })
   
-  
-  
-    //   if (connectedSockets.length >= 1) {
-  //     io.emit('startParty')
-  //   }
-  //   else socket.emit('noPartyYet')
-  // })
-
-
-
-  
-
-  
- 
-  
-  // socket.on('userConnected', userId => {
-  //     socket.join(userId)
-  //     io.emit('userIsConnected', userId);
-  //     console.log('new user connected. id: ', userId)
-  // })
-
-
-
-
 
 
 
@@ -139,4 +107,4 @@ io.on('connection', socket => {
 
 
 const PORT = process.env.PORT || 3003
-server.listen(PORT, () => console.log(`Example app IS listening on port ${PORT}`))
+server.listen(PORT, () => console.log(`Trivia app is listening on port ${PORT}`))

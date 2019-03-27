@@ -1,5 +1,5 @@
 <template>
-  <section v-if="isQuest" class="quest-details">
+  <section v-if="isQuest" class="game-core">
     <el-form ref="form" label-width="120px" @submit.prevent="saveQuest">
       <el-form-item label="Question">
         <el-input v-model="questToEdit.txt" type="textarea"></el-input>
@@ -45,9 +45,6 @@
         </el-dropdown>
       </el-form-item>
       The Correct Answer is: {{questToEdit.answers[questToEdit.correctAnswerIdx]}}
-      <el-form-item label="Created By">
-        <el-input :placeholder="questToEdit.createdBy" v-model="questToEdit.createdBy"></el-input>
-      </el-form-item>
       <el-form-item label="Tags (Comma seperated)">
         <el-input v-model="tags"></el-input>
       </el-form-item>
@@ -93,13 +90,10 @@ export default {
     await this.$store.dispatch({ type: "loadQuest", questId });
     let question = await this.$store.getters.currQuest;
     this.questToEdit = JSON.parse(JSON.stringify(question));
-    this.tags =
-      this.questToEdit.tags.length > 0 ? this.questToEdit.tags.toString() : "";
+    console.log('currUser ', this.questToEdit.createdBy );
+    this.tags = this.questToEdit.tags.length > 0 ? this.questToEdit.tags.toString() : "";
   },
-  destroyed () {
-    console.log('Componenent destroyed');
-  },
-
+  
   methods: {
     async removeQuest() {
       var { questId } = this.$route.params;
@@ -110,10 +104,14 @@ export default {
     async saveQuest() {
       if (this.tags.length > 0) this.questToEdit.tags = this.tags.split(",");
       this.questToEdit.wasUpdatedOn = Date.now();
-      console.log('Update time: ', this.questToEdit.wasUpdatedOn, 'quest ID to check on DB', this.questToEdit._id );
-      if (!this.questToEdit._id) {this.questToEdit.createdAt = Date.now()}
-      
-      var { questId } = this.$route.params;
+      if (!this.questToEdit._id) {
+          this.questToEdit.createdAt = Date.now()
+          this.questToEdit.tags.push(this.questToEdit.category)
+          this.questToEdit.createdBy = this.currUser
+          this.$store.dispatch({type: "addTagsToDB", tags: this.questToEdit.tags})
+          // Todo: add tags also on existing question
+        }
+      // let { questId } = this.$route.params;
       await this.$store.dispatch({
         type: "saveQuest",
         quest: this.questToEdit
@@ -133,6 +131,9 @@ export default {
   computed: {
     isQuest() {
       return this.questToEdit.txt ? true : false;
+    },
+    currUser() {
+      return this.$store.getters.currUser
     }
   },
   watch: {}

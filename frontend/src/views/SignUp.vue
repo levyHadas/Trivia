@@ -47,8 +47,9 @@ export default {
         try {
             const signedUser = await this.$store.dispatch({ type: 'signup', user: this.user})
             setTimeout(async ()=>{   //check why we can't login without timeout.
-                await this.$store.dispatch({ type: 'login', user: signedUser})
-                this.$router.push('/CategorySelection')
+              await this.$store.dispatch({ type: 'login', user: signedUser})
+              this.$router.go(-1)
+                
             },200)
         }
         catch {

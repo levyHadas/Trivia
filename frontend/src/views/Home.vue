@@ -43,37 +43,19 @@ export default {
         this.$router.push('CategorySelection')
       }
     },
-    requestPartyGame() {
-      SocketService.connectionTest();
+    // requestPartyGame() {
+    //   SocketService.connectionTest();
 
-      const loggedUser = this.$store.getters.currUser;
-      SocketService.emit("partyRequest", loggedUser);
+    //   const loggedUser = this.$store.getters.currUser;
+    //   SocketService.emit("partyRequest", loggedUser);
 
-      // SocketService.on('updateConnectedUsers', playersWithScores => {
-      //   console.log('you need to update all players *now*', playersWithScores)
-      // })
-      SocketService.on("tellUserToWait", numOfUsers => {
-        console.log(numOfUsers, " are connected. game only start at 5");
-      });
-
-      //this is in the main app, so if user went to a different page, it will show:
-      // SocketService.on('startPary', () => {
-      //   console.log(numOfUsers , ' starting game')
-      //   this.$router.push('/play/party')
-      // })
-
-      // console.log(this.temp, ' this is the players in the store')
-
-      // SocketService.on('startParty', () => {
-      //   console.log('starting party')
-      //   const loggedUser = this.$store.getters.currUser
-      //   this.$store.dispatch({type:'addPlayer', player:loggedUser})
-      //   this.$router.push('/play/party')
-      // })
-      // SocketService.on('noPartyYet', () => {
-      //   console.log('no party yet. You can wait or play single mode. Once a user connected we will inform you.')
-      //   this.$router.push('/categorySelection')
-      // })
+    requestPartyGame(){
+      this.$store.dispatch({type:'setPartyRequest'})
+      
+      // SocketService.connectionTest()
+      // const loggedUser = this.$store.getters.currUser
+      // SocketService.emit('partyRequest', loggedUser)
+    
     },
     onClick() {
       this.toggle(!this.state);
