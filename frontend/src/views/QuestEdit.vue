@@ -107,7 +107,7 @@ export default {
       if (!this.questToEdit._id) {
           this.questToEdit.createdAt = Date.now()
           this.questToEdit.tags.push(this.questToEdit.category)
-          this.questToEdit.createdBy = (this.currUser)? this.currUser : "guest"
+          this.questToEdit.createdBy = this.currUser
           this.$store.dispatch({type: "addTagsToDB", tags: this.questToEdit.tags})
           // Todo: add tags also on existing question
         }
@@ -133,7 +133,7 @@ export default {
       return this.questToEdit.txt ? true : false;
     },
     currUser() {
-      return this.$store.getters.currUser.username
+      return this.$store.getters.currUser
     }
   },
   watch: {}
