@@ -3,8 +3,7 @@ import ioClient from 'socket.io-client'
 import Router from '../router.js'
 import Store from '../store/store.js'
 
-
-var socket = ioClient('//localhost:3003');
+var socket = ioClient();
 
 const msgs = []
 
