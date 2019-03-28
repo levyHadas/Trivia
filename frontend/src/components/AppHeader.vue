@@ -1,6 +1,6 @@
 <template>
   <header>
-    <h1>Trivia.</h1>
+    <router-link to="/"><h1>Trivia.</h1></router-link>
     <AppNav></AppNav>
   </header>
 
@@ -22,5 +22,8 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
+  a {
+    text-decoration: none;
+  }
 
 </style>

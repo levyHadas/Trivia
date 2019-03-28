@@ -2,7 +2,7 @@
   <div class="home">
     <section class="main">
       <div>
-        <h3>Global. Knowlege. Compete With Others</h3>
+        <h3>Global. Knowledge. Compete With Others</h3>
       </div>
       <a href="#" class="btn" @click="startPlaying">Play Now</a>
       <br>
@@ -42,18 +42,8 @@ export default {
         this.$router.push("CategorySelection");
       }
     },
-    // requestPartyGame() {
-    //   SocketService.connectionTest();
-
-    //   const loggedUser = this.$store.getters.currUser;
-    //   SocketService.emit("partyRequest", loggedUser);
-
     requestPartyGame() {
       this.$store.dispatch({ type: "setPartyRequest" });
-
-      // SocketService.connectionTest()
-      // const loggedUser = this.$store.getters.currUser
-      // SocketService.emit('partyRequest', loggedUser)
     },
     onClick() {
       this.toggle(!this.state);
