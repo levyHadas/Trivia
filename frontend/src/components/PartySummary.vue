@@ -4,14 +4,14 @@
       <!-- <img class="podium" src="../assets/podium.png" alt=""> -->
       <div class="pudium-container">
         <div class="winners-container">
-          <div class="second">Sarel</div>
-          <div class="first">Ido</div>
-          <div class="third">Hadads</div>
+          <div class="second">{{first}}</div>
+          <div class="first">{{second}} </div>
+          <div class="third">{{third}}</div>
 
         </div>
       </div>
       <div class="bts-container">
-        <button class="continue" @click="$emit('resumeParty')" focus>Continue</button>
+        <!-- <button class="continue" @click="$emit('resumeParty')" focus>Continue</button> -->
         <button class="goHome" @click="$emit('goHome')">Home</button>
       </div>
     </div>
@@ -23,12 +23,54 @@ import ScorePreview from "@/components/ScorePreview";
 
 export default {
   props: {
-    scores: Array
+    playersWithScores: Array
+  },
+  data() {
+    return {
+      playersScores: this.playersWithScores,
+      first: '',
+      second: '',
+      third: ''
+    }
+  },
+  mounted() {
+    this.findWinner()
   },
   components: {
     ScorePreview
-  }
-};
+  },
+  methods: {
+    findWinner() {
+      this.playersScores = 
+      this.playersScores.map(player => {
+        var numOfCorrect = 0
+        var totalCorrectTime = 0
+        player.scores.forEach(score => {
+          if (score.isCorrect) {
+            numOfCorrect++
+            totalCorrectTime += score.time
+          }
+        })
+        player.numOfCorrect = numOfCorrect
+        player.totalCorrectTime = totalCorrectTime
+        return player
+      })
+
+      this.playersScores.sort((player1, player2) => {
+        if (player1.numOfCurrect < player2.numOfCurrect) return 1 
+        else if (player1.numOfCurrect > player2.numOfCurrect) return -1 
+        else {
+          if (player1.totalCorrectTime > player2.totalCorrectTime) return 1
+          else if (player1.totalCorrectTime < player2.totalCorrectTime) return -1
+          else return 0
+        }
+      })
+      if (this.playersScores[0]) this.first = this.playersScores[0].username
+      if (this.playersScores[1]) this.second = this.playersScores[1].username
+      if (this.playersScores[2]) this.third = this.playersScores[2].username
+    }
+  },
+}
 </script>
 
 <style scopped lang="scss">
@@ -43,12 +85,12 @@ export default {
   z-index: 20;
 }
 .summary-container {
+  margin: 10vh auto;
   width: 70vw;
   height: 80vw;
   max-height: 550px;
   max-width: 600px;
   min-width: 300px;
-  margin: 100px 12vw;
   align-items: center;
   justify-content: space-evenly;
   background-color: rgba(245, 245, 245, 0.9);
@@ -80,7 +122,6 @@ export default {
   }
 
   .pudium-container {
-    // background: url("../assets/");
     background: url("../assets/podium.png") no-repeat center center;
     width: 70vw;
     height: 80vw;

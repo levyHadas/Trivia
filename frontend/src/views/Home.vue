@@ -125,8 +125,12 @@ export default {
 <style lang="scss">
 @import url("../assets/reset.css");
 .home {
+    // min-height: calc(100vh - 160px); 
+
   img {
     width: 100%;
+    // should be 10vh - header hight- footer
+
   }
 }
 
@@ -137,7 +141,9 @@ export default {
   align-items: center;
   align-content: center;
   padding: 50px;
-  height: 60vh;
+  min-height: calc(100vh - 160px - 100px); //footer, header, padding
+
+  // height: 60vh;
   background-color: #ffb400;
   // background: url("../assets/main.jpg") no-repeat center center;
   -webkit-background-size: cover;

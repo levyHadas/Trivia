@@ -18,13 +18,13 @@ export default {
   data() {
     return {
       jokeInterval: null,
-      joke: "Chuck Norris doesn't have pubic hairs because hair doesn't grow on balls of steal."
+      joke: "There are only two things that can cut diamonds: other diamonds, and Chuck Norris."
     };
   },
 
   created() {
     console.log("Created");
-    this.jokeInterval = setInterval(this.getRandomJoke, 10000);
+    this.jokeInterval = setInterval(this.getRandomJoke, 8000);
   },
 
   destroyed() {
@@ -43,6 +43,7 @@ export default {
       console.log("kill interval was clicked");
 
       clearInterval(this.jokeInterval);
+      this.jokeInterval = null
       console.log("Interval was killed interval: ", this.jokeInterval);
     }
   },

@@ -1,6 +1,6 @@
 <template>
   <section class="category">
-    <button @click="toggleTagsCloud(true)">Tags Filter</button>
+    <!-- <button @click="toggleTagsCloud(true)">Tags Filter</button> -->
     <tags-cloud
       v-if="tagsCloudShown"
       :tags="allTags"
@@ -14,7 +14,6 @@
 </template>
 
 <script>
-//when category s clicked it emites event updateCurrView('list')
 import CategoryList from "@/components/CategoryList.vue";
 import TagsCloud from "@/components/TagsCloud.vue";
 import QuestService from "../services/QuestService.js";

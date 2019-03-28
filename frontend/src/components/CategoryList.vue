@@ -19,13 +19,6 @@ export default {
     categories: Array
   },
 
-  // data(){
-  //     return {
-  //         categories: ['Science & Nature', 'Science: Computers', 'Science: Mathematics',
-  //             'Mythology', 'Sports', 'Geography', 'History', 'Politics', 'Entertainment', 'Art']
-  //     }
-  // },
-
   components: {
     CategoryPreview
   },

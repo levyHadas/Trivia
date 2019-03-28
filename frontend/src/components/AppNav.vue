@@ -2,13 +2,13 @@
   <nav>
     <router-link to="/">Home</router-link>
     <span>|</span>
-    <router-link to="/about">About</router-link>
-    <span>|</span>
+    <!-- <router-link to="/about">About</router-link>
+    <span>|</span> -->
     <router-link to="/signup">Sign Up</router-link>
     <span>|</span>
     <router-link to="/login" v-if="!realUser">Login</router-link>
     <span v-if="!realUser">|</span>
-    <button @click="navToCreateQuest" class="nav-btn">Create Question</button>
+    <button @click="navToCreateQuest" class="nav-btn">Add Question</button>
     <span>|</span>
     <router-link to="/logout" v-if="realUser">Logout</router-link>
     <span v-if="realUser">|</span>
