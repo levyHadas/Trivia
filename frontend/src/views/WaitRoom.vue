@@ -2,7 +2,7 @@
   <section>
     <p class="waiting">Waiting for friends to join the party<span>.</span><span>.</span><span>.</span></p>
     <h6>Welcome to our lounge, we'll do our best to fullfill your time while you wait.<br/>In the meanwhile here are some Chuck Norris jokes to ease the wait</h6>
-    <div class="msg-box">
+    <div class="msg-box" id="animate-area">
       <p>{{joke}}</p>
     </div>
     <!-- <button @click="killInterval">Temp Button to kill interval</button> -->
@@ -54,7 +54,9 @@ export default {
 </script>
 
 <style scoped>
-
+section {
+  min-height: calc(100vh - 180px);
+}
 h1 {
   font-size: 2em;
   padding: 40px;
@@ -66,8 +68,8 @@ h6 {
 }
 div.msg-box {
   width: 60vw;
-  height: 400px;
-  border: 2px solid black;
+  /* height: 400px; */
+  /* border: 2px solid black; */
   margin-left: auto;
   margin-right: auto;
   /* width: 50%; */
@@ -109,4 +111,34 @@ div.msg-box {
     opacity: .2;
   }
 }
+
+
+		@keyframes animatedBackground {
+			from { background-position: 0 0; }
+			to { background-position: 100% 0; }
+		}
+		@-webkit-keyframes animatedBackground {
+			from { background-position: 0 0; }
+			to { background-position: 100% 0; }
+		}
+		@-ms-keyframes animatedBackground {
+			from { background-position: 0 0; }
+			to { background-position: 100% 0; }
+		}
+		@-moz-keyframes animatedBackground {
+			from { background-position: 0 0; }
+			to { background-position: 100% 0; }
+		}
+
+		#animate-area	{
+			/* width: 660px; */
+			height: 190px;
+			background-image: url('../assets/bg-clouds.png');
+			background-position: 0px 0px;
+			background-repeat: repeat-x;
+			animation: animatedBackground 40s linear infinite;
+			-ms-animation: animatedBackground 40s linear infinite;
+			-moz-animation: animatedBackground 40s linear infinite;
+			-webkit-animation: animatedBackground 40s linear infinite;
+		}
 </style>
