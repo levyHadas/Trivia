@@ -37,8 +37,8 @@
       @selecteNewTopic="selecteNewTopic"/>
 
     <party-summary
-      v-if="showSummary && partyMode"
-      :scores="scores"
+      v-if="partyOver && partyMode"
+      :playersWithScores="playersWithScores"
       @resumeParty="resumeParty"
       @goHome="goHome"
     />
@@ -70,7 +70,10 @@ export default {
       scores: [], //only this user scores
       playersWithScores: [], //all scores
       partyCountDown: false,
-      partyMode: null
+      partyMode: false,
+      partyStartTime: Date.now(),
+      isPartyOver: false
+      
     };
   },
   methods: {
@@ -83,13 +86,20 @@ export default {
       this.$router.push("/CategorySelection");
     },
     resumeParty() {
-      console.log('not working yet')
-      // this.$store.dispatch({type:'setPartyRequest'})
-      
-      //   this.scores = []
-      //   this.$emit("updateProgress", this.scores);
-      //   this.startGameInterval()
+    //   console.log('end')
+
+    //   this.isPartyOver = false
+    //   this.scores = []
+    //   this.show = true
+    //   this.partyStartTime = Date.now()
+    //   // this.$store.dispatch({type:'updateGameScores', playersWithScores:[]})
+    //   SocketService.emit("updateGameScores", []);      
+    //   this.$emit("updateProgress", this.scores)
+    //   setTimeout(() => {
+    //     this.startGameInterval()
+    //   }, 1000)
     },
+
     goHome() {
       this.$router.push("/");
     },
@@ -175,6 +185,7 @@ export default {
       const playerScores = this.$store.getters.currUser;
       playerScores.scores = this.scores;
       SocketService.emit("updateGameScores", playerScores);
+      this.playersWithScores = this.$store.getters.playersWithScores;
     }
   },
 
@@ -206,7 +217,6 @@ export default {
       setTimeout(() => {
         this.quests = this.$store.getters.questsForDisplay;
         this.updateGameScores();
-        this.playersWithScores = this.$store.getters.playersWithScores;
         this.show = true;
         this.startGameInterval();
         this.partyCountDown = false;
@@ -216,7 +226,12 @@ export default {
 
   destroyed() {
     clearInterval(this.timerInterval);
-    if (this.partyMode) SocketService.emit("userLeftPartyPage");
+    if (this.partyMode && !this.$store.getters.isUserWaiting)  {
+      SocketService.emit('userLeftPartyPage')
+      SocketService.emit("updateGameScores", [])
+      this.$store.dispatch({type:'updateGameScores', playersWithScores:[]})
+      
+    }
   },
 
   computed: {
@@ -234,13 +249,24 @@ export default {
         this.show = false;
         clearInterval(this.timerInterval);
         this.counter = 0;
-        console.log(this.partyMode);
         return true;
       }
       return false;
     },
     ShowPartyCountDown() {
       return this.partyCountDown;
+    },
+    partyOver() {
+      this.playersWithScores = this.$store.getters.playersWithScores
+      var allDone = false
+      if (this.playersWithScores.length) {
+        allDone = this.playersWithScores.every(player => {
+          return player.scores.length === 5})
+      }
+      const time = Date.now() - this.partyStartTime
+      const timeUp = (time >  80*1000)? true:false
+      this.isPartyOver = timeUp || allDone
+      return this.isPartyOver
     }
   },
 

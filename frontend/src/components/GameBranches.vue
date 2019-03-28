@@ -53,7 +53,6 @@ export default {
   },
   methods: {
     sendProgress(scores) {
-      console.log(scores);
       this.player.scores = scores;
     }
   },
@@ -88,5 +87,10 @@ export default {
 
 .game {
   flex-basis: 75%;
+}
+
+.gameScreen {
+  min-height: calc(100vh - 160px); 
+  // should be 10vh - header hight- footer
 }
 </style>

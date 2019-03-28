@@ -19,6 +19,7 @@ export default {
 
 
 socket.on('tellUserToWait', numOfUsers => {
+  Store.dispatch({type: 'updateWaitingState', isWaiting: true})
   Router.push('/waitroom')
 
   console.log(numOfUsers , ' are connected. game only start at 5')
@@ -28,10 +29,14 @@ socket.on('tellUserToWait', numOfUsers => {
 socket.on('startParty', partyQuests => {
   Store.dispatch({ type: "setGameQuests", quests: partyQuests })
   Store.commit({ type: "setCurrQuest", quest: partyQuests[0] })
+  Store.dispatch({type: 'updateWaitingState', isWaiting: false})
+
   Router.push('/play/party')
 })
 
-
+socket.on('ShowUpdatedScores', playersWithScores => {
+  Store.dispatch({type:'updateGameScores', playersWithScores})
+})
 
 function connectionTest() {
     socket.emit('connectionTest', 'Hi from Front')

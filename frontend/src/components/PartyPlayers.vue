@@ -7,11 +7,7 @@
         :key="idx"
         :player="player"/>
     </div>
-   
-</section>
-    <!-- <h2>Players Online</h2>
-    <player-progress v-for="player in players" :player="player"></player-progress>
-   -->
+  </section>
 </template>
 
 <script>
@@ -25,26 +21,6 @@ export default {
     question2: Array,
   },
   
-  data() {
-    return {
-      playersWithScores: [],
-      // players: [
-      //   {
-      //     _id: '22',
-      //     name: 'puki',
-      //     img: 'src',
-      //     scores: []
-      //   }
-      // ]
-    }
-  },
-
-  created() {
-
-    SocketService.on('ShowUpdatedScores', playersWithScores => {
-      this.playersWithScores = playersWithScores
-    })
-  },
 
   components: {
     PlayerProgress
@@ -52,7 +28,7 @@ export default {
 
   computed: {
     playersProgress() {
-        return this.playersWithScores
+      return this.$store.getters.playersWithScores
     }
   }
   

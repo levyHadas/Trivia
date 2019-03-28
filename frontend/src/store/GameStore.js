@@ -1,4 +1,3 @@
-import UserService from '../services/UserService.js'
 import SocketService from '@/services/SocketService.js'
 
 
@@ -6,7 +5,8 @@ const UserStore = ({
 
   state: {
     gamePlayers: [],
-    // isRequestSent: false
+    isUserWaiting: false,
+    playersWithScores: []
   },
 
   mutations: {
@@ -20,6 +20,12 @@ const UserStore = ({
     addPlayer(state, { player }) {
       state.gamePlayers.push(player)
     },
+    setIsUserWaiting(state, { isWaiting }) {
+      state.isUserWaiting = isWaiting
+    },
+    setScores(state, { playersWithScores }) {
+      state.playersWithScores = playersWithScores
+    },
 
     // setRequestSent(state) {
     //   state.isRequestSent = true
@@ -29,7 +35,10 @@ const UserStore = ({
 
   getters: {
     playersWithScores(state) {
-      return state.gamePlayers
+      return state.playersWithScores
+    },
+    isUserWaiting(state) {
+      return state.isUserWaiting
     }
 
   },
@@ -46,16 +55,18 @@ const UserStore = ({
     },
 
 
-    updateGameScores({ commit, getters }, { scores }) {
-      const currUser = getters.currUser
-
-      commit({ type: 'updateScores', currUser, scores })
-      const playersWithScores = getters.playersWithScores
-      SocketService.emit('updateGameScores', playersWithScores)
+    updateGameScores({ commit }, { playersWithScores }) {
+      commit({ type: 'setScores', playersWithScores })
+   
     },
 
-    updateGamePlayers({ commit, state }, { playersWithScores }) {
-      commit({ type: 'updateGamePlayers', playersWithScores })
+    updateGamePlayers({ commit}, { playersWithScores }) {
+      commit({ type: 'setScores', playersWithScores })
+    },
+    
+    updateWaitingState({commit}, {isWaiting}) {
+      commit({ type: 'setIsUserWaiting', isWaiting })
+
     },
 
     async setPartyRequest({dispatch, getters}) {

@@ -6,11 +6,11 @@
           <router-link to="/">Home</router-link>
         </a>
       </li>
-      <li>
+      <!-- <li>
         <a class="button-small purple_light rounded3">
           <router-link to="/about">About</router-link>
         </a>
-      </li>
+      </li> -->
       <li>
         <a class="button-small purple_light rounded3">
           <router-link to="/signup">Sign Up</router-link>
