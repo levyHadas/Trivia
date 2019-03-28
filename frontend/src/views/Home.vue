@@ -9,7 +9,7 @@
       <div class="switch-btn">
         <div class="toggle" :class="[this.state_class]" @click.self="onClick">
           <div class="draggable" @mousedown.prevent="dragStart" :style="style"></div>
-        </div>Party Mode
+        </div><span class="party-padding">Party Mode</span>
       </div>
     </section>
   </div>
@@ -434,5 +434,11 @@ pre {
   align-items: center;
   letter-spacing: 3px;
   margin-top:30px;
+  margin-left:10px;
+  text-align: center;
+}
+
+.party-padding {
+  padding: 5px;
 }
 </style>

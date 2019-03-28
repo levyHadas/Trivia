@@ -1,7 +1,7 @@
 <template>
   <nav>
-    <router-link to="/">Home</router-link>
-    <span>|</span>
+    <router-link class="btn-grad" to="/">Home</router-link>
+    <span class="btn-grad">|</span>
     <router-link to="/about">About</router-link>
     <span>|</span>
     <router-link to="/signup">Sign Up</router-link>
@@ -54,4 +54,7 @@ export default {
   color: #2c3e50;
   text-decoration: underline;
 }
+
+.btn-grad {background-image: linear-gradient(to right, #ee9ca7 0%, #ffdde1 51%, #ee9ca7 100%)}
+.btn-grad:hover { background-position: right center; }
 </style>

@@ -3,13 +3,20 @@
     <count-down v-if="ShowPartyCountDown"/>
     <transition name="fadeOne">
       <div v-show="show" class="container" v-if="thisQuestion">
-        <p class="One">
-          <span class="timer" :class="{redTimer: isTimerLessThen10}"> 
-              
-            {{currentTimer}}</span>
-          <br>
-          {{thisQuestion.txt}}
-        </p>
+        <div class="One">
+        <div v-show="show" id="countdown" class="countdown timer" :class="{redTimer: isTimerLessThen10}" transition="countdown--appear" v-cloak>
+          <svg class="countdown__circle" width="38" height="38">
+            <circle cx="-1.5" cy="-1.5" r="17" transform="rotate(-180 8.5 8.5)"></circle>
+            <!-- 51 = 102/2 -->
+          </svg>
+
+          <div class="countdown__number">
+            <span class="number">{{currentTimer}}</span>
+          </div>
+        </div>
+        <br>
+        <div v-html="thisQuestion.txt"></div>
+        </div>
       </div>
     </transition>
     <transition name="fadeTwo">
@@ -27,12 +34,14 @@
       v-if="showSummary && !partyMode"
       :scores="scores"
       @resumeGame="resumeGame"
-      @selecteNewTopic="selecteNewTopic"/>
+      @selecteNewTopic="selecteNewTopic"
+    />
     <party-summary
       v-if="showSummary && partyMode"
       :scores="scores"
       @resumeParty="resumeParty"
-      @goHome="goHome"/>
+      @goHome="goHome"
+    />
   </div>
 </template>
 
@@ -66,9 +75,9 @@ export default {
   },
   methods: {
     resumeGame() {
-      this.scores = []
+      this.scores = [];
       this.$emit("updateProgress", this.scores);
-      this.startGameInterval()
+      this.startGameInterval();
     },
     selecteNewTopic() {
       this.$router.push("/CategorySelection");
@@ -76,15 +85,16 @@ export default {
     resumeParty() {
       //not sure if it's working yet
       if (this.playersWithScores.length >= 2) {
-        this.scores = []
+        this.scores = [];
         this.$emit("updateProgress", this.scores);
-        this.startGameInterval()
-      } else console.log('not enghou')
+        this.startGameInterval();
+      } else console.log("not enghou");
     },
     goHome() {
-      this.$router.push("/")
+      this.$router.push("/");
     },
     startGameInterval() {
+      // this.startCountdown();
       this.show = true;
       if (this.quests.length === 1) {
         console.log("end");
@@ -170,8 +180,8 @@ export default {
   },
 
   async created() {
-    this.partyMode = (this.$route.name === "partyMode") ? true : false 
-    console.log(this.partyMode)
+    this.partyMode = this.$route.name === "partyMode" ? true : false;
+    console.log(this.partyMode);
     if (!this.partyMode) {
       try {
         var quests = await this.$store.dispatch({
@@ -191,11 +201,8 @@ export default {
         this.show = true;
       }, 300);
       this.startGameInterval();
-    }
-
-    else {
-     
-      this.$store.dispatch({type:'setPartyRequest'})
+    } else {
+      this.$store.dispatch({ type: "setPartyRequest" });
 
       this.partyCountDown = true;
       setTimeout(() => {
@@ -211,7 +218,7 @@ export default {
 
   destroyed() {
     clearInterval(this.timerInterval);
-    if (this.partyMode) SocketService.emit('userLeftPartyPage')
+    if (this.partyMode) SocketService.emit("userLeftPartyPage");
   },
 
   computed: {
@@ -229,7 +236,7 @@ export default {
         this.show = false;
         clearInterval(this.timerInterval);
         this.counter = 0;
-        console.log(this.partyMode)
+        console.log(this.partyMode);
         return true;
       }
       return false;
@@ -255,11 +262,12 @@ export default {
 }
 
 .container {
+  font-size:32px;
   display: flex;
   flex-direction: column;
   // justify-content: center;
   // align-items: center;
-  clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+  // clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
 }
 
 .containerAnswers {
@@ -301,6 +309,7 @@ p {
 
 .One {
   padding: 5px;
+  font-size: 30px;
 }
 
 .fadeOne-enter-active,
@@ -377,4 +386,83 @@ p {
 
 //
 
+@mixin xyCentered() {
+  margin-top:10px;
+  // margin-bottom:5px;
+  position: relative;
+  top: -172%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+[v-cloak] {
+  display: none;
+}
+
+.countdown {
+  position: relative;
+  width: 38px;
+  height: 20px;
+  @include xyCentered();
+
+  &.countdown--appear-transition {
+    transition: all 0.4s ease;
+
+    .countdown__circle,
+    .countdown__number {
+      transition: all 0.3s ease-out;
+    }
+  }
+
+  &.countdown--appear-enter {
+    opacity: 0;
+
+    .countdown__number {
+      transform: translate(-50%, -50%) scale(0.7);
+    }
+  }
+
+  &.countdown--appear-leave {
+    opacity: 0;
+
+    .countdown__circle {
+      transform: translate(-50%, -50%) scale(1.1);
+
+      circle {
+        stroke-dasharray: 0;
+        stroke-dashoffset: 0;
+        animation: none;
+      }
+    }
+  }
+
+  .countdown__circle {
+    // @include xyCentered();
+    -webkit-filter: drop-shadow(0px 0px 5px rgba(156, 28, 74, 0.3));
+    filter: drop-shadow(0px 0px 5px rgba(156, 28, 74, 0.5));
+
+    circle {
+      fill: none;
+      stroke: #fff;
+      stroke-width: 3px;
+      stroke-dasharray: 106;
+      stroke-dashoffset: -106;
+      animation: dash 1s ease-in-out infinite forwards;
+    }
+  }
+
+  .countdown__number {
+    @include xyCentered();
+
+    .number {
+      font-size: 18px;
+    }
+  }
+}
+
+@keyframes dash {
+  to {
+    stroke-dashoffset: -212;
+  }
+}
 </style>
