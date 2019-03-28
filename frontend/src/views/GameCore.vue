@@ -34,8 +34,8 @@
       v-if="showSummary && !partyMode"
       :scores="scores"
       @resumeGame="resumeGame"
-      @selecteNewTopic="selecteNewTopic"
-    />
+      @selecteNewTopic="selecteNewTopic"/>
+
     <party-summary
       v-if="showSummary && partyMode"
       :scores="scores"
@@ -83,19 +83,18 @@ export default {
       this.$router.push("/CategorySelection");
     },
     resumeParty() {
-      //not sure if it's working yet
-      if (this.playersWithScores.length >= 2) {
-        this.scores = [];
-        this.$emit("updateProgress", this.scores);
-        this.startGameInterval();
-      } else console.log("not enghou");
+      console.log('not working yet')
+      // this.$store.dispatch({type:'setPartyRequest'})
+      
+      //   this.scores = []
+      //   this.$emit("updateProgress", this.scores);
+      //   this.startGameInterval()
     },
     goHome() {
       this.$router.push("/");
     },
     startGameInterval() {
-      // this.startCountdown();
-      this.show = true;
+      this.show = true
       if (this.quests.length === 1) {
         console.log("end");
       }
@@ -180,8 +179,7 @@ export default {
   },
 
   async created() {
-    this.partyMode = this.$route.name === "partyMode" ? true : false;
-    console.log(this.partyMode);
+    this.partyMode = (this.$route.name === "partyMode") ? true : false 
     if (!this.partyMode) {
       try {
         var quests = await this.$store.dispatch({

@@ -8,7 +8,7 @@
       @closeTags="toggleTagsCloud(false)"
     />
     <br>
-    <h1>Choose Crategory:</h1>
+    <h1>Choose Crategory</h1>
     <category-list :categories="allCategories" @categorySelected="startGame" :filter="filterBy"/>
   </section>
 </template>
@@ -78,7 +78,7 @@ export default {
 };
 </script>
 
-<style scopped lang="scss">
+<style scoped lang="scss">
 .category {
   h1 {
     font-size: 30px;

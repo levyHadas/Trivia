@@ -42,7 +42,7 @@ export default {
 };
 </script>
 
-<style scopped>
+<style scoped>
 .category-container {
   display: flex;
   justify-content: center;

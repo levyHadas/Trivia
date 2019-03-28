@@ -35,24 +35,19 @@ AddQuestRoutes(app)
 AddUserRoutes(app)
 AddGameRoutes(app)
 
-var connectedSockets = []
 var playersWithScores = []
 
 function _removeUserFromPlayers(socket) {
-  console.log(socket.user.username, ' left the party')
+  console.log(socket.user.username, ' leaving the party')
+  const roomToLeave = socket.room
+  socket.leave(roomToLeave)
   playersWithScores = playersWithScores.filter(user => user._id !== socket.user._id)
-  io.emit('ShowUpdatedScores', playersWithScores) 
+  io.to(roomToLeave).emit('ShowUpdatedScores', playersWithScores) 
 }
 
 io.on('connection', socket => {
-  // console.log('socket connected! ', socket.id)
-  connectedSockets.push(socket)
-
-
+  
   socket.on('disconnect', () => {
-    //remove from general sockets
-    connectedSockets = connectedSockets.filter(s => s.id !== socket.id)
-    //if this is a socket that was playing, also remove from player as well
     if (socket.user) _removeUserFromPlayers(socket)
   })
 
@@ -63,6 +58,8 @@ io.on('connection', socket => {
   socket.on('partyRequest', async (user) => {
     const isPanding = playersWithScores.some(player => player._id === user._id)
     if (isPanding) return
+    socket.room = 'room1'
+    socket.join('room1')
     socket.user = user
     
     //add user to waiting/playing list
@@ -76,9 +73,8 @@ io.on('connection', socket => {
     }
     else { //start!
       var quests = await QuestService.query({})
-      io.emit('startParty', quests) 
+      io.to('room1').emit('startParty', quests) 
     }  
-    console.log(playersWithScores.length)   
   })
 
 
@@ -87,7 +83,7 @@ io.on('connection', socket => {
     if (idx === -1) return
     var player = playersWithScores[idx]
     player.scores = playerScores.scores
-    io.emit('ShowUpdatedScores', playersWithScores)  
+    io.to('room1').emit('ShowUpdatedScores', playersWithScores)  
   })
 
 

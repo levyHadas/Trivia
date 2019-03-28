@@ -26,7 +26,7 @@ export default {
 };
 </script>
 
-<style scopped lang="scss">
+<style scoped lang="scss">
 .summary-section {
   position: absolute;
   z-index: 1;

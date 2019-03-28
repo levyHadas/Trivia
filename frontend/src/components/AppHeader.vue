@@ -3,6 +3,7 @@
     <h1>Trivia.</h1>
     <AppNav></AppNav>
   </header>
+
 </template>
 
 <script>

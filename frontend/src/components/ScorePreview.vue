@@ -42,7 +42,7 @@ export default {
 };
 </script>
 
-<style scopped>
+<style scoped>
 .quest-score-container {
   display: grid;
   grid-template-columns: 7fr 1fr 2fr 4fr;
