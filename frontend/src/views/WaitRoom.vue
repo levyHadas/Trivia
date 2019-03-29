@@ -3,13 +3,13 @@
     <p class="waiting">Waiting for friends to join the party<span>.</span><span>.</span><span>.</span></p>
     <h6>Welcome to our lounge, we'll do our best to fullfill your time while you wait.<br/>In the meanwhile here are some Chuck Norris jokes to ease the wait</h6>
     <div class="msg-box" id="animate-area">
-      <p>{{joke}}</p>
+      <p v-html="joke"  @click="killInterval"></p>
     </div>
-    <!-- <button @click="killInterval">Temp Button to kill interval</button> -->
+    <!-- <button>Temp Button to kill interval</button> -->
   </section>
 </template>
 <script>
-// This Page does not going through store since this data is not relvant to other components
+// The data in this page is not coming from the store since it's not relvant to other components
 
 // TODO - Bring jokes to storage in case api not working properly
 
@@ -24,28 +24,21 @@ export default {
   },
 
   created() {
-    console.log("Created");
     this.jokeInterval = setInterval(this.getRandomJoke, 8000);
   },
 
   destroyed() {
-    console.log("destroyed");
     this.killInterval();
   },
 
   methods: {
     async getRandomJoke() {
-      console.log("new interval was invoked");
-
       let res = await GameService.getRandomJoke();
       this.joke = res.data;
     },
     killInterval() {
-      console.log("kill interval was clicked");
-
       clearInterval(this.jokeInterval);
       this.jokeInterval = null
-      console.log("Interval was killed interval: ", this.jokeInterval);
     }
   },
   computed: {},
@@ -68,11 +61,8 @@ h6 {
 }
 div.msg-box {
   width: 60vw;
-  /* height: 400px; */
-  /* border: 2px solid black; */
   margin-left: auto;
   margin-right: auto;
-  /* width: 50%; */
 }
 .msg-box p {
   padding: 20px;
@@ -131,7 +121,6 @@ div.msg-box {
 		}
 
 		#animate-area	{
-			/* width: 660px; */
 			height: 190px;
 			background-image: url('../assets/bg-clouds.png');
 			background-position: 0px 0px;
