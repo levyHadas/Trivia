@@ -4,7 +4,10 @@ import Router from '../router.js'
 import Store from '../store/store.js'
 
 
-var socket = ioClient('//localhost:3003');
+const URL = (process.env.NODE_ENV !== 'development')
+? ''
+: '//localhost:3003'
+var socket = ioClient(URL);
 
 const msgs = []
 
