@@ -48,6 +48,8 @@ function _removeUserFromPlayers(socket) {
 }
 
 function _joinPlayers(socket, user) {
+  var isPanding = playersWithScores.some(player => player._id === user._id)
+  if (isPanding) return
   socket.room = 'room1'
   socket.leave('room1')
   socket.join('room1')
@@ -77,8 +79,7 @@ io.on('connection', socket => {
   })
 
   socket.on('partyRequest', async (user) => {
-    var isPanding = playersWithScores.some(player => player._id === user._id)
-    if (isPanding) return
+
     
     _joinPlayers(socket, user)
 
@@ -112,7 +113,8 @@ io.on('connection', socket => {
 
   socket.on('countToNextRound', () => {
     setTimeout(() => {
-      io.to('room1').emit('readyToResume')
+      socket.emit('timeToResume')
+      // io.to('room1').emit('timeToResume')
     },10000)
   })
 

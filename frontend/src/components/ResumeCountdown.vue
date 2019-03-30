@@ -1,7 +1,7 @@
 <template>
     <section class="count-down">
 
-        <div class="time-holder">
+        <div class="note">
             Party Continues in {{timeRemaining}} seconds. Join now!
         </div>
 
@@ -51,17 +51,16 @@ export default {
 
 
 
-.time-holder {
+.note {
     color: black;
     padding: 20px;
     font-size: 25px;
     border-radius: 5%;
-    font-size: 5%;
     border: 20px solid rgb(123, 172, 185);
     width: 200px;
     height: 100px;
     background-color: rgb(0, 99, 124);
-    z-index: 5;
+    z-index: 22;
     margin: 50px auto;
     display: flex;
     align-items: center;

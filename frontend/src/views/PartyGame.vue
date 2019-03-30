@@ -1,7 +1,7 @@
 <template>
   <section :readyToResume="readyToResume">
     <start-countdown v-if="ShowPartyCountDown"/>
-    <resume-countdown v-if="showCountdownToResume"/>
+    <!-- <resume-countdown v-if="showCountdownToResume"/> -->
     <party-summary
       v-if="endOfRoundForAll"
       :playersWithScores="playersWithScores"
@@ -26,39 +26,38 @@ export default {
       playersWithScores: [], //all scores
       partyCountDown: false,
       partyStartTime: Date.now(),
-      resumeCountdown: false
+      // resumeCountdown: false,
+      wishToContinue:false
     }
   },
   methods: {
     askToContinue() {
+      this.wishToContinue = true
       let user = this.$store.getters.currUser
       SocketService.emit('askToContinue', user);
-      SocketService.emit('resetAllScores');
     },
 
     resumeParty() {
       SocketService.emit('resetAllScores')
       this.partyStartTime = Date.now()
+      this.$store.dispatch({type:'setReadyToResume', isReady:false})
       this.resumeCountdown = false
+      this.endOfRound = false
       this.$emit('startGameInterval')
     },
 
 
     goHome() {
       this.$router.push("/");
+      SocketService.emit('resetAllScores')
     },
 
-    initGame() {
-      SocketService.emit("resetAllScores");
-      this.$emit("startGameInterval");
-      this.partyStartTime = Date.now()
-      this.endOfRound = false
-    },
 
     startCountdownToResume() {
       this.resumeCountdown = true
       if(this.endOfRound) {
         setTimeout(() => {
+          if (!this.wishToContinue) this.goHome()
           this.resumeCountdown = false
         }, 10000)
       }
@@ -103,7 +102,7 @@ export default {
       if (this.endOfRound) {
         SocketService.emit('quitGame')
         SocketService.emit('countToNextRound')
-        this.startCountdownToResume()
+        // this.startCountdownToResume()
       }
       return this.endOfRound
     },
@@ -113,9 +112,9 @@ export default {
     },
 
     readyToResume() {
-      if (this.$store.getters.readyToResume) {
+      if (this.$store.getters.timeToResume) {
         this.resumeParty()
-        this.$store.dispatch({type:'setReadyToResume', isReady:false})
+        // this.$store.dispatch({type:'setReadyToResume', isReady:false})
       }
     }
  

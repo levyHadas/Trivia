@@ -34,7 +34,7 @@ const GameStore = ({
     isUserWaiting(state) {
       return state.isUserWaiting
     },
-    readyToResume(state) {
+    timeToResume(state) {
       return state.readyToResume
     }
 

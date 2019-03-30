@@ -82,7 +82,7 @@ export default {
   height: 100vh;
   top: 0;
   left: 0;
-  z-index: 3;
+  z-index: 20;
 }
 .summary-container {
   margin: 10vh auto;

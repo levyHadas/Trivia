@@ -43,7 +43,7 @@ socket.on('ShowUpdatedScores', playersWithScores => {
 })
 
 
-socket.on('readyToResume', () => {
+socket.on('timeToResume', () => {
   Store.dispatch({type:'setReadyToResume', isReady:true})
 })
 
