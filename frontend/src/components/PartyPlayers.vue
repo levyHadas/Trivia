@@ -14,14 +14,12 @@
 import PlayerProgress from "@/components/PlayerProgress"
 import SocketService from '@/services/SocketService.js'
 
-
 export default {
   name: 'Party',
   props: {
     question2: Array,
     playersWithScores: Array
-  },
-  
+  },  
 
   components: {
     PlayerProgress
@@ -32,8 +30,6 @@ export default {
       return this.$store.getters.playersWithScores
     }
   }
-  
-
 }
 </script>
 
