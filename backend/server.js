@@ -47,6 +47,18 @@ function _removeUserFromPlayers(socket) {
   io.to(roomToLeave).emit('ShowUpdatedScores', playersWithScores) 
 }
 
+function _joinPlayers(socket, user) {
+  socket.room = 'room1'
+  socket.leave('room1')
+  socket.join('room1')
+  socket.user = user
+
+  //add user to waiting/playing list
+  user.scores = []
+  playersWithScores.push(user)
+  console.log('user:', user.username, 'requested a party')
+}
+
 io.on('connection', socket => {
   console.log('connected')
   
@@ -55,23 +67,21 @@ io.on('connection', socket => {
   })
 
   socket.on('userLeftPartyPage', () => {
-      _removeUserFromPlayers(socket)
+    _removeUserFromPlayers(socket)
+  })
+  socket.on('quitGame', () => {
+    _removeUserFromPlayers(socket)
+  })
+  socket.on('askToContinue', user => {
+    _joinPlayers(socket, user)
   })
 
   socket.on('partyRequest', async (user) => {
     var isPanding = playersWithScores.some(player => player._id === user._id)
     if (isPanding) return
-
-    socket.room = 'room1'
-    socket.leave('room1')
-    socket.join('room1')
-    socket.user = user
-
-    //add user to waiting/playing list
-    user.scores = []
-    playersWithScores.push(user)
-    console.log('user:', user.username, 'requested a party')
     
+    _joinPlayers(socket, user)
+
     //if waiting for 5:
     var numOfWaiting = io.sockets.adapter.rooms['room1'].length
     if (io.sockets.adapter.rooms['room1'] && numOfWaiting < 2) {
@@ -100,6 +110,11 @@ io.on('connection', socket => {
   })
       
 
+  socket.on('countToNextRound', () => {
+    setTimeout(() => {
+      io.to('room1').emit('readyToResume')
+    },10000)
+  })
 
   socket.on('connectionTest', msgFromFront => {
     console.log(msgFromFront)

@@ -42,6 +42,12 @@ socket.on('ShowUpdatedScores', playersWithScores => {
   Store.dispatch({type:'updateAllScores', playersWithScores})
 })
 
+
+socket.on('readyToResume', () => {
+  Store.dispatch({type:'setReadyToResume', isReady:true})
+})
+
+
 function connectionTest() {
   socket.emit('connectionTest', 'Hi from Front')
   socket.on('connectionTest', msgFromServer => {

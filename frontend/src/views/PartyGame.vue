@@ -1,10 +1,11 @@
 <template>
-  <section>
-    <count-down v-if="ShowPartyCountDown"/>
+  <section :readyToResume="readyToResume">
+    <start-countdown v-if="ShowPartyCountDown"/>
+    <resume-countdown v-if="showCountdownToResume"/>
     <party-summary
       v-if="endOfRoundForAll"
       :playersWithScores="playersWithScores"
-      @resumeParty="resumeParty"
+      @askToContinue="askToContinue"
       @goHome="goHome"
     />
   </section>
@@ -14,7 +15,8 @@
 import ScoreSummary from "@/components/ScoreSummary";
 import PartySummary from "@/components/PartySummary";
 import SocketService from "@/services/SocketService.js";
-import CountDown from "@/components/CountDown";
+import StartCountdown from "@/components/StartCountdown";
+import ResumeCountdown from "@/components/ResumeCountdown";
 
 export default {
   name: "Question",
@@ -24,28 +26,42 @@ export default {
       playersWithScores: [], //all scores
       partyCountDown: false,
       partyStartTime: Date.now(),
+      resumeCountdown: false
     }
   },
   methods: {
-    resumeParty() {
+    askToContinue() {
+      let user = this.$store.getters.currUser
+      SocketService.emit('askToContinue', user);
       SocketService.emit('resetAllScores');
-      this.partyStartTime = Date.now()
-      setTimeout(() => {
-        this.$emit('startGameInterval')
-      }, 1000)
     },
+
+    resumeParty() {
+      SocketService.emit('resetAllScores')
+      this.partyStartTime = Date.now()
+      this.resumeCountdown = false
+      this.$emit('startGameInterval')
+    },
+
 
     goHome() {
       this.$router.push("/");
     },
 
-  
- 
     initGame() {
       SocketService.emit("resetAllScores");
       this.$emit("startGameInterval");
       this.partyStartTime = Date.now()
-      this.isPartyOver = false
+      this.endOfRound = false
+    },
+
+    startCountdownToResume() {
+      this.resumeCountdown = true
+      if(this.endOfRound) {
+        setTimeout(() => {
+          this.resumeCountdown = false
+        }, 10000)
+      }
     }
   },
 
@@ -83,15 +99,33 @@ export default {
       }
       let time = Date.now() - this.partyStartTime
       let timeUp = time > 80 * 1000 ? true : false
-      this.isPartyOver = timeUp || allDone
-      return this.isPartyOver
+      this.endOfRound = timeUp || allDone
+      if (this.endOfRound) {
+        SocketService.emit('quitGame')
+        SocketService.emit('countToNextRound')
+        this.startCountdownToResume()
+      }
+      return this.endOfRound
+    },
+
+    showCountdownToResume() {
+      return this.resumeCountdown
+    },
+
+    readyToResume() {
+      if (this.$store.getters.readyToResume) {
+        this.resumeParty()
+        this.$store.dispatch({type:'setReadyToResume', isReady:false})
+      }
     }
+ 
   },
 
   components: {
     ScoreSummary,
-    CountDown,
+    StartCountdown,
     PartySummary,
+    ResumeCountdown
   }
 };
 </script>

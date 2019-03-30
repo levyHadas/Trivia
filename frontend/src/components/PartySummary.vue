@@ -11,7 +11,7 @@
         </div>
       </div>
       <div class="bts-container">
-        <button class="continue" @click="$emit('resumeParty')" focus>Continue</button>
+        <button class="continue" @click="$emit('askToContinue')" focus>Continue</button>
         <button class="goHome" @click="$emit('goHome')">Home</button>
       </div>
     </div>
@@ -82,7 +82,7 @@ export default {
   height: 100vh;
   top: 0;
   left: 0;
-  z-index: 20;
+  z-index: 3;
 }
 .summary-container {
   margin: 10vh auto;
