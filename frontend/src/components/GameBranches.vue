@@ -7,13 +7,13 @@
         <party-players :playersWithScores="playersWithScores"></party-players>
       </div>
       <div class="game">
-        <game-core @updateProgress="sendProgress"></game-core>
+        <game-screen @updateProgress="sendProgress"></game-screen>
       </div>
     </section>
 
     <section v-else class="singleMode">
       <player-progress :player="player" :scores="playerScore"></player-progress>
-      <game-core @updateProgress="sendProgress"></game-core>
+      <game-screen @updateProgress="sendProgress"></game-screen>
     </section>
     
   </section>
