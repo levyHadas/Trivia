@@ -23,7 +23,6 @@ export default {
     
     }
     
-
     setTimeout(() => {
       this.show = true;
     }, 300);

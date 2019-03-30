@@ -135,7 +135,7 @@ export default {
 
   // height: 60vh;
   background-color: #ffb400;
-  // background: url("../assets/main.jpg") no-repeat center center;
+  background: url("../assets/main.jpg") no-repeat center center;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;

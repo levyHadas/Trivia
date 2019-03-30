@@ -39,8 +39,6 @@ export default {
       this.$router.push("/");
     },
 
-  
- 
     initGame() {
       SocketService.emit("resetAllScores");
       this.$emit("startGameInterval");

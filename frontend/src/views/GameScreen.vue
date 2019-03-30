@@ -1,14 +1,18 @@
 <template>
   <div class="quest">
-    <single-game v-if="!this.partyMode" 
+    <single-game
+      v-if="!this.partyMode"
       @startGameInterval="startGameInterval"
       :myScores="myScores"
       :endOfRound="endOfRound"
-      @resetProgress="updateProgress"/>
+      @resetProgress="updateProgress"
+    />
 
-      <party-game v-if="this.partyMode"
+    <party-game
+      v-if="this.partyMode"
       @startGameInterval="startGameInterval"
-      @resetProgress="updateProgress"/>
+      @resetProgress="updateProgress"
+    />
 
     <transition name="fadeOne" v-if="!endOfRound">
       <div v-show="show" class="container" v-if="thisQuestion">
@@ -19,9 +23,16 @@
             class="countdown timer"
             :class="{redTimer: isTimerLessThen10}"
             transition="countdown--appear"
-            v-cloak>
+            v-cloak
+          >
             <svg class="countdown__circle" width="38" height="38">
-              <circle cx="-1.5" cy="-1.5" r="17" transform="rotate(-180 8.5 8.5)"></circle>
+              <circle
+                v-if="this.isTimer"
+                cx="-1.5"
+                cy="-1.5"
+                r="17"
+                transform="rotate(-180 8.5 8.5)"
+              ></circle>
               <!-- 51 = 102/2 -->
             </svg>
 
@@ -49,10 +60,9 @@
 </template>
 
 <script>
-
-import SocketService from "@/services/SocketService.js"
-import SingleGame from "@/views/SingleGame"
-import PartyGame from "@/views/PartyGame"
+import SocketService from "@/services/SocketService.js";
+import SingleGame from "@/views/SingleGame";
+import PartyGame from "@/views/PartyGame";
 
 export default {
   name: "Question",
@@ -67,6 +77,7 @@ export default {
       isOver: false,
       quests: [],
       timerInterval: "",
+      isTimer: true,
       timer: 15,
       counter: 0,
       isTimerLessThen10: false,
@@ -80,28 +91,31 @@ export default {
   },
   created() {
     this.partyMode = this.$route.name === "partyMode" ? true : false;
-
   },
   methods: {
     startGameInterval() {
-
-      this.resetGame()
+      this.resetGame();
+      this.startInterval();
+    },
+    startInterval() {
       this.timerInterval = setInterval(() => {
         if (this.timer === 0) {
-          this.updateMyScores(this.thisQuestion, false, 15)
+          this.isTimer = false;
+          clearInterval(this.timerInterval);
+          this.updateMyScores(this.thisQuestion, false, 15);
           this.counter += 1;
           this.nextQuestion();
           return;
         }
         this.timer -= 1;
         if (this.timer < 10) this.isTimerLessThen10 = true;
-      }, 1000)
+      }, 1000);
     },
     resetGame() {
-      this.show = true
-      this.myScores = []
-      this.isOver = false
-
+      this.show = true;
+      this.myScores = [];
+      this.isOver = false;
+      this.counter=0;
     },
     playSound(sound) {
       if (sound) {
@@ -110,21 +124,19 @@ export default {
       }
     },
     checkAnswer(event, answerIdx) {
-
+      this.isTimer = false;
+      clearInterval(this.timerInterval);
       var correctAnswerIdx = +this.thisQuestion.correctAnswerIdx;
       if (correctAnswerIdx === answerIdx) {
         this.playSound(this.right);
         var isCorrect = true;
       } else {
         this.playSound(this.wrong);
-        var isCorrect = false
+        var isCorrect = false;
       }
       this.isOver = true;
-      this.updateMyScores(this.thisQuestion, isCorrect, 15 - this.timer)
-      
+      this.updateMyScores(this.thisQuestion, isCorrect, 15 - this.timer);
       this.counter += 1;
-      //freez
-      //after 5 seconss:
       this.nextQuestion();
     },
     saveScore(quest, isCorrect, time) {
@@ -132,20 +144,17 @@ export default {
         quest,
         time,
         isCorrect
-      }
-
+      };
     },
     updateMyScores(question, isCorrect, time) {
-      this.myScores.push(
-        this.saveScore(question, isCorrect, time)
-      )
-      if (this.partyMode) this.reportChangeInScores()
+      this.myScores.push(this.saveScore(question, isCorrect, time));
+      if (this.partyMode) this.reportChangeInScores();
     },
     nextQuestion() {
-      this.updateProgress(this.myScores)
+      this.updateProgress(this.myScores);
       if (this.quests.length === 1) {
-        clearInterval(this.timerInterval);
         this.counter = 5;
+        console.log("1");
       } else {
         this.timeoutNextQuestion = setTimeout(() => {
           this.$store.dispatch({ type: "nextQuest" });
@@ -153,19 +162,24 @@ export default {
           this.isOver = false;
           this.isTimerLessThen10 = false;
           this.timer = 15;
-        }, 800);
+          this.isTimer = true;
+          this.startInterval()
+        }, 2100);
       }
     },
 
     updateProgress(updatedScores) {
-      this.myScores = updatedScores
-      this.$emit('updateProgress', updatedScores);
-      if (this.partyMode) this.$emit('updateProgress',this.playersWithScores)
+      this.myScores = updatedScores;
+      this.$emit("updateProgress", updatedScores);
+      if (this.partyMode) this.$emit("updateProgress", this.playersWithScores);
     },
 
     reportChangeInScores() {
-      let currUser = this.$store.getters.currUser
-      SocketService.emit('changeInScores', {playerToUpdate:currUser, newScores:this.myScores})
+      let currUser = this.$store.getters.currUser;
+      SocketService.emit("changeInScores", {
+        playerToUpdate: currUser,
+        newScores: this.myScores
+      });
     },
 
     classList(idx) {
@@ -173,13 +187,13 @@ export default {
       if (correctAnswerIdx === idx) {
         return { answerCorrect: this.isOver };
       } else {
-        return { answerWrong: this.isOver }
+        return { answerWrong: this.isOver };
       }
     },
     pauseGame() {
-      this.show = false
-      clearInterval(this.timerInterval)
-      this.counter = 0
+      this.show = false;
+      clearInterval(this.timerInterval);
+      // this.counter = 0;
     }
   },
 
@@ -195,20 +209,20 @@ export default {
     },
     endOfRound() {
       if (this.counter === 5) {
-        this.pauseGame()
-        return true
-      } 
-      return false
+        this.pauseGame();
+        return true;
+      }
+      return false;
     },
     playersWithScores() {
-      var playersWithScores = this.$store.getters.playersWithScores
-      if (!playersWithScores) return {}
-      return playersWithScores
+      var playersWithScores = this.$store.getters.playersWithScores;
+      if (!playersWithScores) return {};
+      return playersWithScores;
     }
   },
 
   destroyed() {
-    clearInterval(this.timerInterval)
+    clearInterval(this.timerInterval);
   },
 
   components: {
@@ -216,13 +230,12 @@ export default {
     PartyGame
   }
 
-  
-      // var answers = this.$store.getters.currQuest.answers;
-      // var answers = this.thisAnswers
-      // this.question = this.$store.getters.currQuest;
-      // question = this.thisQuestion
-      // var answerIdx = +answers.indexOf(answer);
-      // var correctAnswerIdx = +this.$store.getters.currQuest.correctAnswerIdx;
+  // var answers = this.$store.getters.currQuest.answers;
+  // var answers = this.thisAnswers
+  // this.question = this.$store.getters.currQuest;
+  // question = this.thisQuestion
+  // var answerIdx = +answers.indexOf(answer);
+  // var correctAnswerIdx = +this.$store.getters.currQuest.correctAnswerIdx;
 };
 </script>
 
