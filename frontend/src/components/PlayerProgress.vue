@@ -3,43 +3,60 @@
     {{player.name}}
     <ol v-if="playerScores[0]" class="ProgressBar">
       <li class="ProgressBar-step" :class="{'is-complete': playerScores[0]}">
-        <svg class="ProgressBar-icon">
-          <use v-if="playerScores[0].isCorrect" xlink:href="#checkmark-bold"></use> 
-          <use v-else xlink:href="#wrong-bold"></use>
+        <svg class="ProgressBar-icon" v-if="playerScores[0]">
+          <use :class="{'show': playerScores[0].isCorrect }" xlink:href="#checkmark-bold"></use>
+          <use :class="{'show': playerScores[0].isCorrect===false }" xlink:href="#wrong-bold"></use>
         </svg>
+        <svg class="ProgressBar-icon" v-else></svg>
         <span class="ProgressBar-stepLabel">Q1</span>
       </li>
-      <li class="ProgressBar-step" :class="{'is-current': playerScores.length===1, 'is-complete': playerScores.length>1}">
-        <svg class="ProgressBar-icon">
-          <!-- <use v-if="playerplayerScores[1].isCorrect" xlink:href="#checkmark-bold"></use> -->
-          <!-- <use v-if="playerScores[1].isCorrect===false" xlink:href="#wrong-bold"></use> -->
+      <li
+        class="ProgressBar-step"
+        :class="{'is-current': playerScores.length===1, 'is-complete': playerScores.length>1}"
+      >
+        <svg class="ProgressBar-icon" v-if="playerScores.length>1">
+          <use :class="{'show': playerScores[1].isCorrect }" xlink:href="#checkmark-bold"></use>
+          <use :class="{'show': playerScores[1].isCorrect===false }" xlink:href="#wrong-bold"></use>
         </svg>
+        <svg class="ProgressBar-icon" v-else></svg>
         <span class="ProgressBar-stepLabel">Q2</span>
       </li>
-      <li class="ProgressBar-step" :class="{'is-current': playerScores.length===2, 'is-complete': playerScores.length>2}">
-        <svg class="ProgressBar-icon">
-          <!-- <use v-if="playerScores[2].isCorrect" xlink:href="#checkmark-bold"></use> -->
-          <!-- <use v-if="playerScores[2].isCorrect===false" xlink:href="#wrong-bold"></use> -->
+      <li
+        class="ProgressBar-step"
+        :class="{'is-current': playerScores.length===2, 'is-complete': playerScores.length>2}"
+      >
+        <svg class="ProgressBar-icon" v-if="playerScores[2]">
+          <use :class="{'show': playerScores[2].isCorrect }" xlink:href="#checkmark-bold"></use>
+          <use :class="{'show': playerScores[2].isCorrect===false }" xlink:href="#wrong-bold"></use>
         </svg>
+        <svg class="ProgressBar-icon" v-else></svg>
         <span class="ProgressBar-stepLabel">Q3</span>
       </li>
-      <li class="ProgressBar-step" :class="{'is-current': playerScores.length===3, 'is-complete': playerScores.length>3}">
-        <svg class="ProgressBar-icon">
-          <!-- <use v-if="playerScores[3].isCorrect" xlink:href="#checkmark-bold"></use> -->
-          <!-- <use v-if="playerScores[3].isCorrect===false" xlink:href="#wrong-bold"></use> -->
+      <li
+        class="ProgressBar-step"
+        :class="{'is-current': playerScores.length===3, 'is-complete': playerScores.length>2}"
+      >
+        <svg class="ProgressBar-icon" v-if="playerScores[3]">
+          <use :class="{'show': playerScores[3].isCorrect }" xlink:href="#checkmark-bold"></use>
+          <use :class="{'show': playerScores[3].isCorrect===false }" xlink:href="#wrong-bold"></use>
         </svg>
+        <svg class="ProgressBar-icon" v-else></svg>
         <span class="ProgressBar-stepLabel">Q4</span>
       </li>
-      <li class="ProgressBar-step" :class="{'is-current': playerScores.length===4, 'is-complete': playerScores.length>4}">
-        <svg class="ProgressBar-icon">
-          <!-- <use v-if="playerScores[4].isCorrect" xlink:href="#checkmark-bold"></use> -->
-          <!-- <use v-if="playerScores[4].isCorrect===false" xlink:href="#wrong-bold"></use> -->
+      <li
+        class="ProgressBar-step"
+        :class="{'is-current': playerScores.length===4, 'is-complete': playerScores.length>3}"
+      >
+        <svg class="ProgressBar-icon" v-if="playerScores[4]">
+          <use :class="{'show': playerScores[4].isCorrect }" xlink:href="#checkmark-bold"></use>
+          <use :class="{'show': playerScores[4].isCorrect===false }" xlink:href="#wrong-bold"></use>
         </svg>
+        <svg class="ProgressBar-icon" v-else></svg>
         <span class="ProgressBar-stepLabel">Q5</span>
       </li>
     </ol>
 
-     <ol v-else class="ProgressBar">
+    <ol v-else class="ProgressBar">
       <li class="ProgressBar-step is-current">
         <svg class="ProgressBar-icon">
           <use xlink:href="#checkmark-bold"></use>
@@ -78,35 +95,62 @@
     </svg>
 
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-       <symbol id="wrong-bold" viewBox="0 0 24 24">
-      <path d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z"></path>
-       </symbol>
+      <symbol id="wrong-bold" viewBox="0 0 24 24">
+        <path
+          d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z"
+        ></path>
+      </symbol>
     </svg>
   </section>
 </template>
 
 <script>
-
 export default {
   name: "PlayerProgress",
-  props: {
-    player: Object,
+  props: ["player"],
+  data() {
+    return {
+      right: ' <use xlink:href="#checkmark-bold"></use> ',
+      wrong: ' <use xlink:href="#wrong-bold"></use> '
+    };
   },
-
+  created() {
+    // this.startInterval()
+    this.scores = this.player.scores;
+    console.log(this.scores);
+  },
   computed: {
     playerScores() {
-      return this.player.scores
+      return this.player.scores;
     }
   },
   methods: {
+    startInterval() {
+      this.interval = setInterval(() => {
+        this.count++;
+      }, 1000);
+    },
+    isCorrect(num) {
+      console.log(num);
+      return '<use xlink:href="#checkmark-bold"></use>';
+      // <use v-else xlink:href="#wrong-bold"></use>
+    }
+  },
+  destroyed() {
+    clearInterval(this.interval);
+  },
+  watch: {
+    player: function() {
+      console.log(this.player);
+    }
   }
 };
 </script>
 
 <style scoped lang="scss">
 .playerProgress {
-max-height: 50px;
-padding:10px;
+  max-height: 50px;
+  padding: 10px;
 }
 //Variables
 $gray: #9f9fa3;
@@ -197,5 +241,13 @@ $red: red;
   .is-complete > & {
     color: $blue;
   }
+}
+
+.show {
+  display: inline-block;
+}
+
+use {
+  display: none;
 }
 </style>
