@@ -1,10 +1,10 @@
 
 <template>
   <sequential-entrance>
-    <section @click="$emit('categorySelected')">
+    <section @click="emitCategorySelection(category)">
       <li class="category-item">
         <h1></h1>
-        <img class="category-img" :src="category.imgSrc" alt>
+        <img class="category-img" :src="category.imgSrc">
         <div class="card-container">
           <p>{{category.name}}</p>
         </div>
@@ -16,9 +16,16 @@
 <script>
 export default {
   props: {
-    category: Object
-  }
-};
+    category: Object,
+  },
+  methods: {
+    emitCategorySelection(category) {
+      var filter = {}
+      filter.category = category
+      this.$emit('categorySelected', filter)
+    },
+  },
+}
 </script>
 
 <style scoped>

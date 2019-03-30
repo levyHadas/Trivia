@@ -3,9 +3,9 @@ import ioClient from 'socket.io-client'
 import Router from '../router.js'
 import Store from '../store/store.js'
 
-var socket = ioClient();
+// var socket = ioClient();
+var socket = ioClient('//localhost:3003');
 
-const msgs = []
 
 export default {
     emit,
@@ -26,26 +26,23 @@ socket.on('tellUserToWait', numOfUsers => {
 
 
 socket.on('startParty', partyQuests => {
-  Store.dispatch({ type: "setGameQuests", quests: partyQuests })
-  Store.commit({ type: "setCurrQuest", quest: partyQuests[0] })
+  Store.dispatch({ type: 'setGameQuests', quests: partyQuests })
   Store.dispatch({type: 'updateWaitingState', isWaiting: false})
+  Store.dispatch({type: 'updateAllScores', playersWithScores: []})
 
   Router.push('/play/party')
 })
 
 socket.on('ShowUpdatedScores', playersWithScores => {
-  Store.dispatch({type:'updateGameScores', playersWithScores})
+  Store.dispatch({type:'updateAllScores', playersWithScores})
 })
 
 function connectionTest() {
-    socket.emit('connectionTest', 'Hi from Front')
-    socket.on('connectionTest', msgFromServer => {
-            console.log(msgFromServer)
-    })
+  socket.emit('connectionTest', 'Hi from Front')
+  socket.on('connectionTest', msgFromServer => {
+          console.log(msgFromServer)
+  })
 }
-
-
-
 
 function emit(eventName, data) {
 	socket.emit(eventName, data)
@@ -63,24 +60,7 @@ function on(eventName, cb) {
 
 
 
-// function send(msg) {
-// 	socket.emit('post-msg', msg)
-// }
 
-
-// connectSocket()
-
-// function connectSocket() {
-//     socket.emit('check', 'lala')
-//     socket.on('pingUser', pingMsg => {
-//         console.log(pingMsg)
-//     })
-// 	// socket.on('userIsConnected', user => {
-// 	// 	console.log('user conncted :', user);
-// 	// 	// _notification(`${user.name} just connected!  `, 'success', 'Dont forget to say hello')
-// 	// })
-
-// }
 
 // function getSocketConnection() {
 //     return socket

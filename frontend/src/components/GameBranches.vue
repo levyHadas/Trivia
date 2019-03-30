@@ -4,10 +4,10 @@
 
     <section v-if="isPartyOn" class="partyMode">
       <div class="players">
-        <party-players></party-players>
+        <party-players :playersWithScores="playersWithScores"></party-players>
       </div>
       <div class="game">
-        <game-core></game-core>
+        <game-core @updateProgress="sendProgress"></game-core>
       </div>
     </section>
 
@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import GameCore from "@/views/GameCore";
+import GameScreen from "@/views/GameScreen";
 import PartyPlayers from "@/components/PartyPlayers";
 import PlayerProgress from "@/components/PlayerProgress";
 import SocketService from "@/services/SocketService.js";
@@ -64,12 +64,16 @@ export default {
     playerScore() {
       return this.player.scores;
     },
+    playersWithScores() {
+      return this.$store.getters.playersWithScores
+    }
+
 
   },
   components: {
     PartyPlayers,
     PlayerProgress,
-    GameCore
+    GameScreen
   }
 };
 </script>

@@ -26,7 +26,7 @@ export default {
     return {
       temp: [],
       width: 100,
-      state: false,
+      state: true,
       pressed: 0,
       position: 0
     };

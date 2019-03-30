@@ -25,11 +25,9 @@ export default {
     },
  
     methods: {
-        emitTagsSelection(categoryName) {
-            const filter = {
-                category: '',
-                tags: this.selectedTags
-            }
+        emitTagsSelection() {
+            var filter = {}
+            filter.tags = this.selectedTags
             this.$emit('tagsSelected', filter)
         },
         toggleSelected(selectedTag, elTag) {

@@ -5,7 +5,7 @@
         v-for="(category,idx) in categories"
         :key="idx"
         :category="category"
-        @categorySelected="emitSelection(category.name)"
+        @categorySelected="emitSelection"
       />
     </ul>
   </section>
@@ -24,11 +24,7 @@ export default {
   },
 
   methods: {
-    emitSelection(categoryName) {
-      const filter = {
-        category: categoryName,
-        tags: []
-      };
+    emitSelection(filter) {
       this.$emit("categorySelected", filter);
     }
   }

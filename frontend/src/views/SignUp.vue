@@ -45,7 +45,7 @@ export default {
     async signup() { 
         if (!this.user.username || !this.user.password) return //client side validation. there is also validation in the server
         try {
-            const signedUser = await this.$store.dispatch({ type: 'signup', user: this.user})
+            var signedUser = await this.$store.dispatch({ type: 'signup', user: this.user})
             setTimeout(async ()=>{   //check why we can't login without timeout.
               await this.$store.dispatch({ type: 'login', user: signedUser})
               this.$router.go(-1)

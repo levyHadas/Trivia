@@ -32,7 +32,7 @@ export default {
       return "incorrect";
     },
     timeForDisplay() {
-      const secs = this.score.time;
+      let secs = this.score.time;
       return secs + " Secs";
     },
     randVal() {

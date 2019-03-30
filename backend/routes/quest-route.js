@@ -69,6 +69,7 @@ async function addQuestRoutes(app) {
         const quest = req.body;
         QuestService.update(quest)
             .then(quest => res.json(quest))
+            .catch(err => {throw(err)})
     })
 
 

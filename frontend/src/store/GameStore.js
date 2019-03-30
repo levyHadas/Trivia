@@ -1,10 +1,10 @@
 import SocketService from '@/services/SocketService.js'
 
 
-const UserStore = ({
+const GameStore = ({
 
   state: {
-    gamePlayers: [],
+    // gamePlayers: [],
     isUserWaiting: false,
     playersWithScores: []
   },
@@ -12,24 +12,13 @@ const UserStore = ({
   mutations: {
 
 
-    updateGamePlayers(state, { playersWithScores }) {
-      state.gamePlayers = playersWithScores
-
-    },
-
-    addPlayer(state, { player }) {
-      state.gamePlayers.push(player)
-    },
     setIsUserWaiting(state, { isWaiting }) {
       state.isUserWaiting = isWaiting
     },
-    setScores(state, { playersWithScores }) {
+    setAllScores(state, { playersWithScores }) {
       state.playersWithScores = playersWithScores
     },
 
-    // setRequestSent(state) {
-    //   state.isRequestSent = true
-    // }
 
   },
 
@@ -55,14 +44,14 @@ const UserStore = ({
     },
 
 
-    updateGameScores({ commit }, { playersWithScores }) {
-      commit({ type: 'setScores', playersWithScores })
+    updateAllScores({ commit }, { playersWithScores }) {
+      commit({ type: 'setAllScores', playersWithScores })
    
     },
 
-    updateGamePlayers({ commit}, { playersWithScores }) {
-      commit({ type: 'setScores', playersWithScores })
-    },
+    // updateGamePlayers({ commit}, { playersWithScores }) {
+    //   commit({ type: 'setScores', playersWithScores })
+    // },
     
     updateWaitingState({commit}, {isWaiting}) {
       commit({ type: 'setIsUserWaiting', isWaiting })
@@ -71,8 +60,10 @@ const UserStore = ({
 
     async setPartyRequest({dispatch, getters}) {
       SocketService.connectionTest()
-      const currUser = getters.currUser
-      if (currUser._id) SocketService.emit('partyRequest', currUser)
+      var currUser = getters.currUser
+      if (currUser._id) {
+        SocketService.emit('partyRequest', currUser)
+      }
       else {
         const newUser = await dispatch({type:'setLoggedUser'})
         SocketService.emit('partyRequest', newUser)
@@ -86,4 +77,4 @@ const UserStore = ({
   }
 })
 
-export default UserStore
+export default GameStore

@@ -11,7 +11,7 @@
         </div>
       </div>
       <div class="bts-container">
-        <!-- <button class="continue" @click="$emit('resumeParty')" focus>Continue</button> -->
+        <button class="continue" @click="$emit('resumeParty')" focus>Continue</button>
         <button class="goHome" @click="$emit('goHome')">Home</button>
       </div>
     </div>

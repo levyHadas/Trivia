@@ -95,6 +95,7 @@ export default {
 
   computed: {
     playerScores() {
+      this.player.scores
       return this.player.scores
     }
   },

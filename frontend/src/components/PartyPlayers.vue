@@ -1,7 +1,7 @@
 <template>
   <section class="players">
     <h2>Players</h2>
-    <div v-if="playersProgress.length">
+    <div>
       <player-progress
         v-for="(player,idx) in playersProgress"
         :key="idx"
@@ -19,6 +19,7 @@ export default {
   name: 'Party',
   props: {
     question2: Array,
+    playersWithScores: Array
   },
   
 

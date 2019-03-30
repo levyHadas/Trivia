@@ -35,7 +35,6 @@ async function query(query) {
             [ { $match : queryToMongo },
               { $sample: { size: 70 } }
             ]).toArray()
-        // const data = await db.collection('quest').find(queryToMongo).limit(200).toArray()
         return data
     }
     catch (error) {
@@ -73,8 +72,7 @@ async function remove(id) {
 
 
 async function update(quest) {
-    console.log('Updating Object');
-    
+    if (!quest) throw(err)
     const strQuestId = quest._id
     quest._id = new ObjectId(quest._id)
     const db = await mongoService.connect()

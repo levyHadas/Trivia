@@ -52,7 +52,7 @@ export default {
       return this.$store.getters.currUser;
     },
     realUser() {
-      const user = this.$store.getters.currUser;
+      let user = this.$store.getters.currUser;
       if (!user._id) return false;
       if (user._id.includes("guest")) return false;
       return true;

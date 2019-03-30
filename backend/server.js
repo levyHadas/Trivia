@@ -38,17 +38,20 @@ AddGameRoutes(app)
 var playersWithScores = []
 
 function _removeUserFromPlayers(socket) {
-  console.log(socket.user.username, ' leaving the party')
-  const roomToLeave = socket.room
+  // console.log(socket.user.username, ' leaving the party')
+  // console.log(socket.user.nickname, ' leaving the party')
+  var roomToLeave = socket.room
+  if (!roomToLeave) return
   socket.leave(roomToLeave)
   playersWithScores = playersWithScores.filter(user => user._id !== socket.user._id)
   io.to(roomToLeave).emit('ShowUpdatedScores', playersWithScores) 
 }
 
 io.on('connection', socket => {
+  console.log('connected')
   
   socket.on('disconnect', () => {
-    if (socket.user) _removeUserFromPlayers(socket)
+    _removeUserFromPlayers(socket)
   })
 
   socket.on('userLeftPartyPage', () => {
@@ -56,35 +59,46 @@ io.on('connection', socket => {
   })
 
   socket.on('partyRequest', async (user) => {
-    const isPanding = playersWithScores.some(player => player._id === user._id)
+    var isPanding = playersWithScores.some(player => player._id === user._id)
     if (isPanding) return
+
     socket.room = 'room1'
+    socket.leave('room1')
     socket.join('room1')
     socket.user = user
-    
+
     //add user to waiting/playing list
     user.scores = []
     playersWithScores.push(user)
     console.log('user:', user.username, 'requested a party')
     
     //if waiting for 5:
-    if (playersWithScores.length < 2) {
-      socket.emit('tellUserToWait', playersWithScores.length)
+    var numOfWaiting = io.sockets.adapter.rooms['room1'].length
+    if (io.sockets.adapter.rooms['room1'] && numOfWaiting < 2) {
+      socket.emit('tellUserToWait', numOfWaiting)
     }
     else { //start!
-      var quests = await QuestService.query({})
+      const quests = await QuestService.query({})
       io.to('room1').emit('startParty', quests) 
     }  
   })
 
 
-  socket.on('updateGameScores', playerScores => {
-    const idx = playersWithScores.findIndex(player => player._id === playerScores._id)
-    if (idx === -1) return
-    var player = playersWithScores[idx]
-    player.scores = playerScores.scores
+  socket.on('changeInScores', ({playerToUpdate, newScores}) => {
+    const player = playersWithScores.find(player => player._id === playerToUpdate._id)
+    if (player) player.scores = newScores
     io.to('room1').emit('ShowUpdatedScores', playersWithScores)  
   })
+
+  socket.on('resetAllScores', () => {
+    playersWithScores = playersWithScores.map(player => {
+      player.scores = []
+      return player
+    })
+    io.to('room1').emit('ShowUpdatedScores', playersWithScores)  
+
+  })
+      
 
 
   socket.on('connectionTest', msgFromFront => {
