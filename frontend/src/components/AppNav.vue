@@ -2,9 +2,7 @@
   <nav>
     <ul>
       <li>
-        <a class="button-small purple_light rounded3">
-          <router-link to="/">Home</router-link>
-        </a>
+          <router-link to="/"> <a class="button-small purple_light rounded3">Home</a></router-link>
       </li>
       <!-- <li>
         <a class="button-small purple_light rounded3">
@@ -12,23 +10,16 @@
         </a>
       </li> -->
       <li>
-        <a class="button-small purple_light rounded3">
-          <router-link to="/signup">Sign Up</router-link>
-        </a>
+          <router-link to="/signup"><a class="button-small purple_light rounded3">Sign Up</a></router-link>
       </li>
       <li>
-        <a class="button-small purple_light rounded3">
-          <router-link to="/login" v-if="!realUser">Login</router-link>
-        </a>
+          <router-link to="/login" v-if="!realUser"><a class="button-small purple_light rounded3">Login</a></router-link>
       </li>
       <li>
-        <a class="button-small purple_light rounded3">
-          <button @click="navToCreateQuest" class="nav-btn">Create Question</button>
-        </a>
+          <button @click="navToCreateQuest" class="nav-btn"><a class="button-small purple_light rounded3">Create Question</a></button>
       </li>
       <li v-if="realUser">
-        <a class="button-small purple_light rounded3">
-          <router-link to="/logout">Logout</router-link>
+          <router-link to="/logout"><a class="button-small purple_light rounded3">Logout</a></router-link>
         </a>
       </li>
     </ul>
