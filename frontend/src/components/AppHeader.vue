@@ -29,7 +29,7 @@ export default {
 
 .header-container {
   height: 80px;
-  background-color: #4d44eb;
+  background-color: #4704eb;
   display: flex;
   align-items: center;
 }
