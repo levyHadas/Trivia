@@ -15,30 +15,29 @@ export default {
     data() {
         return {
             countDownInterval: null,
-            countDown: 10
+            countDown: 11
         }
     },
     created() {
-        // startCountDown
-        this.countDownInterval = 
-            setInterval(() => {
-                this.countDown--
-                if (this.countDown === 0) {
-                    this.countDown = 'Lets Party!'
-                    clearInterval(this.countDownInterval)
-                    this.countDownInterval = null
-                }
-            },1000)
+    this.countDownInterval = 
+        setInterval(() => {
+            this.countDown--
+            if (this.countDown === 0) {
+                clearInterval(this.countDownInterval)
+                this.countDownInterval = null
+            }
+        },1000)
     },
     computed: {
         timeRemaining() {
-            return this.countDown
+            if (this.countDown > 2) return this.countDown-1
+            return ('Go!')
         }
     },
 
     destroyed() {
-        clearInterval(this.countDownInterval)
-        this.countDownInterval = null
+        // clearInterval(this.countDownInterval)
+        // this.countDownInterval = null
     },
  
 

@@ -113,8 +113,8 @@ io.on('connection', socket => {
 
   socket.on('countToNextRound', () => {
     setTimeout(() => {
-      socket.emit('timeToResume')
-      // io.to('room1').emit('timeToResume')
+      // socket.emit('timeToResume')
+      io.to('room1').emit('timeToResume')
     },10000)
   })
 

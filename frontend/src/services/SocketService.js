@@ -43,11 +43,6 @@ socket.on('ShowUpdatedScores', playersWithScores => {
 })
 
 
-socket.on('timeToResume', () => {
-  Store.dispatch({type:'setReadyToResume', isReady:true})
-})
-
-
 function connectionTest() {
   socket.emit('connectionTest', 'Hi from Front')
   socket.on('connectionTest', msgFromServer => {

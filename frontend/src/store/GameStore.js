@@ -62,9 +62,6 @@ const GameStore = ({
       commit({ type: 'setReadyToResume', isReady })
     },
 
-    // updateGamePlayers({ commit}, { playersWithScores }) {
-    //   commit({ type: 'setScores', playersWithScores })
-    // },
     
     updateWaitingState({commit}, {isWaiting}) {
       commit({ type: 'setIsUserWaiting', isWaiting })
