@@ -1,5 +1,5 @@
 <template>
-  <div class="game-screen quest-container">
+  <div class="game-screen">
     <single-game
       v-if="!this.partyMode"
       @startGameInterval="startGameInterval"
@@ -13,7 +13,7 @@
       @resetProgress="updateProgress"/>
 
     <transition name="fadeOne" v-if="!endOfRound">
-      <div v-show="show" class="container" v-if="thisQuestion">
+      <div v-show="show" class="container quest-container" v-if="thisQuestion">
         <div class="One">
           <div
             v-show="show"
@@ -242,10 +242,9 @@ export default {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  border: 1px solid black;
   align-content: center;
-
-
+  text-align: center;
+  // height: 100%;
 }
 
 // .container {

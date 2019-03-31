@@ -1,5 +1,5 @@
 <template>
-  <section v-if="isQuest" class="game-core">
+  <section v-if="isQuest" class="game-core main-container">
     <el-form ref="form" label-width="120px" @submit.prevent="saveQuest">
       <el-form-item label="Question">
         <el-input v-model="questToEdit.txt" type="textarea"></el-input>

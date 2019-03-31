@@ -1,5 +1,6 @@
 <template>
-  <section class="login">
+  <section class="login main-container">
+    <div class="space"></div>
     <el-form @submit="login" class="form-container">
         <el-input class="el-input" required 
             v-model="user.username" 
@@ -56,18 +57,8 @@ export default {
 </script>
 
 <style scoped lang="scss" scoped>
-    .form-container {
-        width: 80%;
-        padding: 50px;
-        height: 66vh;
-
-        .el-input {
-            margin: 20px 0;
-        }
-        .el-button {
-            margin: 20px 0;
-
-        }
-    }
+  .space {
+    padding-top: 50px;
+  }
 </style>
 

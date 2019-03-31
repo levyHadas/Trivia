@@ -1,5 +1,5 @@
 <template>
-  <section class="signup">
+  <section class="signup main-container">
     <h1>Sign Up and Enjoy (:</h1>
     <el-form @submit="signup" class="form-container">
         <el-input class="el-input" required 
@@ -64,23 +64,13 @@ export default {
 </script>
 
 <style scoped lang="scss" scoped>
-    .form-container {
-        width: 80%;
-        padding: 50px;
-        height: 66vh;
 
-        .el-input {
-            margin: 20px 0;
-        }
-        .el-button {
-            margin: 20px 0;
-
-        }
-    }
     h1 {
-        margin-top: 40px;
+        margin: 0 auto;
+        padding: 30px 0;
         font-size: 30px;
         text-transform: uppercase;
+        text-align:center;
 
     }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <footer class="footer-container">
-    <div class="app-footer main-container">
+    <div class="app-footer header-footer-container">
       <p>2019 All rights reserved.</p>
       <!-- <app-nav/> -->
       <div class="icon-credit">
