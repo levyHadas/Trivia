@@ -70,6 +70,7 @@ export default {
         correctAnswerIdx: null
       },
       categories: [
+        "Javascript",
         "Science & Nature",
         "Science: Computers",
         "Science: Mathematics",

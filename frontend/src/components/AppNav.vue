@@ -32,7 +32,14 @@ export default {
   methods: {
     navToCreateQuest() {
       if (this.realUser) this.$router.push("/quest/edit");
-      else this.$message("Please login or sign up to create question");
+      else
+        this.$swal.fire({
+          position: "top-end",
+          type: "success",
+          title: "Please login or sign up to create a question",
+          showConfirmButton: true,
+          timer: 3500
+        });
     }
   },
   computed: {

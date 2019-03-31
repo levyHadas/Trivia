@@ -5,7 +5,6 @@
     <div class="msg-box" id="animate-area">
       <p v-html="joke"  @click="killInterval"></p>
     </div>
-    <!-- <button>Temp Button to kill interval</button> -->
   </section>
 </template>
 <script>

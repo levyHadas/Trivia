@@ -13,6 +13,7 @@ import Element from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import SequentialEntrance from 'vue-sequential-entrance'
 import 'vue-sequential-entrance/vue-sequential-entrance.css'
+import VueSweetalert2 from 'vue-sweetalert2';
 
 
 
@@ -22,6 +23,8 @@ import 'vue-sequential-entrance/vue-sequential-entrance.css'
 Vue.config.productionTip = false
 Vue.use(Element)
 Vue.use(SequentialEntrance);
+Vue.use(VueSweetalert2);
+
 Vue.use(ResetCss);
 Vue.use(MainCss);
 
