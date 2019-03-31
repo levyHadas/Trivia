@@ -2,7 +2,7 @@
   <section>
     <start-countdown v-if="ShowStartCountdown"/>
     <resume-countdown v-if="showResumeCountdown"/>
-  
+    <wait-message v-if="endOfRoundForMe"/>
     <party-summary
       v-if="endOfRoundForAll"
       :playersWithScores="playersWithScores"
@@ -17,15 +17,16 @@ import PartySummary from "@/components/PartySummary";
 import SocketService from "@/services/SocketService.js";
 import StartCountdown from "@/components/StartCountdown";
 import ResumeCountdown from "@/components/ResumeCountdown";
+import WaitMessage from "@/components/WaitMessage";
 
 export default {
   name: "Question",
+  props: ['myScores'],
   data() {
     return {
       show: false,
       playersWithScores: [], //all scores
       startCountdown: false,
-      partyStartTime: Date.now(),
       resumeCountdown: false,
       wishToContinue: false
     }
@@ -56,7 +57,7 @@ export default {
 
     resumeParty() {
       SocketService.emit('resetAllScores')
-      this.partyStartTime = Date.now()
+      SocketService.emit('startPartyTimer')
       this.$emit('startGameInterval')
     },
 
@@ -87,11 +88,6 @@ export default {
       }
       return allDone
     },
-    isTimeUp() {
-      let time = Date.now() - this.partyStartTime
-      let timeUp = time > 95 * 1000 ? true : false
-      return timeUp
-    }
   },
 
 
@@ -101,16 +97,22 @@ export default {
       return this.startCountdown;
     },
 
+    endOfRoundForMe() {
+      return this.myScores.length === 5
+    },
+
     endOfRoundForAll() {
       let allDone = this.isAllDone()
-      let timeUp = this.isTimeUp()
+      let timeUp = this.$store.getters.isPartyTimeUp
       this.endOfRound = timeUp || allDone
       if (this.endOfRound) {
         this.endOfRound = false
+        this.$store.dispatch({type:'setPartyTimeUp', isTimeUp:false})
+
         this.startCountdownToResume()
         return true
       }
-      return this.endOfRound
+      return false
     },
 
     showResumeCountdown() {
@@ -123,7 +125,8 @@ export default {
     ScoreSummary,
     StartCountdown,
     PartySummary,
-    ResumeCountdown
+    ResumeCountdown,
+    WaitMessage
   }
 };
 </script>
