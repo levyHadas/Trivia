@@ -30,6 +30,10 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+body {
+  font-family: 'Montserrat', sans-serif;
+}
 // @import url("@../assets/reset.css");
 // @import url("../assets/main.css");
 

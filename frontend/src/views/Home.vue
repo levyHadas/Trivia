@@ -4,14 +4,9 @@
       <div>
         <h3>Global. Knowledge. Compete With Others</h3>
       </div>
-      <a href="#" class="btn" @click="startPlaying">Play Now</a>
+      <a href="#" class="btn" @click="partyMode">Join The Party</a>
       <br>
-      <div class="switch-btn">
-        <div class="toggle" :class="[this.state_class]" @click.self="onClick">
-          <div class="draggable" @mousedown.prevent="dragStart" :style="style"></div>
-        </div>
-        <span class="party-padding">Party Mode</span>
-      </div>
+      <a href="#" class="btn" @click="singleMode">Play Single Mode</a>
     </section>
   </div>
 </template>
@@ -36,12 +31,11 @@ export default {
   components: {},
 
   methods: {
-    startPlaying() {
-      if (this.state) {
-        this.requestPartyGame();
-      } else {
-        this.$router.push("CategorySelection");
-      }
+    partyMode() {
+      this.requestPartyGame();
+    },
+    singleMode() {
+      this.$router.push("CategorySelection");
     },
     requestPartyGame() {
       this.$store.dispatch({ type: "setPartyRequest" });
@@ -200,7 +194,7 @@ header {
   width: 330px;
   height: 60px;
   line-height: 60px;
-  background-color: #ff6138;
+  background-color: #c325a4;
   border-radius: 8px;
   color: #fff;
   font-family: "Indie Flower", cursive;
