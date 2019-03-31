@@ -4,13 +4,9 @@
       <div>
         <h3>Global. Knowledge. Compete With Others</h3>
       </div>
-      <a href="#" class="btn" @click="startPlaying">Play Now</a>
+      <a href="#" class="btn" @click="partyMode">Join The Party</a>
       <br>
-      <div class="switch-btn">
-        <div class="toggle" :class="[this.state_class]" @click.self="onClick">
-          <div class="draggable" @mousedown.prevent="dragStart" :style="style"></div>
-        </div><span class="party-padding">Party Mode</span>
-      </div>
+      <a href="#" class="btn" @click="singleMode">Play Single Mode</a>
     </section>
   </div>
 </template>
@@ -35,12 +31,11 @@ export default {
   components: {},
 
   methods: {
-    startPlaying() {
-      if (this.state) {
-        this.requestPartyGame();
-      } else {
-        this.$router.push("CategorySelection");
-      }
+    partyMode() {
+      this.requestPartyGame();
+    },
+    singleMode() {
+      this.$router.push("CategorySelection");
     },
     requestPartyGame() {
       this.$store.dispatch({ type: "setPartyRequest" });
@@ -113,15 +108,12 @@ export default {
 </script>
 
 <style scoped lang="scss">
-// @import url("@../css/reset.css");
-
 .home {
-    // min-height: calc(100vh - 160px); 
+  // min-height: calc(100vh - 160px);
 
   img {
     width: 100%;
     // should be 10vh - header hight- footer
-
   }
 }
 
@@ -133,10 +125,12 @@ export default {
   align-content: center;
   padding: 50px;
   min-height: calc(100vh - 160px - 100px); //footer, header, padding
-
+  background: url(https://media.giphy.com/media/l4KihuqeuJEi9qLSM/giphy.gif)
+    no-repeat center center fixed;
+  background-size: cover;
   // height: 60vh;
-  background-color: #ffb400;
-  background: url("../assets/main.jpg") no-repeat center center;
+  // background-color: #ffb400;
+  // background: url("../assets/main.jpg") no-repeat center center;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -194,25 +188,13 @@ header {
   box-shadow: 0 4px 4px rgba(83, 100, 255, 0.32);
 }
 
-footer {
-  // left: 0;
-  // bottom: 0;
-  height:70px;
-  background-color: #0d2c54;
-  color: white;
-  a {
-    color: white;
-  }
-
-}
-
 .btn {
   padding: 10px;
   margin-top: 25px;
   width: 330px;
   height: 60px;
   line-height: 60px;
-  background-color: #ff6138;
+  background-color: #c325a4;
   border-radius: 8px;
   color: #fff;
   // font-family: "Indie Flower", cursive;
@@ -430,8 +412,8 @@ pre {
   justify-content: center;
   align-items: center;
   letter-spacing: 3px;
-  margin-top:30px;
-  margin-left:10px;
+  margin-top: 30px;
+  margin-left: 10px;
   text-align: center;
 }
 

@@ -1,6 +1,5 @@
 <template>
   <section class="playerProgress">
-    {{player.name}}
     <ol v-if="playerScores[0]" class="ProgressBar">
       <li class="ProgressBar-step" :class="{'is-complete': playerScores[0]}">
         <svg class="ProgressBar-icon" v-if="playerScores[0]">
@@ -136,7 +135,7 @@ export default {
   },
   destroyed() {
     clearInterval(this.interval);
-  },
+  }
 
 };
 </script>
