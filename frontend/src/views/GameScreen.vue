@@ -98,6 +98,8 @@ export default {
       this.startInterval();
     },
     startInterval() {
+      clearInterval(this.timerInterval);
+      this.timerInterval=null
       this.timerInterval = setInterval(() => {
         if (this.timer === 0) {
           this.isTimer = false;
