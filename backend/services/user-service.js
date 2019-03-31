@@ -13,7 +13,7 @@ module.exports = {
 
 
 async function checkLogin(user) {
-    const queryToMongo = {$and:[{username:user.username }, {password:user.password }]}
+    var queryToMongo = {$and:[{username:user.username }, {password:user.password }]}
     const db = await mongoService.connect()
     const res = await db.collection('user').findOne(queryToMongo)
     if (!res) throw ('wrong credentials')
@@ -22,7 +22,7 @@ async function checkLogin(user) {
 
 
 async function addUser(user) {
-    var db = await mongoService.connect()
+    const db = await mongoService.connect()
     try {
         var res = await db.collection('user').findOne({username:user.username })
     }
@@ -34,7 +34,7 @@ async function addUser(user) {
     else {
         try {
             if (!user.img) user.img = `https://api.adorable.io/avatars/50/${user.username}`
-            var res = await db.collection('user').insertOne(user)
+            const res = await db.collection('user').insertOne(user)
             user._id = res.insertedId
             return user
         }
@@ -54,18 +54,6 @@ async function getById(id) {
 }
 
 
-
-// function getById(id) {
-//     const _id = new ObjectId(id)
-//     mongoService.connect()
-//         .then(db => db.collection('user').findOne({ _id }))
-// }
-
-
-// function query() {
-//     return mongoService.connect()
-//         .then(db => db.collection('user').find({}).toArray())
-// }
 
 
 

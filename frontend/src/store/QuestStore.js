@@ -9,6 +9,7 @@ const QuestStore = ({
     quests: [],
     currQuest: '',
     filterOptions: {},
+    filterBy:{}
   },
 
   mutations: {
@@ -29,8 +30,11 @@ const QuestStore = ({
     setFilterOptions(state, { filterOptions }) {
       state.filterOptions = filterOptions
     },
+    setFilterBy(state, { filterBy }) {
+      state.filterBy = filterBy
+    }
   },
-
+  
   getters: {
 
     questsForDisplay(state) {
@@ -42,32 +46,49 @@ const QuestStore = ({
     filterOptions(state) {
       return state.filterOptions
     },
+    filterBy(state) {
+      return state.filterBy
+    }
   },
-
+  
   actions: {
     nextQuest({ commit }) {
       commit({ type: 'nextQuest' })
     },
-
-    async loadQuests({ commit }, { filterBy }) {
-      const quests = await QuestService.query(filterBy)
-      return quests
+    
+    // async loadQuests(puki) {
+    async loadQuests({ commit, getters, dispatch}) {
+      try {
+        const quests = await QuestService.query(getters.filterBy)
+        commit({ type: 'setQuests', quests })
+        commit({ type: 'setCurrQuest', quest: quests[0]})
+        dispatch({type: 'setGameQuests', quests})
+      }
+      catch {throw('NotFound')}
     },
 
-    setFirstQuestion(context) {
-      context.commit({ type: 'setCurrQuest', quest:null })
-
+    setGameQuests({commit}, {quests}) {
+      commit({ type: 'setQuests', quests })
+      commit({ type: 'setCurrQuest', quest: quests[0]})
     },
 
+    saveFilter({commit}, {filterBy}) {
+      commit({ type: 'setFilterBy', filterBy })
+    },
+
+
+
+
+    //for edit only!!!
     async loadQuest({ commit }, { questId }) {
       if (!questId) {
         const emptyQuest = await QuestService.createEmpty()
-        commit({ type: 'setCurrQuest', quest: emptyQuest })
+        // commit({ type: 'setCurrQuest', quest: emptyQuest })
         return emptyQuest;
       }
       const quest = await QuestService.getById(questId);
-      commit({ type: 'setCurrQuest', quest })
-      return quest;
+      // commit({ type: 'setCurrQuest', quest })
+      return quest
     },
 
     async removeQuest({ }, { questId }) {
@@ -83,12 +104,6 @@ const QuestStore = ({
     async addTagsToDB({ }, { tags }) {
       QuestService.addTagsToDB(tags)
       console.log('Adds tags to DB: in question store, tags: ',tags );
-      
-    },
-
-
-    setGameQuests({commit}, {quests}) {
-      commit({ type: 'setQuests', quests })
     },
 
     async saveQuest({ }, { quest }) {

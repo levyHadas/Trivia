@@ -43,12 +43,13 @@ async function remove(questId) {
 function save(quest) {   
     if (quest._id) return Axios.put(`${BASE_PATH}/${quest._id}`, quest)
         .then(quest => quest.data)
+        // .catch(err => err)
     return Axios.post(`${BASE_PATH}`, quest)
         .then(quest => quest.data)
 }
 
 function createEmpty() {
-    const emptyQuest = {
+    var emptyQuest = {
             category: "",
             txt: "Write you own question",
             correctAnswerIdx: 1,

@@ -3,7 +3,7 @@
     <div class="summary-container">
       <h1>Game Summary</h1>
       <ul>
-        <score-preview v-for="(score, idx) in scores" :key="idx" :score="score"/>
+        <score-preview v-for="(score, idx) in myScores" :key="idx" :score="score"/>
       </ul>
       <div class="bts-container">
         <button class="continue" @click="$emit('resumeGame')" focus>Continue</button>
@@ -18,7 +18,7 @@ import ScorePreview from "@/components/ScorePreview";
 
 export default {
   props: {
-    scores: Array
+    myScores: Array
   },
   components: {
     ScorePreview

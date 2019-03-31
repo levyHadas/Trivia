@@ -1,5 +1,5 @@
 <template>
-  <section class="signup">
+  <section class="signup main-container">
     <h1>Sign Up and Enjoy (:</h1>
     <el-form @submit="signup" class="form-container">
         <el-input class="el-input" required 
@@ -45,7 +45,7 @@ export default {
     async signup() { 
         if (!this.user.username || !this.user.password) return //client side validation. there is also validation in the server
         try {
-            const signedUser = await this.$store.dispatch({ type: 'signup', user: this.user})
+            var signedUser = await this.$store.dispatch({ type: 'signup', user: this.user})
             setTimeout(async ()=>{   //check why we can't login without timeout.
               await this.$store.dispatch({ type: 'login', user: signedUser})
               this.$router.go(-1)
@@ -63,24 +63,14 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-    .form-container {
-        width: 80%;
-        padding: 50px;
-        height: 66vh;
+<style scoped lang="scss" scoped>
 
-        .el-input {
-            margin: 20px 0;
-        }
-        .el-button {
-            margin: 20px 0;
-
-        }
-    }
     h1 {
-        margin-top: 40px;
+        margin: 0 auto;
+        padding: 30px 0;
         font-size: 30px;
         text-transform: uppercase;
+        text-align:center;
 
     }
 </style>

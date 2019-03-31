@@ -1,15 +1,15 @@
 <template>
   <section class="category">
-    <!-- <button @click="toggleTagsCloud(true)">Tags Filter</button> -->
+    <div class="main-container">
     <tags-cloud
       v-if="tagsCloudShown"
       :tags="allTags"
       @tagsSelected="startGame"
-      @closeTags="toggleTagsCloud(false)"
-    />
-    <br>
-    <h1>Choose Crategory</h1>
-    <category-list :categories="allCategories" @categorySelected="startGame" :filter="filterBy"/>
+      @closeTags="toggleTagsCloud(false)"/>
+    <category-list
+      :categories="allCategories" 
+      @categorySelected="startGame"/>
+    </div>
   </section>
 </template>
 
@@ -24,7 +24,7 @@ export default {
       quests: [],
       tagsCloudShown: false,
       filterBy: {
-        category: "",
+        category: '',
         tags: []
       }
     };
@@ -35,7 +35,7 @@ export default {
   },
 
   async created() {
-    await this.$store.dispatch("loadFilterOptions");
+    await this.$store.dispatch('loadFilterOptions');
   },
 
   methods: {
@@ -44,15 +44,12 @@ export default {
     },
 
     async startGame(filter) {
-      this.filterBy = filter;
-      await this.$store.dispatch({
-        type: "loadQuests",
-        filterBy: this.filterBy
-      });
-      this.randomQuestId = await this.$store.dispatch({
-        type: "getRandomQuest"
-      });
-      this.$router.push("/play/" + this.randomQuestId);
+      if (filter.tags) this.filterBy.tags = filter.tags
+      if (filter.category) this.filterBy.category = filter.category.name
+      
+      this.$store.dispatch({type:'saveFilter', filterBy:this.filterBy})
+      
+      this.$router.push('/play/')
     }
   },
 
@@ -65,16 +62,16 @@ export default {
       return this.$store.getters.filterOptions.tags;
     }
   },
-  methods: {
-    toggleTagsCloud(cloudState) {
-      this.tagsCloudShown = cloudState;
-    },
+  // methods: {
+  //   toggleTagsCloud(cloudState) {
+  //     this.tagsCloudShown = cloudState;
+  //   },
 
-    async startGame(filter) {
-      this.$router.push("/play/single");
-    }
-  }
-};
+  //   async startGame(filter) {
+  //     this.$router.push("/play/single");
+  //   }
+  // }
+}
 </script>
 
 <style scoped lang="scss">

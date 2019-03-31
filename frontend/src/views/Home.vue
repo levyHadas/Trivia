@@ -2,7 +2,7 @@
   <div class="home">
     <section class="main">
       <div>
-        <h3>Global. Knowlege. Compete With Others</h3>
+        <h3>Global. Knowledge. Compete With Others</h3>
       </div>
       <a href="#" class="btn" @click="startPlaying">Play Now</a>
       <br>
@@ -26,7 +26,7 @@ export default {
     return {
       temp: [],
       width: 100,
-      state: false,
+      state: true,
       pressed: 0,
       position: 0
     };
@@ -42,18 +42,8 @@ export default {
         this.$router.push("CategorySelection");
       }
     },
-    // requestPartyGame() {
-    //   SocketService.connectionTest();
-
-    //   const loggedUser = this.$store.getters.currUser;
-    //   SocketService.emit("partyRequest", loggedUser);
-
     requestPartyGame() {
       this.$store.dispatch({ type: "setPartyRequest" });
-
-      // SocketService.connectionTest()
-      // const loggedUser = this.$store.getters.currUser
-      // SocketService.emit('partyRequest', loggedUser)
     },
     onClick() {
       this.toggle(!this.state);
@@ -122,8 +112,9 @@ export default {
 };
 </script>
 
-<style lang="scss">
-@import url("../assets/reset.css");
+<style scoped lang="scss">
+// @import url("@../css/reset.css");
+
 .home {
     // min-height: calc(100vh - 160px); 
 
@@ -145,7 +136,7 @@ export default {
 
   // height: 60vh;
   background-color: #ffb400;
-  // background: url("../assets/main.jpg") no-repeat center center;
+  background: url("../assets/main.jpg") no-repeat center center;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;

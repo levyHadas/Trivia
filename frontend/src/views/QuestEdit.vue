@@ -1,5 +1,5 @@
 <template>
-  <section v-if="isQuest" class="game-core">
+  <section v-if="isQuest" class="game-core main-container">
     <el-form ref="form" label-width="120px" @submit.prevent="saveQuest">
       <el-form-item label="Question">
         <el-input v-model="questToEdit.txt" type="textarea"></el-input>
@@ -88,11 +88,16 @@ export default {
 
   async created() {
     var { questId } = this.$route.params;
-    await this.$store.dispatch({ type: "loadQuest", questId });
-    let question = await this.$store.getters.currQuest;
-    this.questToEdit = JSON.parse(JSON.stringify(question));
-    this.tags =
-      this.questToEdit.tags.length > 0 ? this.questToEdit.tags.toString() : "";
+    try {
+      let question = await this.$store.dispatch({ type: "loadQuest", questId })
+      // let question = await this.$store.getters.currQuest;
+      this.questToEdit = JSON.parse(JSON.stringify(question));
+      this.tags =
+        this.questToEdit.tags.length > 0 ? this.questToEdit.tags.toString() : ""
+    }
+    catch {
+      console.log('Not found')
+    }
   },
 
   methods: {
@@ -132,13 +137,13 @@ export default {
   },
   computed: {
     isQuest() {
-      return this.questToEdit.txt ? true : false;
+      return this.questToEdit && this.questToEdit.txt ? true : false;
     },
     currUser() {
       return this.$store.getters.currUser;
     },
     realUser() {
-      const user = this.$store.getters.currUser;
+      let user = this.$store.getters.currUser;
       if (!user._id) return false;
       if (user._id.includes("guest")) return false;
       return true;

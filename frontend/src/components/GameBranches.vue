@@ -1,26 +1,26 @@
 <template>
   <!-- <section class="main"> -->
-  <section class="gameScreen">
+  <section class="game-branches main-container">
 
     <section v-if="isPartyOn" class="partyMode">
       <div class="players">
-        <party-players></party-players>
+        <party-players :playersWithScores="playersWithScores"></party-players>
       </div>
       <div class="game">
-        <game-core></game-core>
+        <game-screen @updateProgress="sendProgress"></game-screen>
       </div>
     </section>
 
     <section v-else class="singleMode">
       <player-progress :player="player" :scores="playerScore"></player-progress>
-      <game-core @updateProgress="sendProgress"></game-core>
+      <game-screen @updateProgress="sendProgress"></game-screen>
     </section>
     
   </section>
 </template>
 
 <script>
-import GameCore from "@/views/GameCore";
+import GameScreen from "@/views/GameScreen";
 import PartyPlayers from "@/components/PartyPlayers";
 import PlayerProgress from "@/components/PlayerProgress";
 import SocketService from "@/services/SocketService.js";
@@ -64,12 +64,16 @@ export default {
     playerScore() {
       return this.player.scores;
     },
+    playersWithScores() {
+      return this.$store.getters.playersWithScores
+    }
+
 
   },
   components: {
     PartyPlayers,
     PlayerProgress,
-    GameCore
+    GameScreen
   }
 };
 </script>
@@ -88,9 +92,12 @@ export default {
 .game {
   flex-basis: 75%;
 }
-
-.gameScreen {
-  min-height: calc(100vh - 160px); 
-  // should be 10vh - header hight- footer
+.game-branches {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
+
+
 </style>

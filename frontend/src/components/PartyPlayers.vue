@@ -1,7 +1,7 @@
 <template>
   <section class="players">
     <h2>Players</h2>
-    <div v-if="playersProgress.length">
+    <div>
       <player-progress
         v-for="(player,idx) in playersProgress"
         :key="idx"
@@ -14,13 +14,12 @@
 import PlayerProgress from "@/components/PlayerProgress"
 import SocketService from '@/services/SocketService.js'
 
-
 export default {
   name: 'Party',
   props: {
     question2: Array,
-  },
-  
+    playersWithScores: Array
+  },  
 
   components: {
     PlayerProgress
@@ -31,8 +30,6 @@ export default {
       return this.$store.getters.playersWithScores
     }
   }
-  
-
 }
 </script>
 
