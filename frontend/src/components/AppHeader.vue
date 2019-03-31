@@ -1,6 +1,6 @@
 <template>
   <header class="header-container">
-    <div class="app-header main-container">
+    <div class="app-header header-footer-container">
       <router-link to="/">
         <h1 class="logo">Trivia.</h1>
       </router-link>

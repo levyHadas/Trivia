@@ -92,6 +92,12 @@ export default {
 .game {
   flex-basis: 75%;
 }
+.game-branches {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 
 
 </style>

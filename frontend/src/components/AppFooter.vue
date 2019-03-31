@@ -1,6 +1,6 @@
 <template>
   <footer class="footer-container">
-    <div class="app-footer main-container">
+    <div class="app-footer header-footer-container">
       <p>2019 All rights reserved.</p>
       <!-- <app-nav/> -->
       <div class="icon-credit">Icons made by <a href="https://www.flaticon.com/authors/smalllikeart" title="smalllikeart">smalllikeart</a> from <a href="https://www.flaticon.com/" 			    title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
