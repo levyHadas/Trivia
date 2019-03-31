@@ -1,6 +1,6 @@
 <template>
   <!-- <section class="main"> -->
-  <section class="gameScreen">
+  <section class="game-branches main-container">
 
     <section v-if="isPartyOn" class="partyMode">
       <div class="players">
@@ -93,8 +93,5 @@ export default {
   flex-basis: 75%;
 }
 
-.gameScreen {
-  min-height: calc(100vh - 160px); 
-  // should be 10vh - header hight- footer
-}
+
 </style>

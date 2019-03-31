@@ -112,8 +112,9 @@ export default {
 };
 </script>
 
-<style lang="scss">
-@import url("../assets/reset.css");
+<style scoped lang="scss">
+// @import url("@../css/reset.css");
+
 .home {
     // min-height: calc(100vh - 160px); 
 

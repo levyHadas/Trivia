@@ -1,18 +1,16 @@
 <template>
-  <div class="quest">
+  <div class="game-screen quest-container">
     <single-game
       v-if="!this.partyMode"
       @startGameInterval="startGameInterval"
       :myScores="myScores"
       :endOfRound="endOfRound"
-      @resetProgress="updateProgress"
-    />
+      @resetProgress="updateProgress"/>
 
     <party-game
       v-if="this.partyMode"
       @startGameInterval="startGameInterval"
-      @resetProgress="updateProgress"
-    />
+      @resetProgress="updateProgress"/>
 
     <transition name="fadeOne" v-if="!endOfRound">
       <div v-show="show" class="container" v-if="thisQuestion">
@@ -237,25 +235,30 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.quest {
-  max-height: 90%;
-  max-height: 520px;
-  padding: 20px;
-}
-
-.container {
-  font-size: 32px;
+.quest-container {
+  width: 80%;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
-  // justify-content: center;
-  // align-items: center;
-  // clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+  align-items: center;
+  justify-content: center;
+  border: 1px solid black;
+  align-content: center;
+
+
 }
+
+// .container {
+//   font-size: 32px;
+//   display: flex;
+//   flex-direction: column;
+//   // justify-content: center;
+//   // align-items: center;
+//   // clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+// }
 
 .containerAnswers {
   flex-wrap: wrap;
-  max-width: 600px;
-  margin: 0 auto;
 }
 
 button {

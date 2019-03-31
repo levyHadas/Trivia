@@ -1,7 +1,11 @@
 <template>
-  <header>
-    <router-link to="/"><h1>Trivia.</h1></router-link>
-    <AppNav></AppNav>
+  <header class="header-container">
+    <div class="app-header main-container">
+      <router-link to="/">
+        <h1 class="logo">Trivia.</h1>
+      </router-link>
+      <app-nav/>
+    </div>
   </header>
 
 </template>
@@ -22,8 +26,24 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-  a {
-    text-decoration: none;
-  }
+
+.header-container {
+  height: 80px;
+  background-color: #007a77;
+  display: flex;
+  align-items: center;
+}
+
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%
+}
+
+.logo {
+  color: white;
+  font-size: 1.8rem;
+}
 
 </style>

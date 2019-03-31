@@ -33,10 +33,11 @@ export default {
 
 <style scoped>
 .category-container {
-  display: flex;
+  margin: 30px 0;
+  display: grid;
   justify-content: center;
   align-items: center;
-  margin: 0 auto;
-  flex-wrap: wrap;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 220px));;
+  grid-gap: 40px;
 }
 </style>
