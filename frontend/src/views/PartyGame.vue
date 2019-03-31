@@ -70,8 +70,8 @@ export default {
     startCountdownToResume() {
       this.resumeCountdown = true
       setTimeout(() => {
-        if (!this.wishToContinue) this.goHome()
         this.resumeCountdown = false
+        if (!this.wishToContinue) this.goHome()
         this.endOfRound = false
         this.wishToContinue = false
         this.resumeParty()
@@ -106,7 +106,9 @@ export default {
       let timeUp = this.isTimeUp()
       this.endOfRound = timeUp || allDone
       if (this.endOfRound) {
+        this.endOfRound = false
         this.startCountdownToResume()
+        return true
       }
       return this.endOfRound
     },
@@ -115,7 +117,6 @@ export default {
       return this.resumeCountdown
     },
     
- 
   },
 
   components: {
