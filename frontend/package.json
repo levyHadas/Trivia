@@ -14,6 +14,7 @@
     "register-service-worker": "^1.6.2",
     "socket.io": "^2.2.0",
     "vue": "^2.6.6",
+    "vue-background-video": "0.0.1",
     "vue-router": "^3.0.1",
     "vue-sequential-entrance": "^1.1.3",
     "vuex": "^3.0.1"

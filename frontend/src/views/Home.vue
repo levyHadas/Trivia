@@ -9,7 +9,8 @@
       <div class="switch-btn">
         <div class="toggle" :class="[this.state_class]" @click.self="onClick">
           <div class="draggable" @mousedown.prevent="dragStart" :style="style"></div>
-        </div><span class="party-padding">Party Mode</span>
+        </div>
+        <span class="party-padding">Party Mode</span>
       </div>
     </section>
   </div>
@@ -113,14 +114,18 @@ export default {
 </script>
 
 <style lang="scss">
+html {
+  background: url(https://media.giphy.com/media/l4KihuqeuJEi9qLSM/giphy.gif)
+    no-repeat center center fixed;
+  background-size: cover;
+}
 @import url("../assets/reset.css");
 .home {
-    // min-height: calc(100vh - 160px); 
+  // min-height: calc(100vh - 160px);
 
   img {
     width: 100%;
     // should be 10vh - header hight- footer
-
   }
 }
 
@@ -134,8 +139,8 @@ export default {
   min-height: calc(100vh - 160px - 100px); //footer, header, padding
 
   // height: 60vh;
-  background-color: #ffb400;
-  background: url("../assets/main.jpg") no-repeat center center;
+  // background-color: #ffb400;
+  // background: url("../assets/main.jpg") no-repeat center center;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -196,13 +201,12 @@ header {
 footer {
   // left: 0;
   // bottom: 0;
-  height:70px;
+  height: 70px;
   background-color: #0d2c54;
   color: white;
   a {
     color: white;
   }
-
 }
 
 .btn {
@@ -429,8 +433,8 @@ pre {
   justify-content: center;
   align-items: center;
   letter-spacing: 3px;
-  margin-top:30px;
-  margin-left:10px;
+  margin-top: 30px;
+  margin-left: 10px;
   text-align: center;
 }
 
