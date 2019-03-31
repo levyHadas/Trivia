@@ -194,17 +194,6 @@ header {
   box-shadow: 0 4px 4px rgba(83, 100, 255, 0.32);
 }
 
-footer {
-  // left: 0;
-  // bottom: 0;
-  height: 70px;
-  background-color: #0d2c54;
-  color: white;
-  a {
-    color: white;
-  }
-}
-
 .btn {
   padding: 10px;
   margin-top: 25px;
