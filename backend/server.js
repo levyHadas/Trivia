@@ -38,8 +38,6 @@ AddGameRoutes(app)
 var playersWithScores = []
 
 function _removeUserFromPlayers(socket) {
-  // console.log(socket.user.username, ' leaving the party')
-  // console.log(socket.user.nickname, ' leaving the party')
   var roomToLeave = socket.room
   if (!roomToLeave) return
   socket.leave(roomToLeave)
@@ -71,16 +69,9 @@ io.on('connection', socket => {
   socket.on('userLeftPartyPage', () => {
     _removeUserFromPlayers(socket)
   })
-  socket.on('quitGame', () => {
-    _removeUserFromPlayers(socket)
-  })
-  socket.on('askToContinue', user => {
-    _joinPlayers(socket, user)
-  })
 
   socket.on('partyRequest', async (user) => {
 
-    
     _joinPlayers(socket, user)
 
     //if waiting for 5:

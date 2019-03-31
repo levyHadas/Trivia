@@ -52,8 +52,6 @@ export default {
   methods: {
     askToContinue() {
       this.wishToContinue = true
-      // let user = this.$store.getters.currUser
-      // SocketService.emit('askToContinue', user);
     },
 
     resumeParty() {
@@ -111,8 +109,6 @@ export default {
       let timeUp = this.isTimeUp()
       this.endOfRound = timeUp || allDone
       if (this.endOfRound) {
-        // SocketService.emit('quitGame')
-        // SocketService.emit('countToNextRound')
         this.startCountdownToResume()
       }
       return this.endOfRound

@@ -36,8 +36,8 @@ export default {
     },
 
     destroyed() {
-        // clearInterval(this.countDownInterval)
-        // this.countDownInterval = null
+        clearInterval(this.countDownInterval)
+        this.countDownInterval = null
     },
  
 

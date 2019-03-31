@@ -217,14 +217,15 @@ export default {
       return false;
     },
     playersWithScores() {
-      var playersWithScores = this.$store.getters.playersWithScores;
-      if (!playersWithScores) return {};
-      return playersWithScores;
+      var playersWithScores = this.$store.getters.playersWithScores
+      if (!playersWithScores) return {}
+      return playersWithScores
     }
   },
 
   destroyed() {
-    clearInterval(this.timerInterval);
+    clearInterval(this.timerInterval)
+    this.timerInterval = null
   },
 
   components: {
@@ -232,12 +233,6 @@ export default {
     PartyGame
   }
 
-  // var answers = this.$store.getters.currQuest.answers;
-  // var answers = this.thisAnswers
-  // this.question = this.$store.getters.currQuest;
-  // question = this.thisQuestion
-  // var answerIdx = +answers.indexOf(answer);
-  // var correctAnswerIdx = +this.$store.getters.currQuest.correctAnswerIdx;
 };
 </script>
 
