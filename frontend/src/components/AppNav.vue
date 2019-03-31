@@ -10,7 +10,7 @@
         <a class="button-small purple_light rounded3">
           <router-link to="/about">About</router-link>
         </a>
-      </li> -->
+      </li>-->
       <li>
         <a class="button-small purple_light rounded3">
           <router-link to="/signup">Sign Up</router-link>
@@ -44,7 +44,15 @@ export default {
   methods: {
     navToCreateQuest() {
       if (this.realUser) this.$router.push("/quest/edit");
-      else this.$message("Please login or sign up to create question");
+      // else this.$swal('Please login or sign up to create a question')
+      else
+        this.$swal.fire({
+          position: "top-end",
+          type: "success",
+          title: "Please login or sign up to create a question",
+          showConfirmButton: true,
+          timer: 3500
+        });
     }
   },
   computed: {
