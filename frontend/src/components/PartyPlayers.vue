@@ -1,6 +1,5 @@
 <template>
   <section class="players">
-    <h2>Players</h2>
     <div>
       <player-progress
         v-for="(player,idx) in playersProgress"

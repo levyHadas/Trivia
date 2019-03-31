@@ -2,12 +2,12 @@
   <section>
     <start-countdown v-if="ShowStartCountdown"/>
     <resume-countdown v-if="showResumeCountdown"/>
+  
     <party-summary
       v-if="endOfRoundForAll"
       :playersWithScores="playersWithScores"
       @askToContinue="askToContinue"
-      @goHome="goHome"
-    />
+      @goHome="goHome"/>
   </section>
 </template>
 
@@ -57,9 +57,6 @@ export default {
     resumeParty() {
       SocketService.emit('resetAllScores')
       this.partyStartTime = Date.now()
-      // this.$store.dispatch({type:'setReadyToResume', isReady:false})
-      // this.resumeCountdown = false
-      // this.endOfRound = false
       this.$emit('startGameInterval')
     },
 
@@ -117,13 +114,7 @@ export default {
     showResumeCountdown() {
       return this.resumeCountdown
     },
-
-    // readyToResume() {
-    //   if (this.$store.getters.timeToResume) {
-    //     this.resumeParty()
-    //     this.$store.dispatch({type:'setReadyToResume', isReady:false})
-    //   }
-    // }
+    
  
   },
 

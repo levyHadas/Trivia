@@ -2,7 +2,8 @@
     <section class="count-down">
 
         <div class="resume-countdown">
-            Party Continues in {{timeRemaining}} seconds. Join now!
+            <p v-if="counting">Party Continues in {{timeRemaining}} seconds. Join now!</p> 
+            <p v-else>Start!</p> 
         </div>
 
 
@@ -30,8 +31,11 @@ export default {
     },
     computed: {
         timeRemaining() {
-            if (this.countDown > 2) return this.countDown-1
-            return ('Go!')
+            return this.countDown-1
+        },
+        counting() {
+            if (this.countDown >= 1) return true
+            return false
         }
     },
 
@@ -54,16 +58,20 @@ export default {
     color: black;
     padding: 20px;
     font-size: 25px;
-    border-radius: 5%;
-    border: 20px solid rgb(123, 172, 185);
-    width: 200px;
-    height: 100px;
-    background-color: rgb(0, 99, 124);
+    border-radius: 5px;
+    width: 250px;
+    height: 120px;
+    background-color: white;
+    border: 5px dashed #e4ff58;
     z-index: 50;
     margin: 50px auto;
     display: flex;
     align-items: center;
-    justify-content: center
+    justify-content: center;
+    top: -15px;
+    z-index: 37;
+    position: absolute;
+    left: 30px;
 }
 
 

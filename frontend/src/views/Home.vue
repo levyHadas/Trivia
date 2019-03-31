@@ -4,9 +4,11 @@
       <div>
         <h3>Global. Knowledge. Compete With Others</h3>
       </div>
-      <a href="#" class="btn" @click="partyMode">Join The Party</a>
-      <br>
-      <a href="#" class="btn" @click="singleMode">Play Single Mode</a>
+      <div class="btn-container">
+        <a href="#" class="btn" @click="partyMode">Join The Party</a>
+        <br>
+        <a href="#" class="btn" @click="singleMode">Play Single</a>
+      </div>
     </section>
   </div>
 </template>
@@ -118,34 +120,30 @@ export default {
 }
 
 .main {
+  margin: 0 auto;
+	padding: 0 30px;
+	min-height: calc(100vh - 180px);
   display: flex;
   flex-direction: column;
-  // justify-content: center;
   align-items: center;
-  align-content: center;
-  padding: 50px;
-  min-height: calc(100vh - 160px - 100px); //footer, header, padding
   background: url(https://media.giphy.com/media/l4KihuqeuJEi9qLSM/giphy.gif)
     no-repeat center center fixed;
   background-size: cover;
-  // height: 60vh;
-  // background-color: #ffb400;
-  // background: url("../assets/main.jpg") no-repeat center center;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-  // justify-content: space-around;
-  h3 {
-    color: white;
-    -webkit-text-stroke-width: 1px;
-    -webkit-text-stroke-color: black;
-    // background-color: white;
-    border-radius: 20px;
-    font-size: 30px;
-    font-weight: bold;
-    padding: 30px;
-  }
+  justify-content: center
+}
+h3 {
+  color: white;
+  -webkit-text-stroke-width: 0.7px;
+  -webkit-text-stroke-color: black;
+  // background-color: white;
+  border-radius: 20px;
+  font-size: 37px;
+  font-weight: bold;
+  padding: 30px;
 }
 
 header {
@@ -270,7 +268,7 @@ header {
     animation-direction: alternate;
   }
   &:hover {
-    background-color: #e16e50;
+    background-color: #6d7fa6;
   }
 }
 

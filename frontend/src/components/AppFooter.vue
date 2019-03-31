@@ -35,7 +35,7 @@ export default {
 <style scoped lang="scss">
 .footer-container {
   background-color: #e4ff58;
-  height: 80px;
+  height: 90px;
   display: flex;
   align-items: center;
   position: relative;
@@ -45,7 +45,6 @@ export default {
   // text-align: center;
 }
 .app-footer {
-  height: 80px;
   display: flex;
   align-items: center;
   justify-content: center;
