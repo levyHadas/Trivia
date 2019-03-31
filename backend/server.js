@@ -38,13 +38,25 @@ AddGameRoutes(app)
 var playersWithScores = []
 
 function _removeUserFromPlayers(socket) {
-  // console.log(socket.user.username, ' leaving the party')
-  // console.log(socket.user.nickname, ' leaving the party')
   var roomToLeave = socket.room
   if (!roomToLeave) return
   socket.leave(roomToLeave)
   playersWithScores = playersWithScores.filter(user => user._id !== socket.user._id)
   io.to(roomToLeave).emit('ShowUpdatedScores', playersWithScores) 
+}
+
+function _joinPlayers(socket, user) {
+  var isPanding = playersWithScores.some(player => player._id === user._id)
+  if (isPanding) return
+  socket.room = 'room1'
+  socket.leave('room1')
+  socket.join('room1')
+  socket.user = user
+
+  //add user to waiting/playing list
+  user.scores = []
+  playersWithScores.push(user)
+  console.log('user:', user.username, 'requested a party')
 }
 
 io.on('connection', socket => {
@@ -55,23 +67,13 @@ io.on('connection', socket => {
   })
 
   socket.on('userLeftPartyPage', () => {
-      _removeUserFromPlayers(socket)
+    _removeUserFromPlayers(socket)
   })
 
   socket.on('partyRequest', async (user) => {
-    var isPanding = playersWithScores.some(player => player._id === user._id)
-    if (isPanding) return
 
-    socket.room = 'room1'
-    socket.leave('room1')
-    socket.join('room1')
-    socket.user = user
+    _joinPlayers(socket, user)
 
-    //add user to waiting/playing list
-    user.scores = []
-    playersWithScores.push(user)
-    console.log('user:', user.username, 'requested a party')
-    
     //if waiting for 5:
     var numOfWaiting = io.sockets.adapter.rooms['room1'].length
     if (io.sockets.adapter.rooms['room1'] && numOfWaiting < 2) {
@@ -100,6 +102,12 @@ io.on('connection', socket => {
   })
       
 
+  socket.on('countToNextRound', () => {
+    setTimeout(() => {
+      // socket.emit('timeToResume')
+      io.to('room1').emit('timeToResume')
+    },10000)
+  })
 
   socket.on('connectionTest', msgFromFront => {
     console.log(msgFromFront)

@@ -42,6 +42,7 @@ socket.on('ShowUpdatedScores', playersWithScores => {
   Store.dispatch({type:'updateAllScores', playersWithScores})
 })
 
+
 function connectionTest() {
   socket.emit('connectionTest', 'Hi from Front')
   socket.on('connectionTest', msgFromServer => {

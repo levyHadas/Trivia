@@ -117,7 +117,6 @@ export default {
   created() {
     // this.startInterval()
     this.scores = this.player.scores;
-    console.log(this.scores);
   },
   computed: {
     playerScores() {
@@ -131,7 +130,6 @@ export default {
       }, 1000);
     },
     isCorrect(num) {
-      console.log(num);
       return '<use xlink:href="#checkmark-bold"></use>';
       // <use v-else xlink:href="#wrong-bold"></use>
     }
@@ -139,11 +137,7 @@ export default {
   destroyed() {
     clearInterval(this.interval);
   },
-  watch: {
-    player: function() {
-      console.log(this.player);
-    }
-  }
+
 };
 </script>
 

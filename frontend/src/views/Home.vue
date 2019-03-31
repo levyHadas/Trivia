@@ -113,13 +113,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
-html {
-  background: url(https://media.giphy.com/media/l4KihuqeuJEi9qLSM/giphy.gif)
-    no-repeat center center fixed;
-  background-size: cover;
-}
-@import url("../assets/reset.css");
+<style scoped lang="scss">
 .home {
   // min-height: calc(100vh - 160px);
 
@@ -137,7 +131,9 @@ html {
   align-content: center;
   padding: 50px;
   min-height: calc(100vh - 160px - 100px); //footer, header, padding
-
+  background: url(https://media.giphy.com/media/l4KihuqeuJEi9qLSM/giphy.gif)
+    no-repeat center center fixed;
+  background-size: cover;
   // height: 60vh;
   // background-color: #ffb400;
   // background: url("../assets/main.jpg") no-repeat center center;

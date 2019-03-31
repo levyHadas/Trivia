@@ -55,7 +55,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style scoped lang="scss" scoped>
     .form-container {
         width: 80%;
         padding: 50px;

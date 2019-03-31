@@ -1,10 +1,11 @@
 <template>
   <section>
-    <count-down v-if="ShowPartyCountDown"/>
+    <start-countdown v-if="ShowStartCountdown"/>
+    <resume-countdown v-if="showResumeCountdown"/>
     <party-summary
       v-if="endOfRoundForAll"
       :playersWithScores="playersWithScores"
-      @resumeParty="resumeParty"
+      @askToContinue="askToContinue"
       @goHome="goHome"
     />
   </section>
@@ -14,7 +15,8 @@
 import ScoreSummary from "@/components/ScoreSummary";
 import PartySummary from "@/components/PartySummary";
 import SocketService from "@/services/SocketService.js";
-import CountDown from "@/components/CountDown";
+import StartCountdown from "@/components/StartCountdown";
+import ResumeCountdown from "@/components/ResumeCountdown";
 
 export default {
   name: "Question",
@@ -22,40 +24,22 @@ export default {
     return {
       show: false,
       playersWithScores: [], //all scores
-      partyCountDown: false,
+      startCountdown: false,
       partyStartTime: Date.now(),
+      resumeCountdown: false,
+      wishToContinue: false
     }
   },
-  methods: {
-    resumeParty() {
-      SocketService.emit('resetAllScores');
-      this.partyStartTime = Date.now()
-      setTimeout(() => {
-        this.$emit('startGameInterval')
-      }, 1000)
-    },
-
-    goHome() {
-      this.$router.push("/");
-    },
-
-    initGame() {
-      SocketService.emit("resetAllScores");
-      this.$emit("startGameInterval");
-      this.partyStartTime = Date.now()
-      this.isPartyOver = false
-    }
-  },
-
+  
   async created() {
-    this.partyCountDown = true;
+    this.startCountdown = true;
     setTimeout(() => {
       
       SocketService.emit("resetAllScores");
 
       var quests = this.$store.getters.questsForDisplay;
       this.show = true;
-      this.partyCountDown = false;
+      this.startCountdown = false;
       this.$emit('startGameInterval');
     }, 4000);
   },
@@ -65,31 +49,89 @@ export default {
       SocketService.emit("userLeftPartyPage");
     }
   },
-
-  computed: {
-    ShowPartyCountDown() {
-      return this.partyCountDown;
+  methods: {
+    askToContinue() {
+      this.wishToContinue = true
     },
-    endOfRoundForAll() {
+
+    resumeParty() {
+      SocketService.emit('resetAllScores')
+      this.partyStartTime = Date.now()
+      // this.$store.dispatch({type:'setReadyToResume', isReady:false})
+      // this.resumeCountdown = false
+      // this.endOfRound = false
+      this.$emit('startGameInterval')
+    },
+
+
+    goHome() {
+      SocketService.emit('resetAllScores')
+      this.$router.push("/");
+    },
+
+
+    startCountdownToResume() {
+      this.resumeCountdown = true
+      setTimeout(() => {
+        if (!this.wishToContinue) this.goHome()
+        this.resumeCountdown = false
+        this.endOfRound = false
+        this.wishToContinue = false
+        this.resumeParty()
+      }, 10000)
+    },
+
+    isAllDone() {
       this.playersWithScores = this.$store.getters.playersWithScores
-      
-      var allDone = false
       if (this.playersWithScores.length) {
-        allDone = this.playersWithScores.every(player => {
+        var allDone = this.playersWithScores.every(player => {
           return player.scores.length === 5
         })
       }
+      return allDone
+    },
+    isTimeUp() {
       let time = Date.now() - this.partyStartTime
-      let timeUp = time > 80 * 1000 ? true : false
-      this.isPartyOver = timeUp || allDone
-      return this.isPartyOver
+      let timeUp = time > 95 * 1000 ? true : false
+      return timeUp
     }
+  },
+
+
+
+  computed: {
+    ShowStartCountdown() {
+      return this.startCountdown;
+    },
+
+    endOfRoundForAll() {
+      let allDone = this.isAllDone()
+      let timeUp = this.isTimeUp()
+      this.endOfRound = timeUp || allDone
+      if (this.endOfRound) {
+        this.startCountdownToResume()
+      }
+      return this.endOfRound
+    },
+
+    showResumeCountdown() {
+      return this.resumeCountdown
+    },
+
+    // readyToResume() {
+    //   if (this.$store.getters.timeToResume) {
+    //     this.resumeParty()
+    //     this.$store.dispatch({type:'setReadyToResume', isReady:false})
+    //   }
+    // }
+ 
   },
 
   components: {
     ScoreSummary,
-    CountDown,
+    StartCountdown,
     PartySummary,
+    ResumeCountdown
   }
 };
 </script>

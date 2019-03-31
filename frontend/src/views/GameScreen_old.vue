@@ -1,16 +1,18 @@
 <template>
-  <div class="game-screen quest-container">
+  <div class="quest">
     <single-game
       v-if="!this.partyMode"
       @startGameInterval="startGameInterval"
       :myScores="myScores"
       :endOfRound="endOfRound"
-      @resetProgress="updateProgress"/>
+      @resetProgress="updateProgress"
+    />
 
     <party-game
       v-if="this.partyMode"
       @startGameInterval="startGameInterval"
-      @resetProgress="updateProgress"/>
+      @resetProgress="updateProgress"
+    />
 
     <transition name="fadeOne" v-if="!endOfRound">
       <div v-show="show" class="container" v-if="thisQuestion">
@@ -96,8 +98,6 @@ export default {
       this.startInterval();
     },
     startInterval() {
-      clearInterval(this.timerInterval);
-      this.timerInterval=null
       this.timerInterval = setInterval(() => {
         if (this.timer === 0) {
           this.isTimer = false;
@@ -112,6 +112,8 @@ export default {
       }, 1000);
     },
     resetGame() {
+      clearInterval(this.timerInterval);
+      this.timerInterval = null
       this.show = true;
       this.myScores = [];
       this.isOver = false;
@@ -191,8 +193,8 @@ export default {
       }
     },
     pauseGame() {
-      this.show = false;
       clearInterval(this.timerInterval);
+      this.show = false;
       // this.counter = 0;
     }
   },
@@ -215,15 +217,14 @@ export default {
       return false;
     },
     playersWithScores() {
-      var playersWithScores = this.$store.getters.playersWithScores
-      if (!playersWithScores) return {}
-      return playersWithScores
+      var playersWithScores = this.$store.getters.playersWithScores;
+      if (!playersWithScores) return {};
+      return playersWithScores;
     }
   },
 
   destroyed() {
-    clearInterval(this.timerInterval)
-    this.timerInterval = null
+    clearInterval(this.timerInterval);
   },
 
   components: {
@@ -231,34 +232,35 @@ export default {
     PartyGame
   }
 
+  // var answers = this.$store.getters.currQuest.answers;
+  // var answers = this.thisAnswers
+  // this.question = this.$store.getters.currQuest;
+  // question = this.thisQuestion
+  // var answerIdx = +answers.indexOf(answer);
+  // var correctAnswerIdx = +this.$store.getters.currQuest.correctAnswerIdx;
 };
 </script>
 
 <style scoped lang="scss">
-.quest-container {
-  width: 80%;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid black;
-  align-content: center;
-
-
+.quest {
+  max-height: 90%;
+  max-height: 520px;
+  padding: 20px;
 }
 
-// .container {
-//   font-size: 32px;
-//   display: flex;
-//   flex-direction: column;
-//   // justify-content: center;
-//   // align-items: center;
-//   // clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
-// }
+.container {
+  font-size: 32px;
+  display: flex;
+  flex-direction: column;
+  // justify-content: center;
+  // align-items: center;
+  // clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+}
 
 .containerAnswers {
   flex-wrap: wrap;
+  max-width: 600px;
+  margin: 0 auto;
 }
 
 button {

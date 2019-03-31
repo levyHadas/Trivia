@@ -6,7 +6,9 @@ const GameStore = ({
   state: {
     // gamePlayers: [],
     isUserWaiting: false,
-    playersWithScores: []
+    playersWithScores: [],
+    readyToResume: false,
+    countdownToResume: Infinity
   },
 
   mutations: {
@@ -18,7 +20,10 @@ const GameStore = ({
     setAllScores(state, { playersWithScores }) {
       state.playersWithScores = playersWithScores
     },
-
+    setReadyToResume(state, {isReady}) {
+      state.readyToResume = isReady
+    },
+  
 
   },
 
@@ -28,6 +33,9 @@ const GameStore = ({
     },
     isUserWaiting(state) {
       return state.isUserWaiting
+    },
+    timeToResume(state) {
+      return state.readyToResume
     }
 
   },
@@ -49,9 +57,11 @@ const GameStore = ({
    
     },
 
-    // updateGamePlayers({ commit}, { playersWithScores }) {
-    //   commit({ type: 'setScores', playersWithScores })
-    // },
+
+    setReadyToResume({ commit }, {isReady}) {
+      commit({ type: 'setReadyToResume', isReady })
+    },
+
     
     updateWaitingState({commit}, {isWaiting}) {
       commit({ type: 'setIsUserWaiting', isWaiting })

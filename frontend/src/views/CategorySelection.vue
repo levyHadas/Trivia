@@ -1,17 +1,15 @@
 <template>
   <section class="category">
-    <!-- <button @click="toggleTagsCloud(true)">Tags Filter</button> -->
+    <div class="main-container">
     <tags-cloud
       v-if="tagsCloudShown"
       :tags="allTags"
       @tagsSelected="startGame"
-      @closeTags="toggleTagsCloud(false)"
-    />
-    <br>
-    <h1>Choose Crategory</h1>
-    <category-list 
+      @closeTags="toggleTagsCloud(false)"/>
+    <category-list
       :categories="allCategories" 
       @categorySelected="startGame"/>
+    </div>
   </section>
 </template>
 
@@ -51,9 +49,6 @@ export default {
       
       this.$store.dispatch({type:'saveFilter', filterBy:this.filterBy})
       
-      // await this.$store.dispatch({type: 'loadQuests'})
-     
-      // var firstQuest = this.$store.getters.currQuest
       this.$router.push('/play/')
     }
   },
