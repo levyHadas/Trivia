@@ -1,7 +1,7 @@
 <template>
     <section class="count-down">
 
-        <div class="note">
+        <div class="resume-countdown">
             Party Continues in {{timeRemaining}} seconds. Join now!
         </div>
 
@@ -50,7 +50,7 @@ export default {
 
 
 
-.note {
+.resume-countdown {
     color: black;
     padding: 20px;
     font-size: 25px;
@@ -59,7 +59,7 @@ export default {
     width: 200px;
     height: 100px;
     background-color: rgb(0, 99, 124);
-    z-index: 22;
+    z-index: 50;
     margin: 50px auto;
     display: flex;
     align-items: center;

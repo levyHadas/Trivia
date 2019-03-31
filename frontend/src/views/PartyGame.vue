@@ -78,6 +78,7 @@ export default {
         if (!this.wishToContinue) this.goHome()
         this.resumeCountdown = false
         this.endOfRound = false
+        this.wishToContinue = false
         this.resumeParty()
       }, 10000)
     },
