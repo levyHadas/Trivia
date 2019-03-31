@@ -215,7 +215,7 @@ footer {
   background-color: #ff6138;
   border-radius: 8px;
   color: #fff;
-  font-family: "Indie Flower", cursive;
+  // font-family: "Indie Flower", cursive;
   font-size: 35px;
   font-weight: normal;
   text-decoration: none;

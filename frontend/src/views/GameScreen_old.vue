@@ -291,7 +291,6 @@ p {
 
 .Two {
   font-size: 18px;
-  font-family: Georgia, serif;
 }
 
 .One {

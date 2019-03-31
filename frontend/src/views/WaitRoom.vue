@@ -1,7 +1,7 @@
 <template>
-  <section>
+  <section class="main-container waitroom-container">
     <p class="waiting">Waiting for friends to join the party<span>.</span><span>.</span><span>.</span></p>
-    <h6>Welcome to our lounge, we'll do our best to fullfill your time while you wait.<br/>In the meanwhile here are some Chuck Norris jokes to ease the wait</h6>
+    <!-- <h6>Welcome to our lounge, we'll do our best to fullfill your time while you wait.<br/>In the meanwhile here are some Chuck Norris jokes to ease the wait</h6> -->
     <div class="msg-box" id="animate-area">
       <p v-html="joke"  @click="killInterval"></p>
     </div>
@@ -47,14 +47,17 @@ export default {
 </script>
 
 <style scoped>
-section {
+/* section {
   min-height: calc(100vh - 180px);
+} */
+
+.waitroom-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
 }
-h1 {
-  font-size: 2em;
-  padding: 40px;
-  color: black;
-}
+
 h6 {
   padding: 40px;
   color: black;
@@ -121,7 +124,10 @@ div.msg-box {
 		}
 
 		#animate-area	{
-			height: 190px;
+      height: 300px;
+      margin-top: 30px;
+      background-size: cover;
+      padding: 40px;
 			background-image: url('../assets/bg-clouds.png');
 			background-position: 0px 0px;
 			background-repeat: repeat-x;

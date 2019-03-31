@@ -75,10 +75,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.category {
-  h1 {
-    font-size: 30px;
-    color:black;
-  }
-}
+
+
 </style>

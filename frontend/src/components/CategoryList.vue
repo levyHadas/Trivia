@@ -32,8 +32,12 @@ export default {
 </script>
 
 <style scoped>
+  h1 {
+    font-size: 30px;
+    color:black;
+  }
 .category-container {
-  margin: 30px 0;
+  padding-top: 30px; 
   display: grid;
   justify-content: center;
   align-items: center;

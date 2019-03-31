@@ -44,7 +44,7 @@
       </div>
     </transition>
     <transition name="fadeTwo">
-      <div v-show="show" class="containerAnswers" v-if="thisQuestion">
+      <div v-show="show" class="answer-container" v-if="thisQuestion">
         <p
           class="Two answer"
           v-for="(answer, idx) in thisAnswers"
@@ -237,14 +237,21 @@ export default {
 <style scoped lang="scss">
 .quest-container {
   width: 80%;
-  margin: 0 auto;
+  margin: 20px auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   align-content: center;
   text-align: center;
-  // height: 100%;
+  
+}
+.answer-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin: 0 auto;
 }
 
 // .container {
@@ -256,9 +263,7 @@ export default {
 //   // clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
 // }
 
-.containerAnswers {
-  flex-wrap: wrap;
-}
+
 
 button {
   color: #435466;
@@ -288,13 +293,16 @@ p {
 
 .Two {
   font-size: 18px;
-  font-family: Georgia, serif;
 }
 
 .One {
   padding: 5px;
   font-size: 30px;
+
 }
+
+
+
 
 .fadeOne-enter-active,
 .fadeOne-leave-active {
@@ -318,16 +326,14 @@ p {
 
 .answer {
   margin-top: 20px;
-  display: inline-block;
-  margin-right: 10px;
-  background: #00a6ed;
+  background: #26246b;
   color: #fff;
   text-decoration: none;
   font-size: 1.1rem;
   border-radius: 30px;
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
-  width: 250px;
+  width: 370px;
   height: 60px;
   text-align: center;
   vertical-align: middle;
