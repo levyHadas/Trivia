@@ -85,8 +85,8 @@ export default {
       let categoriesFromDB = await this.$store.dispatch({type:"loadFilterOptions"})
       this.categories = categoriesFromDB.categories
     }
-    catch {
-      console.log('Not found')
+    catch (err) {
+      console.log('Not found', err)
     }
   },
 
