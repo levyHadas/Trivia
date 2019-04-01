@@ -1,4 +1,7 @@
 body {
+    background: url("../1.jpeg") no-repeat center center;
+    // background: url("../background2.jpeg") no-repeat center center;
+    // background: url("https://images.pexels.com/photos/688574/pexels-photo-688574.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940") no-repeat center center;
 	box-sizing: border-box;
 }
 
@@ -15,7 +18,7 @@ a {
 	max-width: 900px;
 	margin: 0 auto;
 	padding: 0 30px;
-	min-height: calc(100vh - 180px);
+	min-height: calc(100vh - 130px);
 	border-right: 2px solid rgba(199, 223, 255, 0.4);
 	border-left: 2px solid rgba(199, 223, 255, 0.4);
 }

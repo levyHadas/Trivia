@@ -46,13 +46,12 @@ export default {
 </script>
 
 <style scoped>
-/* section {
-  min-height: calc(100vh - 180px);
-} */
+
 
 .waitroom-container {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
 
 }
@@ -133,6 +132,7 @@ div.msg-box {
 			animation: animatedBackground 40s linear infinite;
 			-ms-animation: animatedBackground 40s linear infinite;
 			-moz-animation: animatedBackground 40s linear infinite;
-			-webkit-animation: animatedBackground 40s linear infinite;
+      -webkit-animation: animatedBackground 40s linear infinite;
+      width: inherit;
 		}
 </style>

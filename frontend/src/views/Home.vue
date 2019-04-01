@@ -5,9 +5,9 @@
         <h3>Global. Knowledge. Compete With Others</h3>
       </div>
       <div class="btn-container">
-        <a href="#" class="btn" @click="partyMode">Join The Party</a>
+        <a href="#" class="btn" @click.once="requestPartyGame">Join The Party</a>
         <br>
-        <a href="#" class="btn" @click="singleMode">Play Single</a>
+        <a href="#" class="btn" @click="startSingleGame">Play Single</a>
       </div>
     </section>
   </div>
@@ -16,6 +16,7 @@
 <script>
 import SocketService from "@/services/SocketService.js";
 import UserService from "@/services/UserService.js";
+import swal from 'sweetalert'
 
 export default {
   name: "home",
@@ -33,13 +34,29 @@ export default {
   components: {},
 
   methods: {
-    partyMode() {
-      this.requestPartyGame();
+    async requestPartyGame() {
+    if (this.realUser()) {
+      this.setPartyRequest()
+      return
+    }
+    var nickname = await swal("Enter Nickname", {content: "input",})
+    var user = this.$store.getters.currUser
+    this.$store.dispatch({type: 'updateUserNickname', nickname: nickname})
+    this.setPartyRequest()
+    var temp = this.$store.getters.currUser
     },
-    singleMode() {
+
+    realUser() {
+      let user = this.$store.getters.currUser;
+      if (!user._id) return false;
+      if (user._id.includes("guest")) return false;
+      return true;
+    },
+
+    startSingleGame() {
       this.$router.push("CategorySelection");
     },
-    requestPartyGame() {
+    setPartyRequest() {
       this.$store.dispatch({ type: "setPartyRequest" });
     },
     onClick() {
@@ -122,12 +139,15 @@ export default {
 .main {
   margin: 0 auto;
 	padding: 0 30px;
-	min-height: calc(100vh - 180px);
+	min-height: calc(100vh - 130px);
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: url(https://media.giphy.com/media/l4KihuqeuJEi9qLSM/giphy.gif)
-    no-repeat center center fixed;
+
+  
+
+  // background: url(https://media.giphy.com/media/l4KihuqeuJEi9qLSM/giphy.gif)
+  //   no-repeat center center fixed;
   background-size: cover;
   -webkit-background-size: cover;
   -moz-background-size: cover;

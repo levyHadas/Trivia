@@ -37,11 +37,11 @@ export default {
     color:black;
   }
 .category-container {
-  padding-top: 30px; 
+  padding: 30px; 
   display: grid;
   justify-content: center;
   align-items: center;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 220px));;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 220px));
   grid-gap: 40px;
 }
 </style>

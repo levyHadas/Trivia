@@ -2,8 +2,8 @@
   <!-- <section class="main"> -->
   <section class="game-branches main-container">
 
-    <section v-if="isPartyOn" class="partyMode">
-      <div class="players">
+    <section v-if="isPartyOn" class="party-mode">
+      <div class="party-players">
         <party-players :playersWithScores="playersWithScores"></party-players>
       </div>
       <div class="game">
@@ -79,25 +79,27 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.partyMode {
+.party-mode {
   display: flex;
-  flex-direction: row;
+  justify-content: space-around;
+  align-items: flex-start;
+  flex-direction: row-reverse;
+  // margin-top: 160px;
+  flex-wrap: wrap-reverse;
+  min-width: 740px;
+  
 }
 
-.players {
-  flex-basis: 25%;
-  // border-right: 1px solid black;
-}
+// .party-players {
+//   flex-basis: 1
+  
+  
+// }
 
 .game {
-  flex-basis: 75%;
+  // flex-basis: 4;
 }
-.game-branches {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
+
 
 
 </style>

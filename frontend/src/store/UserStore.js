@@ -33,8 +33,8 @@ const UserStore = ({
     },
 
     async signup({ commit }, {user}) {
-      await UserService.signup(user)
-      return user
+      const newUser = await UserService.signup(user)
+      return newUser
     },
 
     async logout({ commit }) {
@@ -47,6 +47,12 @@ const UserStore = ({
       const loggedUser = await UserService.getLoggedUser()
       commit({type: 'setCurrUser', user:loggedUser})
       return loggedUser
+    },
+
+    updateUserNickname({ commit, getters }, {nickname}) {
+      let user = getters.currUser
+      user.nickname = nickname
+      commit({type: 'setCurrUser', user})
     },
 
 

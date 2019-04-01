@@ -16,8 +16,8 @@ import SocketService from '@/services/SocketService.js'
 export default {
   name: 'Party',
   props: {
-    question2: Array,
-    playersWithScores: Array
+    // question2: Array,
+    // playersWithScores: Array
   },  
 
   components: {
@@ -33,8 +33,5 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.players {
-  padding: 10px;
-  margin-top:25px;
-}
+
 </style>

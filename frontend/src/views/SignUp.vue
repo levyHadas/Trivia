@@ -11,6 +11,10 @@
             clearable show-password
             placeholder="Password">
         </el-input>
+        <el-input class="el-input" required
+            v-model="user.nickname"
+            placeholder="Enter a NickName for Parties" clearable>
+        </el-input>
         <el-button type="primary" plain 
             native-type="submit" 
             @click.prevent="signup">
@@ -28,13 +32,14 @@
 <script>
 
 export default {
-  name: 'Login',
+  name: 'SignUp',
 
   data() {
     return {
       user: {
         username: '',
         password: '',
+        nickname: '',
         img: null
       }
     }
@@ -46,11 +51,8 @@ export default {
         if (!this.user.username || !this.user.password) return //client side validation. there is also validation in the server
         try {
             var signedUser = await this.$store.dispatch({ type: 'signup', user: this.user})
-            setTimeout(async ()=>{   //check why we can't login without timeout.
-              await this.$store.dispatch({ type: 'login', user: signedUser})
-              this.$router.go(-1)
-                
-            },200)
+            await this.$store.dispatch({ type: 'login', user: signedUser})
+            this.$router.go(-1)  
         }
         catch {
             console.log('Something went wrong, please try again')

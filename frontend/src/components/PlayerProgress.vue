@@ -1,5 +1,6 @@
 <template>
   <section class="playerProgress">
+    <p> {{playerNickname}} </p>
     <ol v-if="playerScores[0]" class="ProgressBar">
       <li class="ProgressBar-step" :class="{'is-complete': playerScores[0]}">
         <svg class="ProgressBar-icon" v-if="playerScores[0]">
@@ -114,12 +115,14 @@ export default {
     };
   },
   created() {
-    // this.startInterval()
     this.scores = this.player.scores;
   },
   computed: {
     playerScores() {
       return this.player.scores;
+    },
+    playerNickname() {
+      return this.player.nickname || this.player.username
     }
   },
   methods: {

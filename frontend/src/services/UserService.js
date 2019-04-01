@@ -28,9 +28,9 @@ async function login(credentials) {
     }
 }
 
-function signup(user) {
+async function signup(user) {
     try {
-        const res = Axios.post(`${BASE_PATH}/signup`, user)
+        const res = await Axios.post(`${BASE_PATH}/signup`, user)
         return res.data
     }
     catch {
