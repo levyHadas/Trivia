@@ -55,7 +55,6 @@ export default {
 
   position: absolute;
   z-index: 1;
-  background-color: rgba(0, 0, 0, 0.447);
   background-color: rgba(245, 245, 245, 0.5);
   width: 100vw;
   height: 100vh;
@@ -70,11 +69,10 @@ export default {
 
     border-radius: 50%;
     font-size: 50px;
-    border: 20px solid rgb(123, 172, 185);
+    background-color: white;
+    border: 5px dashed #e4ff58;
     width: 200px;
     height: 200px;
-    // background-color: rgba(245, 245, 245, 0.9);
-    background-color: rgb(0, 99, 124);
     z-index: 2;
     margin: 20vh auto;
     display: flex;

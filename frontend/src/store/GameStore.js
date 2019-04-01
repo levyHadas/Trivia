@@ -8,7 +8,8 @@ const GameStore = ({
     isUserWaiting: false,
     playersWithScores: [],
     readyToResume: false,
-    countdownToResume: Infinity
+    countdownToResume: Infinity,
+    isPartyTimeUp: false
   },
 
   mutations: {
@@ -23,6 +24,9 @@ const GameStore = ({
     setReadyToResume(state, {isReady}) {
       state.readyToResume = isReady
     },
+    setPartyTimeUp(state, {isTimeUp}) {
+      state.timeUp = isTimeUp;
+    }
   
 
   },
@@ -36,6 +40,9 @@ const GameStore = ({
     },
     timeToResume(state) {
       return state.readyToResume
+    },
+    isPartyTimeUp(state) {
+      return state.isPartyTimeUp
     }
 
   },
@@ -51,22 +58,18 @@ const GameStore = ({
       SocketService.connectionTest()
     },
 
-
     updateAllScores({ commit }, { playersWithScores }) {
       commit({ type: 'setAllScores', playersWithScores })
-   
     },
-
-
-    setReadyToResume({ commit }, {isReady}) {
-      commit({ type: 'setReadyToResume', isReady })
-    },
-
     
     updateWaitingState({commit}, {isWaiting}) {
       commit({ type: 'setIsUserWaiting', isWaiting })
-
     },
+
+    setPartyTimeUp({commit}, {isTimeUp}) {
+      commit({ type: 'setPartyTimeUp', isTimeUp })
+    },
+    
 
     async setPartyRequest({dispatch, getters}) {
       SocketService.connectionTest()

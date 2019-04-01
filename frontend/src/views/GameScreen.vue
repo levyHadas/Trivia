@@ -9,6 +9,7 @@
 
     <party-game
       v-if="this.partyMode"
+      :myScores="myScores"
       @startGameInterval="startGameInterval"
       @resetProgress="updateProgress"/>
 
@@ -117,12 +118,14 @@ export default {
       this.isOver = false;
       this.counter=0;
     },
+
     playSound(sound) {
       if (sound) {
         var audio = new Audio(sound);
         audio.play();
       }
     },
+
     checkAnswer(event, answerIdx) {
       this.isTimer = false;
       clearInterval(this.timerInterval);

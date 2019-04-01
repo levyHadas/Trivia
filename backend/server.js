@@ -37,6 +37,7 @@ AddGameRoutes(app)
 
 var playersWithScores = []
 
+
 function _removeUserFromPlayers(socket) {
   var roomToLeave = socket.room
   if (!roomToLeave) return
@@ -57,6 +58,12 @@ function _joinPlayers(socket, user) {
   user.scores = []
   playersWithScores.push(user)
   console.log('user:', user.username, 'requested a party')
+}
+
+function _startPartyTimer() {
+  setTimeout(() => {
+    io.to('room1').emit('timeUp')
+  }, 90*1000)
 }
 
 io.on('connection', socket => {
@@ -82,9 +89,13 @@ io.on('connection', socket => {
     else { //start!
       const quests = await QuestService.query({})
       io.to('room1').emit('startParty', quests) 
+      _startPartyTimer()
     }  
   })
 
+  socket.on('startPartyTimer', () => {
+    _startPartyTimer()
+  })
 
   socket.on('changeInScores', ({playerToUpdate, newScores}) => {
     const player = playersWithScores.find(player => player._id === playerToUpdate._id)
@@ -101,13 +112,6 @@ io.on('connection', socket => {
 
   })
       
-
-  socket.on('countToNextRound', () => {
-    setTimeout(() => {
-      // socket.emit('timeToResume')
-      io.to('room1').emit('timeToResume')
-    },10000)
-  })
 
   socket.on('connectionTest', msgFromFront => {
     console.log(msgFromFront)

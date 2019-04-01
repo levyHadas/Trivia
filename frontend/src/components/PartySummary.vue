@@ -11,8 +11,8 @@
         </div>
       </div>
       <div class="bts-container">
-        <button class="continue" @click="$emit('askToContinue')" focus>Continue</button>
-        <button class="goHome" @click="$emit('goHome')">Home</button>
+        <button class="btn continue" @click="$emit('askToContinue')" focus>Continue</button>
+        <button class="btn goHome" @click="$emit('goHome')">Home</button>
       </div>
     </div>
   </section>
@@ -100,9 +100,8 @@ export default {
   border-radius: 3%;
 
   button {
-    border-radius: 7%;
     position: block;
-    background-color: #0d2c54;
+    background-color: #4704eb;
     border: none;
     padding: 15px;
     color: white;

@@ -146,8 +146,10 @@ export default {
   padding: 10px;
 }
 //Variables
-$gray: #9f9fa3;
-$blue: #00637c;
+// $gray: #9f9fa3;
+$gray: #6d7fa6;
+// $blue: #00637c;
+$blue: #c325a4;
 $white: #dbf1ff;
 $red: red;
 

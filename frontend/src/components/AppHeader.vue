@@ -28,7 +28,7 @@ export default {
 <style scoped lang="scss">
 
 .header-container {
-  height: 80px;
+  height: 90px;
   background-color: #4704eb;
   display: flex;
   align-items: center;

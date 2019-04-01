@@ -3,7 +3,7 @@ body {
 }
 
 .btn {
-	border-radius: 7px;
+	border-radius: 5px;
 	cursor: pointer;
 	border:none;
 }
@@ -15,9 +15,9 @@ a {
 	max-width: 900px;
 	margin: 0 auto;
 	padding: 0 30px;
-	min-height: calc(100vh - 160px);
-	border-right: 3px solid rgba(199, 223, 255, 0.4);
-	border-left: 3px solid rgba(199, 223, 255, 0.4);
+	min-height: calc(100vh - 180px);
+	border-right: 2px solid rgba(199, 223, 255, 0.4);
+	border-left: 2px solid rgba(199, 223, 255, 0.4);
 }
 
 .header-footer-container {
