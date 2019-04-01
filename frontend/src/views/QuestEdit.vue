@@ -12,7 +12,7 @@
           </el-button>
           <el-dropdown-menu slot="dropdown">
             <template v-for="(category, idx) in categories">
-              <el-dropdown-item :key="idx" :command="category">{{category}}</el-dropdown-item>
+              <el-dropdown-item :key="idx" :command="category.name">{{category.name}}</el-dropdown-item>
             </template>
           </el-dropdown-menu>
         </el-dropdown>
@@ -60,6 +60,7 @@
   </section>
 </template>
 <script>
+
 export default {
   data() {
     return {
@@ -69,19 +70,7 @@ export default {
         txt: "",
         correctAnswerIdx: null
       },
-      categories: [
-        "Javascript",
-        "Science & Nature",
-        "Science: Computers",
-        "Science: Mathematics",
-        "Mythology",
-        "Sports",
-        "Geography",
-        "History",
-        "Politics",
-        "Entertainment",
-        "Art"
-      ],
+      categories: [],
       tags: ""
     };
   },
@@ -90,10 +79,11 @@ export default {
     var { questId } = this.$route.params;
     try {
       let question = await this.$store.dispatch({ type: "loadQuest", questId })
-      // let question = await this.$store.getters.currQuest;
       this.questToEdit = JSON.parse(JSON.stringify(question));
       this.tags =
-        this.questToEdit.tags.length > 0 ? this.questToEdit.tags.toString() : ""
+        this.questToEdit.tags.length > 0 ? this.questToEdit.tags.toString() : "";
+      let categoriesFromDB = await this.$store.dispatch({type:"loadFilterOptions"})
+      this.categories = categoriesFromDB.categories
     }
     catch {
       console.log('Not found')

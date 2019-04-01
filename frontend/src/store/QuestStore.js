@@ -56,7 +56,6 @@ const QuestStore = ({
       commit({ type: 'nextQuest' })
     },
     
-    // async loadQuests(puki) {
     async loadQuests({ commit, getters, dispatch}) {
       try {
         const quests = await QuestService.query(getters.filterBy)
