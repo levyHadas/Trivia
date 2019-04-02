@@ -330,7 +330,7 @@ p {
   border-radius: 30px;
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
-  width: 370px;
+  width: 350px;
   height: 60px;
   text-align: center;
   vertical-align: middle;

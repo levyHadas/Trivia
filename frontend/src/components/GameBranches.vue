@@ -81,24 +81,14 @@ export default {
 <style scoped lang="scss">
 .party-mode {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   align-items: flex-start;
   flex-direction: row-reverse;
-  // margin-top: 160px;
   flex-wrap: wrap-reverse;
-  min-width: 740px;
-  
+  //at screen < 740 - add margin bottom of 65px  
+  //also add margin top of 20px for the progress bar
 }
 
-// .party-players {
-//   flex-basis: 1
-  
-  
-// }
-
-.game {
-  // flex-basis: 4;
-}
 
 
 

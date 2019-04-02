@@ -146,8 +146,8 @@ export default {
 
   
 
-  // background: url(https://media.giphy.com/media/l4KihuqeuJEi9qLSM/giphy.gif)
-  //   no-repeat center center fixed;
+  background: url(https://media.giphy.com/media/l4KihuqeuJEi9qLSM/giphy.gif)
+    no-repeat center center fixed;
   background-size: cover;
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -159,7 +159,6 @@ h3 {
   color: white;
   -webkit-text-stroke-width: 0.7px;
   -webkit-text-stroke-color: black;
-  // background-color: white;
   border-radius: 20px;
   font-size: 37px;
   font-weight: bold;
