@@ -5,7 +5,6 @@
     <wait-message v-if="endOfRoundForMe"/>
     <party-summary
       v-if="endOfRoundForAll"
-      :playersWithScores="playersWithScores"
       @askToContinue="askToContinue"
       @goHome="goHome"/>
   </section>
@@ -25,7 +24,6 @@ export default {
   data() {
     return {
       show: false,
-      playersWithScores: [], //all scores
       startCountdown: false,
       resumeCountdown: false,
       wishToContinue: false
@@ -80,9 +78,9 @@ export default {
     },
 
     isAllDone() {
-      this.playersWithScores = this.$store.getters.playersWithScores
-      if (this.playersWithScores.length) {
-        var allDone = this.playersWithScores.every(player => {
+      let playersWithScores = this.$store.getters.playersWithScores
+      if (playersWithScores.length) {
+        var allDone = playersWithScores.every(player => {
           return player.scores.length === 5
         })
       }

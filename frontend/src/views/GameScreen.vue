@@ -40,7 +40,7 @@
             </div>
           </div>
           <br>
-          <div v-html="thisQuestion.txt"></div>
+          <div class="quest-txt" v-html="thisQuestion.txt"></div>
         </div>
       </div>
     </transition>
@@ -77,7 +77,7 @@ export default {
       quests: [],
       timerInterval: "",
       isTimer: true,
-      timer: 15,
+      timer: 1500,
       counter: 0,
       isTimerLessThen10: false,
       myScores: [], //only this user scores
@@ -164,7 +164,7 @@ export default {
           this.question = this.$store.getters.currQuest;
           this.isOver = false;
           this.isTimerLessThen10 = false;
-          this.timer = 15;
+          this.timer = 1500;
           this.isTimer = true;
           this.startInterval()
         }, 2100);
@@ -239,15 +239,10 @@ export default {
 
 <style scoped lang="scss">
 .quest-container {
-  width: 80%;
   margin: 20px auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  align-content: center;
-  text-align: center;
-  
+  clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+    font-size: 32px;
+
 }
 .answer-container {
   display: flex;
@@ -255,16 +250,15 @@ export default {
   justify-content: center;
   flex-direction: column;
   margin: 0 auto;
-}
 
-// .container {
-//   font-size: 32px;
-//   display: flex;
-//   flex-direction: column;
-//   // justify-content: center;
-//   // align-items: center;
-//   // clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
-// }
+}
+.quest-txt {
+  max-width: 400px;
+  text-align: center;
+
+}    
+
+
 
 
 
@@ -336,7 +330,7 @@ p {
   border-radius: 30px;
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
-  width: 370px;
+  width: 350px;
   height: 60px;
   text-align: center;
   vertical-align: middle;

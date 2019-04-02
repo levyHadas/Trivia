@@ -16,6 +16,7 @@ async function checkLogin(user) {
     var queryToMongo = {$and:[{username:user.username }, {password:user.password }]}
     const db = await mongoService.connect()
     const res = await db.collection('user').findOne(queryToMongo)
+
     if (!res) throw ('wrong credentials')
     else return res
 }

@@ -8,12 +8,11 @@ function addUserRoutes(app) {
 
     //create user
     app.post(`${BASE_PATH}/signup`, (req, res) => {
-        console.log(req.body)
         if (req.body.username && req.body.password) {
             const username = req.body.username
             const password = req.body.password
-            if (!req.body.img) 
-            userService.addUser({ username, password })
+            const nickname = req.body.nickname
+            userService.addUser({ username, password, nickname })
                 .then(user => res.json(user))
                 .catch(err => {
                     res.status(401).end()
@@ -29,16 +28,16 @@ function addUserRoutes(app) {
             const username = req.body.username
             const password = req.body.password
             userService.checkLogin({ username, password })
-                .then(user => {
+            .then(user => {
                     delete user.password
                     req.session.user = user
                     // req.session.cookie.maxAge = 24 * 60 * 60 * 1000
                     return res.json(user)
-                })
-                .catch(err => {
-                    res.status(401).end()
-                    throw (err)
-                })
+            })
+            .catch(err => {
+                res.status(401).end()
+                throw (err)
+            })
         }
     })
     

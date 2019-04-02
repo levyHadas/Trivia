@@ -49,12 +49,13 @@ function _removeUserFromPlayers(socket) {
 function _joinPlayers(socket, user) {
   var isPanding = playersWithScores.some(player => player._id === user._id)
   if (isPanding) return
+ 
   socket.room = 'room1'
   socket.leave('room1')
   socket.join('room1')
   socket.user = user
 
-  //add user to waiting/playing list
+  // add user to waiting/playing list
   user.scores = []
   playersWithScores.push(user)
   console.log('user:', user.username, 'requested a party')
@@ -81,16 +82,25 @@ io.on('connection', socket => {
 
     _joinPlayers(socket, user)
 
-    //if waiting for 5:
+
     var numOfWaiting = io.sockets.adapter.rooms['room1'].length
-    if (io.sockets.adapter.rooms['room1'] && numOfWaiting < 2) {
-      socket.emit('tellUserToWait', numOfWaiting)
-    }
-    else { //start!
+    if (numOfWaiting >= 2 && user.username === 'adminPartyAdmin') { //start!
       const quests = await QuestService.query({})
       io.to('room1').emit('startParty', quests) 
       _startPartyTimer()
-    }  
+    } 
+    else {
+      socket.emit('tellUserToWait', numOfWaiting)
+    } 
+    // var numOfWaiting = io.sockets.adapter.rooms['room1'].length
+    // if (io.sockets.adapter.rooms['room1'] && numOfWaiting < 2) {
+    //   socket.emit('tellUserToWait', numOfWaiting)
+    // }
+    // else if (user.username === 'partyAdmin') { //start!
+    //   const quests = await QuestService.query({})
+    //   io.to('room1').emit('startParty', quests) 
+    //   _startPartyTimer()
+    // }  
   })
 
   socket.on('startPartyTimer', () => {
@@ -124,3 +134,15 @@ io.on('connection', socket => {
 
 const PORT = process.env.PORT || 3003
 server.listen(PORT, () => console.log(`Trivia app is listening on port ${PORT}`))
+
+
+// var room = roomService.findAvailableRoom();
+// if (!room) room = roomService.createRoom(user);
+//   socket.room = room.id
+//   socket.leave(room.id)
+//   socket.join(room.id)
+//   socket.user = user
+//   user.scores = []
+//   playersWithScores.push(user)
+//   room.members.push(user)
+//   console.log('user:', user.username, 'requested a party')

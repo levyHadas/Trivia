@@ -1,7 +1,6 @@
 <template>
   <section class="summary-section">
     <div class="summary-container">
-      <!-- <img class="podium" src="../assets/podium.png" alt=""> -->
       <div class="pudium-container">
         <div class="winners-container">
           <div class="second">{{first}}</div>
@@ -22,16 +21,17 @@
 import ScorePreview from "@/components/ScorePreview";
 
 export default {
-  props: {
-    playersWithScores: Array
-  },
+ 
   data() {
     return {
-      playersScores: this.playersWithScores,
+      playersScores:[],
       first: '',
       second: '',
       third: ''
     }
+  },
+  created() {
+    this.playersScores = this.$store.getters.playersWithScores
   },
   mounted() {
     this.findWinner()
@@ -76,28 +76,26 @@ export default {
 <style scoped lang="scss">
 .summary-section {
   position: absolute;
-  z-index: 1;
-  background-color: rgba(0, 0, 0, 0.447);
+  // background-color: rgba(0, 0, 0, 0.247);
   width: 100vw;
   height: 100vh;
   top: 0;
   left: 0;
-  z-index: 20;
 }
 .summary-container {
-  margin: 10vh auto;
-  width: 70vw;
-  height: 80vw;
-  max-height: 550px;
-  max-width: 600px;
-  min-width: 300px;
-  align-items: center;
-  justify-content: space-evenly;
-  background-color: rgba(245, 245, 245, 0.9);
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
-  border-radius: 3%;
+  // margin: 10vh auto;
+  // width: 70vw;
+  // height: 80vw;
+  // max-height: 550px;
+  // max-width: 600px;
+  // min-width: 300px;
+  // align-items: center;
+  // justify-content: space-evenly;
+  // background-color: rgba(245, 245, 245, 0.9);
+  // z-index: 2;
+  // display: flex;
+  // flex-direction: column;
+  // border-radius: 3%;
 
   button {
     position: block;
@@ -121,18 +119,17 @@ export default {
   }
 
   .pudium-container {
-    background: url("../assets/podium.png") no-repeat center center;
-    width: 70vw;
-    height: 80vw;
-    max-height: 550px;
-    max-width: 485px;
-    min-width: 300px;
+    background: url("../assets/podium.jpg") no-repeat center center;
     background-size: contain;
+    max-width: 900px;
+    min-width: 300px;
+    height: calc(100vh - 130px);
+    margin: 90px auto 0 auto;
+    z-index: 20;
   }
   .winners-container {
     height: 60%;
     display: grid;
-    margin-top: 18%;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 2fr 1fr 2.5fr;
     font-size: 1.2rem;

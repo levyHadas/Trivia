@@ -13,6 +13,8 @@
     "element-ui": "^2.6.3",
     "register-service-worker": "^1.6.2",
     "socket.io": "^2.2.0",
+    "swe": "^2.0.5",
+    "sweetalert": "^2.1.2",
     "vue": "^2.6.6",
     "vue-background-video": "0.0.1",
     "vue-router": "^3.0.1",
