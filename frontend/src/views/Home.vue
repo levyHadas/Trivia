@@ -9,6 +9,7 @@
         <br>
         <a href="#" class="btn" @click="startSingleGame">Play Single</a>
       </div>
+
     </section>
   </div>
 </template>
@@ -139,7 +140,7 @@ export default {
 .main {
   margin: 0 auto;
 	padding: 0 30px;
-	min-height: calc(100vh - 130px);
+	min-height: calc(100vh - 113px);
   display: flex;
   flex-direction: column;
   align-items: center;

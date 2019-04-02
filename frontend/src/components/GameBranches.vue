@@ -11,7 +11,7 @@
       </div>
     </section>
 
-    <section v-else class="singleMode">
+    <section v-else class="single-mode">
       <player-progress :player="player" :scores="playerScore"></player-progress>
       <game-screen @updateProgress="sendProgress"></game-screen>
     </section>
@@ -82,11 +82,15 @@ export default {
 .party-mode {
   display: flex;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
   flex-direction: row-reverse;
   flex-wrap: wrap-reverse;
-  //at screen < 740 - add margin bottom of 65px  
+  //at screen < 740 - add margin bottom of 55px  
   //also add margin top of 20px for the progress bar
+}
+
+.single-mode {
+  margin-top: 30px;
 }
 
 

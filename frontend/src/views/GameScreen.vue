@@ -40,7 +40,9 @@
             </div>
           </div>
           <br>
-          <div class="quest-txt" v-html="thisQuestion.txt"></div>
+          <div class="quest-txt" 
+            v-html="thisQuestion.txt"
+            :class="(partyMode)? 'quest-txt-party' : 'quest-txt-single'"></div>
         </div>
       </div>
     </transition>
@@ -241,7 +243,7 @@ export default {
 .quest-container {
   margin: 20px auto;
   clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
-    font-size: 32px;
+  font-size: 32px;
 
 }
 .answer-container {
@@ -253,9 +255,15 @@ export default {
 
 }
 .quest-txt {
+  text-align: center;
+}    
+.quest-txt-single {
+  width: 80%;
+  margin: 0 auto;
+}    
+.quest-txt-party {
   max-width: 400px;
   text-align: center;
-
 }    
 
 
@@ -323,7 +331,7 @@ p {
 
 .answer {
   margin-top: 20px;
-  background: #26246b;
+  background: #2f1457;
   color: #fff;
   text-decoration: none;
   font-size: 1.1rem;
@@ -350,11 +358,11 @@ p {
 }
 
 .answerCorrect {
-  background: #7fb800;
+  background: #25f0e0;
 }
 
 .answerWrong {
-  background: #f6511d;
+  background: #0e6d83;
 }
 
 @keyframes nudge {

@@ -88,7 +88,7 @@
         <span class="ProgressBar-stepLabel">Q5</span>
       </li>
     </ol>
-    <svg xmlns="http://www.w3.org/2000/svg">
+    <svg xmlns="http://www.w3.org/2000/svg" class="problem-svg">
       <symbol id="checkmark-bold" viewBox="0 0 24 24">
         <path d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z"></path>
       </symbol>
@@ -150,10 +150,10 @@ export default {
 }
 //Variables
 // $gray: #9f9fa3;
-$gray: #6d7fa6;
+$blue: 	#083a45;
 // $blue: #00637c;
-$blue: #c325a4;
-$white: #dbf1ff;
+$orange: 	#f4376d;
+$white: #dae6e5;
 $red: red;
 
 .ProgressBar {
@@ -173,8 +173,8 @@ $red: red;
   &:before,
   &:after {
     content: "";
-    height: 0.5em;
-    background-color: $gray;
+    height: 4px;
+    background-color: $blue;
     position: absolute;
     z-index: 1;
     width: 100%;
@@ -190,7 +190,7 @@ $red: red;
   }
 
   &:after {
-    background-color: $blue;
+    background-color: $orange;
     width: 0%;
   }
 
@@ -203,30 +203,35 @@ $red: red;
 .ProgressBar-icon {
   width: 1.5em;
   height: 1.5em;
-  background-color: $gray;
-  fill: $gray;
+  background-color: $blue;
+  fill: $white;
   border-radius: 50%;
   // padding: 0.1em;
   max-width: 100%;
   z-index: 10;
   position: relative;
   transition: all 0.25s ease-out;
+  border: 1px solid $blue;
 
   .is-current & {
-    fill: $blue;
-    background-color: $blue;
+    fill: $orange;
+    background-color: $orange;
+    border: 1px solid $orange;
+
   }
 
   .is-complete & {
     fill: $white;
-    background-color: $blue;
+    background-color: $orange;
+    border: 1px solid $orange;
+
   }
 }
 
 .ProgressBar-stepLabel {
   display: block;
   text-transform: uppercase;
-  color: $gray;
+  color: $blue;
   position: absolute;
   padding-top: 0.5em;
   width: 100%;
@@ -237,7 +242,7 @@ $red: red;
 
   .is-current > &,
   .is-complete > & {
-    color: $blue;
+    color: $orange;
   }
 }
 
@@ -247,5 +252,9 @@ $red: red;
 
 use {
   display: none;
+}
+
+.problem-svg {
+  height: 0;
 }
 </style>

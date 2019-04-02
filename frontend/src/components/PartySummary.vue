@@ -123,7 +123,7 @@ export default {
     background-size: contain;
     max-width: 900px;
     min-width: 300px;
-    height: calc(100vh - 130px);
+    height: calc(100vh - 113px);
     margin: 90px auto 0 auto;
     z-index: 20;
   }

@@ -28,10 +28,17 @@ export default {
 <style scoped lang="scss">
 
 .header-container {
-  height: 65px;
-  background-color: #4704eb;
+  height: 55px;
+  background-color: white;
+  border: 1px solid rgba(190, 190, 190, 0.658);
   display: flex;
+  box-shadow:5px -16px 12px 18px rgba(0, 0, 0, 0.32);
   align-items: center;
+  opacity: 0.6;
+    // background: url("../assets/background3.jpeg") no-repeat center center;
+    // background-size: cover;
+    // background-position: 0 -383px;
+
 }
 
 .app-header {

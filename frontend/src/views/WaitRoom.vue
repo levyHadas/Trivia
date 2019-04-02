@@ -1,9 +1,12 @@
 <template>
-  <section class="main-container waitroom-container">
-    <p class="waiting">Waiting for friends to join the party<span>.</span><span>.</span><span>.</span></p>
-    <!-- <h6>Welcome to our lounge, we'll do our best to fullfill your time while you wait.<br/>In the meanwhile here are some Chuck Norris jokes to ease the wait</h6> -->
-    <div class="msg-box" id="animate-area">
-      <p v-html="joke"  @click="killInterval"></p>
+  <section class="section-container">
+    <div class="main-container waitroom-container">
+      <p class="waiting">Waiting for friends to join the party<span>.</span><span>.</span><span>.</span></p>
+      <!-- <h6>Welcome to our lounge, we'll do our best to fullfill your time while you wait.<br/>In the meanwhile here are some Chuck Norris jokes to ease the wait</h6> -->
+      <div class="joke-box" id="animate-area">
+        <p v-html="joke"  @click="killInterval"></p>
+      </div>
+
     </div>
   </section>
 </template>
@@ -48,31 +51,43 @@ export default {
 <style scoped>
 
 
+.section-container {
+
+  background-image: url('https://media.giphy.com/media/5QSIcVPpTj9r7RXbNb/giphy.gif');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
 .waitroom-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 
+
 }
 
-h6 {
-  padding: 40px;
-  color: black;
-}
-div.msg-box {
-  width: 60vw;
+
+.joke-box {
+  width: 100%;
+  max-width: 600px;;
   margin-left: auto;
   margin-right: auto;
+  margin-top: 300px;
 }
-.msg-box p {
-  padding: 20px;
-  font-size: 2em;
+.joke-box p {
+  font-size: 1.5em;
+  font-family: 'PT Sans', sans-serif;
 }
 
 .waiting {
-  font-size: 40px;
-  margin-top:20px;
+  font-size: 30px;
+  position: absolute;
+  top: 90px;
+  text-align: center;
+  padding: 0 30px;
+
 }
 
 .waiting span {
@@ -121,7 +136,7 @@ div.msg-box {
 			to { background-position: 100% 0; }
 		}
 
-		#animate-area	{
+		/* #animate-area	{
       height: 300px;
       margin-top: 30px;
       background-size: cover;
@@ -134,5 +149,5 @@ div.msg-box {
 			-moz-animation: animatedBackground 40s linear infinite;
       -webkit-animation: animatedBackground 40s linear infinite;
       width: inherit;
-		}
+		} */
 </style>
