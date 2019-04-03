@@ -23,6 +23,7 @@ export default {
     result() {
       if (this.score.isCorrect === true) return "V";
       return "X";
+      //todo: use icon instead
     },
     questPreview() {
       return this.score.quest.txt.substring(0, 70) + "...";
@@ -50,7 +51,8 @@ export default {
   width: 100%;
 }
 .quest-score-item {
-  color: white;
+  color: rgb(8, 58, 69);
+
   font-size: 1rem;
 }
 
@@ -59,6 +61,6 @@ export default {
 }
 
 .incorrect {
-  color:red;
+  color:#f4376d;
 }
 </style>

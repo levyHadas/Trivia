@@ -28,17 +28,24 @@ export default {
 <style scoped lang="scss">
 
 .header-container {
-  height: 65px;
-  background-color: #4704eb;
+  height: 55px;
+  background-color: white;
+  border: 1px solid rgba(190, 190, 190, 0.658);
   display: flex;
+  box-shadow:5px -16px 12px 18px rgba(0, 0, 0, 0.32);
   align-items: center;
+  opacity: 0.6;
+
+  z-index: 25;
+
 }
 
 .app-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 100%
+  width: 100%;
+  z-index: 25;
 }
 
 .logo {

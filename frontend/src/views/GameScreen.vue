@@ -40,7 +40,9 @@
             </div>
           </div>
           <br>
-          <div class="quest-txt" v-html="thisQuestion.txt"></div>
+          <div class="quest-txt" 
+            v-html="thisQuestion.txt"
+            :class="(partyMode)? 'quest-txt-party' : 'quest-txt-single'"></div>
         </div>
       </div>
     </transition>
@@ -62,6 +64,7 @@
 import SocketService from "@/services/SocketService.js";
 import SingleGame from "@/views/SingleGame";
 import PartyGame from "@/views/PartyGame";
+const NUM_OF_QUESTS = 6
 
 export default {
   name: "Question",
@@ -90,6 +93,7 @@ export default {
   },
   created() {
     this.partyMode = this.$route.name === "partyMode" ? true : false;
+  
   },
   methods: {
     startGameInterval() {
@@ -156,7 +160,7 @@ export default {
     nextQuestion() {
       this.updateProgress(this.myScores);
       if (this.quests.length === 1) {
-        this.counter = 5;
+        this.counter = NUM_OF_QUESTS;
         console.log("1");
       } else {
         this.timeoutNextQuestion = setTimeout(() => {
@@ -211,7 +215,7 @@ export default {
       return this.timer;
     },
     endOfRound() {
-      if (this.counter === 5) {
+      if (this.counter === NUM_OF_QUESTS) {
         this.pauseGame();
         return true;
       }
@@ -241,7 +245,7 @@ export default {
 .quest-container {
   margin: 20px auto;
   clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
-    font-size: 32px;
+  font-size: 32px;
 
 }
 .answer-container {
@@ -253,9 +257,17 @@ export default {
 
 }
 .quest-txt {
+  text-align: center;
+  // font-weight: bold;
+
+}    
+.quest-txt-single {
+  width: 80%;
+  margin: 0 auto;
+}    
+.quest-txt-party {
   max-width: 400px;
   text-align: center;
-
 }    
 
 
@@ -323,7 +335,7 @@ p {
 
 .answer {
   margin-top: 20px;
-  background: #26246b;
+  background: #2f1457;
   color: #fff;
   text-decoration: none;
   font-size: 1.1rem;
@@ -339,22 +351,23 @@ p {
 
 .answer:hover {
   cursor: pointer;
-  text-shadow: 0px 0px 6px rgba(255, 255, 255, 1);
+  // text-shadow: 0px 0px 6px rgba(255, 255, 255, 1);
   -webkit-box-shadow: 0px 5px 40px -10px rgba(0, 0, 0, 0.57);
   -moz-box-shadow: 0px 5px 40px -10px rgba(0, 0, 0, 0.57);
   transition: all 0.4s ease 0s;
-  box-shadow: 0 4px 4px rgba(83, 100, 255, 0.32);
+  box-shadow: 3px 3px 3px rgba(8, 58, 69, 0.7);
+  // box-shadow: 4px 4px 4px rgba(83, 100, 255, 0.7);
 }
 .answer:active {
   animation: nudge 0.4s linear;
 }
 
 .answerCorrect {
-  background: #7fb800;
+  background: #25f0e0;
 }
 
 .answerWrong {
-  background: #f6511d;
+  background: #0e6d83;
 }
 
 @keyframes nudge {

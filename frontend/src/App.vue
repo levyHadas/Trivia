@@ -1,8 +1,12 @@
 <template>
   <div id="app">
       <app-header></app-header>
-      <router-view/>
+      <div class="bg">
+        <router-view/>
+
+      </div>
       <app-footer></app-footer>
+      <link href="https://fonts.googleapis.com/css?family=Cabin|PT+Sans" rel="stylesheet">
     </div>
 </template>
 
@@ -34,6 +38,27 @@ export default {
 body {
   font-family: 'Montserrat', sans-serif;
 }
+
+// .bg {
+
+
+//     &::before {
+//      content: '';
+//        width: 100%;
+//        height: 100%;
+//        top: 65px;
+//        left: 0;
+//        position: absolute;
+//        opacity: 0.4;
+//       //  background-image: url('https://static.vecteezy.com/system/resources/previews/000/092/926/original/question-mark-background-in-vector.jpg');
+//        background-image: url('./assets/5.png');
+//       //  background-image: url('./assets/4.jpg');
+//        z-index: -1;
+    
+   
+//   }
+   
+// }
 // @import url("@../assets/reset.css");
 // @import url("../assets/main.css");
 

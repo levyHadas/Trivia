@@ -2,7 +2,14 @@
   <section>
     <start-countdown v-if="ShowStartCountdown"/>
     <resume-countdown v-if="showResumeCountdown"/>
-    <wait-message v-if="endOfRoundForMe"/>
+
+    <div v-if="endOfRoundForMe && !endOfRoundForAll" class="waiting-modal-container">
+      <wait-message class="waiting-for-others" 
+        v-if="endOfRoundForMe"
+        @goHome="goHome"/>
+      <!-- <wait-message /> -->
+  
+    </div>
     <party-summary
       v-if="endOfRoundForAll"
       @askToContinue="askToContinue"
@@ -17,7 +24,7 @@ import SocketService from "@/services/SocketService.js";
 import StartCountdown from "@/components/StartCountdown";
 import ResumeCountdown from "@/components/ResumeCountdown";
 import WaitMessage from "@/components/WaitMessage";
-
+const NUM_OF_QUESTS = 6
 export default {
   name: "Question",
   props: ['myScores'],
@@ -81,7 +88,7 @@ export default {
       let playersWithScores = this.$store.getters.playersWithScores
       if (playersWithScores.length) {
         var allDone = playersWithScores.every(player => {
-          return player.scores.length === 5
+          return player.scores.length === NUM_OF_QUESTS
         })
       }
       return allDone
@@ -96,7 +103,7 @@ export default {
     },
 
     endOfRoundForMe() {
-      return this.myScores.length === 5
+      return this.myScores.length === NUM_OF_QUESTS
     },
 
     endOfRoundForAll() {

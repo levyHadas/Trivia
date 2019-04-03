@@ -38,6 +38,17 @@ AddGameRoutes(app)
 var playersWithScores = []
 
 
+function _isAdminInParty() {
+  var isAdminIn = playersWithScores.some(player => {
+    return player.username === 'adminPartyAdmin' || player.username === 'partyAdmin'
+  })
+  return isAdminIn
+}
+
+function _userIsAdmin(user) {
+  return user.username === 'adminPartyAdmin' || user.username === 'partyAdmin'
+}
+
 function _removeUserFromPlayers(socket) {
   var roomToLeave = socket.room
   if (!roomToLeave) return
@@ -79,19 +90,27 @@ io.on('connection', socket => {
   })
 
   socket.on('partyRequest', async (user) => {
-
+    
+    // Patch for Demo!!!!!!
+    if (_isAdminInParty() && !_userIsAdmin(user)) {
+      socket.emit('tellUserToWait', numOfWaiting)
+      return
+    }
+        
     _joinPlayers(socket, user)
-
-
+    
     var numOfWaiting = io.sockets.adapter.rooms['room1'].length
-    if (numOfWaiting >= 2 && user.username === 'adminPartyAdmin') { //start!
-      const quests = await QuestService.query({})
-      io.to('room1').emit('startParty', quests) 
-      _startPartyTimer()
+    
+    if  (numOfWaiting >= 2 && _userIsAdmin(user)) { 
+          //start!
+        const quests = await QuestService.query({})
+        io.to('room1').emit('startParty', quests) 
+        _startPartyTimer()
     } 
     else {
       socket.emit('tellUserToWait', numOfWaiting)
     } 
+    //Do not delete this comment!
     // var numOfWaiting = io.sockets.adapter.rooms['room1'].length
     // if (io.sockets.adapter.rooms['room1'] && numOfWaiting < 2) {
     //   socket.emit('tellUserToWait', numOfWaiting)
