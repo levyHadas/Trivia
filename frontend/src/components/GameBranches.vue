@@ -2,7 +2,7 @@
   <!-- <section class="main"> -->
   <section class="game-branches main-container">
 
-    <section v-if="isPartyOn" class="party-mode">
+    <section v-if="isPartyMode" class="party-mode">
       <div class="party-players">
         <party-players :playersWithScores="playersWithScores"></party-players>
       </div>
@@ -57,7 +57,7 @@ export default {
     }
   },
   computed: {
-    isPartyOn() {
+    isPartyMode() {
       if (this.params.name === "partyMode") return true;
       false;
     },

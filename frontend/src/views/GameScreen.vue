@@ -64,6 +64,7 @@
 import SocketService from "@/services/SocketService.js";
 import SingleGame from "@/views/SingleGame";
 import PartyGame from "@/views/PartyGame";
+const NUM_OF_QUESTS = 6
 
 export default {
   name: "Question",
@@ -92,6 +93,7 @@ export default {
   },
   created() {
     this.partyMode = this.$route.name === "partyMode" ? true : false;
+  
   },
   methods: {
     startGameInterval() {
@@ -158,7 +160,7 @@ export default {
     nextQuestion() {
       this.updateProgress(this.myScores);
       if (this.quests.length === 1) {
-        this.counter = 5;
+        this.counter = NUM_OF_QUESTS;
         console.log("1");
       } else {
         this.timeoutNextQuestion = setTimeout(() => {
@@ -213,7 +215,7 @@ export default {
       return this.timer;
     },
     endOfRound() {
-      if (this.counter === 5) {
+      if (this.counter === NUM_OF_QUESTS) {
         this.pauseGame();
         return true;
       }
