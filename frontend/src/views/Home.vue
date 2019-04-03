@@ -143,11 +143,11 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-
-  
-
-  background: url(https://media.giphy.com/media/l4KihuqeuJEi9qLSM/giphy.gif)
+  background: url(https://media.giphy.com/media/BHNfhgU63qrks/giphy.gif)
     no-repeat center center fixed;
+      // image-rendering: auto;
+  image-rendering: crisp-edges;
+  // image-rendering: pixelated;
   background-size: cover;
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -211,7 +211,7 @@ header {
   width: 330px;
   height: 60px;
   line-height: 60px;
-  background-color: #c325a4;
+  background-color: #0e6d83;
   border-radius: 8px;
   color: #fff;
   // font-family: "Indie Flower", cursive;

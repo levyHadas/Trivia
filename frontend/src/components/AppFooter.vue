@@ -34,7 +34,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 .footer-container {
-  background-color: #e4ff58;
+  background-color:#25f0e0;
   height: 55px;
   display: flex;
   align-items: center;
@@ -48,7 +48,6 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #e4ff58;
 }
 
 .icon-credit {
