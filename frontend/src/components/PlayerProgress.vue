@@ -164,19 +164,18 @@ export default {
 
 .player-nickname {
     text-align: center;
-    padding-bottom: 5px;
+    padding-bottom: 7px;
     font-size: 1.5rem;
     font-weight: bold;
 }
 
 .playerProgress {
   max-height: 50px;
-  padding: 25px;
+  padding: 10px 0 40px 0;
 }
 //Variables
-// $gray: #9f9fa3;
-$blue: 	#083a45;
-// $blue: #00637c;
+// $blue: 	#083a45;
+$blue: 	#0e6d83;
 $orange: 	#f4376d;
 $white: #dae6e5;
 $red: red;

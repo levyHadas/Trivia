@@ -29,7 +29,7 @@ export default {
 
 .header-container {
   height: 55px;
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0.9);
   border: 1px solid rgba(190, 190, 190, 0.658);
   display: flex;
   box-shadow:5px -16px 12px 18px rgba(0, 0, 0, 0.32);
@@ -50,7 +50,7 @@ export default {
 
 .logo {
   color: black;
-  font-size: 1.8rem;
+  font-size: 2.5rem;
 }
 
 </style>

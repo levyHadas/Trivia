@@ -1,6 +1,7 @@
 <template>
   <section>
     <start-countdown v-if="ShowStartCountdown"/>
+    <!-- <resume-countdown/> -->
     <resume-countdown v-if="showResumeCountdown"/>
 
     <div v-if="endOfRoundForMe && !endOfRoundForAll" class="waiting-modal-container">
@@ -24,7 +25,9 @@ import SocketService from "@/services/SocketService.js";
 import StartCountdown from "@/components/StartCountdown";
 import ResumeCountdown from "@/components/ResumeCountdown";
 import WaitMessage from "@/components/WaitMessage";
+
 const NUM_OF_QUESTS = 6
+
 export default {
   name: "Question",
   props: ['myScores'],
@@ -72,16 +75,22 @@ export default {
       this.$router.push("/");
     },
 
+    dontContinue() {
+      SocketService.emit('resetAllScores')
+      SocketService.emit("userLeftPartyPage");
+    },
+
 
     startCountdownToResume() {
       this.resumeCountdown = true
       setTimeout(() => {
         this.resumeCountdown = false
-        if (!this.wishToContinue) this.goHome()
+        if (!this.wishToContinue) this.dontContinue() //for demo only
+        // if (!this.wishToContinue) this.goHome()
         this.endOfRound = false
         this.wishToContinue = false
         this.resumeParty()
-      }, 10000)
+      }, 15000)
     },
 
     isAllDone() {

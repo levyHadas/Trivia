@@ -34,7 +34,8 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 .footer-container {
-  background-color:#25f0e0;
+  box-shadow: inset -1px -10px 20px 0px #f4376d94;
+  box-shadow: 1px -5px 20px 0px #f4376d94;
   height: 55px;
   display: flex;
   align-items: center;
@@ -42,12 +43,18 @@ export default {
   bottom: 0;
   left: 0;
   right: 0;
-  // text-align: center;
+  background-image: url(https://backgroundcheckall.com/wp-content/uploads/2017/12/trivia-background-1.jpg);
+  background-repeat: repeat-x;
+  background-position: inherit;
+  background-size: contain;
+  // z-index: ;
+
 }
 .app-footer {
   display: flex;
   align-items: center;
   justify-content: center;
+  color: #f4376d;
 }
 
 .icon-credit {

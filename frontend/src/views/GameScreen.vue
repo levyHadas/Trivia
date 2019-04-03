@@ -24,11 +24,11 @@
             transition="countdown--appear"
             v-cloak
           >
-            <svg class="countdown__circle" width="38" height="38">
+            <svg class="countdown__circle" width="50" height="50">
               <circle
                 v-if="this.isTimer"
                 cx="-1.5"
-                cy="-1.5"
+                cy="-10"
                 r="17"
                 transform="rotate(-180 8.5 8.5)"
               ></circle>
@@ -243,7 +243,7 @@ export default {
 
 <style scoped lang="scss">
 .quest-container {
-  margin: 20px auto;
+  margin: 50px auto;
   clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
   font-size: 32px;
 
@@ -258,7 +258,7 @@ export default {
 }
 .quest-txt {
   text-align: center;
-  // font-weight: bold;
+  padding-bottom: 20px;
 
 }    
 .quest-txt-single {
@@ -270,20 +270,25 @@ export default {
   text-align: center;
 }    
 
-
-
-
-
-button {
-  color: #435466;
-  font-size: 15px;
-  font-weight: 600;
-  background-color: #4dba87;
-  margin: auto;
-  width: 100px;
-  height: 50px;
-  border: #3b3561;
+.game-screen {
+  margin-right: 20px;
+  //should be only on desktop
 }
+
+
+
+
+
+// button {
+//   color: #435466;
+//   font-size: 15px;
+//   font-weight: 600;
+//   background-color: #4dba87;
+//   margin: auto;
+//   width: 100px;
+//   height: 50px;
+//   border: #3b3561;
+// }
 
 p {
   text-align: center;
@@ -347,26 +352,42 @@ p {
   text-align: center;
   vertical-align: middle;
   line-height: 60px;
+  box-shadow: -2px 3px 3px 0px #000000;
 }
 
 .answer:hover {
   cursor: pointer;
-  // text-shadow: 0px 0px 6px rgba(255, 255, 255, 1);
-  -webkit-box-shadow: 0px 5px 40px -10px rgba(0, 0, 0, 0.57);
-  -moz-box-shadow: 0px 5px 40px -10px rgba(0, 0, 0, 0.57);
+  box-shadow: -2px 3px 3px 0px #2f1457;
+  background-color: #4f1b9b;
+  // -webkit-box-shadow: 0px 5px 40px -10px rgba(0, 0, 0, 0.57);
+  // -moz-box-shadow: 0px 5px 40px -10px rgba(0, 0, 0, 0.57);
   transition: all 0.4s ease 0s;
-  box-shadow: 3px 3px 3px rgba(8, 58, 69, 0.7);
+  // box-shadow: 3px 3px 3px rgba(8, 58, 69, 0.7);
   // box-shadow: 4px 4px 4px rgba(83, 100, 255, 0.7);
 }
 .answer:active {
+  box-shadow: -2px 3px 3px 0px #2f1457;
+  // text-shadow: 0px 0px 6px rgba(255, 255, 255, 1);
   animation: nudge 0.4s linear;
 }
 
 .answerCorrect {
+  box-shadow: -3px 4px 4px 0px #00dbc9;
   background: #25f0e0;
+  color: black;
+}
+.answerCorrect:hover {
+  box-shadow: -3px 4px 4px 0px #00dbc9;
+  background: #25f0e0;
+  color: black;
 }
 
 .answerWrong {
+  box-shadow: -2px 2px 2px 0px #0e6d83;
+  background: #0e6d83;
+}
+.answerWrong:hover {
+  box-shadow: -2px 2px 2px 0px #0e6d83;
   background: #0e6d83;
 }
 
@@ -439,12 +460,12 @@ p {
   .countdown__circle {
     // @include xyCentered();
     -webkit-filter: drop-shadow(0px 0px 5px rgba(156, 28, 74, 0.3));
-    filter: drop-shadow(0px 0px 5px rgba(156, 28, 74, 0.5));
+    filter: drop-shadow(0px 0px 5px rgba(37, 240, 224, 0.7));
 
     circle {
       fill: none;
       stroke: #fff;
-      stroke-width: 3px;
+      stroke-width: 4px;
       stroke-dasharray: 106;
       stroke-dashoffset: -106;
       animation: dash 1s ease-in-out infinite forwards;
@@ -455,7 +476,7 @@ p {
     @include xyCentered();
 
     .number {
-      font-size: 18px;
+      font-size: 1.5rem;
     }
   }
 }

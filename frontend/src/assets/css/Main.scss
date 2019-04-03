@@ -1,33 +1,25 @@
 body {
-    // background: url("../2.jpg") no-repeat center center;
-    // background: url("../background2.jpeg") no-repeat center center;
-    // background: url("https://images.pexels.com/photos/688574/pexels-photo-688574.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940") no-repeat center center;
-    // background: url("https://images.unsplash.com/photo-1501349800519-48093d60bde0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80") no-repeat center center;
-	background-size: cover;
-	background-position: bottom;
+
 	box-sizing: border-box;
 	font-family: 'Cabin', sans-serif;
+	position: relative;
 
     &::before {
 		content: '';
 		  width: 100%;
 		  height: 100%;
-		  left: 0;
 		  position: absolute;
 		  opacity: 0.3;
-		//   background-image: url('https://static.vecteezy.com/system/resources/previews/000/092/926/original/question-mark-background-in-vector.jpg');
-		//   background-image: url('https://images.unsplash.com/photo-1496824000084-3b2dc58685d4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80');
 		  background-image: url('https://backgroundcheckall.com/wp-content/uploads/2017/12/trivia-background-1.jpg');
-		//   background-image: url('../2.jpg');
+	
 		//   background-image: url('../5.png');
 		//   background-image: url('./assets/5.png');
 		  z-index: -1;
 		  background-repeat: no-repeat;
-		  background-position: bottom;
+		  background-position: center;
 		  background-size: cover; 
-	   
-	  
 	 }
+
 
 
 }
@@ -43,7 +35,7 @@ a {
 }
 
 .main-container {
-	max-width: 900px;
+	max-width: 1100px;
 	margin: 0 auto;
 	padding: 0 30px;
 	// padding: 0 30px 30px 30px;
@@ -54,7 +46,7 @@ a {
 
 .header-footer-container {
 	padding: 0 30px;
-	max-width: 900px;
+	max-width: 1100px;
 	margin: 0 auto;
 	// padding: 0 40px;
 }
@@ -88,12 +80,13 @@ a {
 // }
 .game-branches {
 	display: flex;
-    justify-content: center;
+	justify-content: center;
+	align-items: start;
 }
 .waiting-modal-container {
 	margin: 0 auto;
 	display: flex;
-	max-width: 900px;
+	max-width: 1100px;
 	// height: calc(100vh - 170px);
 	height: 450px;
 	align-items: center;
@@ -130,7 +123,10 @@ a {
 		  }
 	}
 
-	  
+.players {
+		margin-left: 20px;
+		//should be only on desktop
+} 
 	  
 }
 

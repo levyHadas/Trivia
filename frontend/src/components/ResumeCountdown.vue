@@ -2,8 +2,8 @@
     <section class="count-down">
 
         <div class="resume-countdown">
-            <p v-if="counting">Party Continues in {{timeRemaining}} seconds. Join now!</p> 
-            <p v-else>Start!</p> 
+            <p v-if="counting">Party Continues in {{timeRemaining}} seconds. Hit 'Continue' to Join!</p> 
+            <p v-else>You missed the party (: <br/> Go home and join the next one...</p> 
         </div>
 
 
@@ -16,8 +16,11 @@ export default {
     data() {
         return {
             countDownInterval: null,
-            countDown: 11
+            countDown: 16
         }
+    },
+    beforeCreate() {
+        setTimout(() => {}, 1000)
     },
     created() {
     this.countDownInterval = 
@@ -55,23 +58,24 @@ export default {
 
 
 .resume-countdown {
-    color: black;
+    color: white;
     padding: 20px;
     font-size: 25px;
-    border-radius: 5px;
-    width: 250px;
-    height: 120px;
-    background-color: white;
-    border: 5px dashed #e4ff58;
+    border-radius: 27px;
+    width: 300px;
+    height: 190px;
+    background-color: #2f1457;
+    box-shadow: 1px 1px 7px 1px #2f1457;
     z-index: 50;
     margin: 50px auto;
     display: flex;
     align-items: center;
     justify-content: center;
-    top: -15px;
+    top: 8%;
     z-index: 37;
     position: absolute;
-    left: 30px;
+    left: 50%;
+    margin-left: -150px;
 }
 
 
