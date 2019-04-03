@@ -35,9 +35,8 @@ export default {
   box-shadow:5px -16px 12px 18px rgba(0, 0, 0, 0.32);
   align-items: center;
   opacity: 0.6;
-    // background: url("../assets/background3.jpeg") no-repeat center center;
-    // background-size: cover;
-    // background-position: 0 -383px;
+
+  z-index: 25;
 
 }
 
@@ -45,7 +44,8 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 100%
+  width: 100%;
+  z-index: 25;
 }
 
 .logo {

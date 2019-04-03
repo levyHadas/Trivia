@@ -1,13 +1,12 @@
 <template>
   <section class="summary-section">
     <div class="summary-container">
-      <h1>Game Summary</h1>
       <ul>
         <score-preview v-for="(score, idx) in myScores" :key="idx" :score="score"/>
       </ul>
       <div class="bts-container">
-        <button class="continue" @click="$emit('resumeGame')" focus>Continue</button>
-        <button class="new-topic" @click="$emit('selecteNewTopic')">New Topic</button>
+        <button class="btn continue" @click="$emit('resumeGame')" focus>Continue</button>
+        <button class="btn new-topic" @click="$emit('selecteNewTopic')">New Topic</button>
       </div>
     </div>
   </section>
@@ -30,7 +29,7 @@ export default {
 .summary-section {
   position: absolute;
   z-index: 1;
-  background-color: rgba(0, 0, 0, 0.447);
+  background-color: rgba(255, 255, 255, 0.2);
   width: 100vw;
   height: 100vh;
   top: 0;
@@ -39,24 +38,21 @@ export default {
 }
 .summary-container {
   width: 70%;
+  max-width: 800px;
   height: 70%;
-  margin: 100px 12vw;
+  margin: 90px auto;
   align-items: center;
   justify-content: space-evenly;
-  background-color: rgba(0, 0, 0, 0.747);
+  background-color: rgba(129, 176, 187, 0.8);
   z-index: 2;
   display: flex;
   flex-direction: column;
-  border-radius: 3%;
+  border-radius: 5px;
 
   button {
-    border-radius: 7%;
     position: block;
-    background-color: #339dff;
-    border: none;
-    padding: 15px;
+    background-color: #2f1457;
     color: white;
-    cursor: pointer;
   }
   .bts-container {
     display: flex;
@@ -83,6 +79,5 @@ export default {
 
 h1 {
   color:white;
-  font-weight: bold;
 }
 </style>

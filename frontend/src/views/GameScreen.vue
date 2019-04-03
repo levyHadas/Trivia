@@ -256,6 +256,8 @@ export default {
 }
 .quest-txt {
   text-align: center;
+  // font-weight: bold;
+
 }    
 .quest-txt-single {
   width: 80%;
@@ -347,11 +349,12 @@ p {
 
 .answer:hover {
   cursor: pointer;
-  text-shadow: 0px 0px 6px rgba(255, 255, 255, 1);
+  // text-shadow: 0px 0px 6px rgba(255, 255, 255, 1);
   -webkit-box-shadow: 0px 5px 40px -10px rgba(0, 0, 0, 0.57);
   -moz-box-shadow: 0px 5px 40px -10px rgba(0, 0, 0, 0.57);
   transition: all 0.4s ease 0s;
-  box-shadow: 0 4px 4px rgba(83, 100, 255, 0.32);
+  box-shadow: 3px 3px 3px rgba(8, 58, 69, 0.7);
+  // box-shadow: 4px 4px 4px rgba(83, 100, 255, 0.7);
 }
 .answer:active {
   animation: nudge 0.4s linear;

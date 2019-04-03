@@ -3,7 +3,7 @@
     <start-countdown v-if="ShowStartCountdown"/>
     <resume-countdown v-if="showResumeCountdown"/>
 
-    <div v-if="endOfRoundForMe" class="waiting-modal-container">
+    <div v-if="endOfRoundForMe && !endOfRoundForAll" class="waiting-modal-container">
       <wait-message class="waiting-for-others" 
         v-if="endOfRoundForMe"
         @goHome="goHome"/>
