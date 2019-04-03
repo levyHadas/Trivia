@@ -98,7 +98,6 @@ a {
 	height: 450px;
 	align-items: center;
 	justify-content: center;
-	padding: 0 35px 0 35px;
 	// background-color: green;
 	//in screen < 750, margin top
 
@@ -107,6 +106,7 @@ a {
 		background-position: center;
 		background-repeat: no-repeat; 
 		height: 400px;
+		max-width: 390px;
 		.msg {
 			
 			display: flex;
@@ -117,6 +117,7 @@ a {
 		h1 {
 			color: black;
 			font-size: 30px;
+			padding-bottom: 5px;
 		  }
 		
 		  button {
