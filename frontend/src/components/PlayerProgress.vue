@@ -56,7 +56,7 @@
       </li>
       <li
         class="ProgressBar-step"
-        :class="{'is-current': playerScores.length===4, 'is-complete': playerScores.length>3}"
+        :class="{'is-current': playerScores.length===5, 'is-complete': playerScores.length>4}"
       >
         <svg class="ProgressBar-icon" v-if="playerScores[5]">
           <use :class="{'show': playerScores[5].isCorrect }" xlink:href="#checkmark-bold"></use>
