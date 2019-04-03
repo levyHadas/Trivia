@@ -49,7 +49,7 @@ export default {
 }
 
 .logo {
-  color: white;
+  color: black;
   font-size: 1.8rem;
 }
 
