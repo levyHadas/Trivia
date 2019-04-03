@@ -54,6 +54,17 @@
         <svg class="ProgressBar-icon" v-else></svg>
         <span class="ProgressBar-stepLabel">Q5</span>
       </li>
+      <li
+        class="ProgressBar-step"
+        :class="{'is-current': playerScores.length===4, 'is-complete': playerScores.length>3}"
+      >
+        <svg class="ProgressBar-icon" v-if="playerScores[5]">
+          <use :class="{'show': playerScores[5].isCorrect }" xlink:href="#checkmark-bold"></use>
+          <use :class="{'show': playerScores[5].isCorrect===false }" xlink:href="#wrong-bold"></use>
+        </svg>
+        <svg class="ProgressBar-icon" v-else></svg>
+        <span class="ProgressBar-stepLabel">Q6</span>
+      </li>
     </ol>
 
     <ol v-else class="ProgressBar">
@@ -80,6 +91,12 @@
           <use xlink:href="#checkmark-bold"></use>
         </svg>
         <span class="ProgressBar-stepLabel">Q4</span>
+      </li>
+      <li class="ProgressBar-step">
+        <svg class="ProgressBar-icon">
+          <use xlink:href="#checkmark-bold"></use>
+        </svg>
+        <span class="ProgressBar-stepLabel">Q5</span>
       </li>
       <li class="ProgressBar-step">
         <svg class="ProgressBar-icon">

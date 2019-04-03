@@ -36,15 +36,14 @@ export default {
 
   methods: {
     async requestPartyGame() {
-    if (this.realUser()) {
+      if (this.realUser()) {
+        this.setPartyRequest()
+        return
+      }
+      var nickname = await swal("Enter Nickname", {content: "input",})
+      var user = this.$store.getters.currUser
+      this.$store.dispatch({type: 'updateUserNickname', nickname: nickname})
       this.setPartyRequest()
-      return
-    }
-    var nickname = await swal("Enter Nickname", {content: "input",})
-    var user = this.$store.getters.currUser
-    this.$store.dispatch({type: 'updateUserNickname', nickname: nickname})
-    this.setPartyRequest()
-    var temp = this.$store.getters.currUser
     },
 
     realUser() {
