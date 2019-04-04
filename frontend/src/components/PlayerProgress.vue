@@ -168,6 +168,13 @@ export default {
     font-size: 1.5rem;
     font-weight: bold;
 }
+@media (max-width: 550px) {
+
+  .player-nickname {
+    font-size: 1.1rem;
+  }
+
+}
 
 .playerProgress {
   max-height: 50px;

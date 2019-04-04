@@ -2,7 +2,10 @@
   <section  class="waiting-for-others">
       <!-- <img class="podium" src="../assets/podium.png" alt=""> -->
       <div class="msg-container">
-        <h1>You are quick! Waiting for others to finish</h1>
+        <div class="wait-txt">
+          <h1>You are quick!</h1>
+          <h1>Waiting for others to finish</h1>
+        </div>
         <!-- <p>(max waiting time is 60 seconds</p> -->
         <button class="btn goHome" @click="$emit('goHome')">Home</button>
 
@@ -24,13 +27,7 @@ beforeCreate() {
 </script>
 
 <style scoped lang="scss">
-.msg-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  height: 100%;
-}
+
 
 
 </style>

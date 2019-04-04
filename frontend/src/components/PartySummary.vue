@@ -108,19 +108,27 @@ export default {
     text-align: center;
     color: #f4376d;
     font-weight: bold;
+    @media (max-width: 500px) {
+      font-size: 1.5rem;
+      font-weight: 400;
+
+    }
+
   }
   .second {
-    grid-row-start: 5;
+    grid-row-start: 6;
     margin-left: 20px;
+    margin-bottom: 20px;
   }
   .first {
-    grid-row-start: 4;
+    grid-row-start: 5;
     grid-column-start: 2;
   }
   .third {
     margin-right: 20px;
-    grid-row-start: 5;
+    grid-row-start: 6;
     grid-column-start: 3;
+    margin-bottom: 20px;
   }
 }
 
