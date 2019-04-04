@@ -2,21 +2,23 @@
   <section>
     <start-countdown v-if="ShowStartCountdown"/>
     <!-- <resume-countdown/> -->
-    <resume-countdown v-if="showResumeCountdown"/>
+    <resume-countdown v-if="showResumeCountdown"
+      @askToContinue="askToContinue"
+      @goHome="goHome"
+      @dontContinue="dontContinue"/>
 
     <div v-if="endOfRoundForMe && !endOfRoundForAll & !endOfGameForMe" 
       class="waiting-modal-container">
         <wait-message class="waiting-for-others" 
           v-if="endOfRoundForMe"
           @goHome="goHome"/>
-      <!-- <wait-message /> -->
     </div>
 
     <party-summary
-      v-if="endOfRoundForAll || endOfGameForMe"
-      @askToContinue="askToContinue"
+      v-if="endOfRoundForAll || endOfGameForMe"/>
+      <!-- @askToContinue="askToContinue"
       @goHome="goHome"
-      @dontContinue="dontContinue"/>
+      @dontContinue="dontContinue" -->
   </section>
 </template>
 

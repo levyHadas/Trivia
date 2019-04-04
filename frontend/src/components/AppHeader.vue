@@ -35,7 +35,6 @@ export default {
   box-shadow:5px -16px 12px 18px rgba(0, 0, 0, 0.32);
   align-items: center;
   opacity: 0.6;
-
   z-index: 25;
 
 }

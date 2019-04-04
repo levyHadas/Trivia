@@ -20,8 +20,6 @@ body {
 		  background-size: cover; 
 	 }
 
-
-
 }
 
 .btn {
@@ -69,15 +67,9 @@ a {
 	}
 }
 
-// .waiting-modal-overlay {
-// 	position: absolute;
-// 	top: 65px;
-// 	left: 0;
-// 	width: 100vw;
-// 	height: calc(100vh - 140px);
-// 	background-color: rgba(255, 255, 255, 0.3);
-// 	z-index: 200;
-// }
+
+
+
 .game-branches {
 	display: flex;
 	justify-content: center;
@@ -87,46 +79,283 @@ a {
 	margin: 0 auto;
 	display: flex;
 	max-width: 1100px;
-	// height: calc(100vh - 170px);
-	height: 450px;
+	max-height: 450px;
 	align-items: center;
 	justify-content: center;
-	// background-color: green;
-	//in screen < 750, margin top
+	margin-top: 30px;
 
-	.waiting-for-others{
-		background: url('https://media.giphy.com/media/o5oLImoQgGsKY/giphy.gif');
-		background-position: center;
-		background-repeat: no-repeat; 
-		height: 400px;
-		max-width: 390px;
-		.msg {
-			
-			display: flex;
-			flex-direction: column;
-			justify-content: space-between;
-		}
-		
-		h1 {
-			color: black;
-			font-size: 30px;
-			padding-bottom: 5px;
-		  }
-		
-		  button {
-			position: block;
-			background-color: #0e6d83;
-			border: none;
-			padding: 15px;
-			color: white;
-			cursor: pointer;
-		  }
+}
+
+.waiting-for-others{
+	background: url('https://media.giphy.com/media/o5oLImoQgGsKY/giphy.gif');
+	background-position: center;
+	background-repeat: no-repeat; 
+	height: 420px;
+	max-width: 390px;
+	background-position-y: 80px;
+	
+	.msg-container {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		align-items: center;
+		height: 100%;
 	}
+
+	button {
+		position: block;
+		background-color: #0e6d83;
+		border: none;
+		padding: 15px;
+		color: white;
+		cursor: pointer;
+		}
+	.wait-txt {
+
+		text-align: center;
+	}
+	.wait-txt h1 {
+		font-size: 1.5rem;
+		padding: 5px;
+		display: inline-block;
+	}
+}
+
+
 
 .players {
 		margin-left: 20px;
-		//should be only on desktop
 } 
-	  
+
+
+
+.game-screen {
+  margin-right: 20px;
+
+  .quest-container {
+    margin: 50px auto 25px auto;
+    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+
+  }
+  .answer-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin: 0 auto;
+
+  }
+  .quest-txt {
+    text-align: center;
+		font-size: 2.3rem;
+		padding-top: 15px;
+
+  }    
+  .quest-txt-single {
+    width: 80%;
+    margin: 0 auto;
+  }    
+  .quest-txt-party {
+    max-width: 400px;
+    text-align: center;
+  }    
+
+
+
+  .timer {
+    font-size: 25px;
+  }
+
+  .redTimer {
+    color: red;
+  }
+
+  .Two {
+    font-size: 18px;
+  }
+
+  .One {
+    padding: 5px;
+    font-size: 30px;
+
+  }
+
+  .fadeOne-enter-active,
+  .fadeOne-leave-active {
+    transition: all 0.5s ease-out;
+  }
+  .fadeOne-enter,
+  .fadeOne-leave-to {
+    clip-path: polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%);
+    transform: translate(0%, 100%);
+  }
+
+  .fadeTwo-enter-active,
+  .fadeTwo-leave-active {
+    transition: all 0.5s ease-out;
+  }
+  .fadeTwo-enter,
+  .fadeTwo-leave-to {
+    clip-path: polygon(0% 100%, 100% 100%, 0% 100%, 0% 100%);
+    transform: translate(0%, -100%);
+  }
+
+  .answer {
+    margin-top: 20px;
+    background: #2f1457;
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.1rem;
+    border-radius: 30px;
+    -webkit-transition: all 0.3s;
+    transition: all 0.3s;
+    width: 350px;
+    height: 60px;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 60px;
+    box-shadow: -2px 3px 3px 0px #000000;
+  }
+
+  .answer:hover {
+    cursor: pointer;
+    box-shadow: -2px 3px 3px 0px #2f1457;
+    background-color: #4f1b9b;
+    transition: all 0.4s ease 0s;
+    
+  }
+  .answer:active {
+    box-shadow: -2px 3px 3px 0px #2f1457;
+    animation: nudge 0.4s linear;
+  }
+
+  .answerCorrect {
+    box-shadow: -3px 4px 4px 0px #00dbc9;
+    background: #25f0e0;
+    color: black;
+  }
+  .answerCorrect:hover {
+    box-shadow: -3px 4px 4px 0px #00dbc9;
+    background: #25f0e0;
+    color: black;
+  }
+
+  .answerWrong {
+    box-shadow: -2px 2px 2px 0px #0e6d83;
+    background: #0e6d83;
+  }
+  .answerWrong:hover {
+    box-shadow: -2px 2px 2px 0px #0e6d83;
+    background: #0e6d83;
+  }
+
 }
+
+.resume-countdown {
+	color: #2f1457;
+	font-size: 25px;
+	font-weight: bold;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	top: 22%;
+	z-index: 37;
+	position: absolute;
+	border: 3px solid #8d9ea6;
+	border-radius: 7px;
+	padding: 10px;
+	width: 300px;
+	
+
+	.txt {
+			margin: 5px 0;
+	}
+
+	.countdown-btn {
+	background-color: #0e6d83;
+	height: max-content;
+	color: white;
+	width: 80px;
+	margin: 5px 0;
+	align-self: flex-end
+	}
+}
+
+
+
+
+@media (max-width: 750px) {
+	.waiting-modal-container {
+		margin-top: 10px;
+	}
+	
+	.waiting-for-others{		
+
+	}	
+
+	.players {
+		margin: 25px 0;
+	}
+	.game-screen {
+		margin-right: 0;
+		.quest-container {
+			margin: 0 auto;
+			padding-top: 10px;
+		}
+		.quest-txt {
+			padding-top: 0;
+		}
+		.answer:hover {
+			box-shadow: -2px 3px 3px 0px #000000;
+			background-color: #2f1457;
+			transition: none;
+		}
+	}
+
+}
+
+
+@media (max-width: 500px) {
+	.game-screen {
+		.quest-txt {
+			font-size: 1.4rem;
+		}
+	}
+	.waiting-modal-container {
+		.waiting-for-others{	
+			height: 380px;
+			max-width: 390px;
+			background-position-y: 60px;	
+			button {
+				padding: 10px;
+			}
+			.wait-txt h1 {
+				font-size: 1.2rem;
+				padding: 4px;
+				width: 250px;
+					
+			}
+		}	
+	}
+
+	.resume-countdown {
+		width: 280px;
+		.txt {
+			margin: 5px 0;
+			font-size: 20px;
+		}
+		.countdown-btn {
+			padding: 8px;
+		}
+	}
+
+}
+@media (max-width: 390px) {
+	.resume-countdown {
+		margin-left: -157px
+	}
+
+}
+
 

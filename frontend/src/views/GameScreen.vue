@@ -1,5 +1,5 @@
 <template>
-  <div class="game-screen">
+  <section class="game-screen">
     <single-game
       v-if="!this.partyMode"
       @startGameInterval="startGameInterval"
@@ -57,7 +57,7 @@
         >{{answer}}</p>
       </div>
     </transition>
-  </div>
+  </section>
 </template>
 
 <script>
@@ -242,140 +242,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.quest-container {
-  margin: 50px auto;
-  clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
-  font-size: 32px;
-
-}
-.answer-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  margin: 0 auto;
-
-}
-.quest-txt {
-  text-align: center;
-  padding-bottom: 20px;
-
-}    
-.quest-txt-single {
-  width: 80%;
-  margin: 0 auto;
-}    
-.quest-txt-party {
-  max-width: 400px;
-  text-align: center;
-}    
-
-.game-screen {
-  margin-right: 20px;
-  //should be only on desktop
-}
 
 
-p {
-  text-align: center;
-  font-size: 2rem;
-  overflow: hidden;
-  color: black;
-}
-
-.timer {
-  font-size: 25px;
-}
-
-.redTimer {
-  color: red;
-}
-
-.Two {
-  font-size: 18px;
-}
-
-.One {
-  padding: 5px;
-  font-size: 30px;
-
-}
-
-
-
-
-.fadeOne-enter-active,
-.fadeOne-leave-active {
-  transition: all 0.5s ease-out;
-}
-.fadeOne-enter,
-.fadeOne-leave-to {
-  clip-path: polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%);
-  transform: translate(0%, 100%);
-}
-
-.fadeTwo-enter-active,
-.fadeTwo-leave-active {
-  transition: all 0.5s ease-out;
-}
-.fadeTwo-enter,
-.fadeTwo-leave-to {
-  clip-path: polygon(0% 100%, 100% 100%, 0% 100%, 0% 100%);
-  transform: translate(0%, -100%);
-}
-
-.answer {
-  margin-top: 20px;
-  background: #2f1457;
-  color: #fff;
-  text-decoration: none;
-  font-size: 1.1rem;
-  border-radius: 30px;
-  -webkit-transition: all 0.3s;
-  transition: all 0.3s;
-  width: 350px;
-  height: 60px;
-  text-align: center;
-  vertical-align: middle;
-  line-height: 60px;
-  box-shadow: -2px 3px 3px 0px #000000;
-}
-
-.answer:hover {
-  cursor: pointer;
-  box-shadow: -2px 3px 3px 0px #2f1457;
-  background-color: #4f1b9b;
-  // -webkit-box-shadow: 0px 5px 40px -10px rgba(0, 0, 0, 0.57);
-  // -moz-box-shadow: 0px 5px 40px -10px rgba(0, 0, 0, 0.57);
-  transition: all 0.4s ease 0s;
-  // box-shadow: 3px 3px 3px rgba(8, 58, 69, 0.7);
-  // box-shadow: 4px 4px 4px rgba(83, 100, 255, 0.7);
-}
-.answer:active {
-  box-shadow: -2px 3px 3px 0px #2f1457;
-  // text-shadow: 0px 0px 6px rgba(255, 255, 255, 1);
-  animation: nudge 0.4s linear;
-}
-
-.answerCorrect {
-  box-shadow: -3px 4px 4px 0px #00dbc9;
-  background: #25f0e0;
-  color: black;
-}
-.answerCorrect:hover {
-  box-shadow: -3px 4px 4px 0px #00dbc9;
-  background: #25f0e0;
-  color: black;
-}
-
-.answerWrong {
-  box-shadow: -2px 2px 2px 0px #0e6d83;
-  background: #0e6d83;
-}
-.answerWrong:hover {
-  box-shadow: -2px 2px 2px 0px #0e6d83;
-  background: #0e6d83;
-}
 
 @keyframes nudge {
   0% {
