@@ -2,14 +2,13 @@
   <div class="home">
     <section class="main">
       <div>
-        <h3>Global. Knowledge. Compete With Others</h3>
+        <h1>Global. Knowledge. Compete With Others</h1>
       </div>
       <div class="btn-container">
         <a href="#" class="btn" @click.once="requestPartyGame">Join The Party</a>
         <br>
         <a href="#" class="btn" @click="startSingleGame">Play Single</a>
       </div>
-
     </section>
   </div>
 </template>
@@ -17,7 +16,7 @@
 <script>
 import SocketService from "@/services/SocketService.js";
 import UserService from "@/services/UserService.js";
-import swal from 'sweetalert'
+import swal from "sweetalert";
 
 export default {
   name: "home",
@@ -37,13 +36,13 @@ export default {
   methods: {
     async requestPartyGame() {
       if (this.realUser()) {
-        this.setPartyRequest()
-        return
+        this.setPartyRequest();
+        return;
       }
-      var nickname = await swal("Enter Nickname", {content: "input",})
-      var user = this.$store.getters.currUser
-      this.$store.dispatch({type: 'updateUserNickname', nickname: nickname})
-      this.setPartyRequest()
+      var nickname = await swal("Enter Nickname", { content: "input" });
+      var user = this.$store.getters.currUser;
+      this.$store.dispatch({ type: "updateUserNickname", nickname: nickname });
+      this.setPartyRequest();
     },
 
     realUser() {
@@ -129,7 +128,6 @@ export default {
 <style scoped lang="scss">
 .home {
   // min-height: calc(100vh - 160px);
-
   img {
     width: 100%;
     // should be 10vh - header hight- footer
@@ -138,14 +136,14 @@ export default {
 
 .main {
   margin: 0 auto;
-	padding: 0 30px;
-	min-height: calc(100vh - 113px);
+  padding: 0 30px;
+  min-height: calc(100vh - 113px);
   display: flex;
   flex-direction: column;
   align-items: center;
   background: url(https://media.giphy.com/media/BHNfhgU63qrks/giphy.gif)
     no-repeat center center fixed;
-      // image-rendering: auto;
+  // image-rendering: auto;
   image-rendering: crisp-edges;
   // image-rendering: pixelated;
   background-size: cover;
@@ -153,16 +151,22 @@ export default {
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-  justify-content: center
+  justify-content: center;
 }
-h3 {
+h1 {
   color: white;
   -webkit-text-stroke-width: 0.7px;
   -webkit-text-stroke-color: black;
   border-radius: 20px;
-  font-size: 37px;
+  font-size: 2em;
   font-weight: bold;
   padding: 30px;
+}
+
+@media (min-width: 700px) {
+  h1 {
+    font-size: 4em;
+  }
 }
 
 header {
@@ -175,9 +179,6 @@ header {
   color: white;
   a {
     color: white;
-  }
-  h1 {
-    font-size: 60px;
   }
 }
 
