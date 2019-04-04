@@ -1,7 +1,9 @@
 <template>
   <section class="login main-container">
     <div class="space"></div>
-    <el-form @submit="login" class="form-container">
+    <el-form @submit="login" 
+     v-show="!isMenuOpen"
+    class="form-container">
         <el-input class="el-input" required 
             v-model="user.username" 
             placeholder="Username" clearable>
@@ -17,17 +19,17 @@
             login
         </el-button>
     </el-form>
-
   </section>
 </template>
 
-
-
 <script>
+import { Slide } from "vue-burger-menu";
 
 export default {
   name: 'Login',
-
+  props: {
+    isOpen: Boolean
+  },
   data() {
     return {
       user: {
@@ -53,6 +55,11 @@ export default {
     }
 
   },
+  computed: {
+    isMenuOpen () {
+      return this.$store.getters.isMenuOpen
+    }
+  }
  
 }
 </script>

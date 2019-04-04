@@ -5,54 +5,91 @@
         <h1 class="logo">Trivia.</h1>
       </router-link>
       <app-nav/>
-      <Slide right class="burger-menu2">
-        <a id="home" href="#">
+      <!-- <Push  @openMenu="emitMenuChange"
+        @closeMenu="emitMenuChange">
+        <router-link to="/">
           <span>Home</span>
-        </a>
-      </Slide>
-      <!-- <svg
-        @click="menuClicked"
-        aria-hidden="true"
-        focusable="false"
-        data-prefix="fas"
-        data-icon="bars"
-        class="svg-inline--fa fa-bars fa-w-14"
-        role="img"
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 448 512"
-      >
-        <path
-          fill="blue"
-          d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"
-        ></path>
-      </svg>-->
+        </router-link>
+
+        <router-link to="/signup">
+          <span>Sign Up</span>
+        </router-link>
+
+        <router-link to="/login" v-if="!realUser"
+        >
+          <span>Log In</span>
+        </router-link>
+        <button @click="navToCreateQuest" class="btn btn-nav">Create</button>
+
+        <router-link to="/logout" v-if="realUser">
+          <span>Log Out</span>
+        </router-link> -->
+        <router-link to="/logout" v-if="realUser">
+          <span>Log Out</span>
+        </router-link> -->
+      </Push> -->
+    
     </div>
   </header>
 </template>
 
 <script>
 import AppNav from "@/components/AppNav.vue";
-import { Slide } from "vue-burger-menu";
+import { Push } from "vue-burger-menu";
 
 export default {
   name: "Header",
   props: {
-    msg: String
+    msg: String,
   },
   components: {
     AppNav,
-    Slide
+    Push
   },
   methods: {
-    menuClicked() {
-      console.log("Menu clicked");
+    emitMenuChange(){
+      this.$store.commit('toggleMenu')
+    }
+  },
+  watch: {
+    isMenuOpen: function (oldVal, newVal) {
+      console.log('Menu open or closed');
+      // this.$store.commit()
+    }
+  },
+  computed: {
+    isMenuOpen (){
+      return this.isOpen
     }
   }
 };
 </script>
 
+<!-- Unscoped css -->
+<style lang="scss">
+.bm-menu {
+  background-color: #1c1c6d;
+}
+
+.bm-burger-button {
+  top: 15px;
+}
+.bm-overlay {
+    z-index:0; 
+    }
+@media (min-width: 700px) {
+  .bm-burger-button {
+    display: none;
+  }
+}
+</style>
+
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
+.toggle-menu {
+  position: absolute;
+  bottom: 150px;
+}
 .header-container {
   height: 55px;
   background-color: rgba(255, 255, 255, 0.9);
@@ -75,13 +112,5 @@ export default {
 .logo {
   color: black;
   font-size: 2.5rem;
-}
-.burger-menu2 {
-  
-}
-@media (min-width: 700px) {
-  .burger-menu2 {
-    display: none;
-  }
 }
 </style>

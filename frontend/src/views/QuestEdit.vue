@@ -1,6 +1,6 @@
 <template>
   <section v-if="isQuest" class="game-core main-container">
-    <el-form ref="form" label-width="120px" @submit.prevent="saveQuest">
+    <el-form ref="form" label-width="120px" @submit.prevent="saveQuest" v-show="!isMenuOpen">
       <el-form-item label="Question">
         <el-input v-model="questToEdit.txt" type="textarea"></el-input>
       </el-form-item>
@@ -20,7 +20,8 @@
       The Chosen Category is: {{questToEdit.category}}
       <br>
       <br>
-      <el-form-item label="Options">Option 1
+      <el-form-item label="Options">
+        Option 1
         <el-input v-model="questToEdit.answers[0]"></el-input>
         <br>Option 2
         <el-input v-model="questToEdit.answers[1]"></el-input>
@@ -60,7 +61,6 @@
   </section>
 </template>
 <script>
-
 export default {
   data() {
     return {
@@ -78,15 +78,18 @@ export default {
   async created() {
     var { questId } = this.$route.params;
     try {
-      let question = await this.$store.dispatch({ type: "loadQuest", questId })
+      let question = await this.$store.dispatch({ type: "loadQuest", questId });
       this.questToEdit = JSON.parse(JSON.stringify(question));
       this.tags =
-        this.questToEdit.tags.length > 0 ? this.questToEdit.tags.toString() : "";
-      let categoriesFromDB = await this.$store.dispatch({type:"loadFilterOptions"})
-      this.categories = categoriesFromDB.categories
-    }
-    catch (err) {
-      console.log('Not found', err)
+        this.questToEdit.tags.length > 0
+          ? this.questToEdit.tags.toString()
+          : "";
+      let categoriesFromDB = await this.$store.dispatch({
+        type: "loadFilterOptions"
+      });
+      this.categories = categoriesFromDB.categories;
+    } catch (err) {
+      console.log("Not found", err);
     }
   },
 
@@ -137,6 +140,9 @@ export default {
       if (!user._id) return false;
       if (user._id.includes("guest")) return false;
       return true;
+    },
+    isMenuOpen() {
+      return this.$store.getters.isMenuOpen;
     }
   },
   watch: {}

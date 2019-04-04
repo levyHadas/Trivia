@@ -5,18 +5,24 @@ const UserStore = ({
   state: {
     users: [],
     currUser: {},
+    isMenuOpen: false
   },
 
   mutations: {
 
-    setCurrUser(state, {user}) {
+    setCurrUser(state, { user }) {
       state.currUser = user
     },
+    toggleMenu(state) {
+      state.isMenuOpen = !state.isMenuOpen
+    }
 
   },
 
   getters: {
-
+    isMenuOpen(state) {
+      return state.isMenuOpen
+    },
     currUser(state) {
       return state.currUser
     },
@@ -27,12 +33,12 @@ const UserStore = ({
 
   actions: {
 
-    async login({ commit }, {user}) {
+    async login({ commit }, { user }) {
       const loggedUser = await UserService.login(user)
-      commit({ type: 'setCurrUser', user:loggedUser })
+      commit({ type: 'setCurrUser', user: loggedUser })
     },
 
-    async signup({ commit }, {user}) {
+    async signup({ commit }, { user }) {
       const newUser = await UserService.signup(user)
       return newUser
     },
@@ -45,34 +51,15 @@ const UserStore = ({
 
     async setLoggedUser({ commit }) {
       const loggedUser = await UserService.getLoggedUser()
-      commit({type: 'setCurrUser', user:loggedUser})
+      commit({ type: 'setCurrUser', user: loggedUser })
       return loggedUser
     },
 
-    updateUserNickname({ commit, getters }, {nickname}) {
+    updateUserNickname({ commit, getters }, { nickname }) {
       let user = getters.currUser
       user.nickname = nickname
-      commit({type: 'setCurrUser', user})
+      commit({ type: 'setCurrUser', user })
     },
-
-
-    
-
-
-
-
-    // loadUsers({ commit }, {filterBy}) {
-    //   return UserService.query(filterBy)
-    //     .then(users => {
-    //       commit({ type: 'setUsers', users })
-    //       return users
-    //     })
-    // },
-
-    // removeUser({ commit }, { userId }) {
-    //   return UserService.remove(userId)
-    //     .then(() => commit({ type: 'removeUser', userId }))
-    // },
 
 
   }

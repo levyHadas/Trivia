@@ -1,6 +1,6 @@
 <template>
-  <section class="playerProgress">
-    <p class="player-nickname"> {{playerNickname}} </p>
+  <section class="playerProgress" v-show="!isMenuOpen">
+    <p class="player-nickname">{{playerNickname}}</p>
     <ol v-if="playerScores[0]" class="ProgressBar">
       <li class="ProgressBar-step" :class="{'is-complete': playerScores[0]}">
         <svg class="ProgressBar-icon" v-if="playerScores[0]">
@@ -139,7 +139,10 @@ export default {
       return this.player.scores;
     },
     playerNickname() {
-      return this.player.nickname || this.player.username
+      return this.player.nickname || this.player.username;
+    },
+    isMenuOpen() {
+      return this.$store.getters.isMenuOpen;
     }
   },
   methods: {
@@ -151,29 +154,25 @@ export default {
     isCorrect(num) {
       return '<use xlink:href="#checkmark-bold"></use>';
       // <use v-else xlink:href="#wrong-bold"></use>
-    },
+    }
   },
   destroyed() {
     clearInterval(this.interval);
   }
-
 };
 </script>
 
 <style scoped lang="scss">
-
 .player-nickname {
-    text-align: center;
-    padding-bottom: 7px;
-    font-size: 1.5rem;
-    font-weight: bold;
+  text-align: center;
+  padding-bottom: 7px;
+  font-size: 1.5rem;
+  font-weight: bold;
 }
 @media (max-width: 550px) {
-
   .player-nickname {
     font-size: 1.1rem;
   }
-
 }
 
 .playerProgress {
@@ -182,8 +181,8 @@ export default {
 }
 //Variables
 // $blue: 	#083a45;
-$blue: 	#0e6d83;
-$orange: 	#f4376d;
+$blue: #0e6d83;
+$orange: #f4376d;
 $white: #dae6e5;
 $red: red;
 
@@ -248,14 +247,12 @@ $red: red;
     fill: $orange;
     background-color: $orange;
     border: 1px solid $orange;
-
   }
 
   .is-complete & {
     fill: $white;
     background-color: $orange;
     border: 1px solid $orange;
-
   }
 }
 

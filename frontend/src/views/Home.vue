@@ -151,7 +151,7 @@ export default {
   -o-background-size: cover;
   background-size: cover;
   justify-content: center;
-  h3 {
+  h1 {
     color: white;
     -webkit-text-stroke-width: 0.7px;
     -webkit-text-stroke-color: black;

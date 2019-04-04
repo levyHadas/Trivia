@@ -1,7 +1,8 @@
 <template>
   <!-- <section class="main"> -->
-  <section class="game-branches main-container">
-
+  <section class="game-branches 
+  main-container"
+   v-show="!isMenuOpen">
     <section v-if="isPartyMode" class="party-mode">
       <div class="party-players">
         <party-players :playersWithScores="playersWithScores"></party-players>
@@ -66,8 +67,10 @@ export default {
     },
     playersWithScores() {
       return this.$store.getters.playersWithScores
+    },
+    isMenuOpen () {
+      return this.$store.getters.isMenuOpen
     }
-
 
   },
   components: {
