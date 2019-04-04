@@ -6,10 +6,7 @@
           <div class="second">{{first}}</div>
           <div class="first">{{second}} </div>
           <div class="third">{{third}}</div>
-          <div class="bts-container">
-            <button class="btn continue" @click="$emit('askToContinue')" focus>Continue</button>
-            <button class="btn goHome" @click="$emit('goHome')">Home</button>
-          </div>
+
 
         </div>
       </div>
@@ -76,44 +73,31 @@ export default {
 <style scoped lang="scss">
 .summary-section {
   position: absolute;
-  // background-color: rgba(0, 0, 0, 0.247);
   width: 100vw;
-  height: 100vh;
-  top: 0;
+  height: calc(100vh - 110px);
+  top: 55px;
   left: 0;
-  z-index: 25;
+  z-index: 10;
+  background-color: black;
 }
 .summary-container {
- 
+    width: 88vw;
+    margin-left: 5vw;
 
-  button {
-    background-color: #0e6d83;
-    height: max-content;
-    color: white;
-    width: 80px;
-    // padding: 15px;
-  }
-  .bts-container {
-    display: flex;
-    justify-content: space-evenly;
-    grid-row-start: 8;
-    grid-column-start: 2;
-    align-items: center;
-  }
 
-  .btn.continue {
-    border: 1px solid white
-  }
  
 
   .pudium-container {
     background: url("../assets/podium2.jpg") no-repeat center center;
     background-size: cover;
-    max-width: 650px;
-    min-width: 300px;
-    height: calc(100vh - 110px);
-    margin: 55px auto 0 auto;
+    max-width: 900px;
+    max-height: 100vw;
+    height: calc(80vh - 110px);
+    margin: 0 auto;
     z-index: 20;
+    box-shadow: -1px 1px 11px 3px #5f6972;
+    border-radius: 10px;
+    margin-top: calc(5vh + 55px);
   }
   .winners-container {
     display: grid;

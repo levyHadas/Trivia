@@ -276,20 +276,6 @@ export default {
 }
 
 
-
-
-
-// button {
-//   color: #435466;
-//   font-size: 15px;
-//   font-weight: 600;
-//   background-color: #4dba87;
-//   margin: auto;
-//   width: 100px;
-//   height: 50px;
-//   border: #3b3561;
-// }
-
 p {
   text-align: center;
   font-size: 2rem;

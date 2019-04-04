@@ -4,17 +4,19 @@
     <!-- <resume-countdown/> -->
     <resume-countdown v-if="showResumeCountdown"/>
 
-    <div v-if="endOfRoundForMe && !endOfRoundForAll" class="waiting-modal-container">
-      <wait-message class="waiting-for-others" 
-        v-if="endOfRoundForMe"
-        @goHome="goHome"/>
+    <div v-if="endOfRoundForMe && !endOfRoundForAll & !endOfGameForMe" 
+      class="waiting-modal-container">
+        <wait-message class="waiting-for-others" 
+          v-if="endOfRoundForMe"
+          @goHome="goHome"/>
       <!-- <wait-message /> -->
-  
     </div>
+
     <party-summary
-      v-if="endOfRoundForAll"
+      v-if="endOfRoundForAll || endOfGameForMe"
       @askToContinue="askToContinue"
-      @goHome="goHome"/>
+      @goHome="goHome"
+      @dontContinue="dontContinue"/>
   </section>
 </template>
 
@@ -36,7 +38,8 @@ export default {
       show: false,
       startCountdown: false,
       resumeCountdown: false,
-      wishToContinue: false
+      wishToContinue: false,
+      endOfGameForMe: false
     }
   },
   
@@ -63,34 +66,35 @@ export default {
       this.wishToContinue = true
     },
 
-    resumeParty() {
-      SocketService.emit('resetAllScores')
-      SocketService.emit('startPartyTimer')
-      this.$emit('startGameInterval')
-    },
-
-
     goHome() {
-      SocketService.emit('resetAllScores')
       this.$router.push("/");
     },
 
     dontContinue() {
-      SocketService.emit('resetAllScores')
-      SocketService.emit("userLeftPartyPage");
+      this.wishToContinue = false
     },
 
+    resumeParty() {
+      SocketService.emit('startPartyTimer')
+      this.$emit('startGameInterval')
+    },
 
     startCountdownToResume() {
       this.resumeCountdown = true
       setTimeout(() => {
-        this.resumeCountdown = false
-        if (!this.wishToContinue) this.dontContinue() //for demo only
-        // if (!this.wishToContinue) this.goHome()
+        SocketService.emit('resetAllScores')
+        if (!this.wishToContinue) {
+          SocketService.emit("userLeftPartyPage");
+          this.endOfGameForMe = true
+          // this.goHome()
+          //for demo - do nothing!
+        } else {
+          this.resumeCountdown = false
+          this.resumeParty()
+        }
         this.endOfRound = false
         this.wishToContinue = false
-        this.resumeParty()
-      }, 15000)
+      }, 17500)
     },
 
     isAllDone() {
