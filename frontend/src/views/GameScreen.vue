@@ -131,6 +131,7 @@ export default {
     },
 
     checkAnswer(event, answerIdx) {
+      if (this.isTimer===false) return
       this.isTimer = false;
       clearInterval(this.timerInterval);
       var correctAnswerIdx = +this.thisQuestion.correctAnswerIdx;
