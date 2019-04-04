@@ -128,7 +128,6 @@ export default {
 
 <style scoped lang="scss">
 
-
 .home {
   img {
     width: 100%;

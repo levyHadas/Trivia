@@ -78,7 +78,7 @@ export default {
   top: 55px;
   left: 0;
   z-index: 10;
-  background-color: black;
+  background-color: #818e94;
 }
 .summary-container {
     width: 88vw;

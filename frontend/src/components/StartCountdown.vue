@@ -2,9 +2,11 @@
     <section class="count-down">
         <div class="countdown-bg">
 
-            <div class="time-holder">
-                {{timeRemaining}}
+            <div class="animation-container">
+
+                <p class="time-holder">{{timeRemaining}}</p>
             </div>
+                
 
         </div>
 
@@ -26,7 +28,7 @@ export default {
             setInterval(() => {
                 this.countDown--
                 if (this.countDown === 0) {
-                    this.countDown = 'Lets Party!'
+                    this.countDown = 'GO!'
                     clearInterval(this.countDownInterval)
                     this.countDownInterval = null
                 }
@@ -50,35 +52,77 @@ export default {
 <style scoped lang="scss">
 
 
+@import url('https://fonts.googleapis.com/css?family=Special+Elite');
 
 .countdown-bg {
-
   position: absolute;
-  z-index: 1;
-  background-color: rgba(245, 245, 245, 0.5);
   width: 100vw;
-  height: 100vh;
-  top: 0;
+  height: calc(100vh - 110px);
+  top: 55px;
   left: 0;
   z-index: 20;
+  background-color: #97dcdf;
 }
 
-.time-holder {
-    color: black;
-    padding: 20px;
-
+  .animation-container {
+    background: url("https://media.giphy.com/media/xUOxfjsW9fWPqEWouI/giphy.gif") no-repeat center center;
+    background-size: cover;
+    box-shadow: -1px 1px 11px 3px #5f6972;
     border-radius: 50%;
-    font-size: 50px;
-    background-color: white;
-    border: 5px dashed #e4ff58;
-    width: 200px;
-    height: 200px;
-    z-index: 2;
-    margin: 20vh auto;
+    
     display: flex;
     align-items: center;
-    justify-content: center
-}
+    justify-content: center;
+    width: 70vw;
+    height: 70vw;
+    z-index: -20;
+    // margin: 10vh auto;
+    margin: 12vh auto 20px auto;
+    max-width: 500px;
+    max-height: 500px;
+  }
+
+  .time-holder {
+    font-size: 80px;
+    text-align: center;
+    margin-bottom: 220px;
+    color: #2f1457;
+    font-family: 'Special Elite', cursive;
+    
+  }
+
+
+
+
+
+// .countdown-bg {
+
+//   position: absolute;
+//   z-index: 1;
+//   background-color: rgba(245, 245, 245, 0.5);
+//   width: 100vw;
+//   height: 100vh;
+//   top: 0;
+//   left: 0;
+//   z-index: 20;
+// }
+
+// .time-holder {
+//     color: black;
+//     padding: 20px;
+
+//     border-radius: 50%;
+//     font-size: 50px;
+//     background-color: white;
+//     border: 5px dashed #e4ff58;
+//     width: 200px;
+//     height: 200px;
+//     z-index: 2;
+//     margin: 20vh auto;
+//     display: flex;
+//     align-items: center;
+//     justify-content: center
+// }
 
 
 </style>

@@ -55,7 +55,7 @@ export default {
       this.show = true;
       this.startCountdown = false;
       this.$emit('startGameInterval');
-    }, 4000);
+    }, 4500);
   },
 
   destroyed() {

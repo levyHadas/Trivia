@@ -182,7 +182,7 @@ export default {
 }
 //Variables
 // $blue: 	#083a45;
-$blue: 	#0e6d83;
+$blue: 	#344043;
 $orange: 	#f4376d;
 $white: #dae6e5;
 $red: red;
@@ -232,12 +232,11 @@ $red: red;
 }
 
 .ProgressBar-icon {
-  width: 1.5em;
-  height: 1.5em;
+  width: 1.45em;
+  height: 1.45em;
   background-color: $blue;
   fill: $white;
   border-radius: 50%;
-  // padding: 0.1em;
   max-width: 100%;
   z-index: 10;
   position: relative;
