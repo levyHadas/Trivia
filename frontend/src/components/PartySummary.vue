@@ -90,7 +90,7 @@ export default {
   .pudium-container {
     background: url("../assets/podium2.jpg") no-repeat center center;
     background-size: cover;
-    max-width: 900px;
+    max-width: 750px;
     max-height: 100vw;
     height: calc(80vh - 110px);
     margin: 0 auto;
