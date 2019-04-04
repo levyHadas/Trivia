@@ -6,8 +6,8 @@
       <div class="joke-box" id="animate-area">
         <p v-html="joke"  @click="killInterval"></p>
       </div>
-
     </div>
+    
   </section>
 </template>
 <script>
@@ -52,26 +52,32 @@ export default {
 
 
 .section-container {
-
   background-image: url('https://media.giphy.com/media/5QSIcVPpTj9r7RXbNb/giphy.gif');
   background-repeat: no-repeat;
-  background-size: cover;
+  /* background-size: cover; */
   background-position: center;
 }
 
 .waitroom-container {
+  width: 420px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
 
+@media (max-width: 481px){
+.waitroom-container {
+  width: auto;
+
+}
 
 }
 
 
 .joke-box {
-  width: 100%;
-  max-width: 600px;;
+  /* width: 100%; */
+  /* max-width: 600px; */
   margin-left: auto;
   margin-right: auto;
   margin-top: 300px;

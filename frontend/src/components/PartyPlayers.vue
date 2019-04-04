@@ -26,6 +26,16 @@ export default {
 
   computed: {
     playersProgress() {
+      if (!this.$store.getters.playersWithScores.length) return this.$store.getters.playersWithScores
+      var playersWithScores = JSON.parse(JSON.stringify(this.$store.getters.playersWithScores)) 
+      console.log(playersWithScores)
+      var user = this.$store.getters.currUser
+      var userIdx = playersWithScores.findIndex(player => player._id === user._id)
+      var user = playersWithScores[userIdx]
+      playersWithScores.splice(userIdx, 1)
+      playersWithScores.unshift(user)
+      console.log(playersWithScores)
+      return playersWithScores
       return this.$store.getters.playersWithScores
     }
   }

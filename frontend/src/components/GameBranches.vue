@@ -90,7 +90,8 @@ export default {
 }
 
 .single-mode {
-  margin-top: 30px;
+  margin-top: 55px;
+  min-width: 100%;
 }
 
 

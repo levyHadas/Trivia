@@ -1,6 +1,6 @@
 <template>
   <section class="playerProgress">
-    <p> {{playerNickname}} </p>
+    <p class="player-nickname"> {{playerNickname}} </p>
     <ol v-if="playerScores[0]" class="ProgressBar">
       <li class="ProgressBar-step" :class="{'is-complete': playerScores[0]}">
         <svg class="ProgressBar-icon" v-if="playerScores[0]">
@@ -56,7 +56,7 @@
       </li>
       <li
         class="ProgressBar-step"
-        :class="{'is-current': playerScores.length===4, 'is-complete': playerScores.length>3}"
+        :class="{'is-current': playerScores.length===5, 'is-complete': playerScores.length>4}"
       >
         <svg class="ProgressBar-icon" v-if="playerScores[5]">
           <use :class="{'show': playerScores[5].isCorrect }" xlink:href="#checkmark-bold"></use>
@@ -151,7 +151,7 @@ export default {
     isCorrect(num) {
       return '<use xlink:href="#checkmark-bold"></use>';
       // <use v-else xlink:href="#wrong-bold"></use>
-    }
+    },
   },
   destroyed() {
     clearInterval(this.interval);
@@ -161,14 +161,21 @@ export default {
 </script>
 
 <style scoped lang="scss">
+
+.player-nickname {
+    text-align: center;
+    padding-bottom: 7px;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
 .playerProgress {
   max-height: 50px;
-  padding: 10px;
+  padding: 10px 0 40px 0;
 }
 //Variables
-// $gray: #9f9fa3;
-$blue: 	#083a45;
-// $blue: #00637c;
+// $blue: 	#083a45;
+$blue: 	#0e6d83;
 $orange: 	#f4376d;
 $white: #dae6e5;
 $red: red;

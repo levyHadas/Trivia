@@ -65,7 +65,8 @@ export default {
   padding: 5px;
   font-size: 0.8rem;
   margin: 0 5px;
-  background-color: #0e6d83;
+  background-color: #008eb0;
+  // background-color: #0e6d83;
   color: white;
 
   &:last-of-type() {

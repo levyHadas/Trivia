@@ -2,9 +2,8 @@
   <section  class="waiting-for-others">
       <!-- <img class="podium" src="../assets/podium.png" alt=""> -->
       <div class="msg-container">
-        <h1>You are quick!</h1>
-        <h1>Waiting for others to finish</h1>
-        <p>(max waiting time is 60 seconds</p>
+        <h1>You are quick! Waiting for others to finish</h1>
+        <!-- <p>(max waiting time is 60 seconds</p> -->
         <button class="btn goHome" @click="$emit('goHome')">Home</button>
 
       </div>
@@ -17,7 +16,9 @@
 import ScorePreview from "@/components/ScorePreview";
 
 export default {
- 
+beforeCreate() {
+  setTimeout(() => {},1500)
+}, 
 
 }
 </script>

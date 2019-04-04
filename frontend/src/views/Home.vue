@@ -1,16 +1,17 @@
 <template>
-  <div class="home">
-    <section class="main">
+  <section class="home">
+    <div class="main">
       <div>
         <h1>Global. Knowledge. Compete With Others</h1>
       </div>
       <div class="btn-container">
-        <a href="#" class="btn" @click.once="requestPartyGame">Join The Party</a>
+        <a href="#" class="btn play-btn" @click.once="requestPartyGame">Join The Party</a>
         <br>
-        <a href="#" class="btn" @click="startSingleGame">Play Single</a>
+        <a href="#" class="btn play-btn" @click="startSingleGame">Play Single</a>
       </div>
-    </section>
-  </div>
+
+    </div>
+  </section>
 </template>
 
 <script>
@@ -127,17 +128,15 @@ export default {
 
 <style scoped lang="scss">
 .home {
-  // min-height: calc(100vh - 160px);
   img {
     width: 100%;
-    // should be 10vh - header hight- footer
   }
 }
 
+
 .main {
   margin: 0 auto;
-  padding: 0 30px;
-  min-height: calc(100vh - 113px);
+	min-height: calc(100vh - 113px);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -152,61 +151,34 @@ export default {
   -o-background-size: cover;
   background-size: cover;
   justify-content: center;
-}
-h1 {
-  color: white;
-  -webkit-text-stroke-width: 0.7px;
-  -webkit-text-stroke-color: black;
-  border-radius: 20px;
-  font-size: 2em;
-  font-weight: bold;
-  padding: 30px;
-}
-
-@media (min-width: 700px) {
-  h1 {
-    font-size: 4em;
-  }
-}
-
-header {
-  height: 30px;
-  overflow: hidden;
-  display: flex;
-  justify-content: space-around;
-  padding: 30px;
-  background-color: #ffb400;
-  color: white;
-  a {
+  h3 {
     color: white;
+    -webkit-text-stroke-width: 0.7px;
+    -webkit-text-stroke-color: black;
+    border-radius: 20px;
+    font-size: 50px;
+    font-weight: bold;
+    padding: 30px;
   }
 }
 
-.button {
-  cursor: pointer;
-  display: inline-block;
-  margin-right: 10px;
-  background: rgb(253, 47, 83);
-  color: #fff;
-  text-decoration: none;
-  font-size: 20px;
-  line-height: 38px;
-  border-radius: 50px;
-  -webkit-transition: all 0.3s;
-  transition: all 0.3s;
-  width: 170px;
-  text-align: center;
-  padding: 10px;
-  margin-top: 10px;
-}
+// header {
+//   height: 30px;
+//   overflow: hidden;
+//   display: flex;
+//   justify-content: space-around;
+//   padding: 30px;
+//   // background-color: #ffb400;
+//   color: white;
+//   a {
+//     color: white;
+//   }
+//   h1 {
+//     font-size: 60px;
+//   }
+// }
 
-.button:hover {
-  background: #fff;
-  color: #339dff;
-  box-shadow: 0 4px 4px rgba(83, 100, 255, 0.32);
-}
-
-.btn {
+.play-btn {
   padding: 10px;
   margin-top: 25px;
   width: 330px;
@@ -216,8 +188,8 @@ header {
   border-radius: 8px;
   color: #fff;
   // font-family: "Indie Flower", cursive;
-  font-size: 35px;
-  font-weight: normal;
+  font-size: 40px;
+  font-weight: bold;
   text-decoration: none;
   text-align: center;
   display: inline-block;

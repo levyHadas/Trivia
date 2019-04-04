@@ -1,19 +1,22 @@
 <template>
   <section>
     <start-countdown v-if="ShowStartCountdown"/>
+    <!-- <resume-countdown/> -->
     <resume-countdown v-if="showResumeCountdown"/>
 
-    <div v-if="endOfRoundForMe && !endOfRoundForAll" class="waiting-modal-container">
-      <wait-message class="waiting-for-others" 
-        v-if="endOfRoundForMe"
-        @goHome="goHome"/>
+    <div v-if="endOfRoundForMe && !endOfRoundForAll & !endOfGameForMe" 
+      class="waiting-modal-container">
+        <wait-message class="waiting-for-others" 
+          v-if="endOfRoundForMe"
+          @goHome="goHome"/>
       <!-- <wait-message /> -->
-  
     </div>
+
     <party-summary
-      v-if="endOfRoundForAll"
+      v-if="endOfRoundForAll || endOfGameForMe"
       @askToContinue="askToContinue"
-      @goHome="goHome"/>
+      @goHome="goHome"
+      @dontContinue="dontContinue"/>
   </section>
 </template>
 
@@ -24,7 +27,9 @@ import SocketService from "@/services/SocketService.js";
 import StartCountdown from "@/components/StartCountdown";
 import ResumeCountdown from "@/components/ResumeCountdown";
 import WaitMessage from "@/components/WaitMessage";
+
 const NUM_OF_QUESTS = 6
+
 export default {
   name: "Question",
   props: ['myScores'],
@@ -33,7 +38,8 @@ export default {
       show: false,
       startCountdown: false,
       resumeCountdown: false,
-      wishToContinue: false
+      wishToContinue: false,
+      endOfGameForMe: false
     }
   },
   
@@ -60,28 +66,35 @@ export default {
       this.wishToContinue = true
     },
 
+    goHome() {
+      this.$router.push("/");
+    },
+
+    dontContinue() {
+      this.wishToContinue = false
+    },
+
     resumeParty() {
-      SocketService.emit('resetAllScores')
       SocketService.emit('startPartyTimer')
       this.$emit('startGameInterval')
     },
 
-
-    goHome() {
-      SocketService.emit('resetAllScores')
-      this.$router.push("/");
-    },
-
-
     startCountdownToResume() {
       this.resumeCountdown = true
       setTimeout(() => {
-        this.resumeCountdown = false
-        if (!this.wishToContinue) this.goHome()
+        SocketService.emit('resetAllScores')
+        if (!this.wishToContinue) {
+          SocketService.emit("userLeftPartyPage");
+          this.endOfGameForMe = true
+          // this.goHome()
+          //for demo - do nothing!
+        } else {
+          this.resumeCountdown = false
+          this.resumeParty()
+        }
         this.endOfRound = false
         this.wishToContinue = false
-        this.resumeParty()
-      }, 10000)
+      }, 17500)
     },
 
     isAllDone() {
