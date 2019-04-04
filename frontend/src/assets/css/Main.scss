@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Merriweather:300,400');
+
 body {
 
 	box-sizing: border-box;
@@ -69,12 +71,14 @@ a {
 
 
 
-
+//Game Branches
 .game-branches {
 	display: flex;
 	justify-content: center;
 	align-items: start;
 }
+
+//waiting for others to finish game - waiting msg
 .waiting-modal-container {
 	margin: 0 auto;
 	display: flex;
@@ -85,7 +89,6 @@ a {
 	margin-top: 30px;
 
 }
-
 .waiting-for-others{
 	background: url('https://media.giphy.com/media/o5oLImoQgGsKY/giphy.gif');
 	background-position: center;
@@ -128,7 +131,7 @@ a {
 } 
 
 
-
+//Game Screen
 .game-screen {
   margin-right: 20px;
 
@@ -205,7 +208,7 @@ a {
     background: #2f1457;
     color: #fff;
     text-decoration: none;
-    font-size: 1.1rem;
+    font-size: 1.3rem;
     border-radius: 30px;
     -webkit-transition: all 0.3s;
     transition: all 0.3s;
@@ -214,7 +217,9 @@ a {
     text-align: center;
     vertical-align: middle;
     line-height: 60px;
-    box-shadow: -2px 3px 3px 0px #000000;
+		box-shadow: -2px 3px 3px 0px #000000;
+		font-family: 'Merriweather', serif;
+		font-weight: 300;
   }
 
   .answer:hover {
@@ -251,6 +256,8 @@ a {
 
 }
 
+
+//Continue party - resum counter+party summary
 .resume-countdown {
 	color: #2f1457;
 	font-size: 25px;
@@ -345,6 +352,9 @@ a {
 			padding: 8px;
 		}
 	}
+
+
+	
 
 }
 @media (max-width: 390px) {

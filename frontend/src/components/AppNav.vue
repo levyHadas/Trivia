@@ -61,11 +61,10 @@ export default {
 
 .btn-nav {
   width: 80px;
-  height: 30px;
-  padding: 5px;
-  font-size: 0.8rem;
+  padding: 8px;
+  font-size: 0.95rem;
   margin: 0 5px;
-  background-color: #008eb0;
+  background-color: #2d0e5b;
   color: white;
 
   &:last-of-type() {

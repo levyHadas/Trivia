@@ -1,6 +1,6 @@
 <template>
   <section class="home">
-    <div class="main">
+    <div class="home-main">
       <div>
         <h3>Global. Knowledge. Compete With Others</h3>
       </div>
@@ -127,15 +127,16 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.home {
 
+
+.home {
   img {
     width: 100%;
   }
 }
 
 
-.main {
+.home-main {
   margin: 0 auto;
 	min-height: calc(100vh - 113px);
   display: flex;
@@ -163,22 +164,6 @@ export default {
   }
 }
 
-// header {
-//   height: 30px;
-//   overflow: hidden;
-//   display: flex;
-//   justify-content: space-around;
-//   padding: 30px;
-//   // background-color: #ffb400;
-//   color: white;
-//   a {
-//     color: white;
-//   }
-//   h1 {
-//     font-size: 60px;
-//   }
-// }
-
 .play-btn {
   padding: 10px;
   margin-top: 25px;
@@ -188,7 +173,6 @@ export default {
   background-color: #0e6d83;
   border-radius: 8px;
   color: #fff;
-  // font-family: "Indie Flower", cursive;
   font-size: 40px;
   font-weight: bold;
   text-decoration: none;
@@ -410,5 +394,26 @@ pre {
 
 .party-padding {
   padding: 5px;
+}
+
+
+@media (max-width: 500px) {
+  .home-main {
+		h3 {
+			font-size: 40px;
+    }
+    .play-btn {
+      padding: 10px;
+      margin-top: 25px;
+      width: 250px;
+      height: 50px;
+      line-height: 50px;
+      background-color: #0e6d83;
+      border-radius: 8px;
+      color: #fff;
+      font-size: 30px;
+      font-weight: normal;
+    }
+  }
 }
 </style>
