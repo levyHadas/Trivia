@@ -46,7 +46,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.playerProgress {
+.player-progress {
 max-height: 50px;
 padding:10px;
 }

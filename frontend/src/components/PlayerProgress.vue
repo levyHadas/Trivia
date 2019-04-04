@@ -1,5 +1,5 @@
 <template>
-  <section class="playerProgress">
+  <section class="player-progress">
     <p class="player-nickname"> {{playerNickname}} </p>
     <ol v-if="playerScores[0]" class="ProgressBar">
       <li class="ProgressBar-step" :class="{'is-complete': playerScores[0]}">
@@ -168,18 +168,30 @@ export default {
     font-size: 1.5rem;
     font-weight: bold;
 }
+
+.player-progress {
+  max-height: 50px;
+  padding: 10px 0 40px 0;
+}
+
 @media (max-width: 550px) {
 
   .player-nickname {
     font-size: 1.1rem;
   }
+  .single-mode .player-progress  {
+    padding: 20px 0 20px 0;;
+  }
+  .single-mode {
+    margin-bottom: 30px;
+    margin-top: 0;
+  }  
 
 }
 
-.playerProgress {
-  max-height: 50px;
-  padding: 10px 0 40px 0;
-}
+
+
+
 //Variables
 // $blue: 	#083a45;
 $blue: 	#344043;

@@ -103,13 +103,18 @@ export default {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 0.5fr 0.5fr 0.5fr 0.5fr 1fr 1fr;
-    font-size: 2.5rem;
+    font-size: 3rem;
     height: 100%;
     text-align: center;
     color: #f4376d;
     font-weight: bold;
+    font-family: 'Merriweather', serif;
+    @media (max-width: 750px) {
+      font-size: 2.4rem;
+      font-weight: 400;
+    }
     @media (max-width: 500px) {
-      font-size: 1.5rem;
+      font-size: 1.4rem;
       font-weight: 400;
 
     }

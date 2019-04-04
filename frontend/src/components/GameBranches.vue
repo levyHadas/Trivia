@@ -85,13 +85,19 @@ export default {
   align-items: center;
   flex-direction: row-reverse;
   flex-wrap: wrap-reverse;
-  //at screen < 740 - add margin bottom of 55px  
-  //also add margin top of 20px for the progress bar
 }
 
 .single-mode {
   margin-top: 55px;
   min-width: 100%;
+}
+
+@media (max-width: 550px) {
+  .single-mode {
+    margin-bottom: 30px;
+    margin-top: 0;
+  }  
+
 }
 
 
