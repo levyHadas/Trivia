@@ -23,10 +23,10 @@
 
         <router-link to="/logout" v-if="realUser">
           <span>Log Out</span>
-        </router-link> -->
+        </router-link>
         <router-link to="/logout" v-if="realUser">
           <span>Log Out</span>
-        </router-link> -->
+        </router-link>
       </Push> -->
     
     </div>
