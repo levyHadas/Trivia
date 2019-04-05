@@ -6,8 +6,6 @@
           <div class="second">{{first}}</div>
           <div class="first">{{second}} </div>
           <div class="third">{{third}}</div>
-
-
         </div>
       </div>
     </div>
@@ -84,9 +82,6 @@ export default {
     width: 88vw;
     margin-left: 5vw;
 
-
- 
-
   .pudium-container {
     background: url("../assets/podium2.jpg") no-repeat center center;
     background-size: cover;
@@ -98,6 +93,7 @@ export default {
     box-shadow: -1px 1px 11px 3px #5f6972;
     border-radius: 10px;
     margin-top: calc(5vh + 55px);
+		animation: zoomIn .5s linear;
   }
   .winners-container {
     display: grid;
@@ -118,7 +114,6 @@ export default {
       font-weight: 400;
 
     }
-
   }
   .second {
     grid-row-start: 6;
@@ -137,8 +132,25 @@ export default {
   }
 }
 
-h1 {
-  color:white;
-  font-weight: bold;
+
+.zoomIn {
+  -webkit-animation-name: zoomIn;
+  animation-name: zoomIn;
 }
+
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    -webkit-transform: scale3d(0.3, 0.3, 0.3);
+    transform: scale3d(0.3, 0.3, 0.3);
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+
+
+
 </style>

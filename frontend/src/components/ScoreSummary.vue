@@ -31,11 +31,10 @@ export default {
   z-index: 1;
   background-color: rgba(255, 255, 255, 0.2);
   width: 100vw;
-  // height: calc(100vh - 110px);
+  height: calc(100vh - 110px);
   top: 55px;
   left: 0;
   z-index: 10;
-  height: fit-content;
 }
 
 .summary-container {
@@ -80,7 +79,6 @@ export default {
   .summary-container {
     margin: 0 auto;
     height: inherit;
-    // height: 79%;
 
     ul {
       grid-gap: 20px;

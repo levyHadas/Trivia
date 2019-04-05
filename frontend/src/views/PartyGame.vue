@@ -15,7 +15,7 @@
     </div>
 
     <party-summary
-      v-if="endOfRoundForAll || endOfGameForMe"/>
+      v-if="endOfRoundForAll || endOfGameForMe || dontDestroySummary"/>
       <!-- @askToContinue="askToContinue"
       @goHome="goHome"
       @dontContinue="dontContinue" -->
@@ -41,7 +41,8 @@ export default {
       startCountdown: false,
       resumeCountdown: false,
       wishToContinue: false,
-      endOfGameForMe: false
+      endOfGameForMe: false,
+      dontDestroy: false
     }
   },
   
@@ -73,6 +74,7 @@ export default {
     },
 
     dontContinue() {
+      this.dontDestroy = true
       this.wishToContinue = false
     },
 
@@ -128,7 +130,6 @@ export default {
       if (this.endOfRound) {
         this.endOfRound = false
         this.$store.dispatch({type:'setPartyTimeUp', isTimeUp:false})
-
         this.startCountdownToResume()
         return true
       }
@@ -138,6 +139,9 @@ export default {
     showResumeCountdown() {
       return this.resumeCountdown
     },
+    dontDestroySummary() {
+      return this.dontDestroy
+    }
     
   },
 

@@ -42,6 +42,7 @@
           <br>
           <div class="quest-txt" 
             v-html="thisQuestion.txt"
+            v-if="shouldShowQestion"
             :class="(partyMode)? 'quest-txt-party' : 'quest-txt-single'"></div>
         </div>
       </div>
@@ -88,7 +89,8 @@ export default {
       partyCountDown: false,
       partyMode: false,
       partyStartTime: Date.now(),
-      isPartyOver: false
+      isPartyOver: false,
+      showQuestion: true
     };
   },
   created() {
@@ -121,6 +123,8 @@ export default {
       this.myScores = [];
       this.isOver = false;
       this.counter=0;
+      this.$store.dispatch({type:'setPartyTimeUp', isTimeUp:false})
+
     },
 
     playSound(sound) {
@@ -159,6 +163,7 @@ export default {
       if (this.partyMode) this.reportChangeInScores();
     },
     nextQuestion() {
+
       this.updateProgress(this.myScores);
       if (this.quests.length === 1) {
         this.counter = NUM_OF_QUESTS;
@@ -171,8 +176,12 @@ export default {
           this.isTimerLessThen10 = false;
           this.timer = 1500;
           this.isTimer = true;
+          this.showQuestion = false
+          setTimeout(() => {
+            this.showQuestion = true
+          }, 500)
           this.startInterval()
-        }, 2100);
+        }, 1800);
       }
     },
 
@@ -201,7 +210,6 @@ export default {
     pauseGame() {
       this.show = false;
       clearInterval(this.timerInterval);
-      // this.counter = 0;
     }
   },
 
@@ -226,6 +234,9 @@ export default {
       var playersWithScores = this.$store.getters.playersWithScores
       if (!playersWithScores) return {}
       return playersWithScores
+    },
+    shouldShowQestion() {
+      return this.showQuestion
     }
   },
 
@@ -246,19 +257,7 @@ export default {
 
 
 
-@keyframes nudge {
-  0% {
-    transform: rotate(-7deg);
-  }
 
-  33% {
-    transform: rotate(7deg);
-  }
-
-  66% {
-    transform: rotate(-7deg);
-  }
-}
 
 //
 

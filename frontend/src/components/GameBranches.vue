@@ -85,6 +85,8 @@ export default {
   align-items: center;
   flex-direction: row-reverse;
   flex-wrap: wrap-reverse;
+	margin-top: 40px;
+
 }
 
 .single-mode {
@@ -92,13 +94,34 @@ export default {
   min-width: 100%;
 }
 
-@media (max-width: 550px) {
+@media ( max-width: 1100px)  {
+  .party-mode {
+    margin-top: 30px;
+  }
+}
+
+@media ( max-height: 800px)  {
+  .single-mode {
+    margin-bottom: 60px;
+    margin-top: 0;
+  }  
+  .party-mode {
+    margin-bottom: 60px;
+    margin-top: 20px;
+  }
+}
+
+@media ( max-width: 550px ) {
   .single-mode {
     margin-bottom: 30px;
     margin-top: 0;
-  }  
+  } 
+  .party-mode {
+    margin-top: 10px;
+  }
 
 }
+
 
 
 

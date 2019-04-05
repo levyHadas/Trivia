@@ -19,9 +19,6 @@
 import ScorePreview from "@/components/ScorePreview";
 
 export default {
-beforeCreate() {
-  setTimeout(() => {},1500)
-}, 
 
 }
 </script>

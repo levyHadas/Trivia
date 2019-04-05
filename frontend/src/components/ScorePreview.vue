@@ -77,7 +77,7 @@ export default {
   font-size: 1.7rem;
 }
 
-@media (max-width: 680px) {
+@media (max-width: 850px) {
   .quest-score-container {
     grid-gap: 25px;
     width: 90%;

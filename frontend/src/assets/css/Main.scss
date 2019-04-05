@@ -96,6 +96,7 @@ a {
 	height: 420px;
 	max-width: 390px;
 	background-position-y: 80px;
+	animation: jackInTheBox 0.7s linear;
 	
 	.msg-container {
 		display: flex;
@@ -136,7 +137,7 @@ a {
   margin-right: 20px;
 
   .quest-container {
-    // margin: 50px auto 25px auto;
+		// margin: 50px auto 25px auto;
     clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
 
   }
@@ -152,7 +153,7 @@ a {
     text-align: center;
 		font-size: 2.3rem;
 		padding-top: 15px;
-
+		animation: slideInUp .3s linear;
   }    
   .quest-txt-single {
     width: 80%;
@@ -162,8 +163,6 @@ a {
     max-width: 400px;
     text-align: center;
   }    
-
-
 
   .timer {
     font-size: 25px;
@@ -257,7 +256,10 @@ a {
 }
 
 
+
+
 //Continue party - resum counter+party summary
+
 .resume-countdown {
 	color: #2f1457;
 	font-size: 25px;
@@ -273,26 +275,88 @@ a {
 	border-radius: 7px;
 	padding: 10px;
 	width: 300px;
-	
+	animation: zoomIn 0.4s linear;
 
 	.txt {
 			margin: 5px 0;
 	}
 
 	.countdown-btn {
-	background-color: #0e6d83;
-	height: max-content;
-	color: white;
-	width: 80px;
-	margin: 5px 0;
-	align-self: flex-end
+		background-color: #0e6d83;
+		height: max-content;
+		color: white;
+		width: 80px;
+		margin: 5px 0;
+		align-self: flex-end;
 	}
 }
 
+@keyframes nudge {
+  0% {
+    transform: rotate(-7deg);
+  }
+
+  33% {
+    transform: rotate(7deg);
+  }
+
+  66% {
+    transform: rotate(-7deg);
+  }
+}
+@keyframes slideInUp {
+  from {
+    -webkit-transform: translate3d(0, 100%, 0);
+    transform: translate3d(0, 100%, 0);
+    visibility: visible;
+  }
+
+  to {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    -webkit-transform: scale3d(0.3, 0.3, 0.3);
+    transform: scale3d(0.3, 0.3, 0.3);
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes jackInTheBox {
+  from {
+    opacity: 0;
+    -webkit-transform: scale(0.1) rotate(30deg);
+    transform: scale(0.1) rotate(30deg);
+    -webkit-transform-origin: center bottom;
+    transform-origin: center bottom;
+  }
+
+  50% {
+    -webkit-transform: rotate(-10deg);
+    transform: rotate(-10deg);
+  }
+
+  70% {
+    -webkit-transform: rotate(3deg);
+    transform: rotate(3deg);
+  }
+
+  to {
+    opacity: 1;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+}
 
 
-
-@media (max-width: 750px) {
+@media (max-width: 820px) {
 	.waiting-modal-container {
 		margin-top: 10px;
 	}
@@ -339,6 +403,9 @@ a {
 					
 			}
 		}	
+	}
+	.hide-quest {
+		display: none;
 	}
 
 	.resume-countdown {
