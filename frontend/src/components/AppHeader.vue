@@ -54,13 +54,9 @@ export default {
   top: 15px;
 }
 .bm-overlay {
-  z-index: 0;
-}
-@media (min-width: 700px) {
-  .bm-burger-button {
-    display: none;
-  }
-}
+      background:red;
+    }
+
 </style>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

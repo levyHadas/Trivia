@@ -1,15 +1,16 @@
 <template>
   <section class="home">
     <div class="main">
-      <div>
-        <h1>Global. Knowledge. Compete With Others</h1>
-      </div>
-      <div class="btn-container">
-        <a href="#" class="btn play-btn" @click.once="requestPartyGame">Join The Party</a>
-        <br>
-        <a href="#" class="btn play-btn" @click="startSingleGame">Play Single</a>
-      </div>
-
+      <template v-if="!isMenuOpen">
+        <div>
+          <h1>Global. Knowledge. Compete With Others</h1>
+        </div>
+        <div class="btn-container">
+          <a href="#" class="btn play-btn" @click.once="requestPartyGame">Join The Party</a>
+          <br>
+          <a href="#" class="btn play-btn" @click="startSingleGame">Play Single</a>
+        </div>
+      </template>
     </div>
   </section>
 </template>
@@ -116,6 +117,9 @@ export default {
       if (this.state) {
         return "active";
       }
+    },
+    isMenuOpen() {
+      return this.$store.getters.isMenuOpen;
     }
   },
   watch: {
@@ -133,10 +137,9 @@ export default {
   }
 }
 
-
 .main {
   margin: 0 auto;
-	min-height: calc(100vh - 113px);
+  min-height: calc(100vh - 113px);
   display: flex;
   flex-direction: column;
   align-items: center;
