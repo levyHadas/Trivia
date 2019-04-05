@@ -1,5 +1,5 @@
 <template>
-  <section class="game-screen">
+  <section class="game-screen" :class="scoresInFocus">
     <single-game
       v-if="!this.partyMode"
       @startGameInterval="startGameInterval"
@@ -90,7 +90,8 @@ export default {
       partyMode: false,
       partyStartTime: Date.now(),
       isPartyOver: false,
-      showQuestion: true
+      showQuestion: true,
+      showScores: false
     };
   },
   created() {
@@ -169,19 +170,30 @@ export default {
         this.counter = NUM_OF_QUESTS;
         console.log("1");
       } else {
-        this.timeoutNextQuestion = setTimeout(() => {
+        setTimeout(() => {
+          
           this.$store.dispatch({ type: "nextQuest" });
           this.question = this.$store.getters.currQuest;
           this.isOver = false;
           this.isTimerLessThen10 = false;
           this.timer = 1500;
           this.isTimer = true;
-          this.showQuestion = false
-          setTimeout(() => {
-            this.showQuestion = true
-          }, 500)
-          this.startInterval()
-        }, 1800);
+
+          if (this.partyMode  && !this.endOfRound) { //show scores for 3 seconds
+            this.showScores = true
+            setTimeout(() => {
+              this.showScores = false
+              this.startInterval()
+            }, 1800)
+          }
+          else { //remove and put back the section so there will be animation
+            this.showQuestion = false
+            setTimeout(() => {
+              this.showQuestion = true
+            }, 10)
+          }
+
+        }, 1200);
       }
     },
 
@@ -237,6 +249,11 @@ export default {
     },
     shouldShowQestion() {
       return this.showQuestion
+    },
+    scoresInFocus() {
+      console.log(this.showScores)
+      if (this.showScores) return 'hide-quest-section'
+      return ''
     }
   },
 

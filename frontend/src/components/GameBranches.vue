@@ -6,9 +6,7 @@
       <div class="party-players">
         <party-players :playersWithScores="playersWithScores"></party-players>
       </div>
-      <div class="game">
-        <game-screen @updateProgress="sendProgress"></game-screen>
-      </div>
+      <game-screen @updateProgress="sendProgress"></game-screen>
     </section>
 
     <section v-else class="single-mode">

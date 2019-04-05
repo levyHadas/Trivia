@@ -133,8 +133,11 @@ a {
 
 
 //Game Screen
+.hide-quest-section {
+	display: none;
+}
 .game-screen {
-  margin-right: 20px;
+	margin-right: 20px;
 
   .quest-container {
 		// margin: 50px auto 25px auto;
@@ -404,7 +407,7 @@ a {
 			}
 		}	
 	}
-	.hide-quest {
+	.hide-quest-section {
 		display: none;
 	}
 
