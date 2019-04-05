@@ -24,6 +24,7 @@
 </template>
 
 <script>
+
 export default {
   name: "Navbar",
   props: {
@@ -59,6 +60,31 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 
+
+.btn-nav {
+  width: 80px;
+  height: 30px;
+  padding: 5px;
+  font-size: 0.8rem;
+  margin: 0 5px;
+  // background-color: #008eb0;
+  // color: white;
+
+  // &:last-of-type() {
+  //   margin: 0;
+  // }
+
+}
+
+.btn-container {
+  display: flex;
+  flex-direction: column;
+  // align-items: center;
+}
+
+
+@media (min-width: 700px) {
+  
 .btn-nav {
   width: 80px;
   height: 30px;
@@ -76,7 +102,10 @@ export default {
 
 .btn-container {
   display: flex;
+  flex-direction: row;
   align-items: center;
+}
+
 }
 
 </style>

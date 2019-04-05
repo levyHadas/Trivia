@@ -3,7 +3,7 @@
       <app-header></app-header>
       <div class="bg">
         <router-view/>
-
+        <window-size/>
       </div>
       <app-footer></app-footer>
       <link href="https://fonts.googleapis.com/css?family=Cabin|PT+Sans" rel="stylesheet">
@@ -14,6 +14,7 @@
 import AppNav from "@/components/AppNav.vue";
 import AppHeader from "@/components/AppHeader.vue";
 import AppFooter from "@/components/AppFooter.vue";
+import WindowSize from "@/components/WindowSize.vue";
 
 import SocketService from "@/services/SocketService.js";
 import UserService from "@/services/UserService.js";
@@ -24,7 +25,8 @@ export default {
   components: {
     AppNav,
     AppHeader,
-    AppFooter
+    AppFooter,
+    WindowSize
   },
 
   async created() {

@@ -5,7 +5,6 @@ const UserStore = ({
   state: {
     users: [],
     currUser: {},
-    isMenuOpen: false
   },
 
   mutations: {
@@ -13,16 +12,9 @@ const UserStore = ({
     setCurrUser(state, { user }) {
       state.currUser = user
     },
-    toggleMenu(state) {
-      state.isMenuOpen = !state.isMenuOpen
-    }
-
   },
 
   getters: {
-    isMenuOpen(state) {
-      return state.isMenuOpen
-    },
     currUser(state) {
       return state.currUser
     },

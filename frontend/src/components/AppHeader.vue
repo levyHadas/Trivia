@@ -4,62 +4,41 @@
       <router-link to="/">
         <h1 class="logo">Trivia.</h1>
       </router-link>
-      <app-nav/>
-      <!-- <Push  @openMenu="emitMenuChange"
-        @closeMenu="emitMenuChange">
-        <router-link to="/">
-          <span>Home</span>
-        </router-link>
-
-        <router-link to="/signup">
-          <span>Sign Up</span>
-        </router-link>
-
-        <router-link to="/login" v-if="!realUser"
-        >
-          <span>Log In</span>
-        </router-link>
-        <button @click="navToCreateQuest" class="btn btn-nav">Create</button>
-
-        <router-link to="/logout" v-if="realUser">
-          <span>Log Out</span>
-        </router-link>
-        <router-link to="/logout" v-if="realUser">
-          <span>Log Out</span>
-        </router-link>
-      </Push> -->
-    
+      <Slide v-if="windowWidth < 700" right @openMenu="emitMenuChange" @closeMenu="emitMenuChange">
+        <app-nav/>
+      </Slide>
+      <app-nav v-else/>
     </div>
   </header>
 </template>
 
 <script>
 import AppNav from "@/components/AppNav.vue";
-import { Push } from "vue-burger-menu";
+import { Slide } from "vue-burger-menu";
 
 export default {
   name: "Header",
   props: {
-    msg: String,
+    msg: String
   },
   components: {
     AppNav,
-    Push
+    Slide
+  },
+  data() {
+    return {
+      realUser: true
+    };
   },
   methods: {
-    emitMenuChange(){
-      this.$store.commit('toggleMenu')
+    emitMenuChange() {
+      this.$store.commit("toggleMenu");
     }
   },
-  watch: {
-    isMenuOpen: function (oldVal, newVal) {
-      console.log('Menu open or closed');
-      // this.$store.commit()
-    }
-  },
+
   computed: {
-    isMenuOpen (){
-      return this.isOpen
+    windowWidth() {
+      return this.$store.getters.windowWidth;
     }
   }
 };
@@ -75,8 +54,8 @@ export default {
   top: 15px;
 }
 .bm-overlay {
-    z-index:0; 
-    }
+  z-index: 0;
+}
 @media (min-width: 700px) {
   .bm-burger-button {
     display: none;
