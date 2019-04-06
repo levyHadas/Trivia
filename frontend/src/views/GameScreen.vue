@@ -85,7 +85,6 @@ export default {
       counter: 0,
       isTimerLessThen10: false,
       myScores: [], //only this user scores
-      // playersWithScores: [], //all scores
       partyCountDown: false,
       partyMode: false,
       partyStartTime: Date.now(),
@@ -168,9 +167,8 @@ export default {
       this.updateProgress(this.myScores);
       if (this.quests.length === 1) {
         this.counter = NUM_OF_QUESTS;
-        console.log("1");
       } else {
-        setTimeout(() => {
+        setTimeout(() => { //show result for 1.5 secs
           
           this.$store.dispatch({ type: "nextQuest" });
           this.question = this.$store.getters.currQuest;
@@ -179,21 +177,14 @@ export default {
           this.timer = 1500;
           this.isTimer = true;
 
-          if (this.partyMode  && !this.endOfRound) { //show scores for 3 seconds
+          if (this.partyMode  && !this.endOfRound) { //scores in focus for 2 seconds
             this.showScores = true
             setTimeout(() => {
               this.showScores = false
               this.startInterval()
-            }, 1800)
+            }, 1700)
           }
-          else { //remove and put back the section so there will be animation
-            this.showQuestion = false
-            setTimeout(() => {
-              this.showQuestion = true
-            }, 10)
-          }
-
-        }, 1200);
+        }, 1500);
       }
     },
 
@@ -251,7 +242,6 @@ export default {
       return this.showQuestion
     },
     scoresInFocus() {
-      console.log(this.showScores)
       if (this.showScores) return 'hide-quest-section'
       return ''
     }

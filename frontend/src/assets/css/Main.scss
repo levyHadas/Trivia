@@ -125,14 +125,31 @@ a {
 	}
 }
 
-
-
 .players {
 		margin-left: 20px;
-} 
+}
+
 
 
 //Game Screen
+.hide-quest-section + div {
+	margin-top: 40px;
+	background-color: #ffffff;
+	padding: 50px 50px 50px 30px;
+	box-shadow: -1px 0px 20px 12px #666666;
+	border-radius: 10px;
+	border: .5px solid #f4376d;
+}
+@media (max-width: 550px) {
+	.hide-quest-section + div {
+		margin-top: 10px;
+		background-color: #ffffff;
+		padding: 10px;
+		box-shadow: -1px 0px 20px 12px #666666;
+		border-radius: 10px;
+		border: .5px solid #f4376d;
+	}
+}
 .hide-quest-section {
 	display: none;
 }
@@ -359,7 +376,7 @@ a {
 }
 
 
-@media (max-width: 820px) {
+@media (max-width: 800px) {
 	.waiting-modal-container {
 		margin-top: 10px;
 	}
@@ -407,9 +424,7 @@ a {
 			}
 		}	
 	}
-	.hide-quest-section {
-		display: none;
-	}
+
 
 	.resume-countdown {
 		width: 280px;

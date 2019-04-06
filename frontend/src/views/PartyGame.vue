@@ -98,7 +98,7 @@ export default {
         }
         this.endOfRound = false
         this.wishToContinue = false
-      }, 17500)
+      }, 16500)
     },
 
     isAllDone() {
