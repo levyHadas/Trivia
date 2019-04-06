@@ -61,9 +61,8 @@ export default {
   font-family: "Cabin", sans-serif;
 }
 .btn.btn-nav {
-  background-color: none;
-  padding: 20px;
-  margin: 20px;
+  padding: 0 0 0 90px;
+  margin: 5px;
   background: 0%;
   color: white;
   font-size: 2em;

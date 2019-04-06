@@ -30,6 +30,10 @@ export default {
       realUser: true
     };
   },
+  created () {
+    console.log('Created');
+    
+  },
   methods: {
     emitMenuChange() {
       this.$store.commit("toggleMenu");
@@ -50,7 +54,7 @@ export default {
   background-color: #1c1c6d;
 }
 
-.bm-burger-button {
+div.bm-burger-button {
   top: 15px;
 }
 

@@ -18,6 +18,7 @@ export default {
         type: "setWidthSize", 
         windowWidth: window.innerWidth
       })
+      if (window.innerWidth > 700) this.$store.commit('setMenuStatToFalse')
     }
   }
 };

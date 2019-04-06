@@ -13,6 +13,9 @@
    },
    setWidthSize(state, {windowWidth}) {
      state.windowWidth = windowWidth
+   },
+   setMenuStatToFalse(state) {
+    state.isMenuOpen = false
    }
 
   },
