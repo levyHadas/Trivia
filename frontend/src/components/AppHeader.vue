@@ -32,6 +32,8 @@ export default {
   },
   methods: {
     emitMenuChange() {
+      console.log('menu change');
+      
       this.$store.commit("toggleMenu");
     }
   },
