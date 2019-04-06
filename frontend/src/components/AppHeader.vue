@@ -4,7 +4,7 @@
       <router-link to="/">
         <h1 class="logo">Trivia.</h1>
       </router-link>
-      <Slide v-if="windowWidth < 700" right @openMenu="emitMenuChange" @closeMenu="emitMenuChange">
+      <Slide v-if="windowWidth < 700" right @openMenu="emitMenuChange" @closeMenu="emitMenuChange" disableEsc>
         <app-nav/>
       </Slide>
       <app-nav v-else/>

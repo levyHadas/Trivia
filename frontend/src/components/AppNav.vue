@@ -57,6 +57,9 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
+* {
+  font-family: "Cabin", sans-serif;
+}
 .btn.btn-nav {
   background-color: none;
   padding: 20px;
@@ -73,22 +76,18 @@ export default {
   }
 }
 @media (min-width: 700px) {
-  .btn-nav {
-    width: 80px;
-    height: 30px;
+
+  .btn.btn-nav {
     padding: 8px;
-    font-size: 0.95rem;
+    font-weight: 900;
+    font-size: 1.5em;
     margin: 0 5px;
     background-color: #0e6d83;
-    color: white;
+    color:white;
     &:last-of-type() {
       margin: 0;
     }
   }
-  .btn-container {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-  }
+ 
 }
 </style>
