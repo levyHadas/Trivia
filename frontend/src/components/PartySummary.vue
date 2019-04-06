@@ -3,8 +3,8 @@
     <div class="summary-container">
       <div class="pudium-container">
         <div class="winners-container">
-          <div class="second">{{first}}</div>
-          <div class="first">{{second}} </div>
+          <div class="second">{{second}}</div>
+          <div class="first">{{first}} </div>
           <div class="third">{{third}}</div>
         </div>
       </div>

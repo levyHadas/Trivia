@@ -29,7 +29,7 @@ export default {
     this.countDownInterval = 
         setInterval(() => {
             this.countDown--
-            if (this.countDown === 2) {
+            if (this.countDown === 0) {
                 clearInterval(this.countDownInterval)
                 this.countDownInterval = null
                 //for demo only
