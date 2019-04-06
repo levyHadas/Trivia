@@ -1,6 +1,6 @@
 <template>
   <section class="section-container">
-    <div class="main-container waitroom-container">
+    <div class="main-container waitroom-container" :class="{'scale-down':isMenuOpen}">
       <p class="waiting">Waiting for friends to join the party<span>.</span><span>.</span><span>.</span></p>
       <!-- <h6>Welcome to our lounge, we'll do our best to fullfill your time while you wait.<br/>In the meanwhile here are some Chuck Norris jokes to ease the wait</h6> -->
       <div class="joke-box" id="animate-area">
@@ -43,7 +43,11 @@ export default {
       this.jokeInterval = null
     }
   },
-  computed: {},
+  computed: {
+     isMenuOpen() {
+      return this.$store.getters.isMenuOpen;
+    }
+  },
   watch: {}
 };
 </script>

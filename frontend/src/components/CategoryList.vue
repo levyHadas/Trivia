@@ -1,6 +1,7 @@
 <template>
   <section>
-    <ul class="category-container">
+    <ul class="category-container"
+      :class="{'scale-down': isMenuOpen}">
       <category-preview
         v-for="(category,idx) in categories"
         :key="idx"
@@ -27,7 +28,12 @@ export default {
     emitSelection(filter) {
       this.$emit("categorySelected", filter);
     }
-  }
+  },
+  computed: {
+    isMenuOpen () {
+      return this.$store.getters.isMenuOpen
+    }
+  }	  
 };
 </script>
 

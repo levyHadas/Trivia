@@ -1,15 +1,14 @@
 <template>
   <section class="home">
     <div class="home-main">
-      <div>
-        <h3>Global. Knowledge. Compete With Others</h3>
+        <div :class="{'scale-down': isMenuOpen}">
+        <h3 >Global. Knowledge. Compete With Others</h3>
       </div>
-      <div class="btn-container">
+      <div class="btn-container" :class="{'scale-down': isMenuOpen}">
         <a href="#" class="btn play-btn" @click.once="requestPartyGame">Join The Party</a>
         <br>
         <a href="#" class="btn play-btn" @click="startSingleGame">Play Single</a>
       </div>
-
     </div>
   </section>
 </template>
@@ -17,7 +16,7 @@
 <script>
 import SocketService from "@/services/SocketService.js";
 import UserService from "@/services/UserService.js";
-import swal from 'sweetalert'
+import swal from "sweetalert";
 
 export default {
   name: "home",
@@ -37,13 +36,13 @@ export default {
   methods: {
     async requestPartyGame() {
       if (this.realUser()) {
-        this.setPartyRequest()
-        return
+        this.setPartyRequest();
+        return;
       }
-      var nickname = await swal("Enter Nickname", {content: "input",})
-      var user = this.$store.getters.currUser
-      this.$store.dispatch({type: 'updateUserNickname', nickname: nickname})
-      this.setPartyRequest()
+      var nickname = await swal("Enter Nickname", { content: "input" });
+      var user = this.$store.getters.currUser;
+      this.$store.dispatch({ type: "updateUserNickname", nickname: nickname });
+      this.setPartyRequest();
     },
 
     realUser() {
@@ -116,6 +115,9 @@ export default {
       if (this.state) {
         return "active";
       }
+    },
+    isMenuOpen() {
+      return this.$store.getters.isMenuOpen;
     }
   },
   watch: {
@@ -127,23 +129,21 @@ export default {
 </script>
 
 <style scoped lang="scss">
-
 .home {
   img {
     width: 100%;
   }
 }
 
-
 .home-main {
   margin: 0 auto;
-	min-height: calc(100vh - 113px);
+  min-height: calc(100vh - 113px);
   display: flex;
   flex-direction: column;
   align-items: center;
   background: url(https://media.giphy.com/media/BHNfhgU63qrks/giphy.gif)
     no-repeat center center fixed;
-      // image-rendering: auto;
+  // image-rendering: auto;
   image-rendering: crisp-edges;
   // image-rendering: pixelated;
   background-size: cover;
@@ -162,6 +162,7 @@ export default {
     padding: 30px;
   }
 }
+
 
 .play-btn {
   padding: 10px;
@@ -395,11 +396,10 @@ pre {
   padding: 5px;
 }
 
-
 @media (max-width: 500px) {
   .home-main {
-		h3 {
-			font-size: 40px;
+    h3 {
+      font-size: 40px;
     }
     .play-btn {
       padding: 10px;
