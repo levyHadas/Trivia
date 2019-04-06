@@ -88,7 +88,8 @@ export default {
 }
 .joke-box p {
   font-size: 1.5em;
-  font-family: 'PT Sans', sans-serif;
+  font-family: 'Merriweather', serif;
+  /* font-family: 'PT Sans', sans-serif; */
 }
 
 .waiting {
