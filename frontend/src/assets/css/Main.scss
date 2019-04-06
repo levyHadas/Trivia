@@ -27,6 +27,18 @@ body {
 
 }
 
+.swal-modal {  // Enter Nickname box - joining the "party"
+  background-color: rgba(199, 223, 255, 0.95);
+	border: 2px solid #3D928C;
+	position: relative;
+	top: 70px;
+}
+.swal-button {
+    background-color: #3D928C;
+}
+.swal-overlay {
+		background-color: rgba(199, 223, 255, 0.5);
+}
 .scale-down {  // On Mobile Menu Opening
   opacity: 0.3;
   z-index: 0;
