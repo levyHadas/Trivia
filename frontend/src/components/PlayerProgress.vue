@@ -1,5 +1,6 @@
 <template>
-  <section class="player-progress">
+  <section class="player-progress"
+   :class="{'scale-down': isMenuOpen}">
     <p class="player-nickname"> {{playerNickname}} </p>
     <ol v-if="playerScores[0]" class="ProgressBar">
       <li class="ProgressBar-step" :class="{'is-complete': playerScores[0]}">
@@ -140,7 +141,10 @@ export default {
     },
     playerNickname() {
       return this.player.nickname || this.player.username
-    }
+    },
+    isMenuOpen() {
+      return this.$store.getters.isMenuOpen;
+    }	
   },
   methods: {
     startInterval() {

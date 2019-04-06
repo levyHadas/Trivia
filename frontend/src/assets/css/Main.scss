@@ -24,6 +24,11 @@ body {
 
 }
 
+.scale-down {  // On Mobile Menu Opening
+  opacity: 0.3;
+  z-index: 0;
+ transform: scale(0.6) translate(-140px, 0px)
+}
 .btn {
 	border-radius: 5px;
 	cursor: pointer;
