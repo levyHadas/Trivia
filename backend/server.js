@@ -75,7 +75,7 @@ function _joinPlayers(socket, user) {
 function _startPartyTimer() {
   setTimeout(() => {
     io.to('room1').emit('timeUp')
-  }, 90*1000)
+  }, (6*20+(5*1.7)+(6*1.5) )*1000)
 }
 
 io.on('connection', socket => {
