@@ -24,14 +24,12 @@ export default {
             wishToContinue: false
         }
     },
-    beforeCreate() {
-        setTimeout(() => {}, 1000)
-    },
+  
     created() {
     this.countDownInterval = 
         setInterval(() => {
             this.countDown--
-            if (this.countDown === 0) {
+            if (this.countDown === 2) {
                 clearInterval(this.countDownInterval)
                 this.countDownInterval = null
                 //for demo only

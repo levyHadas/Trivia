@@ -2,10 +2,10 @@
   <!-- <section class="main"> -->
   <section class="game-branches main-container" :class="{'scale-down': isMenuOpen}">
     <section v-if="isPartyMode" class="party-mode">
+      <game-screen @updateProgress="sendProgress"></game-screen>
       <div class="party-players">
         <party-players :playersWithScores="playersWithScores"></party-players>
       </div>
-      <game-screen @updateProgress="sendProgress"></game-screen>
     </section>
 
     <section v-else class="single-mode">
@@ -76,9 +76,10 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: row-reverse;
-  flex-wrap: wrap-reverse;
-  margin-top: 40px;
+  flex-direction: row;
+  // flex-direction: row-reverse;
+	margin-top: 40px;
+
 }
 
 .single-mode {
@@ -89,6 +90,12 @@ export default {
 @media (max-width: 1100px) {
   .party-mode {
     margin-top: 30px;
+  }
+}
+@media ( max-width: 800px)  {
+  .party-mode {
+    flex-wrap: wrap;
+    // flex-wrap: wrap-reverse;
   }
 }
 
@@ -110,6 +117,7 @@ export default {
   }
   .party-mode {
     margin-top: 10px;
+
   }
 }
 </style>

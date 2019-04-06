@@ -108,7 +108,7 @@ $red: red;
   border-radius: 50%;
   // padding: 0.1em;
   max-width: 100%;
-  z-index: 10;
+  z-index: 9;
   position: relative;
   transition: all 0.25s ease-out;
 

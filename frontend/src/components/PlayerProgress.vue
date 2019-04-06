@@ -254,7 +254,7 @@ $red: red;
   fill: $white;
   border-radius: 50%;
   max-width: 100%;
-  z-index: 10;
+  z-index: 9;
   position: relative;
   transition: all 0.25s ease-out;
   border: 1px solid $blue;
