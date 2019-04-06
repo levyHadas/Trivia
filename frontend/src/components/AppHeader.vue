@@ -55,9 +55,7 @@ export default {
 .bm-burger-button {
   top: 15px;
 }
-.bm-overlay {
-      background:red;
-    }
+
 
 </style>
 
