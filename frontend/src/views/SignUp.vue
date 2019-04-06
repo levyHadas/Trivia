@@ -1,7 +1,7 @@
 <template>
   <section class="signup main-container">
-    <h1>Sign Up and Enjoy (:</h1>
-    <el-form @submit="signup" class="form-container" v-show="!isMenuOpen">
+    <h1 :class="{'scale-down': isMenuOpen}">Sign Up and Enjoy (:</h1>
+    <el-form @submit="signup" class="form-container" :class="{'scale-down': isMenuOpen}">
       <el-input class="el-input" required v-model="user.username" placeholder="Username" clearable></el-input>
       <el-input
         type="password"

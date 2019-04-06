@@ -1,7 +1,7 @@
 <template>
   <section>
     <ul class="category-container"
-      v-show="!isMenuOpen">
+      :class="{'scale-down': isMenuOpen}">
       <category-preview
         v-for="(category,idx) in categories"
         :key="idx"

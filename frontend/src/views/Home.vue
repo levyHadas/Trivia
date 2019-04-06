@@ -1,10 +1,10 @@
 <template>
   <section class="home">
-    <div class="home-main" v-if="!isMenuOpen">
-      <div>
-        <h3>Global. Knowledge. Compete With Others</h3>
+    <div class="home-main">
+        <div :class="{'scale-down': isMenuOpen}">
+        <h3 >Global. Knowledge. Compete With Others</h3>
       </div>
-      <div class="btn-container">
+      <div class="btn-container" :class="{'scale-down': isMenuOpen}">
         <a href="#" class="btn play-btn" @click.once="requestPartyGame">Join The Party</a>
         <br>
         <a href="#" class="btn play-btn" @click="startSingleGame">Play Single</a>
@@ -162,6 +162,7 @@ export default {
     padding: 30px;
   }
 }
+
 
 .play-btn {
   padding: 10px;

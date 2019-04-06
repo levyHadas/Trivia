@@ -1,6 +1,6 @@
 <template>
   <!-- <section class="main"> -->
-  <section class="game-branches main-container" v-show="!isMenuOpen">
+  <section class="game-branches main-container" :class="{'scale-down': isMenuOpen}">
     <section v-if="isPartyMode" class="party-mode">
       <div class="party-players">
         <party-players :playersWithScores="playersWithScores"></party-players>

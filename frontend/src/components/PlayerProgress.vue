@@ -1,6 +1,6 @@
 <template>
   <section class="player-progress"
-    v-show="!isMenuOpen">
+   :class="{'scale-down': isMenuOpen}">
     <p class="player-nickname"> {{playerNickname}} </p>
     <ol v-if="playerScores[0]" class="ProgressBar">
       <li class="ProgressBar-step" :class="{'is-complete': playerScores[0]}">
