@@ -39,7 +39,7 @@ export default {
         this.setPartyRequest();
         return;
       }
-      var nickname = await swal("Enter Nickname", { content: "input" });
+      var nickname = await swal("Enter your nickname to join the game","", { content: "input" });
       var user = this.$store.getters.currUser;
       this.$store.dispatch({ type: "updateUserNickname", nickname: nickname });
       this.setPartyRequest();

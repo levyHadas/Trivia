@@ -30,10 +30,7 @@ export default {
       realUser: true
     };
   },
-  created () {
-    console.log('Created');
-    
-  },
+ 
   methods: {
     emitMenuChange() {
       this.$store.commit("toggleMenu");
