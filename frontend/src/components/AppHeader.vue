@@ -4,27 +4,60 @@
       <router-link to="/">
         <h1 class="logo">Trivia.</h1>
       </router-link>
-      <app-nav/>
+      <Slide v-if="windowWidth < 700" right @openMenu="emitMenuChange" @closeMenu="emitMenuChange">
+        <app-nav/>
+      </Slide>
+      <app-nav v-else/>
     </div>
   </header>
-
 </template>
 
 <script>
 import AppNav from "@/components/AppNav.vue";
+import { Slide } from "vue-burger-menu";
 
 export default {
-  name: 'Header',
+  name: "Header",
   props: {
     msg: String
   },
-    components: {
-    AppNav
+  components: {
+    AppNav,
+    Slide
+  },
+  data() {
+    return {
+      realUser: true
+    };
+  },
+  methods: {
+    emitMenuChange() {
+      console.log('menu change');
+      this.$store.commit("toggleMenu");
+    }
+  },
+
+  computed: {
+    windowWidth() {
+      return this.$store.getters.windowWidth;
+    }
   }
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
+<!-- Unscoped css -->
+<style lang="scss">
+.bm-menu {
+  background-color: #1c1c6d;
+}
+
+.bm-burger-button {
+  top: 15px;
+}
+
+</style>
+
+ <!-- Add "scoped" attribute to limit CSS to this component only -->	<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 
 .header-container {
@@ -32,13 +65,11 @@ export default {
   background-color: rgba(255, 255, 255, 0.9);
   border: 1px solid rgba(190, 190, 190, 0.658);
   display: flex;
-  box-shadow:5px -16px 12px 18px rgba(0, 0, 0, 0.32);
+  box-shadow: 5px -16px 12px 18px rgba(0, 0, 0, 0.32);
   align-items: center;
   opacity: 0.6;
   z-index: 25;
-
 }
-
 .app-header {
   display: flex;
   align-items: center;
@@ -46,10 +77,8 @@ export default {
   width: 100%;
   z-index: 25;
 }
-
 .logo {
   color: black;
   font-size: 2.5rem;
 }
-
 </style>

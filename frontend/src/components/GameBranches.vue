@@ -1,7 +1,6 @@
 <template>
   <!-- <section class="main"> -->
-  <section class="game-branches main-container">
-
+  <section class="game-branches main-container" v-show="!isMenuOpen">
     <section v-if="isPartyMode" class="party-mode">
       <div class="party-players">
         <party-players :playersWithScores="playersWithScores"></party-players>
@@ -13,7 +12,6 @@
       <player-progress :player="player" :scores="playerScore"></player-progress>
       <game-screen @updateProgress="sendProgress"></game-screen>
     </section>
-    
   </section>
 </template>
 
@@ -23,29 +21,30 @@ import PartyPlayers from "@/components/PartyPlayers";
 import PlayerProgress from "@/components/PlayerProgress";
 import SocketService from "@/services/SocketService.js";
 
-
 export default {
   name: "Game",
   props: {
     question2: Array
   },
+  components: {
+    PartyPlayers,
+    PlayerProgress,
+    GameScreen
+  },
 
   async created() {
-
     console.log("group game was created");
-    this.params = this.$route
-
+    this.params = this.$route;
   },
 
   data() {
     return {
-      params: '',
+      params: "",
       player: {
         _id: "22",
         name: "puki",
         img: "src",
-        scores: [
-        ]
+        scores: []
       }
     };
   },
@@ -63,15 +62,11 @@ export default {
       return this.player.scores;
     },
     playersWithScores() {
-      return this.$store.getters.playersWithScores
+      return this.$store.getters.playersWithScores;
+    },
+    isMenuOpen() {
+      return this.$store.getters.isMenuOpen;
     }
-
-
-  },
-  components: {
-    PartyPlayers,
-    PlayerProgress,
-    GameScreen
   }
 };
 </script>
@@ -83,8 +78,7 @@ export default {
   align-items: center;
   flex-direction: row-reverse;
   flex-wrap: wrap-reverse;
-	margin-top: 40px;
-
+  margin-top: 40px;
 }
 
 .single-mode {
@@ -92,36 +86,30 @@ export default {
   min-width: 100%;
 }
 
-@media ( max-width: 1100px)  {
+@media (max-width: 1100px) {
   .party-mode {
     margin-top: 30px;
   }
 }
 
-@media ( max-height: 800px)  {
+@media (max-height: 800px) {
   .single-mode {
     margin-bottom: 60px;
     margin-top: 0;
-  }  
+  }
   .party-mode {
     margin-bottom: 60px;
     margin-top: 20px;
   }
 }
 
-@media ( max-width: 550px ) {
+@media (max-width: 550px) {
   .single-mode {
     margin-bottom: 30px;
     margin-top: 0;
-  } 
+  }
   .party-mode {
     margin-top: 10px;
   }
-
 }
-
-
-
-
-
 </style>
