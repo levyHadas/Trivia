@@ -90,8 +90,6 @@ export default {
         if (!this.wishToContinue) {
           SocketService.emit("userLeftPartyPage");
           this.endOfGameForMe = true
-          // this.goHome()
-          //for demo - do nothing!
         } else {
           this.resumeCountdown = false
           this.resumeParty()
