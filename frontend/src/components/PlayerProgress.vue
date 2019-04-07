@@ -197,14 +197,11 @@ export default {
 
 
 //Variables
-// $blue: 	#083a45;
 $blue: 	#8b8b8b;
-// $blue: 	#344043;
-// $orange: 	#2f1457;
-$orange: 	#353535;
-// $orange: 	#f4376d;
+$grey: 	#1D1D2C;
 $white: #dae6e5;
-$red: red;
+$red: #E40C2B;
+$green: #438945;
 
 .ProgressBar {
   margin: 0 auto;
@@ -240,7 +237,7 @@ $red: red;
   }
 
   &:after {
-    background-color: $orange;
+    background-color: $grey;
     width: 0%;
   }
 
@@ -263,26 +260,26 @@ $red: red;
   border: 1px solid $blue;
 
   .is-current & {
-    fill: $orange;
-    background-color: $orange;
-    border: 1px solid $orange;
+    fill: $grey;
+    background-color: $grey;
+    border: 1px solid $grey;
 
   }
 
   .is-complete & {
     fill: $white;
-    background-color: $orange;
-    border: 1px solid $orange;
+    background-color: $grey;
+    border: 1px solid $grey;
 
   }
 }
 .ProgressBar-icon.correct {
-  border: 1px solid green;
-  background-color: green;
+  border: 1px solid $grey;
+  background-color: $grey;
 }
 .ProgressBar-icon.incorrect {
-  border: 1px solid rgb(165, 19, 31);
-  background-color: rgb(165, 19, 31);
+  border: 1px solid $red;
+  background-color: $red;
 }
 
 .ProgressBar-stepLabel {
@@ -299,7 +296,7 @@ $red: red;
 
   .is-current > &,
   .is-complete > & {
-    color: $orange;
+    color: $grey;
   }
 }
 

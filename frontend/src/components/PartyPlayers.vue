@@ -29,8 +29,8 @@ export default {
       var user = playersWithScores[userIdx]
       playersWithScores.splice(userIdx, 1)
       playersWithScores.unshift(user)
+      playersWithScores.splice(5, playersWithScores.length)
       return playersWithScores
-      return this.$store.getters.playersWithScores
     }
   }
 }

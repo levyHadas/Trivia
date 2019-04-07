@@ -103,7 +103,8 @@ io.on('connection', socket => {
     
     if  (numOfWaiting >= 2 && _userIsAdmin(user)) { 
           //start!
-        const quests = await QuestService.query({})
+        let query = {category: 'Javascript'}
+        const quests = await QuestService.query(query)
         io.to('room1').emit('startParty', quests) 
         _startPartyTimer()
     } 

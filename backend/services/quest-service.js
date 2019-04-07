@@ -21,7 +21,7 @@ module.exports = {
 // }
 
 async function query(query) {
-    queryToMongo = {}
+    var queryToMongo = {}
     if (query.category) queryToMongo.category = { '$regex': query.category, '$options': 'i' } 
     if (query.tags && query.tags.length > 0) {
         tags = query.tags.split(',').map(tag => new RegExp(tag,'i'))

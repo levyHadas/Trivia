@@ -170,9 +170,9 @@ export default {
   width: 330px;
   height: 60px;
   line-height: 60px;
-  background-color: #0e6d83;
+  background-color: #F7F4E9;
   border-radius: 8px;
-  color: #fff;
+  color: #1D1D2C;
   font-size: 40px;
   font-weight: bold;
   text-decoration: none;
