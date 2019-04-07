@@ -1,4 +1,5 @@
 <template>
+  <!-- <section class="main"> -->
   <section class="game-branches main-container" :class="{'scale-down': isMenuOpen}">
     <section v-if="isPartyMode" class="party-mode">
       <game-screen @updateProgress="sendProgress"></game-screen>
@@ -19,23 +20,29 @@ import GameScreen from "@/views/GameScreen";
 import PartyPlayers from "@/components/PartyPlayers";
 import PlayerProgress from "@/components/PlayerProgress";
 import SocketService from "@/services/SocketService.js";
-
 export default {
   name: "Game",
+  props: {
+    question2: Array
+  },
   components: {
     PartyPlayers,
     PlayerProgress,
     GameScreen
   },
-
   async created() {
     console.log("group game was created");
     this.params = this.$route;
   },
-
   data() {
     return {
-      params: ""
+      params: "",
+      player: {
+        _id: "22",
+        name: "puki",
+        img: "src",
+        scores: []
+      }
     };
   },
   methods: {
@@ -70,12 +77,10 @@ export default {
   // flex-direction: row-reverse;
 	margin-top: 40px;
 }
-
 .single-mode {
   margin-top: 55px;
   min-width: 100%;
 }
-
 @media (max-width: 1100px) {
   .party-mode {
     margin-top: 30px;
@@ -87,7 +92,6 @@ export default {
     // flex-wrap: wrap-reverse;
   }
 }
-
 @media (max-height: 800px) {
   .single-mode {
     margin-bottom: 60px;
@@ -98,7 +102,6 @@ export default {
     margin-top: 20px;
   }
 }
-
 @media (max-width: 550px) {
   .single-mode {
     margin-bottom: 30px;
@@ -106,7 +109,6 @@ export default {
   }
   .party-mode {
     margin-top: 10px;
-
   }
 }
 </style>
