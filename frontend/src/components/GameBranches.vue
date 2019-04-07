@@ -1,5 +1,4 @@
 <template>
-  <!-- <section class="main"> -->
   <section class="game-branches main-container" :class="{'scale-down': isMenuOpen}">
     <section v-if="isPartyMode" class="party-mode">
       <game-screen @updateProgress="sendProgress"></game-screen>
@@ -23,9 +22,6 @@ import SocketService from "@/services/SocketService.js";
 
 export default {
   name: "Game",
-  props: {
-    question2: Array
-  },
   components: {
     PartyPlayers,
     PlayerProgress,
@@ -39,13 +35,7 @@ export default {
 
   data() {
     return {
-      params: "",
-      player: {
-        _id: "22",
-        name: "puki",
-        img: "src",
-        scores: []
-      }
+      params: ""
     };
   },
   methods: {
@@ -79,7 +69,6 @@ export default {
   flex-direction: row;
   // flex-direction: row-reverse;
 	margin-top: 40px;
-
 }
 
 .single-mode {

@@ -4,7 +4,6 @@
 	font-family: 'Cabin', sans-serif;
 }
 body {
-	
 	font-family: 'Cabin', sans-serif;
 	box-sizing: border-box;
 	position: relative;
@@ -16,9 +15,6 @@ body {
 		  position: absolute;
 		  opacity: 0.3;
 		  background-image: url('https://backgroundcheckall.com/wp-content/uploads/2017/12/trivia-background-1.jpg');
-	
-		//   background-image: url('../5.png');
-		//   background-image: url('./assets/5.png');
 		  z-index: -1;
 		  background-repeat: no-repeat;
 		  background-position: center;
@@ -26,7 +22,6 @@ body {
 	 }
 
 }
-
 .swal-modal {  // Enter Nickname box - joining the "party"
   background-color: rgba(199, 223, 255, 0.95);
 	border: 2px solid #3D928C;
@@ -99,8 +94,6 @@ a {
 	}
 }
 
-
-
 //Game Branches
 .game-branches {
 	display: flex;
@@ -158,8 +151,6 @@ a {
 .players {
 		margin-left: 20px;
 }
-
-
 
 //Game Screen
 .hide-quest-section + div {
@@ -305,9 +296,6 @@ a {
 
 }
 
-
-
-
 //Continue party - resum counter+party summary
 
 .resume-countdown {
@@ -405,7 +393,6 @@ a {
   }
 }
 
-
 @media (max-width: 800px) {
 	.waiting-modal-container {
 		margin-top: 10px;
@@ -431,7 +418,6 @@ a {
 
 }
 
-
 @media (max-width: 500px) {
 	.game-screen {
 		.quest-txt {
@@ -441,7 +427,7 @@ a {
 	.waiting-modal-container {
 		.waiting-for-others{	
 			height: 380px;
-			max-width: 390px;
+			max-width: 380px;
 			background-position-y: 60px;	
 			button {
 				padding: 10px;
@@ -455,7 +441,6 @@ a {
 		}	
 	}
 
-
 	.resume-countdown {
 		width: 280px;
 		.txt {
@@ -466,10 +451,6 @@ a {
 			padding: 8px;
 		}
 	}
-
-
-	
-
 }
 @media (max-width: 390px) {
 	.resume-countdown {
@@ -477,5 +458,3 @@ a {
 	}
 
 }
-
-
