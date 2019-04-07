@@ -20,7 +20,6 @@ import GameScreen from "@/views/GameScreen";
 import PartyPlayers from "@/components/PartyPlayers";
 import PlayerProgress from "@/components/PlayerProgress";
 import SocketService from "@/services/SocketService.js";
-
 export default {
   name: "Game",
   props: {
@@ -31,12 +30,10 @@ export default {
     PlayerProgress,
     GameScreen
   },
-
   async created() {
     console.log("group game was created");
     this.params = this.$route;
   },
-
   data() {
     return {
       params: "",
@@ -79,14 +76,11 @@ export default {
   flex-direction: row;
   // flex-direction: row-reverse;
 	margin-top: 40px;
-
 }
-
 .single-mode {
   margin-top: 55px;
   min-width: 100%;
 }
-
 @media (max-width: 1100px) {
   .party-mode {
     margin-top: 30px;
@@ -98,7 +92,6 @@ export default {
     // flex-wrap: wrap-reverse;
   }
 }
-
 @media (max-height: 800px) {
   .single-mode {
     margin-bottom: 60px;
@@ -109,7 +102,6 @@ export default {
     margin-top: 20px;
   }
 }
-
 @media (max-width: 550px) {
   .single-mode {
     margin-bottom: 30px;
@@ -117,7 +109,6 @@ export default {
   }
   .party-mode {
     margin-top: 10px;
-
   }
 }
 </style>

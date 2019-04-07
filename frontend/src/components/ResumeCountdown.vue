@@ -1,6 +1,5 @@
 <template>
     <section class="count-down">
-
         <div class="resume-countdown">
             <div class="txt" v-if="counting">Next Party in {{timeRemaining}} s' </div> 
             <div class="txt" v-if="counting && !askedToContinue">Hit 'Continue' to Join!</div> 
@@ -9,14 +8,10 @@
             <button class="btn countdown-btn continue" v-if="counting && !askedToContinue" @click="askToContinue" focus>Continue</button>
             <button class="btn countdown-btn goHome" v-if="!counting && !askedToContinue" @click="$emit('goHome')">Home</button>
         </div>
-
-
     </section>
 </template>
-
 <script>
 export default {
-
     data() {
         return {
             countDownInterval: null,
@@ -24,7 +19,6 @@ export default {
             wishToContinue: false
         }
     },
-  
     created() {
     this.countDownInterval = 
         setInterval(() => {
@@ -55,23 +49,11 @@ export default {
             return this.wishToContinue
         }
     },
-
     destroyed() {
         clearInterval(this.countDownInterval)
         this.countDownInterval = null
     },
- 
-
 }
 </script>
-
 <style scoped lang="scss">
-
-
-
-
-
-
-
-
 </style>
