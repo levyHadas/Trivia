@@ -1,5 +1,5 @@
 <template>
-  <section  class="waiting-for-others">
+  <section class="waiting-for-others">
       <!-- <img class="podium" src="../assets/podium.png" alt=""> -->
       <div class="msg-container">
         <div class="wait-txt">
@@ -8,23 +8,15 @@
         </div>
         <!-- <p>(max waiting time is 60 seconds</p> -->
         <button class="btn goHome" @click="$emit('goHome')">Home</button>
-
       </div>
       <div class="bts-container">
       </div>
   </section>
 </template>
-
 <script>
 import ScorePreview from "@/components/ScorePreview";
-
 export default {
-
 }
 </script>
-
 <style scoped lang="scss">
-
-
-
 </style>
