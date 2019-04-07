@@ -4,7 +4,7 @@
     <p class="player-nickname"> {{playerNickname}} </p>
     <ol v-if="playerScores[0]" class="ProgressBar">
       <li class="ProgressBar-step" :class="{'is-complete': playerScores[0]}">
-        <svg class="ProgressBar-icon" v-if="playerScores[0]">
+        <svg class="ProgressBar-icon" v-if="playerScores[0]" :class="(playerScores[0].isCorrect) ? 'correct' : 'incorrect'">
           <use :class="{'show': playerScores[0].isCorrect }" xlink:href="#checkmark-bold"></use>
           <use :class="{'show': playerScores[0].isCorrect===false }" xlink:href="#wrong-bold"></use>
         </svg>
@@ -15,7 +15,7 @@
         class="ProgressBar-step"
         :class="{'is-current': playerScores.length===1, 'is-complete': playerScores.length>1}"
       >
-        <svg class="ProgressBar-icon" v-if="playerScores.length>1">
+        <svg class="ProgressBar-icon" v-if="playerScores.length>1" :class="(playerScores[1].isCorrect) ? 'correct' : 'incorrect'">
           <use :class="{'show': playerScores[1].isCorrect }" xlink:href="#checkmark-bold"></use>
           <use :class="{'show': playerScores[1].isCorrect===false }" xlink:href="#wrong-bold"></use>
         </svg>
@@ -26,7 +26,7 @@
         class="ProgressBar-step"
         :class="{'is-current': playerScores.length===2, 'is-complete': playerScores.length>2}"
       >
-        <svg class="ProgressBar-icon" v-if="playerScores[2]">
+        <svg class="ProgressBar-icon" v-if="playerScores[2]" :class="(playerScores[2].isCorrect) ? 'correct' : 'incorrect'">
           <use :class="{'show': playerScores[2].isCorrect }" xlink:href="#checkmark-bold"></use>
           <use :class="{'show': playerScores[2].isCorrect===false }" xlink:href="#wrong-bold"></use>
         </svg>
@@ -37,7 +37,7 @@
         class="ProgressBar-step"
         :class="{'is-current': playerScores.length===3, 'is-complete': playerScores.length>2}"
       >
-        <svg class="ProgressBar-icon" v-if="playerScores[3]">
+        <svg class="ProgressBar-icon" v-if="playerScores[3]" :class="(playerScores[3].isCorrect) ? 'correct' : 'incorrect'">
           <use :class="{'show': playerScores[3].isCorrect }" xlink:href="#checkmark-bold"></use>
           <use :class="{'show': playerScores[3].isCorrect===false }" xlink:href="#wrong-bold"></use>
         </svg>
@@ -48,7 +48,7 @@
         class="ProgressBar-step"
         :class="{'is-current': playerScores.length===4, 'is-complete': playerScores.length>3}"
       >
-        <svg class="ProgressBar-icon" v-if="playerScores[4]">
+        <svg class="ProgressBar-icon" v-if="playerScores[4]" :class="(playerScores[4].isCorrect) ? 'correct' : 'incorrect'">
           <use :class="{'show': playerScores[4].isCorrect }" xlink:href="#checkmark-bold"></use>
           <use :class="{'show': playerScores[4].isCorrect===false }" xlink:href="#wrong-bold"></use>
         </svg>
@@ -59,7 +59,7 @@
         class="ProgressBar-step"
         :class="{'is-current': playerScores.length===5, 'is-complete': playerScores.length>4}"
       >
-        <svg class="ProgressBar-icon" v-if="playerScores[5]">
+        <svg class="ProgressBar-icon" v-if="playerScores[5]" :class="(playerScores[5].isCorrect) ? 'correct' : 'incorrect'">
           <use :class="{'show': playerScores[5].isCorrect }" xlink:href="#checkmark-bold"></use>
           <use :class="{'show': playerScores[5].isCorrect===false }" xlink:href="#wrong-bold"></use>
         </svg>
@@ -198,8 +198,11 @@ export default {
 
 //Variables
 // $blue: 	#083a45;
-$blue: 	#344043;
-$orange: 	#f4376d;
+$blue: 	#8b8b8b;
+// $blue: 	#344043;
+// $orange: 	#2f1457;
+$orange: 	#353535;
+// $orange: 	#f4376d;
 $white: #dae6e5;
 $red: red;
 
@@ -272,6 +275,14 @@ $red: red;
     border: 1px solid $orange;
 
   }
+}
+.ProgressBar-icon.correct {
+  border: 1px solid green;
+  background-color: green;
+}
+.ProgressBar-icon.incorrect {
+  border: 1px solid rgb(165, 19, 31);
+  background-color: rgb(165, 19, 31);
 }
 
 .ProgressBar-stepLabel {

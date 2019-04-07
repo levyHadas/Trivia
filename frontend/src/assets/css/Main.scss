@@ -16,9 +16,6 @@ body {
 		  position: absolute;
 		  opacity: 0.3;
 		  background-image: url('https://backgroundcheckall.com/wp-content/uploads/2017/12/trivia-background-1.jpg');
-	
-		//   background-image: url('../5.png');
-		//   background-image: url('./assets/5.png');
 		  z-index: -1;
 		  background-repeat: no-repeat;
 		  background-position: center;
@@ -177,7 +174,7 @@ a {
 		padding: 10px;
 		box-shadow: -1px 0px 20px 12px #666666;
 		border-radius: 10px;
-		border: .5px solid #f4376d;
+		border: .5px solid #2f1457;
 	}
 }
 .hide-quest-section {
@@ -252,6 +249,7 @@ a {
     transform: translate(0%, -100%);
   }
 
+
   .answer {
     margin-top: 20px;
     background: #2f1457;
@@ -270,7 +268,6 @@ a {
 		font-family: 'Merriweather', serif;
 		font-weight: 300;
   }
-
   .answer:hover {
     cursor: pointer;
     box-shadow: -2px 3px 3px 0px #2f1457;
@@ -282,7 +279,6 @@ a {
     box-shadow: -2px 3px 3px 0px #2f1457;
     animation: nudge 0.4s linear;
   }
-
   .answerCorrect {
     box-shadow: -3px 4px 4px 0px #00dbc9;
     background: #25f0e0;
@@ -293,7 +289,6 @@ a {
     background: #25f0e0;
     color: black;
   }
-
   .answerWrong {
     box-shadow: -2px 2px 2px 0px #0e6d83;
     background: #0e6d83;
