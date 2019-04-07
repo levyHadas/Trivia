@@ -30,7 +30,7 @@ export default {
 
 <style scoped>
 .category-item {
-  background-color: #F7F4E9;
+  background-color: white;
   box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.1), 0 4px 7px 0 rgba(0, 0, 0, 0.15);
   cursor: pointer;
   border-radius: 20px;

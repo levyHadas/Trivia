@@ -153,7 +153,8 @@ export default {
   background-size: cover;
   justify-content: center;
   h3 {
-    color: #F7F4E9;
+    // color: #F7F4E9;
+    color: white;
     -webkit-text-stroke-width: 0.7px;
     -webkit-text-stroke-color: black;
     border-radius: 20px;
@@ -170,7 +171,8 @@ export default {
   width: 330px;
   height: 60px;
   line-height: 60px;
-  background-color: #F7F4E9;
+  // background-color: #F7F4E9;
+  background-color: white;
   border-radius: 8px;
   color: #1D1D2C;
   font-size: 40px;

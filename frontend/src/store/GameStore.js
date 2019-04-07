@@ -25,7 +25,7 @@ const GameStore = ({
       state.readyToResume = isReady
     },
     setPartyTimeUp(state, {isTimeUp}) {
-      state.timeUp = isTimeUp;
+      state.isPartyTimeUp = isTimeUp;
     }
   
 

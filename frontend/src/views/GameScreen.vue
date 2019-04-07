@@ -81,7 +81,7 @@ export default {
       quests: [],
       timerInterval: "",
       isTimer: true,
-      timer: 1500,
+      timer: 10,
       counter: 0,
       isTimerLessThen10: false,
       myScores: [], //only this user scores
@@ -109,13 +109,13 @@ export default {
         if (this.timer === 0) {
           this.isTimer = false;
           clearInterval(this.timerInterval);
-          this.updateMyScores(this.thisQuestion, false, 15);
+          this.updateMyScores(this.thisQuestion, false, 10);
           this.counter += 1;
           this.nextQuestion();
           return;
         }
         this.timer -= 1;
-        if (this.timer < 10) this.isTimerLessThen10 = true;
+        if (this.timer < 6) this.isTimerLessThen10 = true;
       }, 1000);
     },
     resetGame() {
@@ -174,7 +174,7 @@ export default {
           this.question = this.$store.getters.currQuest;
           this.isOver = false;
           this.isTimerLessThen10 = false;
-          this.timer = 1500;
+          this.timer = 10;
           this.isTimer = true;
 
           if (this.partyMode  && !this.endOfRound) { //scores in focus for 2 seconds
@@ -322,7 +322,6 @@ export default {
     // @include xyCentered();
     -webkit-filter: drop-shadow(0px 0px 5px rgba(156, 28, 74, 0.3));
     filter: drop-shadow(0px 0px 5px rgba(37, 240, 224, 0.7));
-
     circle {
       fill: none;
       stroke: #fff;
@@ -334,10 +333,12 @@ export default {
   }
 
   .countdown__number {
+    text-align: center;
     @include xyCentered();
 
     .number {
       font-size: 1.5rem;
+
     }
   }
 }

@@ -62,7 +62,8 @@ export default {
   padding: 0 0 0 90px;
   margin: 10px;
   background: 0%;
-  color: #F7F4E9;
+  color: white;
+  // color: #F7F4E9;
   font-size: 1.2rem;
   &:hover{
 		background-color: #6d7fa6;
@@ -82,9 +83,8 @@ export default {
     font-size: 1.1rem;
     margin: 0 5px;
     background-color: #1D1D2C;
-    color:#F7F4E9;
-    // background-color: #1c7e97;
-    // color: #F7F4E9;
+    color:white;
+    // color:#F7F4E9;
     &:last-of-type() {
       margin: 0;
     }

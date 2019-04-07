@@ -67,6 +67,7 @@ export default {
   methods: {
     askToContinue() {
       this.wishToContinue = true
+      this.$store.dispatch({type:'setPartyTimeUp', isTimeUp:false})
     },
 
     goHome() {
@@ -80,6 +81,7 @@ export default {
 
     resumeParty() {
       SocketService.emit('startPartyTimer')
+      // Store.dispatch({type:'setPartyTimeUp', isTimeUp:false})
       this.$emit('startGameInterval')
     },
 

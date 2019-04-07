@@ -36,6 +36,7 @@ AddUserRoutes(app)
 AddGameRoutes(app)
 
 var playersWithScores = []
+var partyTimeout = null
 
 
 function _isAdminInParty() {
@@ -73,9 +74,11 @@ function _joinPlayers(socket, user) {
 }
 
 function _startPartyTimer() {
-  setTimeout(() => {
+  clearTimeout(partyTimeout)
+  partyTimeout = null
+  partyTimeout = setTimeout(() => {
     io.to('room1').emit('timeUp')
-  }, (6*20+(5*1.7)+(6*1.5) )*1000)
+  }, (80*1000))
 }
 
 io.on('connection', socket => {

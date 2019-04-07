@@ -76,16 +76,21 @@ export default {
   top: 55px;
   left: 0;
   z-index: 10;
-  background-color: #818e94;
+  background-color: #e3f5f6;
+  background-image: url('https://img.pngio.com/confetti-birthday-party-png-party-streamers-940_425.png');
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 .summary-container {
+    margin: 0 auto;
     width: 88vw;
-    margin-left: 5vw;
+    max-width: 650px;
+    
 
   .pudium-container {
     background: url("../assets/podium2.jpg") no-repeat center center;
+    // background: url("../assets/podium_trans3.png") no-repeat center center;
     background-size: cover;
-    max-width: 750px;
     max-height: 100vw;
     height: calc(80vh - 110px);
     margin: 0 auto;
