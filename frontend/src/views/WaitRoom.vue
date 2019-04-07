@@ -58,7 +58,7 @@ export default {
 .section-container {
   background-image: url('https://media.giphy.com/media/5QSIcVPpTj9r7RXbNb/giphy.gif');
   background-repeat: no-repeat;
-  /* background-size: cover; */
+  background-size: cover;
   background-position: center;
 }
 
