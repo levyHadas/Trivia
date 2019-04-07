@@ -102,6 +102,6 @@ export default {
 }
 
 .incorrect {
-  color:#f4376d;
+  color:#E40C2B;
 }
 </style>

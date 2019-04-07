@@ -48,7 +48,7 @@ export default {
 <!-- Unscoped css -->
 <style lang="scss">
 .bm-menu {
-  background-color: #1c1c6d;
+  background-color: #1D1D2C;
 }
 
 
@@ -80,7 +80,7 @@ div.bm-burger-button {
   z-index: 25;
 }
 .logo {
-  color: black;
+  color: #1D1D2C;
   font-size: 2.5rem;
 }
 </style>

@@ -102,9 +102,10 @@ export default {
     font-size: 3rem;
     height: 100%;
     text-align: center;
-    color: #f4376d;
-    font-weight: bold;
-    font-family: 'Merriweather', serif;
+    color: #E40C2B;
+    // font-weight: bold;
+    // font-family: 'Merriweather', serif;
+    font-family: 'Special Elite', cursive;
     @media (max-width: 750px) {
       font-size: 2.4rem;
       font-weight: 400;

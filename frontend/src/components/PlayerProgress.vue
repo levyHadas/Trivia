@@ -274,8 +274,8 @@ $green: #438945;
   }
 }
 .ProgressBar-icon.correct {
-  border: 1px solid $grey;
-  background-color: $grey;
+  border: 1px solid $green;
+  background-color: $green;
 }
 .ProgressBar-icon.incorrect {
   border: 1px solid $red;

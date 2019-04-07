@@ -86,7 +86,7 @@ export default {
     font-size: 80px;
     text-align: center;
     margin-bottom: 220px;
-    color: #2f1457;
+    color: #1D1D2C;
     font-family: 'Special Elite', cursive;
     
   }

@@ -96,7 +96,7 @@ export default {
 
 }
 .tags {
-    color: white;
+    color: #F7F4E9;
     padding: 10px 70px 10px 10px;
     display: block;
 

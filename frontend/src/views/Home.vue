@@ -153,7 +153,7 @@ export default {
   background-size: cover;
   justify-content: center;
   h3 {
-    color: white;
+    color: #F7F4E9;
     -webkit-text-stroke-width: 0.7px;
     -webkit-text-stroke-color: black;
     border-radius: 20px;
@@ -407,9 +407,7 @@ pre {
       width: 250px;
       height: 50px;
       line-height: 50px;
-      background-color: #0e6d83;
       border-radius: 8px;
-      color: #fff;
       font-size: 30px;
       font-weight: normal;
     }

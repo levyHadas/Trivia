@@ -1,7 +1,9 @@
 @import url('https://fonts.googleapis.com/css?family=Merriweather:300,400');
 
+
 * {
 	font-family: 'Cabin', sans-serif;
+
 }
 body {
 	font-family: 'Cabin', sans-serif;
@@ -85,8 +87,8 @@ a {
 	}
 	.el-button.is-plain {
 		margin: 20px 0;
-		color: white;
-		background: #0e6d83;
+		color: #F7F4E9;
+		background: #3CBCC3;
 		border: none;
 		&:hover{
 			background-color: #6d7fa6;
@@ -131,10 +133,10 @@ a {
 
 	button {
 		position: block;
-		background-color: #0e6d83;
+		background-color: #3CBCC3;
 		border: none;
-		padding: 15px;
-		color: white;
+		padding: 10px;
+		color: #F7F4E9;
 		cursor: pointer;
 		}
 	.wait-txt {
@@ -155,20 +157,19 @@ a {
 //Game Screen
 .hide-quest-section + div {
 	margin-top: 40px;
-	background-color: #ffffff;
+	background-color: #F7F4E9;
 	padding: 50px 50px 50px 30px;
 	box-shadow: -1px 0px 20px 12px #666666;
 	border-radius: 10px;
-	border: .5px solid #f4376d;
+	border: .5px solid #3CBCC3;
 }
 @media (max-width: 550px) {
 	.hide-quest-section + div {
 		margin-top: 10px;
-		background-color: #ffffff;
+		background-color: #F7F4E9;
 		padding: 10px;
 		box-shadow: -1px 0px 20px 12px #666666;
 		border-radius: 10px;
-		border: .5px solid #2f1457;
 	}
 }
 .hide-quest-section {
@@ -192,9 +193,10 @@ a {
   }
   .quest-txt {
     text-align: center;
-		font-size: 2.3rem;
+		font-size: 2.4rem;
 		padding-top: 15px;
 		animation: slideInUp .3s linear;
+		color: #1D1D2C;
   }    
   .quest-txt-single {
     width: 80%;
@@ -246,7 +248,7 @@ a {
   .answer {
     margin-top: 20px;
     background: #EBA63F;
-    color: #fff;
+    color: #1D1D2C;
     text-decoration: none;
     font-size: 1.3rem;
     border-radius: 30px;
@@ -257,8 +259,8 @@ a {
     text-align: center;
     vertical-align: middle;
     line-height: 60px;
-		box-shadow: -2px 3px 3px 0px #000000;
-		font-family: 'Merriweather', serif;
+		box-shadow: -2px 3px 9px 0px #1D1D2C;
+		// font-family: 'Merriweather', serif;
 		font-weight: 300;
   }
   .answer:hover {
@@ -267,28 +269,26 @@ a {
 		-webkit-box-shadow: 0px 5px 40px -10px rgba(0, 0, 0, 0.57);
 		-moz-box-shadow: 0px 5px 40px -10px rgba(0, 0, 0, 0.57);
 		transition: all 0.4s ease 0s;
-		box-shadow: 0 4px 4px rgba(83, 100, 255, 0.32);
+		box-shadow: 0 4px 4px rgba(88, 88, 88, 0.32);
   }
   .answer:active {
-		box-shadow: -2px 3px 3px 0px #000000;
+		box-shadow: -2px 3px 9px 0px #1D1D2C;
     animation: nudge 0.4s linear;
   }
   .answerCorrect {
-		box-shadow: -2px 3px 3px 0px #000000;		
+		box-shadow: -2px 3px 9px 0px #1D1D2C;		
     background: #438945;
-    color: black;
   }
   .answerCorrect:hover {
-		box-shadow: -2px 3px 3px 0px #000000;
+		box-shadow: -2px 3px 9px 0px #1D1D2C;
     background: #438945;
-    color: black;
   }
   .answerWrong {
-		box-shadow: -2px 3px 3px 0px #000000;
+		box-shadow: -2px 3px 9px 0px #1D1D2C;
     background: #E40C2B;
   }
   .answerWrong:hover {
-		box-shadow: -2px 3px 3px 0px #000000;
+		box-shadow: -2px 3px 9px 0px #1D1D2C;
     background: #E40C2B;
   }
 
@@ -297,7 +297,7 @@ a {
 //Continue party - resum counter+party summary
 
 .resume-countdown {
-	color: #2f1457;
+	color: #1D1D2C;
 	font-size: 25px;
 	font-weight: bold;
 	display: flex;
@@ -318,12 +318,12 @@ a {
 	}
 
 	.countdown-btn {
-		background-color: #0e6d83;
+		background-color: #EBA63F;
 		height: max-content;
-		color: white;
-		width: 80px;
+		color: #1D1D2C;
 		margin: 5px 0;
 		align-self: flex-end;
+		padding: 5px 7px;
 	}
 }
 
@@ -406,10 +406,9 @@ a {
 		}
 		.quest-txt {
 			padding-top: 0;
+			
 		}
 		.answer:hover {
-			box-shadow: -2px 3px 3px 0px #000000;
-			background-color: #2f1457;
 			transition: none;
 		}
 	}

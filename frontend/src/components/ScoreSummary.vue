@@ -49,12 +49,12 @@ export default {
   display: flex;
   flex-direction: column;
   border-radius: 10px;
-  color: #0e6d83;
+  color: #3CBCC3;
 
   button {
     position: block;
-    background-color: #0e6d83;
-    color: white;
+    background-color: #3CBCC3;
+    color: #F7F4E9;
   }
   .bts-container {
     display: flex;

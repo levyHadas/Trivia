@@ -35,7 +35,7 @@ export default {
 <style scoped lang="scss">
 .footer-container {
   // box-shadow: 1px -5px 20px 0px #f4376d94;
-  box-shadow: -1px 0px 2px 1px #0e6d83a8;
+  box-shadow: -1px 0px 2px 1px #3CBCC3;
   height: 55px;
   display: flex;
   align-items: center;
@@ -43,7 +43,7 @@ export default {
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: #0e6d83c2;
+  background-color: rgba(60, 188, 195, 0.85);
   // z-index: ;
 
 }
