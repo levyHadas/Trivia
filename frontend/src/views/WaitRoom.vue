@@ -15,7 +15,9 @@
 
 // TODO - Bring jokes to storage in case api not working properly
 
-import GameService from "../services/GameService.js";
+import GameService from "../services/GameService.js"
+import SocketService from "@/services/SocketService.js"
+
 
 export default {
   data() {
@@ -30,7 +32,9 @@ export default {
   },
 
   destroyed() {
+    console.log('here??')
     this.killInterval();
+    SocketService.emit('partRequestCanceled');
   },
 
   methods: {

@@ -60,9 +60,7 @@ export default {
   },
 
   destroyed() {
-    if (!this.$store.getters.isUserWaiting) {
-      SocketService.emit("userLeftPartyPage");
-    }
+    SocketService.emit("userLeftPartyPage");
   },
   methods: {
     askToContinue() {
@@ -90,10 +88,12 @@ export default {
       setTimeout(() => {
         SocketService.emit('resetAllScores')
         if (!this.wishToContinue) {
-          SocketService.emit("userLeftPartyPage");
+          // SocketService.emit("userLeftPartyPage");
           this.endOfGameForMe = true
         } else {
           this.resumeCountdown = false
+          const user = this.$store.getters.currUser
+          SocketService.emit('reJoinParty', user)
           this.resumeParty()
         }
         this.endOfRound = false
@@ -130,6 +130,7 @@ export default {
       if (this.endOfRound) {
         this.endOfRound = false
         this.$store.dispatch({type:'setPartyTimeUp', isTimeUp:false})
+        SocketService.emit('disconnectAllUsers')
         this.startCountdownToResume()
         return true
       }

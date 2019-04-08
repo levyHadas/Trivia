@@ -122,7 +122,7 @@ export default {
       this.show = true;
       this.myScores = [];
       this.isOver = false;
-      this.counter=0;
+      this.counter = 0;
       this.$store.dispatch({type:'setPartyTimeUp', isTimeUp:false})
 
     },

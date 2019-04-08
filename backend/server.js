@@ -78,7 +78,19 @@ function _startPartyTimer() {
   partyTimeout = null
   partyTimeout = setTimeout(() => {
     io.to('room1').emit('timeUp')
+    _disconnectAllUsers()
+
   }, (80*1000))
+}
+
+function _disconnectAllUsers() {
+  setTimeout(() => { //after a second, disconnect all sockets
+    playersWithScores = []
+    io.of('/').in('room1').clients((error, socketIds) => {
+      if (error) throw error
+      socketIds.forEach(socketId => io.sockets.sockets[socketId].leave('room1'))
+    })
+  },1000)
 }
 
 io.on('connection', socket => {
@@ -90,6 +102,9 @@ io.on('connection', socket => {
 
   socket.on('userLeftPartyPage', () => {
     _removeUserFromPlayers(socket)
+  })
+  socket.on('partRequestCanceled', () => {
+    if (!partyTimeout) _removeUserFromPlayers(socket)
   })
 
   socket.on('partyRequest', async (user) => {
@@ -126,7 +141,20 @@ io.on('connection', socket => {
     // }  
   })
 
+
+  socket.on('reJoinParty', (user) => {
+    _joinPlayers(socket, user)
+
+  })
+  socket.on('disconnectAllUsers', () => {
+    _disconnectAllUsers()
+
+  })
+
   socket.on('startPartyTimer', () => {
+    // let query = {category: 'Javascript'}
+    // const quests = await QuestService.query(query)
+    // io.to('room1').emit('startParty', quests) 
     _startPartyTimer()
   })
 
