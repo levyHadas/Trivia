@@ -1,7 +1,7 @@
 <template>
   <section class="summary-section">
     <div class="summary-container">
-      <div class="pudium-container">
+      <div class="podium-container">
         <div class="winners-container">
           <div class="second">{{second}}</div>
           <div class="first">{{first}} </div>
@@ -87,23 +87,23 @@ export default {
     max-width: 650px;
     
 
-  .pudium-container {
-    background: url("../assets/podium2.jpg") no-repeat center center;
+  .podium-container {
+    background: url("../assets/podium6.jpg") no-repeat center center;
     // background: url("../assets/podium_trans3.png") no-repeat center center;
     background-size: cover;
     max-height: 100vw;
     height: calc(80vh - 110px);
     margin: 0 auto;
     z-index: 20;
-    box-shadow: -1px 1px 11px 3px #5f6972;
+    box-shadow: -1px 1px 11px 3px #487d80;
     border-radius: 10px;
-    margin-top: calc(5vh + 55px);
+    margin-top: calc(7vh + 55px);
 		animation: zoomIn .5s linear;
   }
   .winners-container {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 0.5fr 0.5fr 0.5fr 0.5fr 1fr 1fr;
+    grid-template-columns: 2fr 1fr 2fr;
+    grid-template-rows: 1fr 1fr 0.5fr 0.5fr 0.5fr 0.5fr 0.5fr 0.5fr 1fr;
     font-size: 3rem;
     height: 100%;
     text-align: center;
@@ -122,19 +122,19 @@ export default {
     }
   }
   .second {
-    grid-row-start: 6;
-    margin-left: 20px;
-    margin-bottom: 20px;
+    grid-row-start: 8;
+    text-align: right;
+    padding: 15px 20px 0 0;
   }
   .first {
-    grid-row-start: 5;
+    grid-row-start: 7;
     grid-column-start: 2;
   }
   .third {
-    margin-right: 20px;
-    grid-row-start: 6;
+    grid-row-start: 8;
     grid-column-start: 3;
-    margin-bottom: 20px;
+    text-align: left;
+    padding: 20px 0 20px 0;
   }
 }
 

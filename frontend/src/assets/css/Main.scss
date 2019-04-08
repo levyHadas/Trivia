@@ -316,14 +316,15 @@ a {
 	justify-content: center;
 	z-index: 12;
 	position: relative;
-	border: 3px solid #8d9ea6;
+	border: 3px solid #3cbcc3;
 	border-radius: 7px;
 	padding: 10px;
 	width: 300px;
 	animation: zoomIn 0.4s linear;
 	margin: 0 auto;
 	// margin-top: calc(15vh + 55px);
-	margin-top: 15vh;
+	margin-top: 40px;
+	background-color: #f8f9f7;
 
 	.txt {
 			margin: 5px 0;
@@ -462,8 +463,5 @@ a {
 	}
 }
 @media (max-width: 390px) {
-	.resume-countdown {
-		margin-left: -157px
-	}
 
 }
