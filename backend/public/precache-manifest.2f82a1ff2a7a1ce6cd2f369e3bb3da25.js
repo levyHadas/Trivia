@@ -8,16 +8,20 @@ self.__precacheManifest = [
     "url": "/js/chunk-vendors.fa3414bb.js"
   },
   {
-    "revision": "c105e6eaae2f56845507",
-    "url": "/js/app.84e75a79.js"
+    "revision": "784bbe25ad5636a56e22",
+    "url": "/js/app.d02f072e.js"
   },
   {
-    "revision": "221212080399d33a5776ed80d6908659",
+    "revision": "42d784586051bcf690e2091476ca9208",
     "url": "/index.html"
   },
   {
-    "revision": "7ce4ce506e896c452138273ca72a66ff",
-    "url": "/img/podium2.7ce4ce50.jpg"
+    "revision": "f35c5db0bc922cb979ea2bb0f76efce1",
+    "url": "/img/trivia_background.f35c5db0.jpg"
+  },
+  {
+    "revision": "7a5e70ec03a148c54c5720e668063f78",
+    "url": "/img/podium6.7a5e70ec.jpg"
   },
   {
     "revision": "6f0a76321d30f3c8120915e57f7bd77e",
@@ -32,7 +36,7 @@ self.__precacheManifest = [
     "url": "/css/chunk-vendors.97186071.css"
   },
   {
-    "revision": "c105e6eaae2f56845507",
-    "url": "/css/app.ebdd93f0.css"
+    "revision": "784bbe25ad5636a56e22",
+    "url": "/css/app.438e3fe1.css"
   }
 ];
