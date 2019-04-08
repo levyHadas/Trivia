@@ -77,20 +77,31 @@ function _startPartyTimer() {
   clearTimeout(partyTimeout)
   partyTimeout = null
   partyTimeout = setTimeout(() => {
+    console.log(io.sockets.adapter.rooms['room1'].length)
     io.to('room1').emit('timeUp')
     _disconnectAllUsers()
-
   }, (80*1000))
 }
 
+
+function _resetAllScores() {
+  playersWithScores = playersWithScores.map(player => {
+    player.scores = []
+    return player
+  })
+  io.to('room1').emit('ShowUpdatedScores', playersWithScores)  
+}
+
 function _disconnectAllUsers() {
-  setTimeout(() => { //after a second, disconnect all sockets
-    playersWithScores = []
-    io.of('/').in('room1').clients((error, socketIds) => {
-      if (error) throw error
-      socketIds.forEach(socketId => io.sockets.sockets[socketId].leave('room1'))
-    })
-  },1000)
+  playersWithScores = []
+  _resetAllScores()
+  io.of('/').in('room1').clients((error, socketIds) => {
+    if (error) throw error
+    socketIds.forEach(socketId => io.sockets.sockets[socketId].leave('room1'))
+  })
+
+  clearTimeout(partyTimeout)
+  partyTimeout = null
 }
 
 io.on('connection', socket => {
@@ -123,6 +134,7 @@ io.on('connection', socket => {
           //start!
         let query = {category: 'Javascript'}
         const quests = await QuestService.query(query)
+        _resetAllScores()
         io.to('room1').emit('startParty', quests) 
         _startPartyTimer()
     } 
@@ -148,13 +160,13 @@ io.on('connection', socket => {
   })
   socket.on('disconnectAllUsers', () => {
     _disconnectAllUsers()
-
   })
 
-  socket.on('startPartyTimer', () => {
-    // let query = {category: 'Javascript'}
-    // const quests = await QuestService.query(query)
-    // io.to('room1').emit('startParty', quests) 
+  socket.on('startPartyTimer', async() => {
+    let query = {category: 'Javascript'}
+    const quests = await QuestService.query(query)
+    io.to('room1').emit('startParty', quests) 
+    _resetAllScores()
     _startPartyTimer()
   })
 
@@ -165,13 +177,10 @@ io.on('connection', socket => {
   })
 
   socket.on('resetAllScores', () => {
-    playersWithScores = playersWithScores.map(player => {
-      player.scores = []
-      return player
-    })
-    io.to('room1').emit('ShowUpdatedScores', playersWithScores)  
-
+    _resetAllScores()
   })
+  
+ 
       
 
   socket.on('connectionTest', msgFromFront => {

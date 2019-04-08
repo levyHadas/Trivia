@@ -8,7 +8,6 @@ const GameStore = ({
     isUserWaiting: false,
     playersWithScores: [],
     readyToResume: false,
-    countdownToResume: Infinity,
     isPartyTimeUp: false
   },
 
@@ -21,11 +20,9 @@ const GameStore = ({
     setAllScores(state, { playersWithScores }) {
       state.playersWithScores = playersWithScores
     },
-    setReadyToResume(state, {isReady}) {
-      state.readyToResume = isReady
-    },
     setPartyTimeUp(state, {isTimeUp}) {
       state.isPartyTimeUp = isTimeUp;
+      console.log('how about', state.isPartyTimeUp)
     }
   
 
@@ -38,9 +35,7 @@ const GameStore = ({
     isUserWaiting(state) {
       return state.isUserWaiting
     },
-    timeToResume(state) {
-      return state.readyToResume
-    },
+   
     isPartyTimeUp(state) {
       return state.isPartyTimeUp
     }
@@ -67,7 +62,9 @@ const GameStore = ({
     },
 
     setPartyTimeUp({commit}, {isTimeUp}) {
-      commit({ type: 'setPartyTimeUp', isTimeUp })
+      let isTimeUpVal = isTimeUp
+
+      commit({ type: 'setPartyTimeUp', isTimeUp:isTimeUpVal})
     },
     
 

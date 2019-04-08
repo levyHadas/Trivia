@@ -2,12 +2,12 @@
   <section>
     <start-countdown v-if="ShowStartCountdown"/>
     <!-- <resume-countdown/> -->
-    <resume-countdown v-if="showResumeCountdown"
+    <!-- <resume-countdown v-if="showResumeCountdown || dontDestroySummary"
       @askToContinue="askToContinue"
       @goHome="goHome"
-      @dontContinue="dontContinue"/>
+      @dontContinue="dontContinue"/> -->
 
-    <div v-if="endOfRoundForMe && !endOfRoundForAll & !endOfGameForMe" 
+    <div v-if="endOfRoundForMe && !dontDestroySummary" 
       class="waiting-modal-container">
         <wait-message class="waiting-for-others" 
           v-if="endOfRoundForMe"
@@ -15,7 +15,7 @@
     </div>
 
     <party-summary
-      v-if="endOfRoundForAll || endOfGameForMe || dontDestroySummary"/>
+      v-if="endOfRoundForAll || dontDestroySummary"/>
   </section>
 </template>
 
@@ -60,7 +60,7 @@ export default {
   methods: {
     askToContinue() {
       this.wishToContinue = true
-      this.$store.dispatch({type:'setPartyTimeUp', isTimeUp:false})
+      // this.$store.dispatch({type:'setPartyTimeUp', isTimeUp:false})
     },
 
     goHome() {
@@ -68,40 +68,45 @@ export default {
     },
 
     dontContinue() {
-      this.dontDestroy = true
+      this.endOfGameForMe = true
       this.wishToContinue = false
     },
 
     resumeParty() {
       SocketService.emit('startPartyTimer')
-      SocketService.emit('resetAllScores')
       this.$emit('startGameInterval')
     },
 
     startCountdownToResume() {
       this.resumeCountdown = true
       setTimeout(() => {
+        SocketService.emit('disconnectAllUsers')
+        this.$store.dispatch({type:'setPartyTimeUp', isTimeUp:false})
+        let timeUp = this.$store.getters.isPartyTimeUp
         if (!this.wishToContinue) {
           this.endOfGameForMe = true
+          this.$emit('resetGame')
         } else {
-          this.resumeCountdown = false
           const user = this.$store.getters.currUser
+          user.scores = []
           SocketService.emit('reJoinParty', user)
+          this.resumeCountdown = false
+          this.endOfGameForMe = false
           this.resumeParty()
         }
         this.wishToContinue = false
       }, 16500)
     },
 
-    isAllDone() {
-      let playersWithScores = this.$store.getters.playersWithScores
-      if (playersWithScores.length) {
-        var allDone = playersWithScores.every(player => {
-          return player.scores.length === NUM_OF_QUESTS
-        })
-      }
-      return allDone
-    },
+    // isAllDone() {
+    //   let playersWithScores = this.$store.getters.playersWithScores
+    //   if (playersWithScores.length) {
+    //     var allDone = playersWithScores.every(player => {
+    //       return player.scores.length === NUM_OF_QUESTS
+    //     })
+    //   }
+    //   return allDone
+    // },
   },
 
 
@@ -116,13 +121,11 @@ export default {
     },
 
     endOfRoundForAll() {
-      let allDone = this.isAllDone()
+      // let allDone = this.isAllDone()
       let timeUp = this.$store.getters.isPartyTimeUp
-      let endOfRound = timeUp || allDone
-      if (endOfRound) {
-        endOfRound = false
-        this.$store.dispatch({type:'setPartyTimeUp', isTimeUp:false})
-        SocketService.emit('disconnectAllUsers')
+      // let endOfRound = timeUp// || allDone
+      console.log(timeUp, 'time up')
+      if (timeUp) {
         this.startCountdownToResume()
         return true
       }
@@ -133,7 +136,7 @@ export default {
       return this.resumeCountdown
     },
     dontDestroySummary() {
-      return this.dontDestroy
+      return this.endOfGameForMe
     }
     
   },

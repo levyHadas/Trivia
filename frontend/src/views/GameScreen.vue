@@ -78,7 +78,7 @@ export default {
       question: {},
       isOver: false,
       quests: [],
-      timerInterval: "",
+      timerInterval: null,
       isTimer: true,
       timer: 10,
       counter: 0,
@@ -86,7 +86,6 @@ export default {
       myScores: [], //only this user scores
       partyCountDown: false,
       partyMode: false,
-      partyStartTime: Date.now(),
       isPartyOver: false,
       showQuestion: true,
       showScores: false
@@ -94,6 +93,7 @@ export default {
   },
   created() {
     this.partyMode = this.$route.name === "partyMode" ? true : false;
+    this.resetGame()
   
   },
   methods: {
@@ -103,7 +103,7 @@ export default {
     },
     startInterval() {
       clearInterval(this.timerInterval);
-      this.timerInterval=null
+      this.timerInterval = null
       this.timerInterval = setInterval(() => {
         if (this.timer === 0) {
           this.isTimer = false;
@@ -122,7 +122,9 @@ export default {
       this.myScores = [];
       this.isOver = false;
       this.counter = 0;
-      this.$store.dispatch({type:'setPartyTimeUp', isTimeUp:false})
+      SocketService.emit("resetAllScores");
+      clearInterval(this.timerInterval);
+      this.timerInterval = null
     },
 
     playSound(sound) {
@@ -245,8 +247,7 @@ export default {
   },
 
   destroyed() {
-    clearInterval(this.timerInterval)
-    this.timerInterval = null
+    this.resetGame()
   },
 
   components: {

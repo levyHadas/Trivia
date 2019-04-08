@@ -43,6 +43,7 @@ socket.on('ShowUpdatedScores', playersWithScores => {
 })
 
 socket.on('timeUp', () => {
+  console.log('time up???')
   Store.dispatch({type:'setPartyTimeUp', isTimeUp:true})
 })
 
