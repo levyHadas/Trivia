@@ -1,6 +1,5 @@
 <template>
   <section class="waiting-for-others">
-      <!-- <img class="podium" src="../assets/podium.png" alt=""> -->
       <div class="msg-container">
         <div class="wait-txt">
           <h1>You are quick!</h1>

@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section class="quest-score-preview">
     <li class="quest-score-container">
       <div class="quest-score-item questPreview">{{questPreview}}</div>
       <!-- <div class="quest-score-item result" :class="isCorrect">{{result}}</div> -->
@@ -20,7 +20,7 @@
       <!-- <div class="quest-score-item compare-to" v-if="score.isCorrect">Only {{randVal}}% faster</div> -->
       <!-- <div class="quest-score-item compare-to" v-if="!score.isCorrect">Only {{randVal}}% wins</div> -->
       <div class="quest-score-item compare-to" :title="statisticForDisplay"> 
-          <i class="fas fa-chart-line"></i>
+          <i class="fas fa-chart-line"></i>  {{ statisticForDisplay}}
       </div>
     </li>
   </section>
@@ -63,38 +63,65 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+  
+
 .quest-score-container {
-  display: grid;
+  /* display: grid;
   grid-template-columns: 10fr 1fr 2fr 1fr;
   grid-template-rows: fit-content(40%);
   grid-gap: 35px;
   width: 85%;
-  margin: 0 auto;
+  margin: 0 auto; */
+
 }
-.quest-score-item {
-  color: rgb(8, 58, 69);
-  font-size: 1.7rem;
+.quest-score-preview {
+  display: flex;
+  flex-direction: column;
+  width: 250px;
+  height: 250px;
+  justify-content: center;
+  text-align: center;
+  background-color: rgb(249, 248, 246);
+  border: 2.5px solid #7ed0d4;
+  margin: 30px;
+  padding: 20px;
+  font-size: 1.2rem;
+  padding: 20px;
+}
+// .quest-score-item {
+  /* color: rgb(8, 58, 69); */
+  /* font-size: 1.7rem; */
+  .result {
+    padding: 20px;
+    font-size: 2rem
+  }
+  .time {
+    font-size: 2rem
+  }
+  .compare-to  {
+    padding: 20px;
+  }
+// }
+
+.compare-to {
+  /* font-size: 1 */
 }
 
-@media (max-width: 850px) {
-  .quest-score-container {
-    grid-gap: 25px;
-    width: 90%;
-  }
-  .quest-score-item {
-    font-size: 1.2rem;
-  }
-}
+// @media (max-width: 850px) {
+//   .quest-score-container {
+//     grid-gap: 25px;
+//     width: 90%;
+//   }
+//   .quest-score-item {
+//     font-size: 1.2rem;
+//   }
+// }
 @media (max-width: 450px) {
-  .quest-score-container {
-    grid-gap: 15px;
-    width: 90%;
+  .quest-score-preview {
+    margin: 13px;
   }
-  .quest-score-item {
-    font-size: 1rem;
 
-  }
 }
 
 .correct {

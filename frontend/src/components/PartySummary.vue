@@ -89,7 +89,6 @@ export default {
 
   .podium-container {
     background: url("../assets/podium6.jpg") no-repeat center center;
-    // background: url("../assets/podium_trans3.png") no-repeat center center;
     background-size: cover;
     max-height: 100vw;
     height: calc(80vh - 110px);
@@ -108,8 +107,6 @@ export default {
     height: 100%;
     text-align: center;
     color: #E40C2B;
-    // font-weight: bold;
-    // font-family: 'Merriweather', serif;
     font-family: 'Special Elite', cursive;
     @media (max-width: 750px) {
       font-size: 2.2rem;

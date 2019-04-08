@@ -1,13 +1,13 @@
 <template>
   <section class="summary-section">
     <div class="summary-container">
+      <div class="bts-container">
+        <button class="summary-btn continue" @click="$emit('resumeGame')" focus>Continue</button>
+        <button class="summary-btn new-topic" @click="$emit('selecteNewTopic')">New Topic</button>
+      </div>
       <ul>
         <score-preview v-for="(score, idx) in myScores" :key="idx" :score="score"/>
       </ul>
-      <div class="bts-container">
-        <button class="btn continue" @click="$emit('resumeGame')" focus>Continue</button>
-        <button class="btn new-topic" @click="$emit('selecteNewTopic')">New Topic</button>
-      </div>
     </div>
   </section>
 </template>
@@ -27,39 +27,36 @@ export default {
 
 <style scoped lang="scss">
 .summary-section {
-  position: absolute;
-  z-index: 1;
-  background-color: rgba(255, 255, 255, 0.2);
-  width: 100vw;
-  height: calc(100vh - 110px);
-  top: 55px;
-  left: 0;
-  z-index: 10;
+  // position: absolute;
+  // z-index: 1;
+  // background-color: rgba(255, 255, 255, 0.2);
+  // width: 100vw;
+  // height: calc(100vh - 110px);
+  // left: 0;
+  // z-index: 10;
 }
 
 .summary-container {
-  width: 85%;
-  max-width: 950px;
-  height: 75%;
-  margin: 25px auto;
-  align-items: center;
-  justify-content: space-evenly;
-  background-color: rgb(213, 213, 213);
+  top: 55px;
+  position: absolute;
+  width: 100vw;
+  left: 0;
   z-index: 10;
-  display: flex;
-  flex-direction: column;
-  border-radius: 10px;
-  color: #3CBCC3;
+  background-color: rgba(29, 29, 44, 0.6);;
 
-  button {
+  .summary-btn {
     position: block;
     background-color: #3CBCC3;
     color: #f9f8f6;
-    // color: #F7F4E9;
+    font-size: 1.5rem;
+    padding: 10px 15px;
+    border: 2px solid #f9f8f6;
   }
   .bts-container {
+    margin-top: 17px;
     display: flex;
-    align-items: center;
+    width: 100vw;
+    justify-content: center
   }
   .continue {
     margin-right: 10px;
@@ -70,22 +67,18 @@ export default {
   }
 
   ul {
-    grid-gap: 30px;
-    display: grid;
-    padding: 20px 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
   }
 }
 
 @media (max-width: 450px) {
-  .summary-container {
-    margin: 0 auto;
-    height: inherit;
-
-    ul {
-      grid-gap: 20px;
-      width: 90%;
-      padding: 10px 0;
-    }
+  .summary-container .summary-btn {
+    border: none;
+    font-size: 1.1rem;
+    padding: 7px 10px;
+    border: 1px solid #f9f8f6;
   }
 }
 

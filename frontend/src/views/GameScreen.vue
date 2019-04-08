@@ -123,7 +123,6 @@ export default {
       this.isOver = false;
       this.counter = 0;
       this.$store.dispatch({type:'setPartyTimeUp', isTimeUp:false})
-
     },
 
     playSound(sound) {

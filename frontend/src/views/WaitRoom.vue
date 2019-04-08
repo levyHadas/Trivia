@@ -32,7 +32,6 @@ export default {
   },
 
   destroyed() {
-    console.log('here??')
     this.killInterval();
     SocketService.emit('partRequestCanceled');
   },

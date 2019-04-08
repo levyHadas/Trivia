@@ -1,5 +1,5 @@
 <template>
-    <section class="resume-count-down">
+    <section class="resume-countdown-container">
         <div class="resume-countdown">
             <div class="txt" v-if="counting">Next Party in {{timeRemaining}} s' </div> 
             <div class="txt" v-if="counting && !askedToContinue">Hit 'Continue' to Join!</div> 

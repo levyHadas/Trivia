@@ -66,7 +66,6 @@ a {
 	.el-button.is-plain {
 		margin: 20px 0;
 		color: #f9f8f6;
-		// color: #F7F4E9;
 		background: #3CBCC3;
 		border: none;
 		&:hover{
@@ -84,10 +83,10 @@ a {
 	color: #1D1D2C;
 }
 .swal-button {
-    background-color: #3CBCC3;
+  background-color: #3CBCC3;
 }
 .swal-overlay {
-		background-color: rgba(29, 29, 44, 0.65);
+	background-color: rgba(29, 29, 44, 0.65);
 }
 .scale-down {  // On Mobile Menu Opening
   opacity: 0.3;
@@ -299,7 +298,7 @@ a {
 }
 
 //Continue party - resum counter+party summary
-.resume-count-down {
+.resume-countdown-container {
 	position: absolute;
 	left: 0;
 	top: 55px;
