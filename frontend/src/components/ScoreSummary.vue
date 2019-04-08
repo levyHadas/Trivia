@@ -26,15 +26,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.summary-section {
-  // position: absolute;
-  // z-index: 1;
-  // background-color: rgba(255, 255, 255, 0.2);
-  // width: 100vw;
-  // height: calc(100vh - 110px);
-  // left: 0;
-  // z-index: 10;
-}
+
 
 .summary-container {
   top: 55px;

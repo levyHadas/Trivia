@@ -66,15 +66,7 @@ export default {
 <style scoped lang="scss">
   
 
-.quest-score-container {
-  /* display: grid;
-  grid-template-columns: 10fr 1fr 2fr 1fr;
-  grid-template-rows: fit-content(40%);
-  grid-gap: 35px;
-  width: 85%;
-  margin: 0 auto; */
 
-}
 .quest-score-preview {
   display: flex;
   flex-direction: column;
@@ -89,34 +81,19 @@ export default {
   font-size: 1.2rem;
   padding: 20px;
 }
-// .quest-score-item {
-  /* color: rgb(8, 58, 69); */
-  /* font-size: 1.7rem; */
-  .result {
-    padding: 20px;
-    font-size: 2rem
-  }
-  .time {
-    font-size: 2rem
-  }
-  .compare-to  {
-    padding: 20px;
-  }
-// }
 
-.compare-to {
-  /* font-size: 1 */
+.result {
+  padding: 20px;
+  font-size: 2rem
+}
+.time {
+  font-size: 2rem
+}
+.compare-to  {
+  padding: 20px;
 }
 
-// @media (max-width: 850px) {
-//   .quest-score-container {
-//     grid-gap: 25px;
-//     width: 90%;
-//   }
-//   .quest-score-item {
-//     font-size: 1.2rem;
-//   }
-// }
+
 @media (max-width: 450px) {
   .quest-score-preview {
     margin: 13px;
