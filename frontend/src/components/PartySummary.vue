@@ -102,9 +102,9 @@ export default {
   }
   .winners-container {
     display: grid;
-    grid-template-columns: 2fr 1fr 2fr;
-    grid-template-rows: 1fr 1fr 0.5fr 0.5fr 0.5fr 0.5fr 0.5fr 0.5fr 1fr;
-    font-size: 3rem;
+    grid-template-columns: 2fr 1.5fr 2fr;
+    grid-template-rows: 6fr 1fr 1fr 1fr;
+    font-size: 2.5rem;
     height: 100%;
     text-align: center;
     color: #E40C2B;
@@ -112,7 +112,7 @@ export default {
     // font-family: 'Merriweather', serif;
     font-family: 'Special Elite', cursive;
     @media (max-width: 750px) {
-      font-size: 2.4rem;
+      font-size: 2.2rem;
       font-weight: 400;
     }
     @media (max-width: 500px) {
@@ -122,19 +122,18 @@ export default {
     }
   }
   .second {
-    grid-row-start: 8;
+    grid-row-start: 3;
     text-align: right;
-    padding: 15px 20px 0 0;
   }
   .first {
-    grid-row-start: 7;
+    grid-row-start: 2;
     grid-column-start: 2;
   }
   .third {
-    grid-row-start: 8;
+    grid-row-start: 3;
     grid-column-start: 3;
     text-align: left;
-    padding: 20px 0 20px 0;
+    padding: 10px 0;
   }
 }
 
