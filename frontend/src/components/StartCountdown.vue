@@ -69,14 +69,12 @@ export default {
     background-size: cover;
     box-shadow: -1px 1px 11px 3px #5f6972;
     border-radius: 50%;
-    
     display: flex;
     align-items: center;
     justify-content: center;
     width: 70vw;
     height: 70vw;
     z-index: -20;
-    // margin: 10vh auto;
     margin: 12vh auto 20px auto;
     max-width: 500px;
     max-height: 500px;

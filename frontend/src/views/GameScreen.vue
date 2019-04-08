@@ -32,7 +32,6 @@
                 r="17"
                 transform="rotate(-180 8.5 8.5)"
               ></circle>
-              <!-- 51 = 102/2 -->
             </svg>
 
             <div class="countdown__number">
@@ -135,7 +134,7 @@ export default {
     },
 
     checkAnswer(event, answerIdx) {
-      if (this.isTimer===false) return
+      if (this.isTimer === false) return
       this.isTimer = false;
       clearInterval(this.timerInterval);
       var correctAnswerIdx = +this.thisQuestion.correctAnswerIdx;
@@ -147,7 +146,7 @@ export default {
         var isCorrect = false;
       }
       this.isOver = true;
-      this.updateMyScores(this.thisQuestion, isCorrect, 15 - this.timer);
+      this.updateMyScores(this.thisQuestion, isCorrect, 10 - this.timer);
       this.counter += 1;
       this.nextQuestion();
     },
@@ -163,7 +162,6 @@ export default {
       if (this.partyMode) this.reportChangeInScores();
     },
     nextQuestion() {
-
       this.updateProgress(this.myScores);
       if (this.quests.length === 1) {
         this.counter = NUM_OF_QUESTS;
@@ -176,7 +174,6 @@ export default {
           this.isTimerLessThen10 = false;
           this.timer = 10;
           this.isTimer = true;
-
           if (this.partyMode  && !this.endOfRound) { //scores in focus for 2 seconds
             this.showScores = true
             setTimeout(() => {
@@ -184,6 +181,7 @@ export default {
               this.startInterval()
             }, 1700)
           }
+          else if (!this.partyMode) this.startInterval()
         }, 1500);
       }
     },
