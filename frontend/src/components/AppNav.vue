@@ -62,11 +62,11 @@ export default {
   padding: 0 0 0 90px;
   margin: 10px;
   background: 0%;
-  color: white;
+  color: #f9f8f6;
   // color: #F7F4E9;
   font-size: 1.2rem;
   &:hover{
-		background-color: #6d7fa6;
+		background-color: #3cbcc3;
 	} 
 }
 .btn-container {
@@ -82,8 +82,8 @@ export default {
     padding: 7px 10px;
     font-size: 1.1rem;
     margin: 0 5px;
-    background-color: #1D1D2C;
-    color:white;
+    background-color: #101032;
+    color:#f9f8f6;
     // color:#F7F4E9;
     &:last-of-type() {
       margin: 0;

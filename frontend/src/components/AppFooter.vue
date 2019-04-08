@@ -43,7 +43,7 @@ export default {
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: rgba(60, 188, 195, 0.85);
+  background-color: rgba(60, 188, 195, 0.65);
   // z-index: ;
 
 }

@@ -154,7 +154,7 @@ export default {
   justify-content: center;
   h3 {
     // color: #F7F4E9;
-    color: white;
+    color: #f9f8f6;
     -webkit-text-stroke-width: 0.7px;
     -webkit-text-stroke-color: black;
     border-radius: 20px;
@@ -172,7 +172,7 @@ export default {
   height: 60px;
   line-height: 60px;
   // background-color: #F7F4E9;
-  background-color: white;
+  background-color: #f9f8f6;
   border-radius: 8px;
   color: #1D1D2C;
   font-size: 40px;
@@ -247,7 +247,7 @@ export default {
     animation-direction: alternate;
   }
   &:hover {
-    background-color: #6d7fa6;
+    background-color: #d1eeef;
   }
 }
 

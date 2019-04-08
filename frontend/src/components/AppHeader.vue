@@ -64,12 +64,12 @@ div.bm-burger-button {
 
 .header-container {
   height: 55px;
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: #f9f8f6;
   border: 1px solid rgba(190, 190, 190, 0.658);
   display: flex;
   box-shadow: 5px -16px 12px 18px rgba(0, 0, 0, 0.32);
   align-items: center;
-  opacity: 0.6;
+  opacity: 0.7;
   z-index: 25;
 }
 .app-header {
@@ -80,7 +80,7 @@ div.bm-burger-button {
   z-index: 25;
 }
 .logo {
-  color: #1D1D2C;
+  color: #101032;
   font-size: 2.5rem;
 }
 </style>

@@ -54,7 +54,7 @@ export default {
   button {
     position: block;
     background-color: #3CBCC3;
-    color: white;
+    color: #f9f8f6;
     // color: #F7F4E9;
   }
   .bts-container {

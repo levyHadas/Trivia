@@ -197,9 +197,9 @@ export default {
 
 
 //Variables
-$blue: 	#8b8b8b;
+$blue: 	#6d7691;
 $grey: 	#1D1D2C;
-$white: #dae6e5;
+$white: #f9f8f6;
 $red: #E40C2B;
 $green: #438945;
 
