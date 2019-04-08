@@ -1,5 +1,5 @@
 <template>
-    <section class="count-down">
+    <section class="start-count-down">
         <div class="countdown-bg">
 
             <div class="animation-container">

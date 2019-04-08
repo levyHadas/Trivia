@@ -300,10 +300,10 @@ a {
 }
 
 //Continue party - resum counter+party summary
-.count-down {
+.resume-count-down {
 	position: absolute;
 	left: 0;
-	top:0;
+	top: 55px;
 	width: 100vw;
 }
 .resume-countdown {
@@ -322,7 +322,8 @@ a {
 	width: 300px;
 	animation: zoomIn 0.4s linear;
 	margin: 0 auto;
-	margin-top: calc(15vh + 55px);
+	// margin-top: calc(15vh + 55px);
+	margin-top: 15vh;
 
 	.txt {
 			margin: 5px 0;

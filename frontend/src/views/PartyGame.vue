@@ -16,9 +16,6 @@
 
     <party-summary
       v-if="endOfRoundForAll || endOfGameForMe || dontDestroySummary"/>
-      <!-- @askToContinue="askToContinue"
-      @goHome="goHome"
-      @dontContinue="dontContinue" -->
   </section>
 </template>
 
@@ -49,9 +46,7 @@ export default {
   async created() {
     this.startCountdown = true;
     setTimeout(() => {
-      
       SocketService.emit("resetAllScores");
-
       var quests = this.$store.getters.questsForDisplay;
       this.show = true;
       this.startCountdown = false;
@@ -79,16 +74,14 @@ export default {
 
     resumeParty() {
       SocketService.emit('startPartyTimer')
-      // Store.dispatch({type:'setPartyTimeUp', isTimeUp:false})
+      SocketService.emit('resetAllScores')
       this.$emit('startGameInterval')
     },
 
     startCountdownToResume() {
       this.resumeCountdown = true
       setTimeout(() => {
-        SocketService.emit('resetAllScores')
         if (!this.wishToContinue) {
-          // SocketService.emit("userLeftPartyPage");
           this.endOfGameForMe = true
         } else {
           this.resumeCountdown = false
@@ -96,7 +89,6 @@ export default {
           SocketService.emit('reJoinParty', user)
           this.resumeParty()
         }
-        this.endOfRound = false
         this.wishToContinue = false
       }, 16500)
     },
@@ -126,9 +118,9 @@ export default {
     endOfRoundForAll() {
       let allDone = this.isAllDone()
       let timeUp = this.$store.getters.isPartyTimeUp
-      this.endOfRound = timeUp || allDone
-      if (this.endOfRound) {
-        this.endOfRound = false
+      let endOfRound = timeUp || allDone
+      if (endOfRound) {
+        endOfRound = false
         this.$store.dispatch({type:'setPartyTimeUp', isTimeUp:false})
         SocketService.emit('disconnectAllUsers')
         this.startCountdownToResume()
