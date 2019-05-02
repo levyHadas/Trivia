@@ -15,7 +15,7 @@ var gRooms = [];
 
 function _checkForAvailableRoom() {
     let roomWithWaiting = gRooms.find((room) => {
-        if (room.members && room.members.length === 1) {
+        if (room.members && room.members.length === 1 && !room.isPartyOn) {
             return room
         }
     })
@@ -49,6 +49,7 @@ function printRooms() {
 function _createRoom(){
     var newRoom = {
         members: [],
+        isPartyOn: false,
         _id: _makeId()
     }
     gRooms.push(newRoom);

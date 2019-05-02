@@ -161,6 +161,7 @@ export default {
   },
   destroyed() {
     clearInterval(this.interval);
+    this.interval = null
   }
 
 };

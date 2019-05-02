@@ -27,6 +27,7 @@ export default {
     return {
       showSummary: false,
       wishToContinue: false,
+      resumeTimeout: null
     }
   },
   methods: {
@@ -35,7 +36,7 @@ export default {
     },
 
     startCountdownToResume() {      
-        setTimeout(() => {
+        this.resumeTimeout = setTimeout(() => {
             if (this.wishToContinue) this.resumeParty()
         }, COUNTDOWN_TO_RESUME_SECS*1000)
     },
@@ -49,6 +50,10 @@ export default {
       this.$router.push("/");
     },
 
+  },
+  destroyed() {
+    clearTimeout(this.resumeTimeout)
+    this.resumeTimeout = null
   },
 
 }

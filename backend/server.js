@@ -40,30 +40,8 @@ AddGameRoutes(app)
 
 
 
-var gPartyTimeout
 
 
-function _leavePartyRoom(socket) {
-  socket.emit('setInPartyState', false)
-  var roomToLeave = socket.room
-  if (!roomToLeave) return
-  socket.room = null
-  socket.leave(roomToLeave._id)
-  RoomService.leaveRoom(roomToLeave, socket.user)
-  console.log('report change in scores for romm: ', roomToLeave._id, ' members: ', roomToLeave.members)
-  io.to(roomToLeave._id).emit('ShowUpdatedScores', roomToLeave.members) 
-}
-
-
-
-function _startPartyTimer(socket, roomId) {
-  //this is only in case a socket will not get disconnected for some reason
-  gPartyTimeout = setTimeout(() => {
-    io.to(roomId).emit('timeUp')
-      _endParty(socket)
-      // socket.emit('setInPartyState', false)
-  }, (120*1000))
-}
 
 
 
@@ -88,11 +66,15 @@ io.on('connection', socket => {
 
   socket.on('partyRequest', async (user) => {
     
-    if (socket.room) return
-    _setRequest(user, socket)
+    if (socket.room) {
+      await _handleRequest(socket)
+    }
+    else {
+      _setRequest(user, socket)
+      await _handleRequest(socket)
+    }
 
     
-    await _handleRequest(socket)
 
   })
 
@@ -123,16 +105,25 @@ io.on('connection', socket => {
 
 })
 
+function _leavePartyRoom(socket) {
+  socket.emit('setInPartyState', false)
+  var roomToLeave = socket.room
+  if (!roomToLeave) return
+  socket.room = null
+  socket.leave(roomToLeave._id)
+  RoomService.leaveRoom(roomToLeave, socket.user)
+  console.log('report change in scores for romm: ', roomToLeave._id, ' members: ', roomToLeave.members)
+  io.to(roomToLeave._id).emit('ShowUpdatedScores', roomToLeave.members) 
+}
 
 function _endParty(socket) {
   socket.emit('setInPartyState', false)
   if (!socket.room) return
-  let roomId = socket.room._id
-  socket.room = null
-  clearTimeout(gPartyTimeout)
-  gPartyTimeout = null
+  let room = socket.room
+  room.isPartyOn = false
   _resetAllScores(socket)
-  _disconnectAllUsers(roomId)
+  _disconnectAllUsers(room._id)
+  socket.room = null
 }
 function _disconnectAllUsers(roomId) {
   RoomService.removeRoom(roomId)
@@ -159,12 +150,13 @@ async function _handleRequest(socket) {
   var numOfWaiting = io.sockets.adapter.rooms[currRoom._id].length
   if (numOfWaiting < 2) {
     socket.emit('tellUserToWait', numOfWaiting)
+    currRoom.isPartyOn = false
   }
   else { //start!
-
+    currRoom.isPartyOn = true
     const quests = await QuestService.query({}) 
     io.to(currRoom._id).emit('startParty', quests) 
-    _startPartyTimer(socket, currRoom._id)
+  
   }  
 }
 function _setRequest(user, socket) {

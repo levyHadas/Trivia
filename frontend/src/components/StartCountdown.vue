@@ -52,12 +52,12 @@ export default {
 .countdown-bg {
   position: absolute;
   width: 100vw;
-//   height: calc(100vh - 110px);
+  height: calc(100vh - 55px);
   top: 0;
   left: 0;
   z-index: 20;
   background-color: #97dcdf;
-  height: 100vh;
+//   height: 98vh;
 }
 
   .animation-container {
@@ -69,7 +69,7 @@ export default {
     align-items: center;
     justify-content: center;
     width: 60vw;
-    height: 60vw;
+    height: 58vw;
     z-index: -20;
     margin: 10vh auto 0 auto;
     max-width: 500px;

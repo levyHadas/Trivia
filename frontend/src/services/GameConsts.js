@@ -1,4 +1,4 @@
-const NUM_OF_QUESTS = 1
+const NUM_OF_QUESTS = 6
 const QUEST_TIMER_SECS = 10
 const COUNTDOWN_TO_RESUME_SECS = 10
 
