@@ -51,6 +51,7 @@ export default {
     }
   },
   computed: {
+    
     isPartyMode() {
       if (this.params.name === "partyMode") return true;
       false;
@@ -59,6 +60,7 @@ export default {
       return this.player.scores;
     },
     playersWithScores() {
+      return this.$store.getters.playersWithScores;
       return this.$store.getters.playersWithScores;
     },
     isMenuOpen() {

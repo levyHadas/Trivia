@@ -14,7 +14,7 @@ import PlayerProgress from "@/components/PlayerProgress"
 import SocketService from '@/services/SocketService.js'
 
 export default {
-  name: 'Party',
+  name: 'PartyPlayers',
 
   components: {
     PlayerProgress

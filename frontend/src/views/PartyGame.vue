@@ -2,12 +2,11 @@
   <section>
     <start-countdown v-if="ShowStartCountdown"/>
     <!-- <resume-countdown/> -->
-    <!-- <resume-countdown v-if="showResumeCountdown || dontDestroySummary"
+    <resume-countdown v-if="showSummary"
       @askToContinue="askToContinue"
-      @goHome="goHome"
-      @dontContinue="dontContinue"/> -->
+      @goHome="goHome"/>
 
-    <div v-if="endOfRoundForMe && !dontDestroySummary" 
+    <div v-if="endOfRoundForMe && !endOfRoundForAll" 
       class="waiting-modal-container">
         <wait-message class="waiting-for-others" 
           v-if="endOfRoundForMe"
@@ -15,7 +14,7 @@
     </div>
 
     <party-summary
-      v-if="endOfRoundForAll || dontDestroySummary"/>
+      v-if="showSummary"/>
   </section>
 </template>
 
@@ -36,10 +35,9 @@ export default {
     return {
       show: false,
       startCountdown: false,
-      resumeCountdown: false,
+      showSummary: false,
       wishToContinue: false,
       endOfGameForMe: false,
-      dontDestroy: false
     }
   },
   
@@ -55,7 +53,7 @@ export default {
   },
 
   destroyed() {
-    SocketService.emit("userLeftPartyPage");
+    if (this.wishToContinue) SocketService.emit("userLeftPartyPage");
   },
   methods: {
     askToContinue() {
@@ -67,46 +65,33 @@ export default {
       this.$router.push("/");
     },
 
-    dontContinue() {
-      this.endOfGameForMe = true
+
+    async resumeParty() {
+      this.endOfGameForMe = false
+      await this.$store.dispatch({type: 'setPartyRequest'})
       this.wishToContinue = false
-    },
-
-    resumeParty() {
-      SocketService.emit('startPartyTimer')
+      this.showSummary = false
+      SocketService.emit("resetAllScores");
+      this.$emit('resetGame')
       this.$emit('startGameInterval')
+      
     },
 
-    startCountdownToResume() {
-      this.resumeCountdown = true
+    startCountdownToResume() {      
       setTimeout(() => {
-        SocketService.emit('disconnectAllUsers')
-        this.$store.dispatch({type:'setPartyTimeUp', isTimeUp:false})
-        let timeUp = this.$store.getters.isPartyTimeUp
-        if (!this.wishToContinue) {
-          this.endOfGameForMe = true
-          this.$emit('resetGame')
-        } else {
-          const user = this.$store.getters.currUser
-          user.scores = []
-          SocketService.emit('reJoinParty', user)
-          this.resumeCountdown = false
-          this.endOfGameForMe = false
-          this.resumeParty()
-        }
-        this.wishToContinue = false
+        if (this.wishToContinue) this.resumeParty()
       }, 16500)
     },
 
-    // isAllDone() {
-    //   let playersWithScores = this.$store.getters.playersWithScores
-    //   if (playersWithScores.length) {
-    //     var allDone = playersWithScores.every(player => {
-    //       return player.scores.length === NUM_OF_QUESTS
-    //     })
-    //   }
-    //   return allDone
-    // },
+    isAllDone() {
+      let playersWithScores = this.$store.getters.playersWithScores
+      if (playersWithScores.length) {
+        var allDone = playersWithScores.every(player => {
+          return player.scores.length === NUM_OF_QUESTS
+        })
+      }
+      return allDone
+    },
   },
 
 
@@ -121,23 +106,20 @@ export default {
     },
 
     endOfRoundForAll() {
-      // let allDone = this.isAllDone()
-      let timeUp = this.$store.getters.isPartyTimeUp
-      // let endOfRound = timeUp// || allDone
-      console.log(timeUp, 'time up')
-      if (timeUp) {
+      let allDone = this.isAllDone()
+      // let timeUp = this.$store.getters.isPartyTimeUp
+      // let endOfRound = timeUp || allDone
+      let endOfRound = allDone
+      if  (endOfRound) { //if this is the end of round, we need to reset everything,but keep the summary
+        this.showSummary = true
+        // this.$store.dispatch({type:'setPartyTimeUp', isTimeUp:false})
+        SocketService.emit('partyEnded')
         this.startCountdownToResume()
-        return true
       }
-      return false
+      return endOfRound
     },
 
-    showResumeCountdown() {
-      return this.resumeCountdown
-    },
-    dontDestroySummary() {
-      return this.endOfGameForMe
-    }
+
     
   },
 

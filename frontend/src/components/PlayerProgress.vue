@@ -137,9 +137,11 @@ export default {
   },
   computed: {
     playerScores() {
+      if (!this.player) return []
       return this.player.scores;
     },
     playerNickname() {
+      if (!this.player) return ''
       return this.player.nickname || this.player.username
     },
     isMenuOpen() {

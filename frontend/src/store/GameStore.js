@@ -20,10 +20,9 @@ const GameStore = ({
     setAllScores(state, { playersWithScores }) {
       state.playersWithScores = playersWithScores
     },
-    setPartyTimeUp(state, {isTimeUp}) {
-      state.isPartyTimeUp = isTimeUp;
-      console.log('how about', state.isPartyTimeUp)
-    }
+    // setPartyTimeUp(state, {isTimeUp}) {
+    //   state.isPartyTimeUp = isTimeUp;
+    // }
   
 
   },
@@ -63,7 +62,6 @@ const GameStore = ({
 
     setPartyTimeUp({commit}, {isTimeUp}) {
       let isTimeUpVal = isTimeUp
-
       commit({ type: 'setPartyTimeUp', isTimeUp:isTimeUpVal})
     },
     

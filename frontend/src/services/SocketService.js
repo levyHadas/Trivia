@@ -32,8 +32,7 @@ socket.on('tellUserToWait', numOfUsers => {
 
 socket.on('startParty', partyQuests => {
   Store.dispatch({ type: 'setGameQuests', quests: partyQuests })
-  Store.dispatch({type: 'updateWaitingState', isWaiting: false})
-  // Store.dispatch({type: 'updateAllScores', playersWithScores: []})
+  Store.dispatch({type: 'updateAllScores', playersWithScores: []})
 
   Router.push('/play/party')
 })
@@ -43,7 +42,6 @@ socket.on('ShowUpdatedScores', playersWithScores => {
 })
 
 socket.on('timeUp', () => {
-  console.log('time up???')
   Store.dispatch({type:'setPartyTimeUp', isTimeUp:true})
 })
 

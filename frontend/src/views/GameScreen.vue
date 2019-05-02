@@ -122,7 +122,6 @@ export default {
       this.myScores = [];
       this.isOver = false;
       this.counter = 0;
-      SocketService.emit("resetAllScores");
       clearInterval(this.timerInterval);
       this.timerInterval = null
     },

@@ -1,23 +1,55 @@
 module.exports = {
-    findAvailableRoom,
-    createRoom
+    getRoom,
+    leaveRoom,
+    removeRoom,
+    printRooms
+    
 }
 
 
-const gRooms = [];
+var gRooms = [];
 
 // function findRoomWith(user) {
 // 	return gRooms.find(room => room.members.find(({ id }) => id === user.id));
 // }
 
-function findAvailableRoom() {
-	return gRooms.find(({ members }) => members.length === 1);
+function _checkForAvailableRoom() {
+    let roomWithWaiting = gRooms.find((room) => {
+        if (room.members && room.members.length === 1) {
+            return room
+        }
+    })
+    if (roomWithWaiting) return roomWithWaiting
+    else return gRooms.find((room) => room.members && room.members.length === 0)
+    
 }
 
-function createRoom(user){
+function removeRoom(id) {
+    gRooms = gRooms.filter((room) => room._id !== id);  
+}
+
+function leaveRoom(roomToLeave, user) {
+    if (!roomToLeave.members.length) removeRoom(roomToLeave._id)
+    else {
+        roomToLeave.members = roomToLeave.members.filter((member) => {
+                                                    return member._id !== user._id})
+        console.log(roomToLeave.members, ' room members')
+    }
+}
+
+function getRoom() {
+    let availableRoom = _checkForAvailableRoom()
+    console.log('found available ', availableRoom)
+    if(availableRoom) return availableRoom
+    return _createRoom()
+}
+function printRooms() {
+    console.log('our rooms are:', gRooms)
+}
+function _createRoom(){
     var newRoom = {
-        members: [user],
-        id: _makeId()
+        members: [],
+        _id: _makeId()
     }
     gRooms.push(newRoom);
     return newRoom;
