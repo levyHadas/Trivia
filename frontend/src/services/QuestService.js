@@ -51,7 +51,7 @@ function save(quest) {
 function createEmpty() {
     var emptyQuest = {
             category: "",
-            txt: "Write you own question",
+            txt: "",
             correctAnswerIdx: 1,
             answers: ["", "", "", ""],
             createdBy: "",

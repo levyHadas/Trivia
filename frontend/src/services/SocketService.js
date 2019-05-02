@@ -23,27 +23,30 @@ export default {
 
 
 socket.on('tellUserToWait', numOfUsers => {
-  Store.dispatch({type: 'updateWaitingState', isWaiting: true})
+  // Store.dispatch({type: 'updateWaitingState', isWaiting: true})
   Router.push('/waitroom')
-
   console.log(numOfUsers , ' are connected. game only start at 5')
+})
+socket.on('setInPartyState', state => {
+  console.log(state)
+  Store.dispatch({type: 'updateInPartyState', inParty: state})
 })
 
 
 socket.on('startParty', partyQuests => {
+  Store.dispatch({type: 'updateInPartyState', inParty: true})
   Store.dispatch({ type: 'setGameQuests', quests: partyQuests })
   Store.dispatch({type: 'updateAllScores', playersWithScores: []})
-
-  Router.push('/play/party')
+  // setTimeout(()=> {
+    Router.push('/play/party')
+  // },1000)
 })
 
 socket.on('ShowUpdatedScores', playersWithScores => {
   Store.dispatch({type:'updateAllScores', playersWithScores})
 })
 
-socket.on('timeUp', () => {
-  Store.dispatch({type:'setPartyTimeUp', isTimeUp:true})
-})
+
 
 
 function connectionTest() {

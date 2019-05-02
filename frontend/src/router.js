@@ -7,6 +7,7 @@ import Login from './views/Login.vue'
 import Logout from './views/Logout.vue'
 import CategorySelection from './views/CategorySelection.vue'
 import WaitRoom from './views/WaitRoom.vue'
+import EndOfParty from './views/EndOfParty.vue'
 import QuestEdit from './views/QuestEdit.vue'
 
 Vue.use(Router)
@@ -53,7 +54,14 @@ export default new Router({
     {
       path: '/waitroom',
       name: 'WaitRoom',
-      component: WaitRoom
+      component: WaitRoom,
+      history: false
+    },
+    {
+      path: '/partysummary',
+      name: 'endOfParty',
+      component: EndOfParty,
+      history: false
     },
   ]
 })

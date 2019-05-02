@@ -14,10 +14,10 @@
       @resetProgress="updateProgress"/>
 
     <transition name="fadeOne" v-if="!endOfRound">
-      <div v-show="show" class="container quest-container" v-if="thisQuestion">
+      <div :show="show" class="container quest-container" v-if="thisQuestion">
         <div class="One">
           <div
-            v-show="show"
+            :show="show"
             id="countdown"
             class="countdown timer"
             :class="{redTimer: isTimerLessThen10}"
@@ -47,7 +47,7 @@
       </div>
     </transition>
     <transition name="fadeTwo">
-      <div v-show="show" class="answer-container" v-if="thisQuestion">
+      <div v-show="show" class="answer-container" v-if="thisQuestion && timerInterval">
         <p
           class="Two answer"
           v-for="(answer, idx) in thisAnswers"
@@ -64,7 +64,7 @@
 import SocketService from "@/services/SocketService.js";
 import SingleGame from "@/views/SingleGame";
 import PartyGame from "@/views/PartyGame";
-const NUM_OF_QUESTS = 6
+import { NUM_OF_QUESTS, QUEST_TIMER_SECS } from '@/services/GameConsts'
 
 export default {
   name: "Question",
@@ -80,13 +80,11 @@ export default {
       quests: [],
       timerInterval: null,
       isTimer: true,
-      timer: 10,
+      timer: QUEST_TIMER_SECS,
       counter: 0,
       isTimerLessThen10: false,
       myScores: [], //only this user scores
-      partyCountDown: false,
       partyMode: false,
-      isPartyOver: false,
       showQuestion: true,
       showScores: false
     };
@@ -108,7 +106,7 @@ export default {
         if (this.timer === 0) {
           this.isTimer = false;
           clearInterval(this.timerInterval);
-          this.updateMyScores(this.thisQuestion, false, 10);
+          this.updateMyScores(this.thisQuestion, false, QUEST_TIMER_SECS);
           this.counter += 1;
           this.nextQuestion();
           return;
@@ -146,7 +144,7 @@ export default {
         var isCorrect = false;
       }
       this.isOver = true;
-      this.updateMyScores(this.thisQuestion, isCorrect, 10 - this.timer);
+      this.updateMyScores(this.thisQuestion, isCorrect, QUEST_TIMER_SECS - this.timer);
       this.counter += 1;
       this.nextQuestion();
     },
@@ -172,7 +170,7 @@ export default {
           this.question = this.$store.getters.currQuest;
           this.isOver = false;
           this.isTimerLessThen10 = false;
-          this.timer = 10;
+          this.timer = QUEST_TIMER_SECS;
           this.isTimer = true;
           if (this.partyMode  && !this.endOfRound) { //scores in focus for 2 seconds
             this.showScores = true

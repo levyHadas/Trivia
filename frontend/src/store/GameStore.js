@@ -4,26 +4,22 @@ import SocketService from '@/services/SocketService.js'
 const GameStore = ({
 
   state: {
-    // gamePlayers: [],
-    isUserWaiting: false,
+ 
+    userInParty: false,
     playersWithScores: [],
-    readyToResume: false,
-    isPartyTimeUp: false
+
   },
 
   mutations: {
 
 
-    setIsUserWaiting(state, { isWaiting }) {
-      state.isUserWaiting = isWaiting
+    setInPartyState(state, { inParty }) {
+      state.userInParty = inParty
     },
     setAllScores(state, { playersWithScores }) {
       state.playersWithScores = playersWithScores
     },
-    // setPartyTimeUp(state, {isTimeUp}) {
-    //   state.isPartyTimeUp = isTimeUp;
-    // }
-  
+
 
   },
 
@@ -31,14 +27,9 @@ const GameStore = ({
     playersWithScores(state) {
       return state.playersWithScores
     },
-    isUserWaiting(state) {
-      return state.isUserWaiting
+    isUserInParty(state) {
+      return state.userInParty
     },
-   
-    isPartyTimeUp(state) {
-      return state.isPartyTimeUp
-    }
-
   },
 
   actions: {
@@ -56,16 +47,11 @@ const GameStore = ({
       commit({ type: 'setAllScores', playersWithScores })
     },
     
-    updateWaitingState({commit}, {isWaiting}) {
-      commit({ type: 'setIsUserWaiting', isWaiting })
+    updateInPartyState({commit}, {inParty}) {
+      commit({ type: 'setInPartyState', inParty })
     },
 
-    setPartyTimeUp({commit}, {isTimeUp}) {
-      let isTimeUpVal = isTimeUp
-      commit({ type: 'setPartyTimeUp', isTimeUp:isTimeUpVal})
-    },
-    
-
+  
     async setPartyRequest({dispatch, getters}) {
       SocketService.connectionTest()
       var currUser = getters.currUser

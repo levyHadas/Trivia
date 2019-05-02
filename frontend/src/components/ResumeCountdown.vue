@@ -1,7 +1,9 @@
 <template>
     <section class="resume-countdown-container">
         <div class="resume-countdown">
-            <div class="txt" v-if="counting">Next Party in {{timeRemaining}} s' </div> 
+            <div class="txt" v-if="counting">Next Party in 
+                <span class="time-remaining">{{timeRemaining}}</span>
+             s'</div> 
             <div class="txt" v-if="counting && !askedToContinue">Hit 'Continue' to Join!</div> 
             <div class="txt" v-if="!counting && !askedToContinue">You missed the party</div>
             <div class="txt" v-if="!counting && !askedToContinue">join the next one...</div> 
@@ -11,11 +13,12 @@
     </section>
 </template>
 <script>
+import { COUNTDOWN_TO_RESUME_SECS } from '@/services/GameConsts'
 export default {
     data() {
         return {
             countDownInterval: null,
-            countDown: 16,
+            countDown: COUNTDOWN_TO_RESUME_SECS,
             wishToContinue: false
         }
     },

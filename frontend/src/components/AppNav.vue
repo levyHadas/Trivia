@@ -59,12 +59,15 @@ export default {
 <style scoped lang="scss">
 
 .btn.btn-nav {
-  padding: 0 0 0 90px;
+  padding: 10px;
   margin: 10px;
-  background: 0%;
+
   color: #f9f8f6;
   // color: #F7F4E9;
   font-size: 1.2rem;
+  width: 160px;
+  background-color: inherit;
+  border: 1px solid grey;
   &:hover{
 		background-color: #3cbcc3;
 	} 
@@ -79,12 +82,13 @@ export default {
 @media (min-width: 700px) {
   
   .btn.btn-nav {
+    border: none;
+    width: unset;
     padding: 7px 10px;
-    font-size: 1.1rem;
+    font-size: 0.9rem;
     margin: 0 5px;
     background-color: #101032;
     color:#f9f8f6;
-    // color:#F7F4E9;
     &:last-of-type() {
       margin: 0;
     }

@@ -20,9 +20,7 @@ const UserStore = ({
     currUser(state) {
       return state.currUser
     },
-    isUserInParty(state) {
-      return state.isUserInParty
-    }
+
   },
 
   actions: {

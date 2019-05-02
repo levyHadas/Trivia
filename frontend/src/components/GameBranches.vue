@@ -1,5 +1,4 @@
 <template>
-  <!-- <section class="main"> -->
   <section class="game-branches main-container" :class="{'scale-down': isMenuOpen}">
     <section v-if="isPartyMode" class="party-mode">
       <game-screen @updateProgress="sendProgress"></game-screen>
@@ -22,28 +21,23 @@ import PlayerProgress from "@/components/PlayerProgress";
 import SocketService from "@/services/SocketService.js";
 export default {
   name: "Game",
-  props: {
-    question2: Array
-  },
+
   components: {
     PartyPlayers,
     PlayerProgress,
     GameScreen
   },
-  async created() {
-    console.log("group game was created");
-    this.params = this.$route;
-  },
+
   data() {
     return {
       params: "",
-      player: {
-        _id: "22",
-        name: "puki",
-        img: "src",
-        scores: []
-      }
+      player: {},
+      isPartyMode: false
     };
+  },
+  created() {
+    this.params = this.$route
+    this.isPartyMode = (this.params.name === "partyMode") ? true : false
   },
   methods: {
     sendProgress(scores) {
@@ -52,15 +46,11 @@ export default {
   },
   computed: {
     
-    isPartyMode() {
-      if (this.params.name === "partyMode") return true;
-      false;
-    },
+
     playerScore() {
       return this.player.scores;
     },
     playersWithScores() {
-      return this.$store.getters.playersWithScores;
       return this.$store.getters.playersWithScores;
     },
     isMenuOpen() {

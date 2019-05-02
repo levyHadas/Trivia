@@ -44,22 +44,25 @@ var gPartyTimeout
 
 
 function _leavePartyRoom(socket) {
+  socket.emit('setInPartyState', false)
   var roomToLeave = socket.room
   if (!roomToLeave) return
   socket.room = null
   socket.leave(roomToLeave._id)
   RoomService.leaveRoom(roomToLeave, socket.user)
+  console.log('report change in scores for romm: ', roomToLeave._id, ' members: ', roomToLeave.members)
   io.to(roomToLeave._id).emit('ShowUpdatedScores', roomToLeave.members) 
 }
 
 
 
-function _startPartyTimer(roomId) {
+function _startPartyTimer(socket, roomId) {
   //this is only in case a socket will not get disconnected for some reason
   gPartyTimeout = setTimeout(() => {
     io.to(roomId).emit('timeUp')
-      _disconnectAllUsers(roomId)
-  }, (80*1000))
+      _endParty(socket)
+      // socket.emit('setInPartyState', false)
+  }, (120*1000))
 }
 
 
@@ -73,45 +76,24 @@ io.on('connection', socket => {
   })
 
   socket.on('disconnect', () => {
-    console.log('disconnect')
     _leavePartyRoom(socket)
   })
-
+  
   socket.on('userLeftPartyPage', () => {
     _leavePartyRoom(socket)
+  
+
   })
-  // socket.on('partRequestCanceled', () => {
-  //   console.log('partRequestCanceled')
-  //   _leavePartyRoom(socket)
-  // })
+  
 
   socket.on('partyRequest', async (user) => {
     
     if (socket.room) return
+    _setRequest(user, socket)
 
-    var currRoom = RoomService.getRoom();
-    currRoom.members.push(user)
-    console.log('rooms in room service:')
-    RoomService.printRooms()
-    console.log('room in server: ', currRoom)
     
-    socket.room = currRoom
-    socket.leave(currRoom._id)
-    socket.join(currRoom._id)
-    socket.user = user
-    user.scores = []
-    console.log('user:', user.username, 'requested a party')
-    console.log('Assigned to room, ', currRoom._id, 'room members: ', currRoom.members.length)
+    await _handleRequest(socket)
 
-    var numOfWaiting = io.sockets.adapter.rooms[currRoom._id].length
-    if (numOfWaiting < 2) {
-      socket.emit('tellUserToWait', numOfWaiting)
-    }
-    else { //start!
-      const quests = await QuestService.query({}) 
-      io.to(currRoom._id).emit('startParty', quests) 
-      _startPartyTimer(currRoom._id)
-    }  
   })
 
   
@@ -128,16 +110,28 @@ io.on('connection', socket => {
   })
 
   socket.on('partyEnded', () => {
-    if (socket.room) _endParty(socket)
+    _endParty(socket)
+    socket.emit('setInPartyState', false)
+    
+  })
+  socket.on('setRequest', (user) => {
+    _setRequest(user, socket)
+  })
+  socket.on('handleRequest', async () => {
+    await _handleRequest(socket)
   })
 
-
 })
+
+
 function _endParty(socket) {
+  socket.emit('setInPartyState', false)
+  if (!socket.room) return
   let roomId = socket.room._id
   socket.room = null
   clearTimeout(gPartyTimeout)
   gPartyTimeout = null
+  _resetAllScores(socket)
   _disconnectAllUsers(roomId)
 }
 function _disconnectAllUsers(roomId) {
@@ -160,6 +154,31 @@ function _resetAllScores(socket) {
   io.to(currRoom._id).emit('ShowUpdatedScores', currRoom.members)  
 }
 
+async function _handleRequest(socket) {
+  var currRoom = socket.room
+  var numOfWaiting = io.sockets.adapter.rooms[currRoom._id].length
+  if (numOfWaiting < 2) {
+    socket.emit('tellUserToWait', numOfWaiting)
+  }
+  else { //start!
+
+    const quests = await QuestService.query({}) 
+    io.to(currRoom._id).emit('startParty', quests) 
+    _startPartyTimer(socket, currRoom._id)
+  }  
+}
+function _setRequest(user, socket) {
+  var currRoom = RoomService.getRoom();
+  currRoom.members.push(user)
+  // RoomService.printRooms()
+  socket.room = currRoom
+  socket.leave(currRoom._id)
+  socket.join(currRoom._id)
+  socket.user = user
+  user.scores = []
+  console.log('user:', user.username, 'requested a party')
+  console.log('Assigned to room, ', currRoom._id, 'room members: ', currRoom.members.length)
+}
 
 const PORT = process.env.PORT || 3003
 server.listen(PORT, () => console.log(`Trivia app is listening on port ${PORT}`))

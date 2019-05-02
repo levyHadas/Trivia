@@ -35,7 +35,8 @@ export default {
 
   methods: {
     async requestPartyGame() {
-      if (this.realUser()) {
+      var user = this.$store.getters.currUser;
+      if (user.nickname) {
         this.setPartyRequest();
         return;
       }
@@ -43,13 +44,6 @@ export default {
       var user = this.$store.getters.currUser;
       this.$store.dispatch({ type: "updateUserNickname", nickname: nickname });
       this.setPartyRequest();
-    },
-
-    realUser() {
-      let user = this.$store.getters.currUser;
-      if (!user._id) return false;
-      if (user._id.includes("guest")) return false;
-      return true;
     },
 
     startSingleGame() {
