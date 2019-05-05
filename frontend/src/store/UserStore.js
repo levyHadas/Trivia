@@ -10,6 +10,12 @@ const UserStore = ({
   mutations: {
 
     setCurrUser(state, {user}) {
+      user.scores = []
+      if (!user._id.includes("guest") && !user.nickname) {
+        user.nickname = user.username
+
+      }
+      // if (!user.nickname) 
       state.currUser = user
     },
 
@@ -43,6 +49,7 @@ const UserStore = ({
 
     async setLoggedUser({ commit }) {
       const loggedUser = await UserService.getLoggedUser()
+      if (!loggedUser.scores) loggedUser.scores = []
       commit({type: 'setCurrUser', user:loggedUser})
       return loggedUser
     },
@@ -52,26 +59,6 @@ const UserStore = ({
       user.nickname = nickname
       commit({type: 'setCurrUser', user})
     },
-
-
-    
-
-
-
-
-    // loadUsers({ commit }, {filterBy}) {
-    //   return UserService.query(filterBy)
-    //     .then(users => {
-    //       commit({ type: 'setUsers', users })
-    //       return users
-    //     })
-    // },
-
-    // removeUser({ commit }, { userId }) {
-    //   return UserService.remove(userId)
-    //     .then(() => commit({ type: 'removeUser', userId }))
-    // },
-
 
   }
 })

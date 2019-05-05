@@ -28,7 +28,6 @@ socket.on('tellUserToWait', numOfUsers => {
   console.log(numOfUsers , ' are connected. game only start at 5')
 })
 socket.on('setInPartyState', state => {
-  console.log(state)
   Store.dispatch({type: 'updateInPartyState', inParty: state})
 })
 

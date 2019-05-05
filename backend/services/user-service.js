@@ -34,6 +34,7 @@ async function addUser(user) {
     if (res) throw ('username taken')
     else {
         try {
+            user.scores = []
             if (!user.img) user.img = `https://api.adorable.io/avatars/50/${user.username}`
             const res = await db.collection('user').insertOne(user)
             user._id = res.insertedId

@@ -8,7 +8,7 @@
     </section>
 
     <section v-else class="single-mode">
-      <player-progress :player="player" :scores="playerScore"></player-progress>
+      <player-progress :player="player"></player-progress>
       <game-screen @updateProgress="sendProgress"></game-screen>
     </section>
   </section>
@@ -31,11 +31,12 @@ export default {
   data() {
     return {
       params: "",
+      isPartyMode: false,
       player: {},
-      isPartyMode: false
     };
   },
   created() {
+    this.player= JSON.parse(JSON.stringify(this.$store.getters.currUser)) ,
     this.params = this.$route
     this.isPartyMode = (this.params.name === "partyMode") ? true : false
   },
@@ -47,9 +48,8 @@ export default {
   computed: {
     
 
-    playerScore() {
-      return this.player.scores;
-    },
+ 
+
     playersWithScores() {
       return this.$store.getters.playersWithScores;
     },

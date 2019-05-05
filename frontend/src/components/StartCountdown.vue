@@ -68,8 +68,8 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 60vw;
-    height: 58vw;
+    width: 55vw;
+    height: 53vw;
     z-index: -20;
     margin: 10vh auto 0 auto;
     max-width: 500px;

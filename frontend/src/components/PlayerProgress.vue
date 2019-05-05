@@ -1,5 +1,6 @@
 <template>
   <section class="player-progress"
+    v-if="playerScores"
    :class="{'scale-down': isMenuOpen}">
     <p class="player-nickname"> {{playerNickname}} </p>
     <ol v-if="playerScores[0]" class="ProgressBar">
@@ -132,9 +133,7 @@ export default {
       wrong: ' <use xlink:href="#wrong-bold"></use> '
     };
   },
-  created() {
-    this.scores = this.player.scores;
-  },
+
   computed: {
     playerScores() {
       if (!this.player) return []
@@ -156,7 +155,7 @@ export default {
     },
     isCorrect(num) {
       return '<use xlink:href="#checkmark-bold"></use>';
-      // <use v-else xlink:href="#wrong-bold"></use>
+  
     },
   },
   destroyed() {
