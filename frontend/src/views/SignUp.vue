@@ -16,7 +16,7 @@
         class="el-input"
         required
         v-model="user.nickname"
-        placeholder="Enter a NickName for Parties"
+        placeholder="Nickname (will show in party game)"
         clearable
       ></el-input>
       <el-button type="primary" plain native-type="submit" @click.prevent="signup">signup</el-button>
