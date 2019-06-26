@@ -128,7 +128,7 @@ export default {
   },
   computed: {
     isQuest() {
-      return this.questToEdit && this.questToEdit.txt ? true : false;
+      return this.questToEdit && this.questToEdit.answers ? true : false;
     },
     currUser() {
       return this.$store.getters.currUser;
